@@ -16,6 +16,28 @@ body {
 
 /* Shopping List */
 
-.list_division {
+.ShoppingList_text {
+  font-family: HelveticaNeue;
+  font-size: 34px;
+  line-height: 40px;
+}
+
+.grocery_line_top {
+  border-top: 2px solid #FBDCA1; 
+}
+
+.grocery_line {
+  border: none;
+  border-bottom: 2px solid #FBDCA1; 
+  padding: 7px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.list_item {
+  font-family: HelveticaNeue;
+  font-size: 14px;
+  line-height: 30px;
 }
 
