@@ -30,3 +30,20 @@ body {
 
 /* Preferences */
 
+#preferencesContainer {
+  display: flex;
+}
+
+.modalContainer {
+  margin: 35% 10% 0 10% ;
+  width: auto;
+}
+
+.modalBody {
+  display: flex;
+  width: auto;
+  height: 327px;
+  background-color: #FFFFFF;
+  border: 1px solid black;
+  z-index: 1;
+}

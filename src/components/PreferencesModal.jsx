@@ -1,9 +1,16 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
-function Modal (props) {
+const Modal = (props) => {
 
   return (
-    <div>hello moto</div>
+    ReactDOM.createPortal(
+      <div className="modalContainer">
+        <div className="modalBody">
+          
+        </div>
+      </div>
+    , document.getElementById('modal'))
   )
 }
 

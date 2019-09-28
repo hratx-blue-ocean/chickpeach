@@ -23,7 +23,7 @@ class Preferences extends React.Component {
 
   render() {
     return (
-      <div id='changethis_container'>
+      <div id="preferencesContainer">
         <Modal 
 
         />
