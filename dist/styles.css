@@ -14,39 +14,8 @@ body {
   font-size: 34px;
 }
 
-#navBar {
-  position: fixed;
-  height: 50px;
-  width: 200px;
-  background-color: #FBDCA1;
-  bottom: 0%;
-  left: 0%;
-  width: 100vw;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding-top: 6px;
+/* Shopping List */
+
+.list_division {
 }
 
-/* Preferences */
-
-#preferencesContainer {
-  display: flex;
-}
-
-.modalContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 35% 10% 0 10% ;
-  width: 80%;
-  height: 327px;
-  background-color: #FFFFFF;
-  border-radius: 10px;
-  box-shadow: 2px 2px 12px
-    rgba(0, 0, 0, 0.25);
-}
-
-.modalBody {
-  display: flex;
-}
