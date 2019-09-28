@@ -13,14 +13,12 @@ class ShoppingList extends React.Component {
 
   render() {
     return (
-      
-        <div id='shopping_list'>
-          <h1 className='ShoppingList_text'>Shopping List</h1>
-          <div className='grocery_item_container'>
-            <GroceryItem ingredients={this.state.ingredients} />
-          </div>   
-        </div>
-      
+      <div id='shopping_list'>
+        <h1 className='ShoppingList_text'>Shopping List</h1>
+        <div className='grocery_item_container'>
+          <GroceryItem ingredients={this.state.ingredients} />
+        </div>   
+      </div>
     )
   }
 }

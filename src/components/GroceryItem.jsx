@@ -3,20 +3,18 @@ import { Box } from "grommet";
 
 
 const GroceryItem = (props) => {
-  console.log(props)
   return (
   <div>
-    <Box key='topLine' pad='small' border='bottom'></Box>
+    <div className='grocery_line_top'>
     {props.ingredients.map((line) => {
       return (
-        <div className="groceryItem">
-          <Box key={line[0]} pad='small' border='bottom'>
-            <span className='listItemLeft'>{line[0]}</span>
-            <span className='listItemRight'>{line[1]}</span>
-          </Box>
+        <div className='grocery_line' key={line[0]}>
+            <span className='list_item' className='list_item_left'>{line[0]}</span>
+            <span className='list_item' className='list_item_right'>{line[1]}</span>
         </div>
       )
     })}
+    </div>
   </div>
   )
 }
