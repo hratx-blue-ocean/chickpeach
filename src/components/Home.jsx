@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Box, Button, Grommet } from 'grommet';
+import RecipeLanding from './RecipeLanding.jsx'
 
 class Home extends Component {
   constructor(props) {
@@ -9,13 +10,7 @@ class Home extends Component {
   
   render() {
     return (
-      <Grommet>
-        <Box align="center" background="neutral-2">
-          <Button
-            label="testing, may delete"
-          />
-        </Box>
-      </Grommet>
+      <RecipeLanding />
     )
   }
 }

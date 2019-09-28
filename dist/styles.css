@@ -228,3 +228,27 @@ h3 {
   justify-content: space-between;
   margin-top: 5px;
 }
+
+/* Recipes */
+
+.recipes_search {
+  display: flex;
+  flex-direction: row;
+}
+
+#recipes_button {
+  background-color: #FBDCA1;
+  border: none;
+  border-radius: 100px;
+  width: 70px;
+  height: 38px;
+}
+
+.recipes_searchDivider {
+  float: left;
+  color: #FBDCA1;
+  background-color: #FBDCA1;
+  border: none;
+  width: 85%;
+  height: 1px;
+}
