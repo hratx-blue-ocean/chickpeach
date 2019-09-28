@@ -128,10 +128,24 @@ h3 {
 }
 
 #recipe_directions_container {
-  width: 100vw;
+  width: 90vw;
+
 }
 
 .recipe_directions_label {
   padding-left: 17px;
 }
 
+.recipe_step {
+  font-weight: 200;
+  letter-spacing: 1px;
+  display: flex;
+  margin: 10px auto;
+  line-height: 25px;
+}
+
+.recipe_step_number {
+  align-self: center;
+  font-weight: bold;
+  margin-right: 14px;
+}
