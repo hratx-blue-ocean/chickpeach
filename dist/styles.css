@@ -11,5 +11,20 @@ body {
 
 .header1 {
   margin: auto 0;
+  font-size: 34px;
+}
+
+#navBar {
+  position: fixed;
+  height: 50px;
+  width: 200px;
+  background-color: #FBDCA1;
+  bottom: 0%;
+  left: 0%;
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 6px;
 }
 
