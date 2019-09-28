@@ -1,14 +1,14 @@
 {
-  "name": "react-ing",
+  "name": "chickpeach",
   "version": "1.0.0",
-  "description": "donuts, cats, react, and such",
+  "description": "A web appication for meal planning and automatically generated grocery list",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "webpack --watch",
     "start": "nodemon server/server.js"
   },
-  "author": "Arohan",
+  "author": "chickpeach",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -24,8 +24,11 @@
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "grommet": "^2.7.8",
     "nodemon": "^1.19.1",
+    "polished": "^3.4.1",
     "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.1"
+    "react-router-dom": "^5.0.1",
+    "styled-components": "^4.4.0"
   }
 }
