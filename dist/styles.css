@@ -35,15 +35,16 @@ body {
 }
 
 .modalContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
   margin: 35% 10% 0 10% ;
-  width: auto;
+  width: 80%;
+  height: 327px;
+  background-color: #FFFFFF;
+  border: 1px solid black;
 }
 
 .modalBody {
   display: flex;
-  width: auto;
-  height: 327px;
-  background-color: #FFFFFF;
-  border: 1px solid black;
-  z-index: 1;
 }

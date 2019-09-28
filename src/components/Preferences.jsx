@@ -24,10 +24,10 @@ class Preferences extends React.Component {
   render() {
     return (
       <div id="preferencesContainer">
+        <h1 className="header1">Preferences</h1>
         <Modal 
 
         />
-        <h1 className="header1">Preferences</h1>
       </div>
     )
   }
