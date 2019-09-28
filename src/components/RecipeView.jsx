@@ -50,6 +50,16 @@ class Template extends React.Component {
         </div>
         <div id={'recipe_directions_container'}>
           <h3 className={'recipe_directions_label'}>Directions</h3>
+          {
+            this.state.recipe.directions.map((step, index) => {
+              return (
+                <div className={'recipe_step'}>
+                  <div className={'recipe_step_number'}>{index + 1 + '.'}</div>
+                  <div>{step}</div>
+                </div>
+              )
+            })
+          }
         </div>
 
         <NavBar />
