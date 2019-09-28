@@ -1,0 +1,15 @@
+body {
+  padding: 10px;
+  font-family: Helvetica Neue;
+}
+
+/* Template */
+#changethis_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.header1 {
+  margin: auto 0;
+}
+
