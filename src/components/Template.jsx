@@ -1,4 +1,5 @@
 import React from 'react';
+import NavBar from './NavBar.jsx'
 
 class Template extends React.Component {
   constructor(props) {
@@ -10,6 +11,8 @@ class Template extends React.Component {
     return (
       <div id='changethis_container'>
         <h1 className={'header1'}>Template</h1>
+
+        <NavBar />
       </div>
     )
   }
