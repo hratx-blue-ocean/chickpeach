@@ -4,6 +4,7 @@ import Home from './components/Home.jsx'
 import Template from './components/Template.jsx'
 import Preferences from "./components/Preferences.jsx";
 import ShoppingList from './components/ShoppingList.jsx'
+import RecipeView from './components/RecipeView.jsx'
 
 function RouteManager() {
   return (
@@ -13,6 +14,7 @@ function RouteManager() {
         <Route exact path="/template" component={Template} />
         <Route exact path="/preferences" component={Preferences} />
         <Route exact path="/shoppinglist" component={ShoppingList} />
+        <Route exact path="/recipeView" component={RecipeView} />
       </div>
     </Router>
   );
