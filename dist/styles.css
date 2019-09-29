@@ -25,9 +25,27 @@ h3 {
 
 .grey_container {
   background: rgba(196, 196, 196, 0.1);
-  width: 90vw;
+  width: 86vw;
   padding: 13px;
   border-radius: 14px;
+  padding-bottom: 20px;
+  margin: 20px auto;
+}
+
+.primary_button {
+  color: black !important;
+  background-color: #FBDCA1 !important;
+  padding: 10px !important;
+  text-align: center !important;
+  font-weight: bold !important;
+}
+
+.secondary_button {
+  color: black !important;
+  background-color: #FFB084 !important;
+  padding: 10px !important;
+  text-align: center !important;
+  font-weight: bold !important;
 }
 
 /* Nav Bar */
@@ -58,6 +76,7 @@ h3 {
   height: 31vh;
   object-fit: cover;
   width: 100vw;
+  margin: 20px auto;
 }
 
 .recipe_ingredient {
@@ -67,8 +86,7 @@ h3 {
 }
 
 #recipe_directions_container {
-  width: 90vw;
-
+  width: 86vw;
 }
 
 .recipe_directions_label {
@@ -84,7 +102,25 @@ h3 {
 }
 
 .recipe_step_number {
-  align-self: center;
   font-weight: bold;
   margin-right: 14px;
+}
+
+.recipe_buttons {
+  margin: 20px auto;
+  display: flex;
+  width: 95vw;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.recipe_button {
+  width: 44vw;
+}
+
+.nutrient_row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+  margin: 5px auto;
 }
