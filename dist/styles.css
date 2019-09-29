@@ -14,26 +14,6 @@ body {
   font-size: 34px;
 }
 
-#navBar {
-  position: fixed;
-  height: 50px;
-  width: 200px;
-  background-color: #FBDCA1;
-  bottom: 0%;
-  left: 0%;
-  width: 100vw;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding-top: 6px;
-}
-
-/* Preferences */
-
-#preferencesContainer {
-  display: flex;
-}
-
 /* Shopping List */
 
 .ShoppingList_text {
@@ -55,10 +35,35 @@ body {
   justify-content: space-between;
 }
 
+<<<<<<< HEAD
+/* Shopping List */
+
+.ShoppingList_text {
+  font-family: HelveticaNeue;
+  font-size: 34px;
+  line-height: 40px;
+}
+
+.grocery_line_top {
+  border-top: 2px solid #FBDCA1; 
+}
+
+.grocery_line {
+  border: none;
+  border-bottom: 2px solid #FBDCA1; 
+  padding: 7px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+=======
+>>>>>>> 02f98799343e5b461fb82306630135467f8b6a6b
 .list_item {
   font-family: HelveticaNeue;
   font-size: 14px;
   line-height: 30px;
+<<<<<<< HEAD
 }
 
 .modalContainer {
@@ -72,8 +77,7 @@ body {
   border-radius: 10px;
   box-shadow: 2px 2px 12px
     rgba(0, 0, 0, 0.25);
+=======
+>>>>>>> 02f98799343e5b461fb82306630135467f8b6a6b
 }
 
-.modalBody {
-  display: flex;
-}
