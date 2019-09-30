@@ -1,11 +1,11 @@
-const { app, auth, firestore } = require('firebase');
-const firebaseConfig = require('../../firebase.config.js')
+const app = require('firebase');
+const firebaseConfig = require('../../firebase.config.js');
 
 class Firebase {
     constructor() {
         app.initializeApp(firebaseConfig);
-        this.auth = auth();
-        this.db = firestore();
+        this.auth = app.auth();
+        this.db = app.firestore();
     }
 
     login(email, password) {
@@ -16,9 +16,8 @@ class Firebase {
         return this.auth.signOut();
     }
 
-    async register(email, password) {
-        await this.auth.createUserWithEmailAndPassword(email, password);
-        return;
+    register(email, password) {
+        return this.auth.createUserWithEmailAndPassword(email, password);
     }
 }
 
