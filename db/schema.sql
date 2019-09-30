@@ -15,7 +15,7 @@ CREATE TABLE Recipes (
     id INT PRIMARY KEY,
     title TEXT,
     image TEXT,
-    nutrients_id INT,
+    nutrient_id INT,
     servings INT,
     prep_time INT
 );
