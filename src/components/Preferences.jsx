@@ -2,8 +2,14 @@ import React from 'react';
 import { CheckBox, Grommet } from 'grommet';
 import { grommet } from "grommet/themes";
 import { deepMerge } from "grommet/utils";
-import data from '../../db/dummyPreferenceData';
 import { css } from "styled-components";
+import { Button } from "grommet";
+import NavBar from './NavBar.jsx'
+import data from '../../db/dummyPreferenceData';
+
+/*///////////////////////////////////////////////////////////////////////////
+//////////////     GROMMET TOGGLE ///////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////*/
 
 const checkboxCheckStyle = css`
   background-color: #FBDCA1;
@@ -59,6 +65,11 @@ const customToggleTheme = {
   }
 };
 
+/*///////////////////////////////////////////////////////////////////////////
+////////////    APP STARTS     //////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////*/
+
+
 class Preferences extends React.Component {
   constructor(props) {
     super(props)
@@ -68,6 +79,7 @@ class Preferences extends React.Component {
         glutenFree: false,
         keto: false,
         vegan: false,
+        details: ['Do you have any dietary restrictions or allergies?', ]
       }
     };
   }
@@ -83,8 +95,9 @@ class Preferences extends React.Component {
   }
 
   render() {
+
     return (
-      <div id="preferencesContainer">
+      <div>
         <h1 className="header1">Preferences</h1>
         <div className="selectorContainer">
             <div className="preferenceOptions">
@@ -171,7 +184,13 @@ class Preferences extends React.Component {
                 />
               </Grommet>
             </div>
+            <div className="inputContainer">
+              <p id="preferencesInputInstructions">Other Allergies or Restrictions:</p>
+            <input id="allergiesInput" placeholder="ex: Peanuts, fish, dairy, etc..."></input>
+            </div>
           </div>
+          <Button className="primary_button preferenceButtons" primary >Remove from menu</Button>
+        <NavBar />
         </div>
     )
   }
