@@ -6,6 +6,7 @@ import { css } from "styled-components";
 import { Button } from "grommet";
 import NavBar from './NavBar.jsx'
 import data from '../../db/dummyPreferenceData';
+import { withRouter } from 'react-router-dom';
 
 /*///////////////////////////////////////////////////////////////////////////
 //////////////     GROMMET TOGGLE ///////////////////////////////////////////
@@ -196,4 +197,4 @@ class Preferences extends React.Component {
   }
 }
 
-export default Preferences;
+export default withRouter(Preferences);
