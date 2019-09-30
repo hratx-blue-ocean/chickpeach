@@ -2,8 +2,10 @@ import React from 'react';
 import { CheckBox, Grommet } from 'grommet';
 import { grommet } from "grommet/themes";
 import { deepMerge } from "grommet/utils";
-import data from '../../db/dummyPreferenceData';
 import { css } from "styled-components";
+import { Button } from "grommet";
+import NavBar from './NavBar.jsx'
+import data from '../../db/dummyPreferenceData';
 
 /*///////////////////////////////////////////////////////////////////////////
 //////////////     GROMMET TOGGLE ///////////////////////////////////////////
@@ -187,6 +189,8 @@ class Preferences extends React.Component {
             <input id="allergiesInput" placeholder="ex: Peanuts, fish, dairy, etc..."></input>
             </div>
           </div>
+          <Button className="primary_button preferenceButtons" primary >Remove from menu</Button>
+        <NavBar />
         </div>
     )
   }

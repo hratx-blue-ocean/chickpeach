@@ -207,7 +207,6 @@ h3 {
   padding: 10px 0 0 0;
 }
 
-
 #allergiesInput {
   width: 200px;
   font-size: 15px;
@@ -219,4 +218,13 @@ h3 {
   color: #444444;
   margin: 0 0 7px 0px;
   font-size: 15px;
+}
+
+.preferenceButtons {
+  margin: 20px auto;
+
+  display: flex;
+  width: 95vw;
+  justify-content: space-between;
+  margin-top: 5px;
 }
