@@ -228,3 +228,11 @@ h3 {
   justify-content: space-between;
   margin-top: 5px;
 }
+
+  #signup_container {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  justify-content: center;
+  align-items: center;
+}
