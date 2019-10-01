@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Heading, TextInput, Button } from 'grommet';
 import MaterialIcon from 'material-icons-react';
-import NavBar from './NavBar.jsx'
-import RecipeCard from './RecipeCard.jsx'
-import { withRouter } from 'react-router-dom';
+import NavBar from './NavBar.jsx';
+import RecipeCard from './RecipeCard.jsx';
 
 class RecipeLanding extends React.Component {
   constructor(props) {

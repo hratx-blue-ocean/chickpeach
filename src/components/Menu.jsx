@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Heading, Select } from 'grommet';
 import { withRouter } from 'react-router-dom';
+import { Heading, Select } from 'grommet';
 import MenuCard from './MenuCard.jsx';
 import NavBar from './NavBar.jsx';
 

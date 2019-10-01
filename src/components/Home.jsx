@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Box, Button, Grommet } from 'grommet';
 import Menu from './Menu.jsx'
 import { withRouter } from 'react-router-dom';
 
