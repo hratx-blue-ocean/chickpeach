@@ -419,13 +419,13 @@ h3 {
 }
 
 #preferencesUl {
-
   margin: 0;
 }
 
 .AllergyCancelContainer {
   display: flex;
   flex-wrap: nowrap;
+  width: auto;
 }
 
 .preferencesAllergyItem {

@@ -89,8 +89,10 @@ class Preferences extends Component {
     let newOptions = [
       ['vegetarian', data.vegetarian],
       ['glutenFree', data.glutenFree],
+      ['vegan', data.vegan],
+      ['dairyFree', data.dairyFree],
       ['keto', data.keto],
-      ['vegan', data.vegan]
+      ['whole30', data.whole30]
     ];
 
     this.setState(() => {
@@ -114,8 +116,11 @@ class Preferences extends Component {
 
   addAllergies(event) {
     let allergyArray = this.state.addedAllergies;
+
+
     if (event.type === 'click') {
-      if (document.getElementById('preferenceAllergiesInput').value === '') {
+      if (document.getElementById('preferenceAllergiesInput').value === '' || this.state.addedAllergies.indexOf(document.getElementById('preferenceAllergiesInput').value) >= 0) {
+        document.getElementById('preferenceAllergiesInput').value = '';
         return;
       }
       allergyArray.push(document.getElementById('preferenceAllergiesInput').value);
@@ -126,7 +131,9 @@ class Preferences extends Component {
     }
     
     if (event.key === 'Enter') { 
-      if (event.target.value === '') {
+      this.state.addedAllergies.indexOf(event.target.value)
+      if (event.target.value === '' || this.state.addedAllergies.indexOf(event.target.value) >= 0) {
+        event.target.value = '';
         return;
       }
       allergyArray.push(event.target.value)
@@ -134,6 +141,19 @@ class Preferences extends Component {
 
       this.setState({ addedAllergies: allergyArray});
     }
+  }
+
+  removeAllergy (allergy) {
+    let newAllergyList = this.state.addedAllergies;
+    newAllergyList.splice(newAllergyList.indexOf(allergy), 1);
+    this.setState({addAllergies: newAllergyList})
+  }
+
+  saveAndContinue() {
+    console.log('saved yo!')
+    //put request to server
+    //add state to redux
+    //Change page to have other options
   }
 
   render() {
@@ -157,6 +177,7 @@ class Preferences extends Component {
                 {this.state.addedAllergies.map((allergy, index) => {
                   return (
                     <AllergyItem 
+                      removeAllergy={this.removeAllergy.bind(this)}
                       allergy={allergy}
                       key={index}
                     />
@@ -169,7 +190,10 @@ class Preferences extends Component {
               </div>
           </div>
         </div>
-        <Button className="primary_button preferenceButton" primary >{'Save & Continue'}</Button>
+        <div className="preferencesDetailContainer">
+          <p>{this.state.details}</p>
+        </div>
+        <Button className="primary_button preferenceButton" onClick={() => this.saveAndContinue()} primary >{'Save & Continue'}</Button>
       <NavBar />
       </div>
     )
@@ -181,7 +205,9 @@ const Option = (props) => {
     vegetarian: 'Vegetarian',
     glutenFree: 'Gluten Free',
     keto: 'Keto',
-    vegan: 'Vegan'
+    vegan: 'Vegan',
+    dairyFree: 'Dairy Free',
+    whole30: 'Whole 30'
   }
 
   return (
@@ -215,9 +241,13 @@ class AllergyItem extends Preferences {
 
   render () {
     return (
-      <div className="AllergyCancelContainer" onMouseEnter={() => this.mouseHandler(true)} onMouseLeave={() => this.mouseHandler(false) }> 
-        <li className="preferencesAllergyItem" style={{ color: (this.state.onHover ? "#FFB084" : "#444444")}}>{this.props.allergy}</li>
-        <div className="preferenceIconContainer"> 
+      <div className="AllergyCancelContainer"> 
+        <li className="preferencesAllergyItem" 
+          onMouseEnter={() => this.mouseHandler(true)} onMouseLeave={() => this.mouseHandler(false)} 
+          style={{ cursor: "pointer", color: (this.state.onHover ? "#FFB084" : "#444444")}}>{this.props.allergy}</li>
+        <div className="preferenceIconContainer" style={{cursor: "pointer"}}
+          onMouseEnter={() => this.mouseHandler(true)} onMouseLeave={() => this.mouseHandler(false)}
+          onClick={() => this.props.removeAllergy(this.props.allergy)}>
           {this.state.onHover ? <div><MaterialIcon icon="cancel" color="#FFB084" size={18} /></div> : <div> <MaterialIcon icon="cancel" color="#EBEDEF" size={18} /> </div>}
         </div>
       </div>

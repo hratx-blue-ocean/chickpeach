@@ -3,7 +3,8 @@ const dummyPreferenceData = {
   glutenFree: false,
   keto: true ,
   vegan: false,
-  thinksBooleansAreAwesome: true
+  dairyFree: true,
+  whole30: true
 };
 
 module.exports = dummyPreferenceData;
