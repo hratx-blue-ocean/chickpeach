@@ -3,8 +3,9 @@ import { Heading, TextInput, Button } from 'grommet';
 import MaterialIcon from 'material-icons-react';
 import NavBar from './NavBar.jsx'
 import RecipeCard from './RecipeCard.jsx'
+import { withRouter } from 'react-router-dom';
 
-class Template extends React.Component {
+class RecipeLanding extends React.Component {
   constructor(props) {
     super(props)
     this.state = {};
@@ -39,4 +40,4 @@ class Template extends React.Component {
   }
 }
 
-export default Template;
+export default withRouter(RecipeLanding);
