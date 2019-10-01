@@ -1,12 +1,12 @@
-import React from 'react';
-import { CheckBox, Grommet } from 'grommet';
+import React, { Component }from 'react';
+import { CheckBox, Grommet, Button } from 'grommet';
 import { grommet } from "grommet/themes";
 import { deepMerge } from "grommet/utils";
 import { css } from "styled-components";
-import { Button } from "grommet";
 import NavBar from './NavBar.jsx'
 import data from '../../db/dummyPreferenceData';
 import { withRouter } from 'react-router-dom';
+import MaterialIcon from 'material-icons-react';
 
 /*///////////////////////////////////////////////////////////////////////////
 //////////////     GROMMET TOGGLE ///////////////////////////////////////////
@@ -71,7 +71,7 @@ const customToggleTheme = {
 ///////////////////////////////////////////////////////////////////////////*/
 
 
-class Preferences extends React.Component {
+class Preferences extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -114,9 +114,21 @@ class Preferences extends React.Component {
 
   addAllergies(event) {
     let allergyArray = this.state.addedAllergies;
+    if (event.type === 'click') {
+      if (document.getElementById('preferenceAllergiesInput').value === '') {
+        return;
+      }
+      allergyArray.push(document.getElementById('preferenceAllergiesInput').value);
+      document.getElementById('preferenceAllergiesInput').value = '';
+
+      this.setState({ addedAllergies: allergyArray });
+      return;
+    }
     
-    console.log(event.key);
-    if (event.key === 'Enter') { //or button press
+    if (event.key === 'Enter') { 
+      if (event.target.value === '') {
+        return;
+      }
       allergyArray.push(event.target.value)
       event.target.value = '';
 
@@ -153,7 +165,7 @@ class Preferences extends React.Component {
               </ul>
               <div id="preferencesInputButtonContainer">
                 <input id="preferenceAllergiesInput" onKeyUp={this.addAllergies.bind(this)} placeholder="ex: Peanuts"></input>
-              <Button className="secondary_button preferenceAllergiesInputButton" primary >Add</Button>
+              <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => this.addAllergies(event)}primary >Add</Button>
               </div>
           </div>
         </div>
@@ -188,10 +200,29 @@ const Option = (props) => {
   )
 }
 
-const AllergyItem = (props) => {
-  return (
-    <li className="preferencesAllergyItem">{props.allergy}</li>
-  )
+class AllergyItem extends Preferences {
+  constructor (props) {
+    super (props) 
+    this.state = {
+      onHover: false
+    }
+  }
+
+  mouseHandler(boolean) {
+    console.log(boolean)
+    this.setState({onHover: boolean});
+  }
+
+  render () {
+    return (
+      <div className="AllergyCancelContainer" onMouseEnter={() => this.mouseHandler(true)} onMouseLeave={() => this.mouseHandler(false) }> 
+        <li className="preferencesAllergyItem" style={{ color: (this.state.onHover ? "#FFB084" : "#444444")}}>{this.props.allergy}</li>
+        <div className="preferenceIconContainer"> 
+          {this.state.onHover ? <div><MaterialIcon icon="cancel" color="#FFB084" size={18} /></div> : <div> <MaterialIcon icon="cancel" color="#EBEDEF" size={18} /> </div>}
+        </div>
+      </div>
+    )
+  }
 }
 
 export default Preferences;
