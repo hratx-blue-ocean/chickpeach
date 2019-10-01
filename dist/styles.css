@@ -561,3 +561,39 @@ h3 {
 #create_delete {
   margin: 3px 0 -3px 0;
 }
+
+#splash_container {
+  background: url("image-wide.png");
+  /* position: absolute; */
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.85;
+
+
+  background-position-x: -130px; 
+  background-position-y: -50px; 
+  background-repeat: no-repeat;
+
+  background-clip: content-box;
+  z-index: -1;
+
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+#splash_content {
+  margin: 10%;
+  width: 200px;
+  height: 250px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+#splash_logo {
+  margin: 0;
+  color: #FFB084;
+  
+}
