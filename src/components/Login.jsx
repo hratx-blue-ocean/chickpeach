@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import { Grommet, Button, FormField, TextInput } from 'grommet';
 import firebase from './firebase.js';
 import { withRouter } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux'
-import { addAccountInfo } from './actions'
+import { useSelector, useDispatch } from 'react-redux';
+import { addAccountInfo } from './actions';
 
 const LogIn = (props) => {
 
