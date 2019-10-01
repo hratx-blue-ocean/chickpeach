@@ -75,13 +75,9 @@ class Preferences extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      userPreferences: {
-        vegetarian: false,
-        glutenFree: false,
-        keto: false,
-        vegan: false,
-        details: ['Do you have any dietary restrictions or allergies?', ]
-      }
+      userPreferences: [],
+      details: ['Do you have any dietary restrictions or allergies?', ''],
+      addedAllergies: []
     };
   }
 
@@ -90,111 +86,96 @@ class Preferences extends React.Component {
   }
 
   setData() {
+    let newOptions = [
+      ['vegetarian', data.vegetarian],
+      ['glutenFree', data.glutenFree],
+      ['keto', data.keto],
+      ['vegan', data.vegan]
+    ];
+
     this.setState(() => {
-      return {userPreferences: data}
+      return {userPreferences: newOptions}
     });
+  }
+
+  updateData(newArray) {
+    let newOptions = this.state.userPreferences.map(array => {
+      return array.slice();
+    })
+
+    for (let i = 0; i < newOptions.length; i++) {
+      if (newOptions[i][0] === newArray[0]) {
+        newOptions[i][1] = newArray[1];
+      }
+    }
+    
+    this.setState({ userPreferences: newOptions})
+  }
+
+  addAllergies(event) {
+    let allergyArray = this.state.addedAllergies;
+    
+    console.log(event.key);
+    if (event.key === 'Enter') { //or button press
+      allergyArray.push(event.target.value)
+      event.target.value = '';
+
+      this.setState({ addedAllergies: allergyArray});
+    }
+
   }
 
   render() {
 
     return (
-      <div>
-        <h1 className="header1">Preferences</h1>
-        <div className="selectorContainer">
-            <div className="preferenceOptions">
-              <Grommet theme={deepMerge(grommet, customToggleTheme)}>
-                <CheckBox
-                  checked={this.state.userPreferences.glutenFree}
-                  label="Gluten Free"
-                  toggle={true}
-                  onChange={() => {
-                    let newPreferences={};
-
-                    for (let i in this.state.userPreferences) {
-                      newPreferences[i] = this.state.userPreferences[i];
-                    }
-        
-                    newPreferences.glutenFree = !newPreferences.glutenFree
-                    this.setState(() => {
-                      return {userPreferences: newPreferences};
-                      });
-                    }}
+      <div id="preferencesViewContainer">
+        <h1 className="preferencesHeader">Preferences</h1>
+        <div className="preferenceSelectorContainer">
+            {this.state.userPreferences.map((toggleArray, index) => {
+              return (
+                <Option 
+                  updateData={this.updateData.bind(this)}
+                  toggleArray={toggleArray}
+                  key={index}
                 />
-              </Grommet>
-            </div>
-            <div className="preferenceOptions">
-              <Grommet theme={deepMerge(grommet, customToggleTheme)}>
-                <CheckBox
-                  checked={this.state.userPreferences.keto}
-                  label="Keto"
-                  toggle={true}
-                  onChange={() => {
-                    let newPreferences = {};
-
-                    for (let i in this.state.userPreferences) {
-                      newPreferences[i] = this.state.userPreferences[i];
-                    }
-
-                    newPreferences.keto = !newPreferences.keto
-                    this.setState(() => {
-                      return { userPreferences: newPreferences };
-                    });
-                  }}
-                />
-              </Grommet>
-            </div>
-            <div className="preferenceOptions">
-              <Grommet theme={deepMerge(grommet, customToggleTheme)}>
-                <CheckBox
-                  checked={this.state.userPreferences.vegan}
-                  label="Vegan"
-                  toggle={true}
-                  onChange={() => {
-                    let newPreferences = {};
-
-                    for (let i in this.state.userPreferences) {
-                      newPreferences[i] = this.state.userPreferences[i];
-                    }
-
-                    newPreferences.vegan = !newPreferences.vegan
-                    this.setState(() => {
-                      return { userPreferences: newPreferences };
-                    });
-                  }}
-                />
-              </Grommet>
-            </div>
-            <div className="preferenceOptions">
-              <Grommet theme={deepMerge(grommet, customToggleTheme)}>
-                <CheckBox
-                  checked={this.state.userPreferences.vegetarian}
-                  label="Vegetarian"
-                  toggle={true}
-                  onChange={() => {
-                    let newPreferences = {};
-
-                    for (let i in this.state.userPreferences) {
-                      newPreferences[i] = this.state.userPreferences[i];
-                    }
-
-                    newPreferences.vegetarian = !newPreferences.vegetarian
-                    this.setState(() => {
-                      return { userPreferences: newPreferences };
-                    });
-                  }}
-                />
-              </Grommet>
-            </div>
-            <div className="inputContainer">
-              <p id="preferencesInputInstructions">Other Allergies or Restrictions:</p>
-            <input id="allergiesInput" placeholder="ex: Peanuts, fish, dairy, etc..."></input>
-            </div>
+              )
+            })}
+          <div className="inputContainer">
+            <p id="preferencesInputInstructions">Other Allergies or Restrictions:</p>
+            <input id="preferenceAllergiesInput" onKeyUp={this.addAllergies.bind(this)} placeholder="ex: Peanuts, fish, dairy, etc..."></input>
           </div>
-          <Button className="primary_button preferenceButtons" primary >Remove from menu</Button>
-        <NavBar />
         </div>
+        <Button className="primary_button preferenceButton" primary >Remove from menu</Button>
+      <NavBar />
+      </div>
     )
   }
 }
 
-export default withRouter(Preferences);
+const Option = (props) => {
+  let babel = {
+    vegetarian: 'Vegetarian',
+    glutenFree: 'Gluten Free',
+    keto: 'Keto',
+    vegan: 'Vegan'
+  }
+
+  return (
+    <div className="preferenceOptions">
+      <Grommet theme={deepMerge(grommet, customToggleTheme)}>
+        <CheckBox
+          checked={props.toggleArray[1]}
+          label={babel[props.toggleArray[0]]}
+          toggle={true}
+          onChange={() => {
+            props.updateData([props.toggleArray[0], !props.toggleArray[1]]);
+          }}
+        />
+      </Grommet>
+    </div>
+  )
+}
+
+
+export default Preferences;
+

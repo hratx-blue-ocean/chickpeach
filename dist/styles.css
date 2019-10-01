@@ -243,6 +243,17 @@ h3 {
 
 /* Preferences View */
 
+#preferencesViewContainer {
+  display: flex;
+  height: 90vh;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preferencesHeader {
+  margin: 0;
+}
+
 .preferenceOptions {
   display: flex;
   flex-wrap: wrap;
@@ -259,11 +270,10 @@ h3 {
   flex-wrap: wrap;
 }
 
-.selectorContainer {
-  position: absolute;
+.preferenceSelectorContainer {
   top: 0;
   left: 0;
-  margin: 35% 10% 0 10% ;
+  margin: 10% 10% 0 10% ;
   width: 80%;
   height: 327px;
   background-color: #FFFFFF;
@@ -273,7 +283,7 @@ h3 {
   padding: 10px 0 0 0;
 }
 
-#allergiesInput {
+#preferenceAllergiesInput {
   width: 200px;
   font-size: 15px;
   box-shadow: 1px 1px 6px
@@ -286,8 +296,9 @@ h3 {
   font-size: 15px;
 }
 
-.preferenceButtons {
-  margin: 20px auto;
+.preferenceButton {
+  align-self: flex-end;
+  margin: 50px 10% 0 0 !important;
 
   display: flex;
   width: 95vw;
