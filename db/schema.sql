@@ -8,7 +8,15 @@ CREATE TABLE Users (
     id VARCHAR(64) PRIMARY KEY,
     name TEXT,
     portions_per_week INT,
-    portions_fulfilled INT
+    portions_fulfilled INT,
+    vegetarian BOOLEAN,
+    vegan BOOLEAN,
+    gluten_free BOOLEAN,
+    dairy_free BOOLEAN,
+    ketogenic BOOLEAN,
+    whole_thirty BOOLEAN,
+    people_to_prep_for INT,
+    use_metric BOOLEAN
 );
 
 CREATE TABLE Recipes (
