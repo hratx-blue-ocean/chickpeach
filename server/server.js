@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const port = 3000;
+<<<<<<< HEAD
 const mysql = require('mysql2');
 
 const pool = mysql.createConnection({
@@ -13,6 +14,13 @@ const pool = mysql.createConnection({
   connectionLimit: 10,
   queueLimit: 0
 });
+=======
+const { ApolloServer } = require('apollo-server');
+
+// const typeDefs = require('./schema');
+
+// const server = new ApolloServer({typeDefs});
+>>>>>>> 27e7e64bfdb4c0ad4738014e5642871034fe1029
 
 app.use(express.static('dist'));
 
