@@ -447,6 +447,32 @@ h3 {
   font-weight: bold !important;
 }
 
+/* Create Recipe */
+
+.create {
+  margin-left: 5vw;
+}
+
+#create_title {
+  width: 55vw;
+}
+
+#ingredients_container {
+  display: flex;
+  flex-direction: row;
+}
+
+#create_ingredientName {
+  width: 40vw;
+}
+
+#create_ingredientQty {
+  width: 20vw;
+}
+
+#create_measurement {
+  width: 30vw;
+}
 .recipe_save {
   width: 50px;
 }

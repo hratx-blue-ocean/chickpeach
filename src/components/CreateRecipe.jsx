@@ -54,30 +54,38 @@ class CreateRecipe extends React.Component {
     return (
       <div>
         <Heading className="header1">Create Recipe</Heading>
-        <div className="menu">
+        <div className="create">
           <h4>Title</h4>
           <TextInput
+            id="create_title"
             placeholder="type here"
             // value={value}
             onChange={event => setValue(event.target.value)}
           />
           <h4>Add Ingredients</h4>
-          <TextInput
-            placeholder="type here"
-            // value={value}
-            onChange={event => setValue(event.target.value)}
-          />
-          <TextInput
-            placeholder="type here"
-            // value={value}
-            onChange={event => setValue(event.target.value)}
-          />
-          <Select
-            options={['metric', 'imperial']}
-            size={'small'}
-            value={'measurement'}
-            onChange={({ option }) => this.setState({view: option})}
-          />
+          <div id="ingredients_container">
+            <TextInput
+              id="create_ingredientName"
+              placeholder="name"
+              // value={value}
+              onChange={event => setValue(event.target.value)}
+            />
+            <TextInput
+              id="create_ingredientQty"
+              placeholder="quantity"
+              size="small"
+              // value={value}
+              onChange={event => setValue(event.target.value)}
+            />
+            <Select
+              id="create_measurement"
+              options={['metric', 'imperial']}
+              size={'small'}
+              value={'measurement'}
+              onChange={({ option }) => this.setState({view: option})}
+            />
+          </div>
+
           <Button
             icon={ <MaterialIcon icon="add" color='whitesmoke' size={24} /> }
             label
@@ -94,6 +102,7 @@ class CreateRecipe extends React.Component {
             label
             onClick={() => {}}
           />
+          <h4>{'[USER TITLE]'}</h4>
         </div>
         <div className={'grey_container'}>
           <h3>Ingredients</h3>
