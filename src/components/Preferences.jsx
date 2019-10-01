@@ -76,7 +76,13 @@ class Preferences extends Component {
     super(props)
     this.state = {
       userPreferences: [],
-      details: ['Do you have any dietary restrictions or allergies?', ''],
+      details: [
+        'Do you have any of the following dietary restrictions?', 
+        'Do you have any additional dietary restrictions or allergies?', 
+        'How many people you are preparing for?', 
+        'Would you like quantities displayed in imperial or metric?'
+      ],
+      page: 0,
       addedAllergies: []
     };
   }
@@ -149,11 +155,18 @@ class Preferences extends Component {
     this.setState({addAllergies: newAllergyList})
   }
 
+  previousPage() {
+
+    this.setState({ page: this.state.page - 1 })
+  }
+
   saveAndContinue() {
     console.log('saved yo!')
     //put request to server
     //add state to redux
-    //Change page to have other options
+
+    //redirect on last page
+    this.setState({page: this.state.page + 1})
   }
 
   render() {
@@ -162,7 +175,7 @@ class Preferences extends Component {
       <div id="preferencesViewContainer">
         <h1 className="preferencesHeader">Preferences</h1>
         <div className="preferenceSelectorContainer">
-            {this.state.userPreferences.map((toggleArray, index) => {
+            { this.state.page === 0 ? this.state.userPreferences.map((toggleArray, index) => {
               return (
                 <Option 
                   updateData={this.updateData.bind(this)}
@@ -170,7 +183,9 @@ class Preferences extends Component {
                   key={index}
                 />
               )
-            })}
+            }) : null }
+
+          {this.state.page === 1 ?
           <div className="inputContainer">
             <p id="preferencesInputInstructions">Other Allergies or Restrictions:</p>
               <ul id="preferencesUl">
@@ -188,10 +203,18 @@ class Preferences extends Component {
                 <input id="preferenceAllergiesInput" onKeyUp={this.addAllergies.bind(this)} placeholder="ex: Peanuts"></input>
               <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => this.addAllergies(event)}primary >Add</Button>
               </div>
-          </div>
+            </div> 
+            : null }
+
+          {this.state.page === 2 ? 
+            <div>
+              </div>
+            
+            : null}
+
         </div>
-        <div className="preferencesDetailContainer">
-          <p>{this.state.details}</p>
+        <div id="preferencesDetailContainer">
+          <p id="preferencesDetail">{this.state.details[this.state.page]}</p>
         </div>
         <Button className="primary_button preferenceButton" onClick={() => this.saveAndContinue()} primary >{'Save & Continue'}</Button>
       <NavBar />
