@@ -3,28 +3,26 @@ import { Button } from 'grommet';
 
 const MenuCard = (props) => {
   return (
-    <div className="menu_container">
-      <div className="menu_image">
+    <div className="card">
+      <div>
         <img src="https://shazamazon.s3.us-east-2.amazonaws.com/wands/chickpeach/yum.png"></img>
       </div>
-      <div className="menu_bottom">
-        <div className="menu_text">
-          <h4 className="menu_name">
+      <div className="card_bottom">
+        <div className="card_text">
+          <h4 className="card_name">
             Street Corn
           </h4>
-          <p className="menuservings">
+          <p className="card_servings">
             4 servings
           </p>
         </div>
-        <div className="menu_footer">
+        <div className="card_footer menu_footer">
           <Button
-            className="menu_button menu_preview"
             icon={'Preview'}
             label
             onClick={() => {}}
           />
           <Button
-            className="menu_button menu_save"
             icon={'Cook'}
             label
             onClick={() => {}}

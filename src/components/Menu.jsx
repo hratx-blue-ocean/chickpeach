@@ -27,7 +27,7 @@ class Menu extends React.Component {
               onChange={({ option }) => this.setState({view: option})}
             />
           </div>
-          <div className="menu_container">
+          <div className="card_container">
             <MenuCard />
             <MenuCard />
           </div>
