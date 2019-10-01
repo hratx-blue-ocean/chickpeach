@@ -10,11 +10,13 @@ import Menu from './components/Menu.jsx';
 import CreateRecipe from './components/CreateRecipe.jsx';
 import SignUp from './components/SignUp.jsx'
 import LogIn from './components/Login.jsx'
+import Splash from './components/Splash.jsx'
 
 function RouteManager() {
   return (
     <Router>
       <div>
+        <Route exact path="/splash" component={Splash} />
         <Route exact path="/" component={Home} />
         <Route exact path="/template" component={Template} />
         <Route exact path="/preferences" component={Preferences} />
