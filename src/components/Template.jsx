@@ -1,5 +1,6 @@
 import React from 'react';
 import NavBar from './NavBar.jsx'
+import { withRouter } from 'react-router-dom';
 
 class Template extends React.Component {
   constructor(props) {
@@ -18,4 +19,4 @@ class Template extends React.Component {
   }
 }
 
-export default Template;
+export default withRouter(Template);

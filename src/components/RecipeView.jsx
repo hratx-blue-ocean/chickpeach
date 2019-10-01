@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from './NavBar.jsx'
 import { Button } from "grommet";
+import { withRouter } from 'react-router-dom';
 
 const dummyRecipe = {
   title: 'Pad Thai',
@@ -53,7 +54,7 @@ const formatter = {
   protein: 'Protein'
 }
 
-class Template extends React.Component {
+class RecipeView extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -115,4 +116,4 @@ class Template extends React.Component {
   }
 }
 
-export default Template;
+export default withRouter(RecipeView);

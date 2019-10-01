@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from "grommet";
+import { withRouter } from 'react-router-dom';
 
 
 const GroceryItem = (props) => {
@@ -19,4 +20,4 @@ const GroceryItem = (props) => {
   )
 }
 
-export default GroceryItem;
+export default withRouter(GroceryItem);
