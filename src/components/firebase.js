@@ -16,8 +16,15 @@ class Firebase {
         return this.auth.signOut();
     }
 
-    register(email, password) {
-        return this.auth.createUserWithEmailAndPassword(email, password);
+    register(name, email, password) {
+      const reg = new Promise((resolve, reject) => {
+        resolve(this.auth.createUserWithEmailAndPassword(email, password))
+      })
+      .then(() => {
+        return this.auth.currentUser.updateProfile({
+          displayName: name,
+        })
+      })
     }
 }
 

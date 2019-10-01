@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 const SignUp = (props) => {
 
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -12,7 +13,8 @@ const SignUp = (props) => {
 
       console.log(email, password)
       const reg = new Promise((resolve, reject) => {
-        resolve(firebase.register(email, password))
+        resolve(firebase.register(name, email, password))
+        props.history.replace('/recipes')
       }, 300)
     }
 
@@ -20,6 +22,9 @@ const SignUp = (props) => {
     return (
       <div id='signup_container'>
         <Grommet >
+            <FormField name="name" label="Name" >
+              <TextInput value={name} onChange={(e) => setName(e.target.value)} />
+            </FormField>
             <FormField name="email" label="Email" >
               <TextInput value={email} onChange={(e) => setEmail(e.target.value)} />
             </FormField>
