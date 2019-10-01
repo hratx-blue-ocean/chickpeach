@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const { getNestedObject, allowCrossDomain } = require('./utils.js');
 
-
 const pool = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -18,6 +17,7 @@ const pool = mysql.createConnection({
   connectionLimit: 10,
   queueLimit: 0
 });
+
 
 app.use(express.static('dist'));
 app.use(bodyParser.json());
