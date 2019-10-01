@@ -23,17 +23,19 @@ const LogIn = (props) => {
 
 
     return (
-      <div id='signup_container'>
-        <Grommet >
+      <Grommet >
+        <div className='signup_container'>
+          <div className='signup_content'>
             <FormField name="email" label="Email" >
               <TextInput value={email} onChange={(e) => setEmail(e.target.value)} />
             </FormField>
             <FormField name="password" label="Password" >
               <TextInput value={password} onChange={(e) => setPassword(e.target.value)} />
             </FormField>
-            <Button type="submit" primary label="Submit" onClick={onRegister}/>
-        </Grommet>
-      </div>
+            <Button className={'primary_button'} type="submit" primary label="Submit" onClick={onRegister}/>
+          </div>
+        </div>
+      </Grommet>
     )
 }
 
