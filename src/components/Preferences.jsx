@@ -101,9 +101,11 @@ class Preferences extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      userPreferences: [],
+      userPreferences1: [],
+      userPreferences2: [],
       details: [
-        'Do you have any of the following dietary restrictions?', 
+        'Do you have any of the following dietary restrictions or allergies?', 
+        'Do you have any of the following dietary restrictions or allergies?', 
         'Do you have any additional dietary restrictions or allergies?', 
         ''
       ],
@@ -119,32 +121,55 @@ class Preferences extends Component {
   }
 
   setData() {
-    let newOptions = [
+    let newOptions1 = [
       ['vegetarian', data.vegetarian],
       ['glutenFree', data.glutenFree],
       ['vegan', data.vegan],
       ['dairyFree', data.dairyFree],
       ['keto', data.keto],
-      ['whole30', data.whole30]
+      ['whole30', data.whole30],
+      ['egg', data.egg],
+      ['grain', data.grain]
+    ];
+
+    let newOptions2 = [
+      ['peanut', data.peanut],
+      ['seafood', data.seafood],
+      ['sesame', data.sesame],
+      ['shellfish', data.shellfish],
+      ['soy', data.soy],
+      ['sulfite', data.sulfite],
+      ['treeNut', data.treeNut],
+      ['wheat', data.wheat]
     ];
 
     this.setState(() => {
-      return {userPreferences: newOptions}
+      return {userPreferences1: newOptions1, userPreferences2: newOptions2}
     });
   }
 
   updateData(newArray) {
-    let newOptions = this.state.userPreferences.map(array => {
+    let newOptions1 = this.state.userPreferences1.map(array => {
       return array.slice();
     })
 
-    for (let i = 0; i < newOptions.length; i++) {
-      if (newOptions[i][0] === newArray[0]) {
-        newOptions[i][1] = newArray[1];
-      }
+    let newOptions2 = this.state.userPreferences2.map(array => {
+      return array.slice();
+    })
+
+    for (let i = 0; i < newOptions1.length; i++) {
+      if (newOptions1[i][0] === newArray[0]) {
+        newOptions1[i][1] = newArray[1];
+      } 
+    }
+
+    for (let i = 0; i < newOptions2.length; i++) {
+      if (newOptions2[i][0] === newArray[0]) {
+        newOptions2[i][1] = newArray[1];
+      } 
     }
     
-    this.setState({ userPreferences: newOptions})
+    this.setState({ userPreferences1: newOptions1, userPreferences2: newOptions2})
   }
 
   addAllergies(event) {
@@ -188,19 +213,51 @@ class Preferences extends Component {
   }
 
   saveAndContinue() {
-    console.log('saved yo!')
     //put request to server
     //add state to redux
+    let newState = {}
+
+    let fullArray = this.state.userPreferences1.concat(this.state.userPreferences2);
+
+    for (let option of fullArray) {
+      newState[option[0]] = option[1];
+    }
+
+    newState.addedAllergies = this.state.addedAllergies;
+    newState.peopleToPrepFor = this.state.people;
+    newState.isMetric = this.state.isMetric;
+
+      // 'vegetarian'
+      // 'glutenFree'
+      // 'vegan'
+      // 'dairyFree'
+      // 'keto'
+      // 'whole30'
+      // 'egg'
+      // 'grain'
+      // 'peanut'
+      // 'seafood'
+      // 'sesame'
+      // 'shellfish'
+      // 'soy'
+      // 'sulfite'
+      // 'treeNut'
+      // 'wheat'
+
+    
+
+    console.log(newState);
+
 
     //redirect on last page
-
-    if (this.state.page === 2) {
+    if (this.state.page === 3) {
       this.addCount();
     }
     this.setState({page: this.state.page + 1})
   }
 
   addCount() {
+
     this.setState({ people: Number(document.getElementById('preferencesCountInput').value)})
   }
 
@@ -214,7 +271,7 @@ class Preferences extends Component {
       <div id="preferencesViewContainer">
         <h1 className="preferencesHeader">Preferences</h1>
         <div className="preferenceSelectorContainer">
-            { this.state.page === 0 ? this.state.userPreferences.map((toggleArray, index) => {
+            { this.state.page === 0 ? this.state.userPreferences1.map((toggleArray, index) => {
               return (
                 <Option 
                   updateData={this.updateData.bind(this)}
@@ -224,7 +281,17 @@ class Preferences extends Component {
               )
             }) : null }
 
-          {this.state.page === 1 ?
+          {this.state.page === 1 ? this.state.userPreferences2.map((toggleArray, index) => {
+            return (
+              <Option
+                updateData={this.updateData.bind(this)}
+                toggleArray={toggleArray}
+                key={index}
+              />
+            )
+          }) : null}
+
+          {this.state.page === 2 ?
           <div className="inputContainer">
             <p id="preferencesInputInstructions">Other Allergies or Restrictions:</p>
               <ul id="preferencesUl">
@@ -245,7 +312,7 @@ class Preferences extends Component {
             </div> 
             : null }
 
-          {this.state.page === 2 ? 
+          {this.state.page === 3 ? 
               <div id="preferencesCountContainer">
                 <p className="preferenceDescription">How many people you are preparing for?</p>
                 {/* <CustomMenu /> */}
@@ -294,7 +361,17 @@ const Option = (props) => {
     keto: 'Keto',
     vegan: 'Vegan',
     dairyFree: 'Dairy Free',
-    whole30: 'Whole 30'
+    whole30: 'Whole 30',
+    egg: 'Egg',
+    grain: 'Grain',
+    peanut: 'Peanut',
+    seafood: 'Seafood',
+    sesame: 'Sesame',
+    shellfish: 'Shellfish',
+    soy: 'Soy',
+    sulfite: 'Sulfite',
+    treeNut: 'TreeNut',
+    wheat: 'Wheat',
   }
 
   return (
