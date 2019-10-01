@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Grommet, grommet, Box, Button, FormField, TextInput } from 'grommet';
+import { Grommet, Button, FormField, TextInput } from 'grommet';
 import firebase from './firebase.js';
 import { withRouter } from 'react-router-dom';
 
