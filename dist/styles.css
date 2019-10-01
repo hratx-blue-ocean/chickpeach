@@ -453,27 +453,58 @@ h3 {
   margin-left: 5vw;
 }
 
+.create h4 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
 #create_title {
   width: 55vw;
 }
 
-#ingredients_container {
+.ingredients_container {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  width: 90vw;
+  margin-bottom: 10px;
 }
 
-#create_ingredientName {
-  width: 40vw;
+.create_ingredientName {
+  width: 35vw;
 }
 
-#create_ingredientQty {
-  width: 20vw;
+.create_ingredientQty {
+  width: 15vw;
 }
 
 #create_measurement {
-  width: 30vw;
+  width: 35vw;
 }
-.recipe_save {
+
+.create_add {
+  width: 50px;
+  height: 25px;
+  border: none !important;
+  margin-right: 2vw !important;
+  line-height: normal !important;
+  background-color: #FBDCA1 !important;
+}
+
+.create_directions {
+  flex-direction: column;
+}
+
+.create_addDirections {
+  height: 30vw;
+  max-height: 300px;
+}
+
+.create_directionsContainer {
+  width: 86vw !important;
+  margin: 0 auto;
+}.recipe_save {
   width: 50px;
 }
 
@@ -488,7 +519,7 @@ h3 {
 /* Menu */
 
 .menu_text {
-  margin-left: 40px;
+  margin: 0 40px;
 }
 
 .menu_recipeCount {

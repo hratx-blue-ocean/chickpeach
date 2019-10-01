@@ -63,62 +63,72 @@ class CreateRecipe extends React.Component {
             onChange={event => setValue(event.target.value)}
           />
           <h4>Add Ingredients</h4>
-          <div id="ingredients_container">
-            <TextInput
-              id="create_ingredientName"
-              placeholder="name"
-              // value={value}
-              onChange={event => setValue(event.target.value)}
-            />
-            <TextInput
-              id="create_ingredientQty"
-              placeholder="quantity"
-              size="small"
-              // value={value}
-              onChange={event => setValue(event.target.value)}
-            />
-            <Select
-              id="create_measurement"
-              options={['metric', 'imperial']}
-              size={'small'}
-              value={'measurement'}
-              onChange={({ option }) => this.setState({view: option})}
-            />
+          <div className="ingredients_container">
+            <div className="create_ingredientName">
+              <TextInput
+                placeholder="name"
+                // value={value}
+                onChange={event => setValue(event.target.value)}
+              />
+            </div>
+            <div className="create_ingredientQty">
+              <TextInput
+                placeholder="quantity"
+                size="small"
+                // value={value}
+                onChange={event => setValue(event.target.value)}
+              />
+            </div>
+            <div>
+              <Select
+                id="create_measurement"
+                options={['metric', 'imperial']}
+                size={'small'}
+                value={'measurement'}
+                onChange={({ option }) => this.setState({view: option})}
+              />
+            </div>
           </div>
-
           <Button
+            className="create_add"
             icon={ <MaterialIcon icon="add" color='whitesmoke' size={24} /> }
             label
             onClick={() => {}}
           />
-          <h4>Add Directions</h4>
-          <TextArea
-            placeholder="type here"
-            // value={value}
-            onChange={event => setValue(event.target.value)}
-          />
+          <div className="ingredients_container create_directions">
+            <h4>Add Directions</h4>
+            <div className= "create_addDirections">
+              <TextArea
+                fill={true}
+                placeholder="type here"
+                // value={value}
+                onChange={event => setValue(event.target.value)}
+              />
+            </div>
+          </div>
           <Button
+            className="create_add"
             icon={ <MaterialIcon icon="add" color='whitesmoke' size={24} /> }
             label
             onClick={() => {}}
           />
           <h4>{'[USER TITLE]'}</h4>
         </div>
-        <div className={'grey_container'}>
+        <div className="grey_container">
           <h3>Ingredients</h3>
           {
             this.state.recipe.ingredients.map(ingredient => {
-              return <p className={'recipe_ingredient'} key={ingredient}>{ingredient}</p>
+              return <p className="recipe_ingredient" key={ingredient}>{ingredient}</p>
             })
           }
         </div>
-        <div id={'recipe_directions_container'}>
-          <h3 className={'recipe_directions_label'}>Directions</h3>
+        <div id="recipe_directions_container" className="create_directionsContainer">
+          <h3 className="recipe_directions_label">Directions</h3>
           {
             this.state.recipe.directions.map((step, index) => {
               return (
-                <div className={'recipe_step'} key={index}>
-                  <div className={'recipe_step_number'}>{index + 1 + '.'}</div>
+                <div className="recipe_step" key={index}>
+                  <div className="recipe_step_number">{index + 1 + '.'}</div>
                   <div>{step}</div>
                 </div>
               )
