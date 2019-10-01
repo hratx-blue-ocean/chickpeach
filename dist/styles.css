@@ -371,3 +371,19 @@ h3 {
   justify-content: center;
   align-items: center;
 }
+
+/* Menu */
+
+.menu_text {
+  margin-left: 30px;
+}
+
+.menu_recipeCount {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+#menu_select {
+  width: 20vw;
+  height: 4vw;
+}
