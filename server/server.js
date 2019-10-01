@@ -4,6 +4,7 @@ const path = require('path');
 const port = 3000;
 const mysql = require('mysql2');
 const axios = require('axios');
+const { spoonAPIKey } = require('./spoonAPI.config');
 
 const pool = mysql.createConnection({
   host: 'localhost',
@@ -69,8 +70,50 @@ app.get('/menuitems', (req, res) => {
 });
 
 //SEARCH API route
-app.get('/searchRecipes', (req, res) => {
+app.get('/searchRecipes', async (req, res) => {
+  try {
+
+    const recipesSearched = await axios({
+      "method":"GET",
+      "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search",
+      "headers":{
+        "content-type":"application/octet-stream",
+        "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com", //api Host domain
+        "x-rapidapi-key":spoonAPIKey                                    //api Key Spoonacular set to a config file in server DIR (gitignored)
+      },"params":{
+        "diet":`${req.query.diet}`,
+        "excludeIngredients":`${req.query.banList}`,
+        "intolerances":`${req.query.allergenList}`,
+        "number":"20",
+        "offset":"0",
+        "instructionsRequired":"true",
+        "query":`${req.query.searchInput}`
+      }
+    });
+    const recipeIDs = await recipesSearched.body.results.map(x => x.id);
   
+
+    const recipesInfoBulk = await axios({
+      "method":"GET",
+      "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk",
+      "headers":{
+        "content-type":"application/octet-stream",
+        "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key":"b0d836b685msh81f6d3578b838a3p1a8c04jsnd9beb282b2d9"
+        },"params":{
+          "ids":recipeIDs.join()
+        }
+    });
+    res.send(recipesInfoBulk).status(200);
+  } catch(err) {
+    console.log(err);
+  }
+    // .then((response)=>{
+    //   console.log(response)
+    // })
+    // .catch((error)=>{
+    //   console.log(error)
+    // })
 });
 
 //Add new routes above
