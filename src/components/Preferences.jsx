@@ -1,5 +1,5 @@
 import React, { Component }from 'react';
-import { CheckBox, Grommet, Button, Box, Menu, Text } from 'grommet';
+import { CheckBox, Grommet, Button, Box, Menu, Text, RadioButton } from 'grommet';
 import { storiesOf } from "@storybook/react";
 import { grommet } from "grommet/themes";
 import { FormDown } from "grommet-icons";
@@ -11,9 +11,33 @@ import { withRouter } from 'react-router-dom';
 import MaterialIcon from 'material-icons-react';
 
 /*///////////////////////////////////////////////////////////////////////////
-//////////////     GROMMET TOGGLE ///////////////////////////////////////////
+//////////////     GROMMET RADIO BUTTON   ///////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////*/
 
+const customTheme = deepMerge(grommet, {
+  radioButton: {
+    gap: "xsmall",
+    size: "18px",
+    hover: {
+      border: {
+        color: "dark-3"
+      }
+    },
+    check: {
+      color: {
+        light: "neutral-1"
+      }
+    },
+    icon: {
+      size: "10px"
+    }
+  }
+});
+
+
+/*///////////////////////////////////////////////////////////////////////////
+//////////////     GROMMET TOGGLE ///////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////*/
 const checkboxCheckStyle = css`
   background-color: #FBDCA1;
   border-color: #FBDCA1;
@@ -83,7 +107,7 @@ class Preferences extends Component {
         'Do you have any additional dietary restrictions or allergies?', 
         ''
       ],
-      page: 2,
+      page: 0,
       addedAllergies: [],
       people: 1,  //peopleToPrepFor
       isMetric: false
@@ -180,6 +204,10 @@ class Preferences extends Component {
     this.setState({ people: Number(document.getElementById('preferencesCountInput').value)})
   }
 
+  handleMetric(boolean) {
+    this.setState({isMetric: boolean})
+  }
+
   render() {
 
     return (
@@ -223,9 +251,25 @@ class Preferences extends Component {
                 {/* <CustomMenu /> */}
                 <input id="preferencesCountInput" placeholder="ex: 3"></input>
               <p className="preferenceDescription">Would you like quantities displayed in imperial or metric?</p>
-
+                <Grommet theme={customTheme}>
+                  <Box align="start" pad="large" gap="small">
+                    <RadioButton
+                      label="Imperial"
+                      name="radio"
+                      value="c2"
+                      checked={!this.state.isMetric} //{selected === "c2"}
+                      onChange={() => this.handleMetric(false)}
+                    />
+                    <RadioButton
+                      label="Metric"
+                      name="radio"
+                      value="c1"
+                      checked={this.state.isMetric} //{"c1"}
+                      onChange={() => this.handleMetric(true)}
+                    />
+                  </Box>
+                </Grommet>
               </div>
-            
             : null}
 
         </div>
@@ -238,6 +282,10 @@ class Preferences extends Component {
     )
   }
 }
+
+/*///////////////////////////////////////////////////////////////////////////
+////////////////     ON PAGE COMPONENTS   ///////////////////////////////////
+///////////////////////////////////////////////////////////////////////////*/
 
 const Option = (props) => {
   let babel = {
@@ -327,7 +375,7 @@ class AllergyItem extends Preferences {
 //   </Grommet>
 // );
 
-storiesOf("Menu", module).add("Custom", () => <CustomMenu />);
+// storiesOf("Menu", module).add("Custom", () => <CustomMenu />);
 
 export default Preferences;
 
