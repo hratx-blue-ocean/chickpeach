@@ -122,7 +122,6 @@ class Preferences extends React.Component {
 
       this.setState({ addedAllergies: allergyArray});
     }
-
   }
 
   render() {
@@ -142,10 +141,23 @@ class Preferences extends React.Component {
             })}
           <div className="inputContainer">
             <p id="preferencesInputInstructions">Other Allergies or Restrictions:</p>
-            <input id="preferenceAllergiesInput" onKeyUp={this.addAllergies.bind(this)} placeholder="ex: Peanuts, fish, dairy, etc..."></input>
+              <ul id="preferencesUl">
+                {this.state.addedAllergies.map((allergy, index) => {
+                  return (
+                    <AllergyItem 
+                      allergy={allergy}
+                      key={index}
+                    />
+                  )
+                })}
+              </ul>
+              <div id="preferencesInputButtonContainer">
+                <input id="preferenceAllergiesInput" onKeyUp={this.addAllergies.bind(this)} placeholder="ex: Peanuts"></input>
+              <Button className="secondary_button preferenceAllergiesInputButton" primary >Add</Button>
+              </div>
           </div>
         </div>
-        <Button className="primary_button preferenceButton" primary >Remove from menu</Button>
+        <Button className="primary_button preferenceButton" primary >{'Save & Continue'}</Button>
       <NavBar />
       </div>
     )
@@ -176,6 +188,11 @@ const Option = (props) => {
   )
 }
 
+const AllergyItem = (props) => {
+  return (
+    <li className="preferencesAllergyItem">{props.allergy}</li>
+  )
+}
 
 export default Preferences;
 
