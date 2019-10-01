@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Heading, TextInput, Button } from 'grommet';
 import MaterialIcon from 'material-icons-react';
 import NavBar from './NavBar.jsx'
+import RecipeCard from './RecipeCard.jsx'
 
 class Template extends React.Component {
   constructor(props) {
@@ -13,19 +14,25 @@ class Template extends React.Component {
     return (
       <div>
         <Heading className="header1">Recipes</Heading>
-        <div className="recipes_search">
-          <TextInput
-            placeholder="type here"
-            plain={true}
-          />
-          <Button
-            id="recipes_button"
-            icon={ <MaterialIcon id="#recipes_searchIcon" icon="create" color='whitesmoke' size={40} /> }
-            label
-            onClick={() => {}}
-          />
+        <div className="recipes">
+          <div className="recipes_search">
+            <TextInput
+              placeholder="type here"
+              plain={true}
+            />
+            <Button
+              id="recipes_submit"
+              icon={ <MaterialIcon icon="create" color='whitesmoke' size={20} /> }
+              label
+              onClick={() => {}}
+            />
+          </div>
+          <hr className="recipes_divider" />
+          <div className="recipes_container">
+            <RecipeCard />
+            <RecipeCard />
+          </div>
         </div>
-        <hr className="recipes_searchDivider" />
         <NavBar />
       </div>
     )
