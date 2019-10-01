@@ -3,28 +3,24 @@ import { Grommet, grommet, Box, Button, FormField, TextInput } from 'grommet';
 import firebase from './firebase.js';
 import { withRouter } from 'react-router-dom';
 
-const SignUp = (props) => {
+const LogIn = (props) => {
 
-    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     function onRegister() {
 
-      console.log(email, password)
       const reg = new Promise((resolve, reject) => {
-        resolve(firebase.register(name, email, password))
-        props.history.replace('/recipes')
+        resolve(firebase.login(email, password))
       }, 300)
+      .then(props.history.replace('/recipes'))
+      
     }
 
 
     return (
       <div id='signup_container'>
         <Grommet >
-            <FormField name="name" label="Name" >
-              <TextInput value={name} onChange={(e) => setName(e.target.value)} />
-            </FormField>
             <FormField name="email" label="Email" >
               <TextInput value={email} onChange={(e) => setEmail(e.target.value)} />
             </FormField>
@@ -37,4 +33,4 @@ const SignUp = (props) => {
     )
 }
 
-export default withRouter(SignUp);
+export default withRouter(LogIn);

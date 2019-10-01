@@ -9,6 +9,7 @@ import RecipeLanding from './components/RecipeLanding.jsx';
 import ShoppingList from './components/ShoppingList.jsx'
 import RecipeView from './components/RecipeView.jsx'
 import SignUp from './components/SignUp.jsx'
+import LogIn from './components/Login.jsx'
 
 function RouteManager() {
   return (
@@ -21,6 +22,7 @@ function RouteManager() {
         <Route exact path="/recipeView" component={RecipeView} />
         <Route exact path="/recipes" component={RecipeLanding} />
         <Route exact path="/signUp" component={SignUp} />
+        <Route exact path="/LogIn" component={LogIn} />
       </div>
     </Router>
   );
