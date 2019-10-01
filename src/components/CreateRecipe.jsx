@@ -127,9 +127,18 @@ class CreateRecipe extends React.Component {
           {
             this.state.recipe.directions.map((step, index) => {
               return (
-                <div className="recipe_step" key={index}>
-                  <div className="recipe_step_number">{index + 1 + '.'}</div>
-                  <div>{step}</div>
+                <div className="recipe_step create_steps" key={index}>
+                  <div className="create_step">
+                    <div className="recipe_step_number">{index + 1 + '.'}</div>
+                    <div>{step}</div>
+                  </div>
+                  <Button
+                    className="secondary_button"
+                    id="create_erase"
+                    icon={ <MaterialIcon id="create_delete" icon="delete_forever" color='whitesmoke' size={20} /> }
+                    label
+                    onClick={() => {}}
+                  />
                 </div>
               )
             })

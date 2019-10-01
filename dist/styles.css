@@ -379,9 +379,6 @@ h3 {
   margin: 20px 0 10px 0;
 }
 
-
-
-
 /* Recipes */
 
 #recipes_submit, .recipes_divider {
@@ -447,6 +444,10 @@ h3 {
   font-weight: bold !important;
 }
 
+.recipe_save {
+  width: 50px;
+}
+
 /* Create Recipe */
 
 .create {
@@ -504,8 +505,6 @@ h3 {
 .create_directionsContainer {
   width: 86vw !important;
   margin: 0 auto;
-}.recipe_save {
-  width: 50px;
 }
 
 #signup_container {
@@ -535,4 +534,29 @@ h3 {
   width: 100px;
   font-size: 12px !important;
   font-weight: bold !important;
+  margin-bottom: 15vh;
+}
+
+.create_steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.create_step {
+  display: flex;
+  flex-direction: row;
+}
+
+.create_steps Button {
+  border-radius: 50px;
+  margin-left: 5px;
+}
+
+#create_erase {
+  border: none !important;
+}
+
+#create_delete {
+  margin: 3px 0 -3px 0;
 }
