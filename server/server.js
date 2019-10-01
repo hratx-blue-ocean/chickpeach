@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const port = 3000;
-<<<<<<< HEAD
 const mysql = require('mysql2');
 const axios = require('axios');
 const bodyParser = require('body-parser');
@@ -11,10 +10,12 @@ const bodyParser = require('body-parser');
 // const { spoonAPIKey } = require('../spoonAPI.config.js');
 =======
 // const { spoonAPIKey } = require('./spoonAPI.config.js');
-=======
 // const mysql = require('mysql2');
+<<<<<<< HEAD
 >>>>>>> Optimize for docker
 >>>>>>> Optimize for docker
+=======
+>>>>>>> Update gitignore and package.json
 
 // const pool = mysql.createConnection({
 //   host: 'localhost',
