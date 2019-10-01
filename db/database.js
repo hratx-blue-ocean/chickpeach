@@ -24,7 +24,16 @@ const sequelize = new Sequelize(
     },
 );
 
-let models = []
+let models = [
+    require('./models/Banned_Ingredients.js'),
+    require('./models/Cooking_Instructions.js'),
+    require('./models/Ingredients.js'),
+    require('./models/Nutrients.js'),
+    require('./models/Recipes_Ingredients.js'),
+    require('./models/Recipes.js'),
+    require('./models/Users_Recipes.js'),
+    require('./models/Users.js')
+]
 
 // Initialize models
 models.forEach(model => {
