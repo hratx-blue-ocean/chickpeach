@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Heading, TextInput, Button } from 'grommet';
 import MaterialIcon from 'material-icons-react';
-import NavBar from './NavBar.jsx'
-import RecipeCard from './RecipeCard.jsx'
-import { withRouter } from 'react-router-dom';
+import NavBar from './NavBar.jsx';
+import RecipeCard from './RecipeCard.jsx';
 
 class RecipeLanding extends React.Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class RecipeLanding extends React.Component {
             />
           </div>
           <hr className="recipes_divider" />
-          <div className="recipes_container">
+          <div className="card_container">
             <RecipeCard />
             <RecipeCard />
           </div>

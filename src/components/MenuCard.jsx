@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'grommet';
-import MaterialIcon from 'material-icons-react';
 
-const RecipeCard = (props) => {
+const MenuCard = (props) => {
   return (
     <div className="card">
       <div>
@@ -17,16 +16,14 @@ const RecipeCard = (props) => {
             4 servings
           </p>
         </div>
-        <div className="card_footer recipe_footer">
+        <div className="card_footer menu_footer">
           <Button
-            className="recipe_preview"
             icon={'Preview'}
             label
             onClick={() => {}}
           />
           <Button
-            className="recipe_save"
-            icon={ <MaterialIcon icon="archive" color='whitesmoke' size={24} /> }
+            icon={'Cook'}
             label
             onClick={() => {}}
           />
@@ -36,4 +33,4 @@ const RecipeCard = (props) => {
   );
 };
 
-export default RecipeCard;
+export default MenuCard;

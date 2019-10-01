@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { Box, Button, Grommet } from 'grommet';
-import RecipeLanding from './RecipeLanding.jsx'
+import Menu from './Menu.jsx'
 import { withRouter } from 'react-router-dom';
 
 class Home extends Component {
@@ -11,7 +10,7 @@ class Home extends Component {
   
   render() {
     return (
-      <RecipeLanding />
+      <Menu />
     )
   }
 }
