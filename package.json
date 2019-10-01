@@ -34,7 +34,9 @@
     "nodemon": "^1.19.1",
     "polished": "^3.4.1",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
+    "redux": "^4.0.4",
     "sqlite3": "^4.0.3",
     "style-loader": "^1.0.0",
     "styled-components": "^4.4.0"
