@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Menu from './Menu.jsx'
+import CreateRecipe from './CreateRecipe.jsx'
 import { withRouter } from 'react-router-dom';
 
 class Home extends Component {
@@ -10,7 +10,7 @@ class Home extends Component {
   
   render() {
     return (
-      <Menu />
+      <CreateRecipe />
     )
   }
 }
