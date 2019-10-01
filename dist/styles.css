@@ -505,6 +505,7 @@ h3 {
 .create_directionsContainer {
   width: 86vw !important;
   margin: 0 auto;
+  margin-bottom: 15vh;
 }
 
 #signup_container {
