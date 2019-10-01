@@ -20,7 +20,7 @@ function RouteManager() {
         <Route exact path="/" component={Home} />
         <Route exact path="/template" component={Template} />
         <Route exact path="/preferences" component={Preferences} />
-        <Route exact path="/shoppinglist" component={ShoppingList} />
+        <Route exact path="/shoppingList" component={ShoppingList} />
         <Route exact path="/recipeView" component={RecipeView} />
         <Route exact path="/recipes" component={RecipeLanding} />
         <Route exact path="/menu" component={Menu} />
