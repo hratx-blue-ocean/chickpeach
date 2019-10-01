@@ -4,28 +4,28 @@ import MaterialIcon from 'material-icons-react';
 
 const RecipeCard = (props) => {
   return (
-    <div className="recipe_container">
-      <div className="recipe_image">
+    <div className="card">
+      <div>
         <img src="https://shazamazon.s3.us-east-2.amazonaws.com/wands/chickpeach/yum.png"></img>
       </div>
-      <div className="recipe_bottom">
-        <div className="recipe_text">
-          <h4 className="recipe_name">
+      <div className="card_bottom">
+        <div className="card_text">
+          <h4 className="card_name">
             Street Corn
           </h4>
-          <p className="recipe_servings">
+          <p className="card_servings">
             4 servings
           </p>
         </div>
-        <div className="recipe_footer">
+        <div className="card_footer recipe_footer">
           <Button
-            className="recipe_button recipe_preview"
+            className="recipe_preview"
             icon={'Preview'}
             label
             onClick={() => {}}
           />
           <Button
-            className="recipe_button recipe_save"
+            className="recipe_save"
             icon={ <MaterialIcon icon="archive" color='whitesmoke' size={24} /> }
             label
             onClick={() => {}}

@@ -29,7 +29,7 @@ class RecipeLanding extends React.Component {
             />
           </div>
           <hr className="recipes_divider" />
-          <div className="recipes_container">
+          <div className="card_container">
             <RecipeCard />
             <RecipeCard />
           </div>
