@@ -1,6 +1,8 @@
 import React, { Component }from 'react';
-import { CheckBox, Grommet, Button } from 'grommet';
+import { CheckBox, Grommet, Button, Box, Menu, Text } from 'grommet';
+import { storiesOf } from "@storybook/react";
 import { grommet } from "grommet/themes";
+import { FormDown } from "grommet-icons";
 import { deepMerge } from "grommet/utils";
 import { css } from "styled-components";
 import NavBar from './NavBar.jsx'
@@ -79,11 +81,12 @@ class Preferences extends Component {
       details: [
         'Do you have any of the following dietary restrictions?', 
         'Do you have any additional dietary restrictions or allergies?', 
-        'How many people you are preparing for?', 
-        'Would you like quantities displayed in imperial or metric?'
+        ''
       ],
-      page: 0,
-      addedAllergies: []
+      page: 2,
+      addedAllergies: [],
+      people: 1,  //peopleToPrepFor
+      isMetric: false
     };
   }
 
@@ -166,7 +169,15 @@ class Preferences extends Component {
     //add state to redux
 
     //redirect on last page
+
+    if (this.state.page === 2) {
+      this.addCount();
+    }
     this.setState({page: this.state.page + 1})
+  }
+
+  addCount() {
+    this.setState({ people: Number(document.getElementById('preferencesCountInput').value)})
   }
 
   render() {
@@ -207,7 +218,12 @@ class Preferences extends Component {
             : null }
 
           {this.state.page === 2 ? 
-            <div>
+              <div id="preferencesCountContainer">
+                <p className="preferenceDescription">How many people you are preparing for?</p>
+                {/* <CustomMenu /> */}
+                <input id="preferencesCountInput" placeholder="ex: 3"></input>
+              <p className="preferenceDescription">Would you like quantities displayed in imperial or metric?</p>
+
               </div>
             
             : null}
@@ -277,6 +293,41 @@ class AllergyItem extends Preferences {
     )
   }
 }
+
+// const CustomMenu = () => (
+//   <Grommet theme={grommet}>
+//     <Box
+//       align="center"
+//       pad="large"
+//       background={{ color: "default", opacity: 0.7 }}
+//     >
+//       <Menu
+//         plain
+//         items={[
+//           { label: "Launch", onClick: () => { } },
+//           { label: "Abort", onClick: () => { } }
+//         ]}
+//       >
+//         {({ drop, hover }) => {
+//           const color = hover && !drop ? "accent-1" : undefined;
+//           return (
+//             <Box
+//               direction="row"
+//               gap="small"
+//               pad="small"
+//               background={hover && drop ? "default" : undefined}
+//             >
+//               <Text color={color}>Amount</Text>
+//               <FormDown color={color} />
+//             </Box>
+//           );
+//         }}
+//       </Menu>
+//     </Box>
+//   </Grommet>
+// );
+
+storiesOf("Menu", module).add("Custom", () => <CustomMenu />);
 
 export default Preferences;
 
