@@ -1,17 +1,13 @@
 import React, { Component }from 'react';
-import { CheckBox, Grommet, Button, Box, Menu, Text, RadioButton } from 'grommet';
-import { storiesOf } from "@storybook/react";
-import { grommet } from "grommet/themes";
-import { FormDown } from "grommet-icons";
-import { deepMerge } from "grommet/utils";
+import { Grommet, Button, Box, RadioButton } from 'grommet';
 import { useSelector, useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { addAccountInfo, addPreferences } from './actions';
+import ToggleOptions from './ToggleOptions.jsx';
+import AllergyItem from './AllergyItem.jsx';
+import customTheme from './grommet/radioButton';
 import NavBar from './NavBar.jsx'
 import data from '../../db/dummyPreferenceData';
-import { withRouter } from 'react-router-dom';
-import customToggleTheme from './grommet/toggle';
-import customTheme from './grommet/radioButton';
-import AllergyItem from './AllergyItem.jsx';
 
 class Preferences extends Component {
   constructor(props) {
@@ -124,7 +120,6 @@ class Preferences extends Component {
   }
 
   previousPage() {
-
     this.setState({ page: this.state.page - 1 })
   }
 
@@ -148,27 +143,7 @@ class Preferences extends Component {
     // console.log(billy)
     // dispatch(addPreferences(newState))
 
-      // 'vegetarian'
-      // 'glutenFree'
-      // 'vegan'
-      // 'dairyFree'
-      // 'keto'
-      // 'whole30'
-      // 'egg'
-      // 'grain'
-      // 'peanut'
-      // 'seafood'
-      // 'sesame'
-      // 'shellfish'
-      // 'soy'
-      // 'sulfite'
-      // 'treeNut'
-      // 'wheat'
-
-    
-
     console.log(newState);
-
 
     //redirect on last page
     if (this.state.page === 3) {
@@ -178,7 +153,6 @@ class Preferences extends Component {
   }
 
   addCount() {
-
     this.setState({ people: Number(document.getElementById('preferencesCountInput').value)})
   }
 
@@ -194,7 +168,7 @@ class Preferences extends Component {
         <div className="preferenceSelectorContainer">
             { this.state.page === 0 ? this.state.userPreferences1.map((toggleArray, index) => {
               return (
-                <Option 
+                <ToggleOptions
                   updateData={this.updateData.bind(this)}
                   toggleArray={toggleArray}
                   key={index}
@@ -204,7 +178,7 @@ class Preferences extends Component {
 
           {this.state.page === 1 ? this.state.userPreferences2.map((toggleArray, index) => {
             return (
-              <Option
+              <ToggleOptions
                 updateData={this.updateData.bind(this)}
                 toggleArray={toggleArray}
                 key={index}
@@ -236,7 +210,6 @@ class Preferences extends Component {
           {this.state.page === 3 ? 
               <div id="preferencesCountContainer">
                 <p className="preferenceDescription">How many people you are preparing for?</p>
-                {/* <CustomMenu /> */}
                 <input id="preferencesCountInput" placeholder="ex: 3"></input>
               <p className="preferenceDescription">Would you like quantities displayed in imperial or metric?</p>
                 <Grommet theme={customTheme}>
@@ -269,46 +242,6 @@ class Preferences extends Component {
       </div>
     )
   }
-}
-
-/*///////////////////////////////////////////////////////////////////////////
-////////////////     ON PAGE COMPONENTS   ///////////////////////////////////
-///////////////////////////////////////////////////////////////////////////*/
-
-const Option = (props) => {
-  let babel = {
-    vegetarian: 'Vegetarian',
-    glutenFree: 'Gluten Free',
-    keto: 'Keto',
-    vegan: 'Vegan',
-    dairyFree: 'Dairy Free',
-    whole30: 'Whole 30',
-    egg: 'Egg',
-    grain: 'Grain',
-    peanut: 'Peanut',
-    seafood: 'Seafood',
-    sesame: 'Sesame',
-    shellfish: 'Shellfish',
-    soy: 'Soy',
-    sulfite: 'Sulfite',
-    treeNut: 'TreeNut',
-    wheat: 'Wheat',
-  }
-
-  return (
-    <div className="preferenceOptions">
-      <Grommet theme={deepMerge(grommet, customToggleTheme)}>
-        <CheckBox
-          checked={props.toggleArray[1]}
-          label={babel[props.toggleArray[0]]}
-          toggle={true}
-          onChange={() => {
-            props.updateData([props.toggleArray[0], !props.toggleArray[1]]);
-          }}
-        />
-      </Grommet>
-    </div>
-  )
 }
 
 export default Preferences;
