@@ -105,6 +105,7 @@ app.get('/searchRecipes', async (req, res) => {
           "ids":recipeIDs.join()
         }
     });
+
 //Add new routes above
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../dist/index.html'), function(err) {
