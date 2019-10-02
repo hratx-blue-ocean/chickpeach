@@ -135,28 +135,7 @@ h3 {
 /* Shopping List */
 
 .ShoppingList_text {
-  font-family: HelveticaNeue;
-  font-size: 34px;
-  line-height: 40px;
-}
-
-.grocery_line_top {
-  border-top: 2px solid #FBDCA1; 
-}
-
-.grocery_line {
-  border: none;
-  border-bottom: 2px solid #FBDCA1; 
-  padding: 7px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-/* Shopping List */
-
-.ShoppingList_text {
-  font-family: HelveticaNeue;
+  font-family: Helvetica Neue;
   font-size: 34px;
   line-height: 40px;
   margin-bottom: 20px;
@@ -176,8 +155,8 @@ h3 {
 }
 
 .list_item {
-  font-family: HelveticaNeue;
-  font-size: 14px;
+  font-family: Helvetica Neue;
+  font-size: 12px;
   line-height: 30px;
 }
 
