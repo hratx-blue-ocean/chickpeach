@@ -2,29 +2,13 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const port = 3000;
-<<<<<<< HEAD
 const axios = require('axios');
 const bodyParser = require('body-parser');
-<<<<<<< HEAD
 
 const { spoonAPIKey } = require('../spoonAPI.config.js');
 const mysql = require('mysql2');
 const { getNestedObject, allowCrossDomain } = require('./utils.js');
 
-const pool = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'chickpeach',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-});
-
-
-=======
-<<<<<<< HEAD
->>>>>>> Dummy data rendering to list
 const { spoonAPIKey } = require('./spoonAPI.config.js');
 const mysql = require('mysql2');
 
@@ -38,7 +22,6 @@ const pool = mysql.createConnection({
   connectionLimit: 10,
   queueLimit: 0
 });
-
 
 app.use(express.static('dist'));
 app.use(bodyParser.json());
