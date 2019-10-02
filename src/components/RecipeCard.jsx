@@ -26,10 +26,9 @@ const RecipeCard = (props) => {
           />
           <Button
             className="recipe_save"
-            icon={ <MaterialIcon icon="archive" color='whitesmoke' size={24} /> }
-            label
-            onClick={() => {}}
-          />
+            onClick={() => {}}>
+            <MaterialIcon icon="create" color='whitesmoke' size={20} />
+          </Button>
         </div>
       </div>
     </div>
