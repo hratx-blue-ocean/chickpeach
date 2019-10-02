@@ -11,9 +11,10 @@ const defaultState = {
     ],
     page: 0,
     addedAllergies: [],
-    people: 1,  //peopleToPrepFor
+    people: 1,
     isMetric: false,
-    onHover: false
+    onHover: false,
+    numberOfMeals: 0
 };
 
 const AppStateReducer = (state = defaultState, action) => {
@@ -22,9 +23,10 @@ const AppStateReducer = (state = defaultState, action) => {
       details: state.details,
       page: state.page,
       addedAllergies: state.addedAllergies,
-      people: state.people,  //peopleToPrepFor
+      people: state.people,
       isMetric: state.isMetric,
-      onHover: false
+      onHover: false,
+      numberOfMeals: 0
     };
 
     let newOptions1 = state.userPreferences1.map(array => {
@@ -61,7 +63,8 @@ const AppStateReducer = (state = defaultState, action) => {
       addedAllergies: state.addedAllergies,
       people: state.people,  //peopleToPrepFor
       isMetric: state.isMetric,
-      onHover: false
+      onHover: false,
+      numberOfMeals: 0
     };
 
     return newState;
@@ -75,7 +78,8 @@ const AppStateReducer = (state = defaultState, action) => {
       page: state.page,
       people: state.people,
       isMetric: state.isMetric,
-      onHover: false
+      onHover: false,
+      numberOfMeals: 0
     };
 
     let newAllergyList = state.addedAllergies;
@@ -94,7 +98,8 @@ const AppStateReducer = (state = defaultState, action) => {
       addedAllergies: state.addedAllergies,
       page: state.page,
       people: state.people,
-      isMetric: state.isMetric
+      isMetric: state.isMetric,
+      numberOfMeals: 0
     };
 
     newState.onHover = action.boolean;
@@ -112,7 +117,8 @@ const AppStateReducer = (state = defaultState, action) => {
       page: state.page,
       people: state.people, 
       isMetric: state.isMetric,
-      onHover: false
+      onHover: false,
+      numberOfMeals: 0
     };
 
     return newState;
@@ -127,7 +133,8 @@ const AppStateReducer = (state = defaultState, action) => {
       page: state.page,
       people: state.people,
       isMetric: action.boolean,
-      onHover: false
+      onHover: false,
+      numberOfMeals: 0
     };
 
     return newState;
@@ -142,7 +149,24 @@ const AppStateReducer = (state = defaultState, action) => {
       page: state.page,
       people: action.number,
       isMetric: state.isMetric,
-      onHover: false
+      onHover: false,
+      numberOfMeals: 0
+    };
+
+    return newState;
+  }
+
+  if (action.type === 'SetMeals') {
+    let newState = {
+      userPreferences1: state.userPreferences1,
+      userPreferences2: state.userPreferences2,
+      details: state.details,
+      addedAllergies: state.addedAllergies,
+      page: state.page,
+      people: state.people,
+      isMetric: state.isMetric,
+      onHover: false,
+      numberOfMeals: action.number
     };
 
     return newState;
@@ -178,8 +202,11 @@ const AppStateReducer = (state = defaultState, action) => {
     addedAllergies: state.addedAllergies,
     people: state.people,
     isMetric: state.isMetric,
-    onHover: false
+    onHover: false,
+    numberOfMeals: 0
   };
+
+
   
   return newState;
 }

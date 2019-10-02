@@ -2,7 +2,8 @@ import React from 'react';
 import { Grommet, Button, Box, RadioButton } from 'grommet';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { IteratePageCount, AddAllergies, HandleMetric, SetPeople } from './actions';
+import axios from 'axios';
+import { IteratePageCount, AddAllergies, HandleMetric, SetPeople, SetMeals, addPreferences } from './actions';
 import ToggleOptions from './ToggleOptions.jsx';
 import AllergyItem from './AllergyItem.jsx';
 import customTheme from './grommet/radioButton';
@@ -15,6 +16,7 @@ const Preferences = (props) => {
   //   //send to Redux
   // }
   let state = useSelector(state => state.prefAppState);
+  let userState = useSelector(state => state.Preferences);
   let dispatch = useDispatch();
 
   const addAllergies = (event) => {
@@ -48,92 +50,149 @@ const Preferences = (props) => {
   //   this.setState({ page: this.state.page - 1 })
   // }
 
-  const saveAndContinue =() => {
+  const saveToDatabase = () => {
+    let newState = {};
+
+    for (let array of state.userPreferences1) {
+      console.log(array[1])
+      newState[array[0]] = array[1]
+    }
+
+    for (let array of state.userPreferences2) {
+      newState[array[0]] = array[1]
+    }
+
+    let preferencesObject = {
+      user_id: userState.uid,
+      egg: newState.egg,
+      grain: newState.grain,
+      peanut: newState.peanut,
+      seafood: newState.seafood,
+      shellfish: newState.shellfish,
+      sesame: newState.sesame,
+      soy: newState.soy,
+      sulfite: newState.sulfite,
+      treeNut: newState.treeNut,
+      wheat: newState.wheat,
+      vegetarian: newState.vegetarian,
+      vegan: newState.vegan,
+      glutenFree: newState.glutenFree,
+      dairyFree: newState.dairyFree,
+      keto: newState.keto,
+      wholeThirty: newState.whole30,
+      metric: state.isMetric,
+      numPeople: state.people,
+      numMeals: state.numberOfMeals,
+      addedAllergies: state.addedAllergies
+    };
+
+    //***Change to Post***
+    axios.get('/adjustpreferences', {
+      params: preferencesObject
+    })
+      .then(response => {
+        console.log('sumbitted');
+      })
+      .catch(error => {
+        console.log(error);
+      })
+
+    console.log('react', preferencesObject)
+    dispatch(addPreferences(preferencesObject))
+  }
+
+  const saveAndContinue = () => {
 
     dispatch(IteratePageCount())
     //put request to server
 
     if (state.page === 3) {
       dispatch(SetPeople(Number(document.getElementById('preferencesCountInput').value)));
+      dispatch(SetMeals(Number(document.getElementById('preferencesMealCountInput').value)));
     }
+
+    saveToDatabase()
   };
 
-    return (
-      <div id="preferencesViewContainer">
-        <h1 className="preferencesHeader">Preferences</h1>
-        <div className="preferenceSelectorContainer">
-            { state.page === 0 ? state.userPreferences1.map((toggleArray, index) => {
-              return (
-                <ToggleOptions
-                  toggleArray={toggleArray}
-                  key={index}
-                />
-              )
-            }) : null }
-
-          {state.page === 1 ? state.userPreferences2.map((toggleArray, index) => {
+  return (
+    <div id="preferencesViewContainer">
+      <h1 className="preferencesHeader">Preferences</h1>
+      <div className="preferenceSelectorContainer">
+          { state.page === 0 ? state.userPreferences1.map((toggleArray, index) => {
             return (
               <ToggleOptions
                 toggleArray={toggleArray}
                 key={index}
               />
             )
-          }) : null}
+          }) : null }
 
-          {state.page === 2 ?
-          <div className="inputContainer">
-            <p id="preferencesInputInstructions">Other Allergies or Restrictions:</p>
-              <ul id="preferencesUl">
-                {state.addedAllergies.map((allergy, index) => {
-                  return (
-                    <AllergyItem 
-                      allergy={allergy}
-                      key={index}
-                    />
-                  )
-                })}
-              </ul>
-              <div id="preferencesInputButtonContainer">
-                <input id="preferenceAllergiesInput" onKeyUp={(event) => addAllergies(event)} placeholder="ex: Peanuts"></input>
-              <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => addAllergies(event)}primary >Add</Button>
-              </div>
-            </div> 
-            : null }
+        {state.page === 1 ? state.userPreferences2.map((toggleArray, index) => {
+          return (
+            <ToggleOptions
+              toggleArray={toggleArray}
+              key={index}
+            />
+          )
+        }) : null}
 
-          {state.page === 3 ? 
-              <div id="preferencesCountContainer">
-                <p className="preferenceDescription">How many people you are preparing for?</p>
-                <input id="preferencesCountInput" placeholder="ex: 3"></input>
-              <p className="preferenceDescription">Would you like quantities displayed in imperial or metric?</p>
-                <Grommet theme={customTheme}>
-                  <Box align="start" pad="large" gap="small">
-                    <RadioButton
-                      label="Imperial"
-                      name="radio"
-                      value="c2"
-                      checked={!state.isMetric}
-                      onChange={() => dispatch(HandleMetric(false))}
-                    />
-                    <RadioButton
-                      label="Metric"
-                      name="radio"
-                      value="c1"
-                      checked={state.isMetric}
-                      onChange={() => dispatch(HandleMetric(true))}
-                    />
-                  </Box>
-                </Grommet>
-              </div>
-            : null}
+        {state.page === 2 ?
+        <div className="inputContainer">
+          <p id="preferencesInputInstructions">Other Allergies or Restrictions:</p>
+            <ul id="preferencesUl">
+              {state.addedAllergies.map((allergy, index) => {
+                return (
+                  <AllergyItem 
+                    allergy={allergy}
+                    key={index}
+                  />
+                )
+              })}
+            </ul>
+            <div id="preferencesInputButtonContainer">
+              <input id="preferenceAllergiesInput" onKeyUp={(event) => addAllergies(event)} placeholder="ex: Peanuts"></input>
+            <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => addAllergies(event)}primary >Add</Button>
+            </div>
+          </div> 
+          : null }
 
-        </div>
-        <div id="preferencesDetailContainer">
-          <p id="preferencesDetail">{state.details[state.page]}</p>
-        </div>
-        <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary >{'Save & Continue'}</Button>
-      <NavBar />
+        {state.page === 3 ? 
+            <div id="preferencesCountContainer">
+              <p className="preferenceDescription">How many people you are preparing for?</p>
+              <input id="preferencesCountInput" placeholder="ex: 3"></input>
+            <p className="preferenceDescription">Would you like quantities displayed in imperial or metric?</p>
+              <Grommet theme={customTheme}>
+                <Box align="start" pad="large" gap="small">
+                  <RadioButton
+                    label="Imperial"
+                    name="radio"
+                    value="c2"
+                    checked={!state.isMetric}
+                    onChange={() => dispatch(HandleMetric(false))}
+                  />
+                  <RadioButton
+                    label="Metric"
+                    name="radio"
+                    value="c1"
+                    checked={state.isMetric}
+                    onChange={() => dispatch(HandleMetric(true))}
+                  />
+                </Box>
+              </Grommet>
+
+              <p className="preferenceDescription">How many meals per week are you preparing for?</p>
+              <input id="preferencesMealCountInput" placeholder="ex: 18"></input>
+            </div>
+          : null}
+
       </div>
-    )
+      <div id="preferencesDetailContainer">
+        <p id="preferencesDetail">{state.details[state.page]}</p>
+      </div>
+      <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary >{'Save & Continue'}</Button>
+    <NavBar />
+    </div>
+  )
 }
 
 export default Preferences;
