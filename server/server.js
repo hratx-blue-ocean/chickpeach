@@ -108,6 +108,25 @@ app.get('/searchRecipes', async (req, res) => {
           "ids":recipeIDs.join()
         }
     });
+<<<<<<< HEAD
+=======
+    //recipesInfoBulk.body.map
+
+    
+    res.send(recipesData).status(200);
+  
+  } catch(err) {
+    console.log(err);
+  }
+    // .then((response)=>{
+    //   console.log(response)
+    // })
+    // .catch((error)=>{
+    //   console.log(error)
+    // })
+});
+
+>>>>>>> 508a5c9a7e4887983383053c1fbe4b5be7eb070a
 //Add new routes above
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../dist/index.html'), function(err) {
