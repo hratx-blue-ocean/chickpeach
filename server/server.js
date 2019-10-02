@@ -133,17 +133,17 @@ app.get('/searchRecipes', async (req, res) => {
 });
        
     //const recipeIDs = await recipesSearched.body.results.map(recipe => recipe.id);
-    const recipesInfoBulk = await axios({
-      "method":"GET",
-      "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk",
-      "headers":{
-        "content-type":"application/octet-stream",
-        "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-        "x-rapidapi-key":spoonAPIKey
-        },"params":{
-          "ids":recipeIDs.join()
-        }
-    });
+    // const recipesInfoBulk = await axios({
+    //   "method":"GET",
+    //   "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk",
+    //   "headers":{
+    //     "content-type":"application/octet-stream",
+    //     "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+    //     "x-rapidapi-key":spoonAPIKey
+    //     },"params":{
+    //       "ids":recipeIDs.join()
+    //     }
+    // });
 
 //Add new routes above
 app.get('/*', function(req, res) {
