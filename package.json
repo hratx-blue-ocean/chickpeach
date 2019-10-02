@@ -2,7 +2,7 @@
   "name": "chickpeach",
   "version": "1.0.0",
   "description": "A web appication for meal planning and automatically generated grocery list",
-  "main": "app.js",
+  "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "webpack --watch",
