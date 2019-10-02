@@ -2,20 +2,19 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const port = 3000;
-const mysql = require('mysql2');
-const axios = require('axios');
-const { spoonAPIKey } = require('./spoonAPI.config');
+// const mysql = require('mysql2');
+// const axios = require('axios');
+// const { spoonAPIKey } = require('./spoonAPI.config');
 
-const pool = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'chickpeach',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-});
-
+// const pool = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'password',
+//   database: 'chickpeach',
+//   waitForConnections: true,
+//   connectionLimit: 10,
+//   queueLimit: 0
+// });
 
 app.use(express.static('dist'));
 
