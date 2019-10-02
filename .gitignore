@@ -3,5 +3,5 @@ node_modules
 dist/bundle.js
 firebase.config.js
 package-lock.json
-server/spoonAPI.config.js
+spoonAPI.config.js
 
