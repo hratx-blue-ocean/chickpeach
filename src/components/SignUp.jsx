@@ -2,20 +2,25 @@ import React, {useState} from 'react';
 import { Grommet, Button, FormField, TextInput } from 'grommet';
 import firebase from './firebase.js';
 import { withRouter } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { addAccountInfo } from './actions';
 
 const SignUp = (props) => {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const dispatch= useDispatch();
 
     function onRegister() {
-
-      console.log(email, password)
       const reg = new Promise((resolve, reject) => {
         resolve(firebase.register(name, email, password))
-        props.history.replace('/recipes')
+        var user = firebase.auth().currentUser
+        console.log(user)
       }, 300)
+      .then((response) => {
+        console.log(response.uid)
+      })
     }
 
 

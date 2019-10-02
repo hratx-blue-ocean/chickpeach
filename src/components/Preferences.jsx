@@ -5,6 +5,8 @@ import { grommet } from "grommet/themes";
 import { FormDown } from "grommet-icons";
 import { deepMerge } from "grommet/utils";
 import { css } from "styled-components";
+import { useSelector, useDispatch } from 'react-redux';
+import { addAccountInfo, addPreferences } from './actions';
 import NavBar from './NavBar.jsx'
 import data from '../../db/dummyPreferenceData';
 import { withRouter } from 'react-router-dom';
@@ -216,6 +218,7 @@ class Preferences extends Component {
     //put request to server
     //add state to redux
     let newState = {}
+    // const dispatch = useDispatch();
 
     let fullArray = this.state.userPreferences1.concat(this.state.userPreferences2);
 
@@ -226,6 +229,10 @@ class Preferences extends Component {
     newState.addedAllergies = this.state.addedAllergies;
     newState.peopleToPrepFor = this.state.people;
     newState.isMetric = this.state.isMetric;
+
+    const billy = useSelector(state => preferenceState)
+    console.log(billy)
+    dispatch(addPreferences(newState))
 
       // 'vegetarian'
       // 'glutenFree'

@@ -8,4 +8,11 @@ const addAccountInfo = (uid, displayName, email) => {
   }
 }
 
-export { addAccountInfo }
+const addPreferences = (preferencesObject) => {
+  return {
+    type: 'Preferences',
+    preferencesObject: preferencesObject,
+  }
+}
+
+export { addAccountInfo, addPreferences }

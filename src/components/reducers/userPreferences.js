@@ -30,6 +30,10 @@ const preferenceState = (state = defaultState, action) => {
     return newState;
   }
 
+  if(action.type === 'Preferences') {
+    console.log('hellomoto')
+  }
+
   return state;
 }
 

@@ -34,6 +34,7 @@
     "nodemon": "^1.19.1",
     "polished": "^3.4.1",
     "react-dom": "^16.8.6",
+    "react-hookstore": "^1.4.2",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
     "redux": "^4.0.4",
