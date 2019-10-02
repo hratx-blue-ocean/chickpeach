@@ -1,12 +1,12 @@
-import React, { Component }from 'react';
+import React, { Component, useState } from 'react';
 import { CheckBox, Grommet, Button, Box, Menu, Text, RadioButton } from 'grommet';
 import { storiesOf } from "@storybook/react";
 import { grommet } from "grommet/themes";
 import { FormDown } from "grommet-icons";
 import { deepMerge } from "grommet/utils";
 import { css } from "styled-components";
-import { useSelector, useDispatch } from 'react-redux';
-import { addAccountInfo, addPreferences } from './actions';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { addAccountInfo, addPreferences } from './actions';
 import NavBar from './NavBar.jsx'
 import data from '../../db/dummyPreferenceData';
 import { withRouter } from 'react-router-dom';
@@ -98,24 +98,25 @@ const customToggleTheme = {
 ////////////    APP STARTS     //////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////*/
 
+const iniitialPrefs = {
+  userPreferences1: [],
+  userPreferences2: [],
+  details: [
+    'Do you have any of the following dietary restrictions or allergies?', 
+    'Do you have any of the following dietary restrictions or allergies?', 
+    'Do you have any additional dietary restrictions or allergies?', 
+    ''
+  ],
+  page: 0,
+  addedAllergies: [],
+  people: 1,  //peopleToPrepFor
+  isMetric: false
+}
 
 class Preferences extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      userPreferences1: [],
-      userPreferences2: [],
-      details: [
-        'Do you have any of the following dietary restrictions or allergies?', 
-        'Do you have any of the following dietary restrictions or allergies?', 
-        'Do you have any additional dietary restrictions or allergies?', 
-        ''
-      ],
-      page: 0,
-      addedAllergies: [],
-      people: 1,  //peopleToPrepFor
-      isMetric: false
-    };
+    this.state = iniitialPrefs
   }
 
   componentDidMount() {
@@ -230,9 +231,9 @@ class Preferences extends Component {
     newState.peopleToPrepFor = this.state.people;
     newState.isMetric = this.state.isMetric;
 
-    const billy = useSelector(state => preferenceState)
-    console.log(billy)
-    dispatch(addPreferences(newState))
+    //const billy = useSelector(state => preferenceState)
+    //console.log(billy)
+    //dispatch(addPreferences(newState))
 
       // 'vegetarian'
       // 'glutenFree'

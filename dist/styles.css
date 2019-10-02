@@ -39,6 +39,7 @@ h3 {
   padding: 10px !important;
   text-align: center !important;
   font-weight: bold !important;
+  border: none !important;
 }
 
 .secondary_button {
@@ -232,6 +233,10 @@ h3 {
 
 .recipe_button {
   width: 44vw;
+  border: none !important;
+  margin-right: 2vw !important;
+  line-height: normal !important;
+  background-color: #FBDCA1 !important;
 }
 
 .nutrient_row {
@@ -487,10 +492,6 @@ h3 {
 .create_add {
   width: 50px;
   height: 25px;
-  border: none !important;
-  margin-right: 2vw !important;
-  line-height: normal !important;
-  background-color: #FBDCA1 !important;
 }
 
 .create_directions {
@@ -505,36 +506,6 @@ h3 {
 .create_directionsContainer {
   width: 86vw !important;
   margin: 0 auto;
-  margin-bottom: 15vh;
-}
-
-#signup_container {
-  display: flex;
-  flex-direction: column;
-  height: 90vh;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Menu */
-
-.menu_text {
-  margin: 0 40px;
-}
-
-.menu_recipeCount {
-  font-size: 14px;
-  font-weight: 300;
-}
-
-.menu_footer {
-  justify-content: space-between;
-}
-
-.menu_footer Button {
-  width: 100px;
-  font-size: 12px !important;
-  font-weight: bold !important;
   margin-bottom: 15vh;
 }
 
@@ -560,4 +531,81 @@ h3 {
 
 #create_delete {
   margin: 3px 0 -3px 0;
+}
+
+/* Landing Page */
+#splash_container {
+  background: url("image-wide.png");
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.85;
+
+  background-position-x: -130px; 
+  background-position-y: -50px; 
+  background-repeat: no-repeat;
+
+  background-clip: content-box;
+  z-index: -1;
+
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+#splash_content {
+  margin: 10%;
+  width: 200px;
+  height: 250px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+#splash_logo {
+  margin: 0;
+  color: #FFB084;
+}
+
+/* Menu */
+
+.menu_text {
+  margin: 0 40px;
+}
+
+.menu_recipeCount {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.menu_footer {
+  justify-content: space-between;
+}
+
+.menu_footer Button {
+  width: 100px;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  margin-bottom: 15vh;
+}
+
+/* Login and Sign Up */
+
+.signup_content {
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.signup_height_mod {
+  height: 50vh;
+}
+
+.signup_container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
