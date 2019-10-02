@@ -17,7 +17,7 @@ const addPreferences = (preferencesObject) => {
 
 const IteratePageCount = () => {
   return {
-    type: 'IteratePageCount'
+    type: 'IteratePageCount',
   }
 };
 
@@ -96,4 +96,13 @@ const updateSearch = (search) => {
   };
 };
 
-export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, updateRecipeList, updateQuery, updateSearch }
+const SetMeals = (number) => {
+  return {
+    type: 'SetMeals',
+    number: number
+  }
+}
+
+export {
+  addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, updateQuery, updateSearch,
+  UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList }
