@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateQuery, updateSearch } from './actions';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 import { Heading, TextInput, Button } from 'grommet';
 import MaterialIcon from 'material-icons-react';
 import NavBar from './NavBar.jsx';
 import RecipeCard from './RecipeCard.jsx';
 
+const searchForRecipes = () => {
+  
+}
+
 const RecipeLanding = (props) => {
+  const dispatch = useDispatch();
+  const state = useSelector(state => state.search);
 
   return (
     <div>
@@ -15,10 +24,12 @@ const RecipeLanding = (props) => {
           <TextInput
             placeholder="type here"
             plain={true}
+            value={state.query}
+            onChange={event => dispatch(updateQuery(event.target.value))}
           />
           <Button
             id="recipes_submit"
-            onClick={() => {}}>
+            onClick={() => {console.log(state)}}>
               <MaterialIcon icon="create" color='whitesmoke' size={20} />
             </Button>
         </div>

@@ -82,4 +82,18 @@ const updateRecipeList = (recipeListObject) => {
   }
 }
 
-export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, updateRecipeList }
+const updateQuery = (query) => {
+  return {
+    type: 'setQuery',
+    query: query
+  };
+};
+
+const updateSearch = (search) => {
+  return {
+    type: 'setSearch',
+    searchResults: search
+  };
+};
+
+export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, updateRecipeList, updateQuery, updateSearch }
