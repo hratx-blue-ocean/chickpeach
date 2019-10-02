@@ -4,6 +4,7 @@ const path = require('path');
 const port = 3000;
 const mysql = require('mysql2');
 const axios = require('axios');
+const bodyParser = require('body-parser');
 const { spoonAPIKey } = require('./spoonAPI.config.js');
 
 const pool = mysql.createConnection({
@@ -17,6 +18,7 @@ const pool = mysql.createConnection({
 });
 
 app.use(express.static('dist'));
+app.use(bodyParser.json());
 
 //add user to database
 
@@ -32,6 +34,42 @@ app.get('/register', (req, res) => {
 
 app.get('/user', (req, res) => {
   pool.query(`SELECT * FROM Users where id = '${req.query.id}';`, (err, rows, fields) => {
+    if (err) console.log(err);
+
+    res.status(200).send(rows);
+  });
+});
+
+//get user preferences
+app.get('/userpreferences', (req, res) => {
+  pool.query(`SELECT * FROM Preferences where id = '${req.query.id}';`, (err, rows, fields) => {
+    if (err) console.log(err);
+
+    res.status(200).send(rows);
+  });
+});
+
+//update user preferences
+app.get('/adjustpreferences', (req, res) => {
+  pool.query(`UPDATE Preferences SET
+                allergy_egg = ${req.query.egg},
+                allergy_grain = ${req.query.grain},
+                allergy_peanut = ${req.query.peanut},
+                allergy_seafood = ${req.query.seafood},
+                allergy_shellfish = ${req.query.shellfish},
+                allergy_sesame = ${req.query.sesame},
+                allergy_soy = ${req.query.soy},
+                allergy_sulfite = ${req.query.sulfite},
+                allergy_tree_nut = ${req.query.treeNut},
+                allergy_wheat = ${req.query.wheat},
+                diet_vegetarian = ${req.query.vegetarian},
+                diet_vegan = ${req.query.vegan},
+                diet_gluten_free = ${req.query.glutenFree},
+                diet_dairy_free = ${req.query.dairyFree},
+                diet_ketogenic = ${req.query.keto},
+                diet_whole_thirty = ${req.query.wholeThirty},
+                use_metric = ${req.query.metric}
+              WHERE user_id = '${req.query.id}';`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(200).send(rows);
