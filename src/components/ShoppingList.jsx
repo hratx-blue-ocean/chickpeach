@@ -4,6 +4,7 @@ import NavBar from './NavBar.jsx';
 
 
 const ShoppingList = (props) => {
+  console.log(props)
   const [ingredients, updateIngredients] = useState(props.ingredients)
   return (
     <div>
