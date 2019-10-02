@@ -6,7 +6,7 @@ const mysql = require('mysql2');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 
-// const { spoonAPIKey } = require('./spoonAPI.config.js');
+// const { spoonAPIKey } = require('../spoonAPI.config.js');
 
 // const pool = mysql.createConnection({
 //   host: 'localhost',
@@ -124,10 +124,11 @@ app.get('/searchRecipes', async (req, res) => {
       return recipe;
     });
     
-    res.send(recipesData).status(200);
+    res.status(200).send(recipesData);
     
   } catch(err) {
     console.log(err);
+    res.status(404).send({});
   }
   
 });
