@@ -75,27 +75,6 @@ const SetPeople = (number) => {
   }
 }
 
-const updateRecipeList = (recipeListObject) => {
-  return {
-    type: 'Recipes',
-    recipeListObject: recipeListObject
-  }
-}
-
-const updateQuery = (query) => {
-  return {
-    type: 'setQuery',
-    query: query
-  };
-};
-
-const updateSearch = (search) => {
-  return {
-    type: 'setSearch',
-    searchResults: search
-  };
-};
-
 const SetMeals = (number) => {
   return {
     type: 'SetMeals',
@@ -103,6 +82,35 @@ const SetMeals = (number) => {
   }
 }
 
-export {
-  addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, updateQuery, updateSearch,
-  UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList }
+const updateRecipeList = (recipeListObject) => {
+  return {
+    type: 'Recipes',
+    recipeListObject: recipeListObject
+  }
+}
+
+// Updates query to reflect user's search input
+const updateQuery = (query) => {
+  return {
+    type: 'setQuery',
+    query: query
+  };
+};
+
+// Updates with results from user's search
+const updateSearch = (search) => {
+  return {
+    type: 'setSearch',
+    searchResults: search
+  };
+};
+
+// Updates with recipes on user's menu
+const updateMenu = (menu) => {
+  return {
+    type: 'UPDATE',
+    recipes: menu
+  };
+};
+
+export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList, updateQuery, updateSearch, updateMenu }
