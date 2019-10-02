@@ -207,19 +207,19 @@ app.get('/searchrecipes', async (req, res) => {
     });
     await res.status(200).send(recipesData);
 });
-
-//    const recipeIDs = await recipesSearched.body.results.map(x => x.id);
-//     const recipesInfoBulk = await axios({
-//       "method":"GET",
-//       "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk",
-//       "headers":{
-//         "content-type":"application/octet-stream",
-//         "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-//         "x-rapidapi-key":"b0d836b685msh81f6d3578b838a3p1a8c04jsnd9beb282b2d9"
-//         },"params":{
-//           "ids":recipeIDs.join()
-//         }
-//     });
+       
+    //const recipeIDs = await recipesSearched.body.results.map(recipe => recipe.id);
+    // const recipesInfoBulk = await axios({
+    //   "method":"GET",
+    //   "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk",
+    //   "headers":{
+    //     "content-type":"application/octet-stream",
+    //     "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+    //     "x-rapidapi-key":spoonAPIKey
+    //     },"params":{
+    //       "ids":recipeIDs.join()
+    //     }
+    // });
 
 //Add new routes above
 app.get('/*', function(req, res) {

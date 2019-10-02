@@ -20,11 +20,10 @@ const SignUp = (props) => {
         resolve(firebase.register(name, email, password))
         var user = firebase.auth.currentUser;
 
-        //props.history.replace('/recipes')
         
         uid = user.uid;
       }, 300);
-
+      
       reg.then(axios.get('/register', {
         params: { 
           id: uid,
@@ -33,6 +32,7 @@ const SignUp = (props) => {
       })
       .then(function (response) {
         console.log(response);
+        //props.history.replace('/preferences')
       })
       .catch(function (error) {
         console.log(error);

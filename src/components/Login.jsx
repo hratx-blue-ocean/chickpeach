@@ -4,6 +4,7 @@ import firebase from './firebase.js';
 import { withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addAccountInfo } from './actions';
+import axios from 'axios';
 
 const LogIn = (props) => {
 
@@ -17,7 +18,12 @@ const LogIn = (props) => {
         resolve(firebase.login(email, password))
         dispatch(addAccountInfo(firebase.auth.currentUser.uid, firebase.auth.currentUser.displayName, firebase.auth.currentUser.email))
       }, 300)
-      //.then(props.history.replace('/recipes'))
+      .then(() => {
+
+        //SETUP for JEFF -- Add axios call and 
+
+        props.history.replace('/menu')
+      })
     }
     
     return (

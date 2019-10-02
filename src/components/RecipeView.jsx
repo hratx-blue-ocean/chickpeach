@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import NavBar from './NavBar.jsx'
 import { Button } from "grommet";
 import { withRouter } from 'react-router-dom';
+import axios from 'axios'
 
 const formatter = {
   calories: 'Calories',
@@ -19,6 +20,15 @@ const formatter = {
 const RecipeView = (props) => {
 
   const [recipe, updateRecipe] = useState(props.recipe)
+  // Waiting on route
+  // axios.get('/', {
+  //   params: {
+  //     recipeID: props.recipe.id
+  //   }
+  // })
+  // .then((recipe) => {
+  //   updateRecipe(recipe)
+  // })
 
   let nutrientArray = Object.keys(recipe.nutrition_info)
 
@@ -30,7 +40,11 @@ const RecipeView = (props) => {
         <h3>Ingredients</h3>
         {
           recipe.ingredients.map(ingredient => {
-            return <p className={'recipe_ingredient'} key={ingredient}>{ingredient}</p>
+            return <p className={'recipe_ingredient'} key={ingredient}>
+              {
+                `${ingredient.quantity} ${ingredient.unit} ${ingredient.name}`
+              }
+            </p>
           })
         }
       </div>
