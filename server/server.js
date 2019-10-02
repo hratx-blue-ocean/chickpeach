@@ -2,70 +2,60 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const port = 3000;
-// const mysql = require('mysql2');
-// const axios = require('axios');
-// const { spoonAPIKey } = require('./spoonAPI.config');
+const mysql = require('mysql2');
+const axios = require('axios');
+const { spoonAPIKey } = require('./spoonAPI.config.js');
 
-// const pool = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: 'password',
-//   database: 'chickpeach',
-//   waitForConnections: true,
-//   connectionLimit: 10,
-//   queueLimit: 0
-// });
+const pool = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  database: 'chickpeach',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
 
 app.use(express.static('dist'));
 
-//add user
+//add user to database
 
 app.get('/register', (req, res) => {
-  pool.query(`INSERT INTO Users (id, name, portions_per_week, portions_fulfilled) VALUES ("${req.query.id}", "${req.query.name}", 0, 0);`, (err, rows, fields) => {
+  pool.query(`INSERT INTO Users (id, name, people_to_prep_for, portions_per_week, portions_fulfilled) VALUES ("${req.query.id}", "${req.query.name}", 0,0, 0);`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(201).send('success');
   });
 });
 
-//get user
+//get user by id
 
 app.get('/user', (req, res) => {
-  pool.query(`SELECT * FROM Users`, (err, rows, fields) => {
+  pool.query(`SELECT * FROM Users where id = '${req.query.id}';`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(200).send(rows);
   });
 });
 
-//get banned ingredients
+//get banned ingredients by user id
 
 app.get('/bannedingredients', (req, res) => {
-  pool.query(`SELECT * FROM Banned_Ingredients WHERE user_id = '${req.query.user_id}'`, (err, rows, fields) => {
+  pool.query(`INSERT INTO Banned_Ingredients (user_id, name) VALUES ('${req.query.user_id}', ${req.query.name}');`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(200).send(rows);
-  })
+  });
 });
 
-//get user menu items
+//get user menu items and favorite items by user id
 
 app.get('/menuitems', (req, res) => {
-  pool.query(`SELECT * FROM Users_Recipes WHERE user_id = '${req.query.user_id}, is_on_menu = 1'`, (err, rows, fields) => {
+  pool.query(`SELECT * FROM Users_Recipes WHERE user_id = '${req.query.user_id}' AND (is_on_menu = 1 OR is_favorited = 1);`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(200).send(rows);
-  })
-});
-
-//get user favorites
-
-app.get('/menuitems', (req, res) => {
-  pool.query(`SELECT * FROM Users_Recipes WHERE user_id = '${req.query.user_id}, is_favorited = 1'`, (err, rows, fields) => {
-    if (err) console.log(err);
-
-    res.status(200).send(rows);
-  })
+  });
 });
 
 //SEARCH API route
@@ -121,7 +111,7 @@ app.get('/*', function(req, res) {
     if (err) {
       res.status(500).send(err)
     }
-  })
-})
+  });
+});
 
 app.listen(port, () => console.log(`listening from port: ${port}`));
