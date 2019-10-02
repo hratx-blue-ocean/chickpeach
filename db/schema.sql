@@ -6,10 +6,7 @@ USE chickpeach;
 
 CREATE TABLE Users (
     id VARCHAR(64) PRIMARY KEY,
-    name TEXT,
-    people_to_prep_for INT,
-    portions_per_week INT,
-    portions_fulfilled INT
+    name TEXT
 );
 
 CREATE TABLE Preferences (
@@ -31,7 +28,9 @@ CREATE TABLE Preferences (
     diet_dairy_free BOOLEAN,
     diet_ketogenic BOOLEAN,
     diet_whole_thirty BOOLEAN,
-    use_metric BOOLEAN
+    use_metric BOOLEAN,
+    people_to_prep_for INT,
+    meals_per_week INT
 );
 
 CREATE TABLE Recipes (
