@@ -93,7 +93,7 @@ app.get('/searchRecipes', async (req, res) => {
       "headers":{
         "content-type":"application/octet-stream",
         "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-        "x-rapidapi-key":"b0d836b685msh81f6d3578b838a3p1a8c04jsnd9beb282b2d9"
+        "x-rapidapi-key":spoonAPIKey
         },"params":{
           "ids":recipeIDs.join()
         }
