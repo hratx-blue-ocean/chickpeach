@@ -7,28 +7,6 @@ const bodyParser = require('body-parser');
 const { spoonAPIKey } = require('./spoonAPI.config.js');
 const mysql = require('mysql2');
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-// const { spoonAPIKey } = require('../spoonAPI.config.js');
-=======
-// const { spoonAPIKey } = require('./spoonAPI.config.js');
-// const mysql = require('mysql2');
-<<<<<<< HEAD
->>>>>>> Optimize for docker
->>>>>>> Optimize for docker
-=======
->>>>>>> Update gitignore and package.json
-
-// const pool = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: 'password',
-//   database: 'chickpeach',
-//   waitForConnections: true,
-//   connectionLimit: 10,
-//   queueLimit: 0
-// });
-=======
 const pool = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -38,7 +16,6 @@ const pool = mysql.createConnection({
   connectionLimit: 10,
   queueLimit: 0
 });
->>>>>>> Remove dev script
 
 app.use(express.static('dist'));
 app.use(bodyParser.json());
