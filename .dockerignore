@@ -4,4 +4,4 @@ Dockerfile
 .dockerignore
 .git
 .gitignore
-firebase.config.jsc
+firebase.config.js
