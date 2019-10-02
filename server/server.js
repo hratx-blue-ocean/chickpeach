@@ -4,10 +4,9 @@ const path = require('path');
 const port = 3000;
 const mysql = require('mysql2');
 const axios = require('axios');
-<<<<<<< HEAD
 const bodyParser = require('body-parser');
 
-// const { spoonAPIKey } = require('./spoonAPI.config.js');
+// const { spoonAPIKey } = require('../spoonAPI.config.js');
 
 // const pool = mysql.createConnection({
 //   host: 'localhost',
@@ -18,19 +17,6 @@ const bodyParser = require('body-parser');
 //   connectionLimit: 10,
 //   queueLimit: 0
 // });
-=======
-const { spoonAPIKey } = require('../spoonAPI.config');
-
-const pool = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'chickpeach',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-});
->>>>>>> searchrecipes endpoint ready for testing and integration to SearchList view
 
 app.use(express.static('dist'));
 app.use(bodyParser.json());
