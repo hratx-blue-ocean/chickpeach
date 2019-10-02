@@ -17,16 +17,8 @@ const MenuCard = (props) => {
           </p>
         </div>
         <div className="card_footer menu_footer">
-          <Button
-            icon={'Preview'}
-            label
-            onClick={() => {}}
-          />
-          <Button
-            icon={'Cook'}
-            label
-            onClick={() => {}}
-          />
+          <Button onClick={() => {}}>Preview</Button>
+          <Button onClick={() => {}}>Cook</Button>
         </div>
       </div>
     </div>

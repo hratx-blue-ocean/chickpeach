@@ -3,15 +3,9 @@ import NavBar from './NavBar.jsx'
 import { withRouter, NavLink } from 'react-router-dom';
 import { Button } from 'grommet';
 
-class Splash extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <>
+const Splash = () => {
+  return (
+    <>
       <div id='splash_container'>
         <div id='splash_content'>
           <h1 id='splash_logo'>chickpeach</h1>
@@ -25,9 +19,8 @@ class Splash extends React.Component {
           <NavLink to='/recipes'>Login as guest</NavLink>
         </div>
       </div>
-      </>
-    )
-  }
+    </>
+  )
 }
 
 export default withRouter(Splash);
