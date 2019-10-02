@@ -10,10 +10,10 @@ const MenuCard = (props) => {
       <div className="card_bottom">
         <div className="card_text">
           <h4 className="card_name">
-            Street Corn
+            {props.recipe.title}
           </h4>
           <p className="card_servings">
-            4 servings
+            {props.recipe.servings}
           </p>
         </div>
         <div className="card_footer menu_footer">

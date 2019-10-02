@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import GroceryItem from  './GroceryItem.jsx';
 import NavBar from './NavBar.jsx';
 
-
-const dummyIngredients = [['soymilk', '2 cups'], ['bananas', 2], ['flaxseed', '1 tbs']];
-
 const ShoppingList = (props) => {
-  const [ingredients, updateIngredients] = useState(dummyIngredients)
+  const [ingredients, updateIngredients] = useState(props.ingredients)
   return (
     <div>
     <div id='shopping_list'>
