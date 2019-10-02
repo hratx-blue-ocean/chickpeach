@@ -2,26 +2,26 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const port = 3000;
-// const mysql = require('mysql2');
-// const axios = require('axios');
-// const { spoonAPIKey } = require('./spoonAPI.config');
+const mysql = require('mysql2');
+const axios = require('axios');
+const { spoonAPIKey } = require('./spoonAPI.config.js');
 
-// const pool = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: 'password',
-//   database: 'chickpeach',
-//   waitForConnections: true,
-//   connectionLimit: 10,
-//   queueLimit: 0
-// });
+const pool = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  database: 'chickpeach',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
 
 app.use(express.static('dist'));
 
 //add user to database
 
 app.get('/register', (req, res) => {
-  pool.query(`INSERT INTO Users (id, name, portions_per_week, portions_fulfilled, vegetarian, vegan, gluten_free, dairy_free, ketogenic, whole_thirty, people_to_prep_for, use_metric) VALUES ("${req.query.id}", "${req.query.name}", ${req.query.vegetarian}, ${req.query.vegan}, ${req.query.glutenFree}, ${req.query.dairyFree}, ${req.query.ketogenic}, ${req.query.wholeThirty}, ${req.query.numPeople}, ${req.query.metric});`, (err, rows, fields) => {
+  pool.query(`INSERT INTO Users (id, name, people_to_prep_for, portions_per_week, portions_fulfilled) VALUES ("${req.query.id}", "${req.query.name}", 0,0, 0);`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(201).send('success');
