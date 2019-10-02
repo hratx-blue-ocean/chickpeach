@@ -2,11 +2,12 @@
   "name": "chickpeach",
   "version": "1.0.0",
   "description": "A web appication for meal planning and automatically generated grocery list",
-  "main": "app.js",
+  "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "webpack --watch",
-    "start": "nodemon server/server.js"
+    "start": "nodemon server/server.js",
+    "dev": "npm run generate-imported-components && parcel app/index.html --hmr-port 1235"
   },
   "author": "chickpeach",
   "license": "ISC",

@@ -4,20 +4,90 @@ const dummyRecipe = {
   title: 'Pad Thai',
   images: ['https://images.unsplash.com/photo-1473093226795-af9932fe5856?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1885&q=80'],
   ingredients: [
-    '5 ounces pad Thai rice noodles',
-    '3 tablespoons vegetable oil',
-    '1 large egg, room temperature',
-    '6 medium shrimp, peeled, deveined (optional)',
-    '2 tablespoons 1x½x⅛-inch slices pressed tofu (bean curd)',
-    '1 tablespoon sweet preserved shredded radish, rinsed, chopped into 1-inch pieces',
-    '1 cup bean sprouts',
-    '5 tablespoons tamarind water, or 2 tablespoons plus 1 teaspoon tamarind paste mixed with 2 tablespoons plus 1 teaspoon water',
-    '1½ tablespoons (or more) Thai fish sauce (nam pla)',
-    '1½ tablespoons simple syrup, preferably made with palm sugar',
-    '4 garlic chives, 2 cut into 1-inch pieces',
-    '½ teaspoon ground dried Thai chiles, divided',
-    '2 tablespoons crushed roasted, unsalted peanuts, divided',
-    '2 lime wedges',
+    { 
+      name: 'pad Thai rice noodles',
+      quantity: 5,
+      unit: 'ounces',
+      aisle: 'pasta and rice'
+    },
+    { 
+      name: 'vegetable oil',
+      quantity: 3,
+      unit: 'tablespoons',
+      aisle: 'baking'
+    },
+    { 
+      name: 'egg, room temperature',
+      quantity: 1,
+      unit: 'large',
+      aisle: 'dairy and eggs'
+    },
+    { 
+      name: 'shrimp, peeled, deveined (optional)',
+      quantity: 6,
+      unit: 'medium',
+      aisle: 'meat and seafood'
+    },
+    { 
+      name: 'pressed tofu (bean curd)',
+      quanity: 2,
+      unit: 'tablespoons',
+      aisle: 'produce'
+    },
+    { 
+      name: 'sweet preserved shredded radish, rinsed, chopped into 1-inch pieces',
+      quantity: 1,
+      unit: 'tablespoon',
+      aisle: 'canned items'
+    },
+    { 
+      name: 'bean sprouts',
+      quantity: 1,
+      unit: 'cup',
+      aisle: 'produce'
+    },
+    { 
+      name: 'tamarind water',
+      quanity: 5,
+      unit: 'tablespoons',
+      aisle: 'condiments'
+    },
+    { 
+      name: 'Thai fish sauce (nam pla)',
+      quantity: 1.5,
+      unit: 'tablespoons',
+      aisle: 'condiments'
+    },
+    { 
+      name: 'simple syrup, preferably made with palm sugar',
+      quantity: 1.5,
+      unit: 'tablespoons',
+      aisle: 'baking'
+    },
+    { 
+      name: 'garlic chives',
+      quantity: 2,
+      unit: 'cut into 1-inch pieces',
+      aisle: 'produce'
+    },
+    { 
+      name: 'ground dried Thai chiles, divided',
+      quantity: 0.5,
+      unit: 'teaspoon',
+      aisle: 'baking'
+    },
+    { 
+      name: 'crushed roasted, unsalted peanuts, divided',
+      quantity: 2,
+      unit: 'tablespoons',
+      aisle: 'snacks'
+    },
+    { 
+      name: 'lime wedges',
+      quantity: 2,
+      unit: 'units',
+      aisle: 'produce'
+    }
   ],
   directions: [
     'Place noodles in a large bowl; pour hot water over to cover. Let soak until tender but not mushy, 5–10 minutes. Drain; set aside.',
