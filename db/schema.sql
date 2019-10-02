@@ -15,6 +15,18 @@ CREATE TABLE Users (
     dairy_free BOOLEAN,
     ketogenic BOOLEAN,
     whole_thirty BOOLEAN,
+    allergy_dairy BOOLEAN,
+    allergy_peanut BOOLEAN,
+    allergy_soy BOOLEAN,
+    allergy_egg BOOLEAN,
+    allergy_seafood BOOLEAN,
+    allergy_sulfite BOOLEAN,
+    allergy_gluten BOOLEAN,
+    allergy_sesame BOOLEAN,
+    allergy_treenut BOOLEAN,
+    allergy_grain BOOLEAN,
+    allergy_shellfish BOOLEAN,
+    allergy_wheat BOOLEAN,
     people_to_prep_for INT,
     use_metric BOOLEAN
 );
