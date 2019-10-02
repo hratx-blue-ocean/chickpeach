@@ -3,7 +3,7 @@ import NavBar from './NavBar.jsx'
 import { withRouter, NavLink } from 'react-router-dom';
 import { Button } from 'grommet';
 
-const Splash = () => {
+const Splash = (props) => {
   return (
     <>
       <div id='splash_container'>

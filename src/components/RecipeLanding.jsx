@@ -5,7 +5,7 @@ import MaterialIcon from 'material-icons-react';
 import NavBar from './NavBar.jsx';
 import RecipeCard from './RecipeCard.jsx';
 
-const RecipeLanding = () => {
+const RecipeLanding = (props) => {
 
   return (
     <div>
