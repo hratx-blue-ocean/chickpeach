@@ -124,35 +124,6 @@ app.get('/adjustpreferences', (req, res) => {
   });
 });
 
-// axios.get('/adjustpreferences', {
-//   params: { 
-//     user_id: 'userid',
-//     egg: 'true or false',
-//     grain: 'true or false',
-//     peanut: 'true or false',
-//     seafood: 'true or false',
-//     shellfish: 'true or false',
-//     sesame: 'true or false',
-//     soy: 'true or false',
-//     sulfite: 'true or false',
-//     treeNut: 'true or false',
-//     wheat: 'true or false',
-//     vegetarian: 'true or false',
-//     vegan: 'true or false',
-//     glutenFree: 'true or false',
-//     dairyFree: 'true or false',
-//     keto: 'true or false',
-//     wholeThirty: 'true or false',
-//     metric: 'true or false'
-//   }
-// })
-// .then(function (response) {
-//   console.log(response);
-// })
-// .catch(function (error) {
-//   console.log(error);
-// })
-
 //get banned ingredients by user id
 
 app.get('/bannedingredients', (req, res) => {
@@ -174,53 +145,51 @@ app.get('/menuitems', (req, res) => {
 });
 
 //SEARCH API route
-app.get('/searchRecipes', async (req, res) => {
-  try {
-    let recipesData = {}; 
-    const recipesSearched = await axios({
-      "method":"GET",
-      "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search",
-      "headers":{
-        "content-type":"application/octet-stream",
-        "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com", //api Host domain through rapidAPI
-        "x-rapidapi-key":spoonAPIKey                                    //api Key Spoonacular set to a config file in root DIR (gitignored)
-      },"params":{
-        "diet": req.query.diet,
-        "excludeIngredients":req.query.banList,
-        "intolerances":req.query.allergenList,
-        "number":"20",
-        "offset":"0",
-        "instructionsRequired":"true",
-        "query":req.query.searchInput
-      }
-    });
-    
-    recipesData.results = await recipesSearched.body.results.map(recipe => {
-      delete recipe['imageUrls'];
-      return recipe;
-    });
-    
-    res.status(200).send(recipesData);
-    
-  } catch(err) {
-    console.log(err);
-    res.status(404).send({});
-  }
+// app.get('/searchRecipes', async (req, res) => {
+//   try {
+
+//     const recipesSearched = await axios({
+//       "method":"GET",
+//       "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search",
+//       "headers":{
+//         "content-type":"application/octet-stream",
+//         "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com", //api Host domain
+//         "x-rapidapi-key":spoonAPIKey                                    //api Key Spoonacular set to a config file in server DIR (gitignored)
+//       },"params":{
+//         "diet":`${req.query.diet}`,
+//         "excludeIngredients":`${req.query.banList}`,
+//         "intolerances":`${req.query.allergenList}`,
+//         "number":"20",
+//         "offset":"0",
+//         "instructionsRequired":"true",
+//         "query":`${req.query.searchInput}`
+//       }
+//     });
+//     const recipeIDs = await recipesSearched.body.results.map(x => x.id);
   
-});
-       
-    //const recipeIDs = await recipesSearched.body.results.map(recipe => recipe.id);
-    // const recipesInfoBulk = await axios({
-    //   "method":"GET",
-    //   "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk",
-    //   "headers":{
-    //     "content-type":"application/octet-stream",
-    //     "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-    //     "x-rapidapi-key":spoonAPIKey
-    //     },"params":{
-    //       "ids":recipeIDs.join()
-    //     }
-    // });
+
+//     const recipesInfoBulk = await axios({
+//       "method":"GET",
+//       "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk",
+//       "headers":{
+//         "content-type":"application/octet-stream",
+//         "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+//         "x-rapidapi-key":"b0d836b685msh81f6d3578b838a3p1a8c04jsnd9beb282b2d9"
+//         },"params":{
+//           "ids":recipeIDs.join()
+//         }
+//     });
+//     res.send(recipesInfoBulk).status(200);
+//   } catch(err) {
+//     console.log(err);
+//   }
+//     // .then((response)=>{
+//     //   console.log(response)
+//     // })
+//     // .catch((error)=>{
+//     //   console.log(error)
+//     // })
+// });
 
 //Add new routes above
 app.get('/*', function(req, res) {
