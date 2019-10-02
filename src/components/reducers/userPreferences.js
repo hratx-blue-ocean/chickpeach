@@ -1,4 +1,3 @@
-
 const defaultState = {
   uid: 'default',
   displayName: 'default',

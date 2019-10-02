@@ -9,174 +9,138 @@ import customTheme from './grommet/radioButton';
 import NavBar from './NavBar.jsx'
 import data from '../../db/dummyPreferenceData';
 
-class Preferences extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      userPreferences1: [],
-      userPreferences2: [],
-      details: [
-        'Do you have any of the following dietary restrictions or allergies?', 
-        'Do you have any of the following dietary restrictions or allergies?', 
-        'Do you have any additional dietary restrictions or allergies?', 
-        ''
-      ],
-      page: 0,
-      addedAllergies: [],
-      people: 1,  //peopleToPrepFor
-      isMetric: false
-    };
-  }
+const Preferences = (props) => {
 
-  componentDidMount() {
-    this.setData();
-  }
+  // setData() {
+  //   //axios request
 
-  setData() {
-    let newOptions1 = [
-      ['vegetarian', data.vegetarian],
-      ['glutenFree', data.glutenFree],
-      ['vegan', data.vegan],
-      ['dairyFree', data.dairyFree],
-      ['keto', data.keto],
-      ['whole30', data.whole30],
-      ['egg', data.egg],
-      ['grain', data.grain]
-    ];
-
-    let newOptions2 = [
-      ['peanut', data.peanut],
-      ['seafood', data.seafood],
-      ['sesame', data.sesame],
-      ['shellfish', data.shellfish],
-      ['soy', data.soy],
-      ['sulfite', data.sulfite],
-      ['treeNut', data.treeNut],
-      ['wheat', data.wheat]
-    ];
-
-    this.setState(() => {
-      return {userPreferences1: newOptions1, userPreferences2: newOptions2}
-    });
-  }
-
-  updateData(newArray) {
-    let newOptions1 = this.state.userPreferences1.map(array => {
-      return array.slice();
-    })
-
-    let newOptions2 = this.state.userPreferences2.map(array => {
-      return array.slice();
-    })
-
-    for (let i = 0; i < newOptions1.length; i++) {
-      if (newOptions1[i][0] === newArray[0]) {
-        newOptions1[i][1] = newArray[1];
-      } 
-    }
-
-    for (let i = 0; i < newOptions2.length; i++) {
-      if (newOptions2[i][0] === newArray[0]) {
-        newOptions2[i][1] = newArray[1];
-      } 
-    }
     
-    this.setState({ userPreferences1: newOptions1, userPreferences2: newOptions2})
-  }
 
-  addAllergies(event) {
-    let allergyArray = this.state.addedAllergies;
+  //   //send to Redux
+  //   this.setState(() => {
+  //     return {userPreferences1: newOptions1, userPreferences2: newOptions2}
+  //   });
+  // }
 
+  // updateData(newArray) {
+  //   let newOptions1 = this.state.userPreferences1.map(array => {
+  //     return array.slice();
+  //   })
 
-    if (event.type === 'click') {
-      if (document.getElementById('preferenceAllergiesInput').value === '' || this.state.addedAllergies.indexOf(document.getElementById('preferenceAllergiesInput').value) >= 0) {
-        document.getElementById('preferenceAllergiesInput').value = '';
-        return;
-      }
-      allergyArray.push(document.getElementById('preferenceAllergiesInput').value);
-      document.getElementById('preferenceAllergiesInput').value = '';
+  //   let newOptions2 = this.state.userPreferences2.map(array => {
+  //     return array.slice();
+  //   })
 
-      this.setState({ addedAllergies: allergyArray });
-      return;
-    }
+  //   for (let i = 0; i < newOptions1.length; i++) {
+  //     if (newOptions1[i][0] === newArray[0]) {
+  //       newOptions1[i][1] = newArray[1];
+  //     } 
+  //   }
+
+  //   for (let i = 0; i < newOptions2.length; i++) {
+  //     if (newOptions2[i][0] === newArray[0]) {
+  //       newOptions2[i][1] = newArray[1];
+  //     } 
+  //   }
     
-    if (event.key === 'Enter') { 
-      this.state.addedAllergies.indexOf(event.target.value)
-      if (event.target.value === '' || this.state.addedAllergies.indexOf(event.target.value) >= 0) {
-        event.target.value = '';
-        return;
-      }
-      allergyArray.push(event.target.value)
-      event.target.value = '';
+  //   this.setState({ userPreferences1: newOptions1, userPreferences2: newOptions2})
+  // }
 
-      this.setState({ addedAllergies: allergyArray});
-    }
-  }
+  // addAllergies(event) {
+  //   let allergyArray = this.state.addedAllergies;
 
-  removeAllergy (allergy) {
-    let newAllergyList = this.state.addedAllergies;
-    newAllergyList.splice(newAllergyList.indexOf(allergy), 1);
-    this.setState({addAllergies: newAllergyList})
-  }
 
-  previousPage() {
-    this.setState({ page: this.state.page - 1 })
-  }
+  //   if (event.type === 'click') {
+  //     if (document.getElementById('preferenceAllergiesInput').value === '' || this.state.addedAllergies.indexOf(document.getElementById('preferenceAllergiesInput').value) >= 0) {
+  //       document.getElementById('preferenceAllergiesInput').value = '';
+  //       return;
+  //     }
+  //     allergyArray.push(document.getElementById('preferenceAllergiesInput').value);
+  //     document.getElementById('preferenceAllergiesInput').value = '';
 
-  saveAndContinue() {
-    //put request to server
-    //add state to redux
-    let newState = {}
-    // const dispatch = useDispatch();
+  //     this.setState({ addedAllergies: allergyArray });
+  //     return;
+  //   }
+    
+  //   if (event.key === 'Enter') { 
+  //     this.state.addedAllergies.indexOf(event.target.value)
+  //     if (event.target.value === '' || this.state.addedAllergies.indexOf(event.target.value) >= 0) {
+  //       event.target.value = '';
+  //       return;
+  //     }
+  //     allergyArray.push(event.target.value)
+  //     event.target.value = '';
 
-    let fullArray = this.state.userPreferences1.concat(this.state.userPreferences2);
+  //     this.setState({ addedAllergies: allergyArray});
+  //   }
+  // }
 
-    for (let option of fullArray) {
-      newState[option[0]] = option[1];
-    }
+  // removeAllergy (allergy) {
+  //   let newAllergyList = this.state.addedAllergies;
+  //   newAllergyList.splice(newAllergyList.indexOf(allergy), 1);
+  //   this.setState({addAllergies: newAllergyList})
+  // }
 
-    newState.addedAllergies = this.state.addedAllergies;
-    newState.peopleToPrepFor = this.state.people;
-    newState.isMetric = this.state.isMetric;
+  // previousPage() {
+  //   this.setState({ page: this.state.page - 1 })
+  // }
 
-    // const billy = useSelector(state => preferenceState)
-    // console.log(billy)
-    // dispatch(addPreferences(newState))
+  // saveAndContinue() {
+  //   //put request to server
+  //   //add state to redux
+  //   let newState = {}
+  //   // const dispatch = useDispatch();
 
-    console.log(newState);
+  //   let fullArray = this.state.userPreferences1.concat(this.state.userPreferences2);
 
-    //redirect on last page
-    if (this.state.page === 3) {
-      this.addCount();
-    }
-    this.setState({page: this.state.page + 1})
-  }
+  //   for (let option of fullArray) {
+  //     newState[option[0]] = option[1];
+  //   }
 
-  addCount() {
-    this.setState({ people: Number(document.getElementById('preferencesCountInput').value)})
-  }
+  //   newState.addedAllergies = this.state.addedAllergies;
+  //   newState.peopleToPrepFor = this.state.people;
+  //   newState.isMetric = this.state.isMetric;
 
-  handleMetric(boolean) {
-    this.setState({isMetric: boolean})
-  }
+  //   // const billy = useSelector(state => preferenceState)
+  //   // console.log(billy)
+  //   // dispatch(addPreferences(newState))
 
-  render() {
+  //   console.log(newState);
+
+  //   //redirect on last page
+  //   if (this.state.page === 3) {
+  //     this.addCount();
+  //   }
+  //   this.setState({page: this.state.page + 1})
+  // }
+
+  // addCount() {
+  //   this.setState({ people: Number(document.getElementById('preferencesCountInput').value)})
+  // }
+
+  // handleMetric(boolean) {
+  //   this.setState({isMetric: boolean})
+  // }
+
+  // render() {
+
+  let state = useSelector(state => state.prefAppState);
 
     return (
       <div id="preferencesViewContainer">
         <h1 className="preferencesHeader">Preferences</h1>
         <div className="preferenceSelectorContainer">
-            { this.state.page === 0 ? this.state.userPreferences1.map((toggleArray, index) => {
+            { state.page === 0 ? state.userPreferences1.map((toggleArray, index) => {
               return (
                 <ToggleOptions
-                  updateData={this.updateData.bind(this)}
+                  // updateData={this.updateData.bind(this)}
                   toggleArray={toggleArray}
                   key={index}
                 />
               )
             }) : null }
 
-          {this.state.page === 1 ? this.state.userPreferences2.map((toggleArray, index) => {
+          {/* {this.state.page === 1 ? this.state.userPreferences2.map((toggleArray, index) => {
             return (
               <ToggleOptions
                 updateData={this.updateData.bind(this)}
@@ -184,9 +148,9 @@ class Preferences extends Component {
                 key={index}
               />
             )
-          }) : null}
+          }) : null} */}
 
-          {this.state.page === 2 ?
+          {/* {this.state.page === 2 ?
           <div className="inputContainer">
             <p id="preferencesInputInstructions">Other Allergies or Restrictions:</p>
               <ul id="preferencesUl">
@@ -205,9 +169,9 @@ class Preferences extends Component {
               <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => this.addAllergies(event)}primary >Add</Button>
               </div>
             </div> 
-            : null }
+            : null } */}
 
-          {this.state.page === 3 ? 
+          {/* {this.state.page === 3 ? 
               <div id="preferencesCountContainer">
                 <p className="preferenceDescription">How many people you are preparing for?</p>
                 <input id="preferencesCountInput" placeholder="ex: 3"></input>
@@ -231,17 +195,17 @@ class Preferences extends Component {
                   </Box>
                 </Grommet>
               </div>
-            : null}
+            : null} */}
 
         </div>
         <div id="preferencesDetailContainer">
-          <p id="preferencesDetail">{this.state.details[this.state.page]}</p>
+          {/* <p id="preferencesDetail">{this.state.details[this.state.page]}</p> */}
         </div>
         <Button className="primary_button preferenceButton" onClick={() => this.saveAndContinue()} primary >{'Save & Continue'}</Button>
       <NavBar />
       </div>
     )
-  }
+  // }
 }
 
 export default Preferences;
