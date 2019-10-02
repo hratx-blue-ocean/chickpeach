@@ -42,15 +42,69 @@ app.get('/user', (req, res) => {
 });
 
 //get user preferences
+
 app.get('/userpreferences', (req, res) => {
-  pool.query(`SELECT * FROM Preferences where id = '${req.query.id}';`, (err, rows, fields) => {
+  pool.query(`SELECT * FROM Preferences where user_id = '${req.query.id}';`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(200).send(rows);
   });
 });
 
+//create user preferences
+
+app.get('/createpreferences', (req, res) => {
+  pool.query(`INSERT INTO Preferences (
+                user_id,
+                allergy_egg,
+                allergy_grain,
+                allergy_peanut,
+                allergy_seafood,
+                allergy_shellfish,
+                allergy_sesame,
+                allergy_soy,
+                allergy_sulfite,
+                allergy_tree_nut,
+                allergy_wheat,
+                diet_vegetarian,
+                diet_vegan,
+                diet_gluten_free,
+                diet_dairy_free,
+                diet_ketogenic,
+                diet_whole_thirty,
+                use_metric,
+                people_to_prep_for,
+                meals_per_week)
+              VALUES (
+                '${req.query.id}',
+                ${req.query.egg},
+                ${req.query.grain},
+                ${req.query.peanut},
+                ${req.query.seafood},
+                ${req.query.shellfish},
+                ${req.query.sesame},
+                ${req.query.soy},
+                ${req.query.sulfite},
+                ${req.query.treeNut},
+                ${req.query.wheat},
+                ${req.query.vegetarian},
+                ${req.query.vegan},
+                ${req.query.glutenFree},
+                ${req.query.dairyFree},
+                ${req.query.keto},
+                ${req.query.wholeThirty},
+                ${req.query.metric},
+                ${req.query.numPeople},
+                ${req.query.numMeals});`, (err, rows, fields) => {
+
+    if (err) console.log(err);
+
+    res.status(201).send('success');
+  });
+});
+
 //update user preferences
+
 app.get('/adjustpreferences', (req, res) => {
   pool.query(`UPDATE Preferences SET
                 allergy_egg = ${req.query.egg},
@@ -69,7 +123,9 @@ app.get('/adjustpreferences', (req, res) => {
                 diet_dairy_free = ${req.query.dairyFree},
                 diet_ketogenic = ${req.query.keto},
                 diet_whole_thirty = ${req.query.wholeThirty},
-                use_metric = ${req.query.metric}
+                use_metric = ${req.query.metric},
+                people_to_prep_for = ${req.query.numPeople},
+                meals_per_week = ${req.query.numMeals}
               WHERE user_id = '${req.query.id}';`, (err, rows, fields) => {
     if (err) console.log(err);
 
@@ -77,7 +133,27 @@ app.get('/adjustpreferences', (req, res) => {
   });
 });
 
-//get banned ingredients by user id
+//get recipe list
+
+app.get('/getrecipes', (req, res) => {
+  pool.query(`SELECT * FROM Recipes;`, (err, rows, fields) => {
+    if (err) console.log(err);
+
+    res.status(200).send(rows);
+  });
+});
+
+//get ingredients
+
+app.get('/getingredients', (req, res) => {
+  pool.query(`SELECT * FROM Ingredients;`, (err, rows, fields) => {
+    if (err) console.log(err);
+
+    res.status(200).send(rows);
+  });
+});
+
+//add banned ingredients for user
 
 app.get('/bannedingredients', (req, res) => {
   pool.query(`INSERT INTO Banned_Ingredients (user_id, name) VALUES ('${req.query.user_id}', ${req.query.name}');`, (err, rows, fields) => {
@@ -97,54 +173,54 @@ app.get('/menuitems', (req, res) => {
   });
 });
 
+
+
 //SEARCH API route
-app.get('/searchRecipes', async (req, res) => {
-  try {
-    let recipesData = {}; 
-    const recipesSearched = await axios({
-      "method":"GET",
-      "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search",
-      "headers":{
-        "content-type":"application/octet-stream",
-        "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com", //api Host domain through rapidAPI
-        "x-rapidapi-key":spoonAPIKey                                    //api Key Spoonacular set to a config file in root DIR (gitignored)
-      },"params":{
-        "diet": req.query.diet,
-        "excludeIngredients":req.query.banList,
-        "intolerances":req.query.allergenList,
-        "number":"20",
-        "offset":"0",
-        "instructionsRequired":"true",
-        "query":req.query.searchInput
-      }
-    });
-    
-    recipesData.results = await recipesSearched.body.results.map(recipe => {
-      delete recipe['imageUrls'];
-      return recipe;
-    });
-    
-    res.status(200).send(recipesData);
-    
-  } catch(err) {
-    console.log(err);
-    res.status(404).send({});
-  }
+// app.get('/searchRecipes', async (req, res) => {
+//   try {
+
+//     const recipesSearched = await axios({
+//       "method":"GET",
+//       "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search",
+//       "headers":{
+//         "content-type":"application/octet-stream",
+//         "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com", //api Host domain
+//         "x-rapidapi-key":spoonAPIKey                                    //api Key Spoonacular set to a config file in server DIR (gitignored)
+//       },"params":{
+//         "diet":`${req.query.diet}`,
+//         "excludeIngredients":`${req.query.banList}`,
+//         "intolerances":`${req.query.allergenList}`,
+//         "number":"20",
+//         "offset":"0",
+//         "instructionsRequired":"true",
+//         "query":`${req.query.searchInput}`
+//       }
+//     });
+//     const recipeIDs = await recipesSearched.body.results.map(x => x.id);
   
-});
-       
-    //const recipeIDs = await recipesSearched.body.results.map(recipe => recipe.id);
-    // const recipesInfoBulk = await axios({
-    //   "method":"GET",
-    //   "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk",
-    //   "headers":{
-    //     "content-type":"application/octet-stream",
-    //     "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-    //     "x-rapidapi-key":spoonAPIKey
-    //     },"params":{
-    //       "ids":recipeIDs.join()
-    //     }
-    // });
+
+//     const recipesInfoBulk = await axios({
+//       "method":"GET",
+//       "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk",
+//       "headers":{
+//         "content-type":"application/octet-stream",
+//         "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+//         "x-rapidapi-key":"b0d836b685msh81f6d3578b838a3p1a8c04jsnd9beb282b2d9"
+//         },"params":{
+//           "ids":recipeIDs.join()
+//         }
+//     });
+//     res.send(recipesInfoBulk).status(200);
+//   } catch(err) {
+//     console.log(err);
+//   }
+//     // .then((response)=>{
+//     //   console.log(response)
+//     // })
+//     // .catch((error)=>{
+//     //   console.log(error)
+//     // })
+// });
 
 //Add new routes above
 app.get('/*', function(req, res) {
