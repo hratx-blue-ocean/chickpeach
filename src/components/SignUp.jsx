@@ -15,12 +15,9 @@ const SignUp = (props) => {
     function onRegister() {
       const reg = new Promise((resolve, reject) => {
         resolve(firebase.register(name, email, password))
-        var user = firebase.auth().currentUser
-        console.log(user)
+        var user = firebase.auth.currentUser
+        console.log(user.uid) // this is the uid string
       }, 300)
-      .then((response) => {
-        console.log(response.uid)
-      })
     }
 
 
