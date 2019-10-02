@@ -10,6 +10,7 @@ const LogIn = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     //const dispatch= useDispatch();
+    const dispatch= useDispatch();
 
     function onRegister() {
 
@@ -17,7 +18,7 @@ const LogIn = (props) => {
         resolve(firebase.login(email, password))
         dispatch(addAccountInfo(firebase.auth.currentUser.uid, firebase.auth.currentUser.displayName, firebase.auth.currentUser.email))
       }, 300)
-      .then(props.history.replace('/recipes'))
+      //.then(props.history.replace('/recipes'))
       
     }
 
