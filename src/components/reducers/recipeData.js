@@ -1,6 +1,6 @@
 import { dummyIngredients, dummySearchRecipeArray } from '../../../db/initialData.js'
 
-const recipeList = (state=dummySearchRecipeArray, action) => {
+const menu = (state=dummySearchRecipeArray, action) => {
   if(action.type === 'UPDATE') {
     let newState = {}
     newState.recipes = action.recipes
@@ -11,4 +11,4 @@ const recipeList = (state=dummySearchRecipeArray, action) => {
 
 
 
-export { recipeList };
+export { menu };

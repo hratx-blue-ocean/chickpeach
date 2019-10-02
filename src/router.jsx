@@ -11,14 +11,12 @@ import SignUp from './components/SignUp.jsx'
 import LogIn from './components/Login.jsx'
 import Splash from './components/Splash.jsx'
 
-//Initial Data
-import { dummyIngredients } from '../db/initialData.js'
 import { useStore } from 'react-redux'
 
 function RouteManager() {
 
   let store = useStore()
-  let recipes = store.getState().Recipes;
+  let menuRecipes = store.getState().Menu;
   return (
     <Router>
       <div>
@@ -26,15 +24,15 @@ function RouteManager() {
         <Route exact path="/template" component={Template} />
         <Route exact path="/preferences" component={Preferences} />
         <Route exact path="/shoppingList" 
-               render={(props) => (<ShoppingList {...props} ingredients={dummyIngredients} />)} />
+               render={(props) => (<ShoppingList {...props} ingredients={menuRecipes} />)} />
         <Route exact path="/recipeView" 
-                     render={(props) => (<RecipeView {...props} recipe={recipes[0]} />)} />
+                     render={(props) => (<RecipeView {...props} recipe={menuRecipes[0]} />)} />
         <Route exact path="/recipeSearch" 
-                     render={(props) => (<RecipeLanding {...props} recipes={recipes} />)} />
+                     render={(props) => (<RecipeLanding {...props} recipes={menuRecipes} />)} />
         <Route exact path="/menu" 
-                     render={(props) => (<Menu {...props} recipes={recipes} />)} />
+                     render={(props) => (<Menu {...props} recipes={menuRecipes} />)} />
         <Route exact path="/createRecipe" 
-                     render={(props) => (<CreateRecipe {...props} recipe={dummyRecipe} />)} />
+                     render={(props) => (<CreateRecipe {...props} recipe={menuRecipes[0]} />)} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/LogIn" component={LogIn} />
       </div>
