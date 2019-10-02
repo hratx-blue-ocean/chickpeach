@@ -4,7 +4,7 @@ const path = require('path');
 const port = 3000;
 const axios = require('axios');
 const bodyParser = require('body-parser');
-const { spoonAPIKey } = require('./spoonAPI.config.js');
+const { spoonAPIKey } = require('../spoonAPI.config.js');
 const mysql = require('mysql2');
 
 const pool = mysql.createConnection({
@@ -213,12 +213,12 @@ app.get('/menuitems', (req, res) => {
 //   } catch(err) {
 //     console.log(err);
 //   }
-//     // .then((response)=>{
-//     //   console.log(response)
-//     // })
-//     // .catch((error)=>{
-//     //   console.log(error)
-//     // })
+    // .then((response)=>{
+    //   console.log(response)
+    // })
+    // .catch((error)=>{
+    //   console.log(error)
+    // })
 // });
 
 //Add new routes above
