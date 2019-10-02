@@ -6,10 +6,7 @@ USE chickpeach;
 
 CREATE TABLE Users (
     id VARCHAR(64) PRIMARY KEY,
-    name TEXT,
-    people_to_prep_for INT,
-    portions_per_week INT,
-    portions_fulfilled INT
+    name TEXT
 );
 
 CREATE TABLE Preferences (
@@ -31,7 +28,9 @@ CREATE TABLE Preferences (
     diet_dairy_free BOOLEAN,
     diet_ketogenic BOOLEAN,
     diet_whole_thirty BOOLEAN,
-    use_metric BOOLEAN
+    use_metric BOOLEAN,
+    people_to_prep_for INT,
+    meals_per_week INT
 );
 
 CREATE TABLE Recipes (
@@ -93,25 +92,25 @@ CREATE TABLE Recipes_Ingredients (
 );
 
 ALTER TABLE Users_Recipes 
-ADD FOREIGN KEY (user_id) REFERENCES Users (id);
+ADD FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE;
 
 ALTER TABLE Users_Recipes 
-ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id);
+ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id) ON DELETE CASCADE;
 
 ALTER TABLE Banned_Ingredients 
-ADD FOREIGN KEY (user_id) REFERENCES Users (id);
+ADD FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE;
 
 ALTER TABLE Cooking_Instructions 
-ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id);
+ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id) ON DELETE CASCADE;
 
 ALTER TABLE Recipes 
-ADD FOREIGN KEY (nutrient_id) REFERENCES Nutrients (id);
+ADD FOREIGN KEY (nutrient_id) REFERENCES Nutrients (id) ON DELETE CASCADE;
 
 ALTER TABLE Preferences 
-ADD FOREIGN KEY (user_id) REFERENCES Users (id);
+ADD FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE;
 
 ALTER TABLE Recipes_Ingredients 
-ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id);
+ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id) ON DELETE CASCADE;
 
 ALTER TABLE Recipes_Ingredients 
-ADD FOREIGN KEY (ingredient_id) REFERENCES Ingredients (id);
+ADD FOREIGN KEY (ingredient_id) REFERENCES Ingredients (id) ON DELETE CASCADE;
