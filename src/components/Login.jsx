@@ -19,10 +19,8 @@ const LogIn = (props) => {
         dispatch(addAccountInfo(firebase.auth.currentUser.uid, firebase.auth.currentUser.displayName, firebase.auth.currentUser.email))
       }, 300)
       //.then(props.history.replace('/recipes'))
-      
     }
-
-
+    
     return (
       <Grommet >
         <div className='signup_container'>

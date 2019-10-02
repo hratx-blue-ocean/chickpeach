@@ -17,6 +17,7 @@ const SignUp = (props) => {
         resolve(firebase.register(name, email, password))
         var user = firebase.auth.currentUser
         console.log(user.uid) // this is the uid string
+        //props.history.replace('/recipes')
       }, 300)
     }
 
