@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Home from './components/Home.jsx';
 import Template from './components/Template.jsx';
-import Preferences from "./components/PreferencesCopy.jsx";
+import Preferences from "./components/Preferences.jsx";
 import ShoppingList from './components/ShoppingList.jsx';
 import RecipeView from './components/RecipeView.jsx';
 import RecipeLanding from './components/RecipeLanding.jsx';
