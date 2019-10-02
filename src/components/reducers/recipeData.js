@@ -5,11 +5,10 @@ const menu = (state=dummySearchRecipeArray, action) => {
     let newState = {
       recipes: action.recipes
     };
+    return newState;
   }
-
+  
   return state;
 }
-
-
 
 export { menu };

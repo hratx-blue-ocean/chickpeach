@@ -75,6 +75,13 @@ const SetPeople = (number) => {
   }
 }
 
+const SetMeals = (number) => {
+  return {
+    type: 'SetMeals',
+    number: number
+  }
+}
+
 const updateRecipeList = (recipeListObject) => {
   return {
     type: 'Recipes',
@@ -106,11 +113,4 @@ const updateMenu = (menu) => {
   };
 };
 
-const SetMeals = (number) => {
-  return {
-    type: 'SetMeals',
-    number: number
-  }
-}
-
-export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList, updateQuery, updateSearch }
+export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList, updateQuery, updateSearch, updateMenu }
