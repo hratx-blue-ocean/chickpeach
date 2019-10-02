@@ -5,17 +5,17 @@ const port = 3000;
 const mysql = require('mysql2');
 const axios = require('axios');
 const bodyParser = require('body-parser');
-const { spoonAPIKey } = require('./spoonAPI.config.js');
+// const { spoonAPIKey } = require('./spoonAPI.config.js');
 
-const pool = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'chickpeach',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-});
+// const pool = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'password',
+//   database: 'chickpeach',
+//   waitForConnections: true,
+//   connectionLimit: 10,
+//   queueLimit: 0
+// });
 
 app.use(express.static('dist'));
 app.use(bodyParser.json());
