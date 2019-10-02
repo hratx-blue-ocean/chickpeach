@@ -23,8 +23,11 @@ const Menu = (props) => {
           />
         </div>
         <div className="card_container">
-          <MenuCard />
-          <MenuCard />
+          {
+            props.recipes.map(recipe => {
+              return <MenuCard recipe={recipe} />
+            })
+          }
         </div>
       </div>
       <NavBar />

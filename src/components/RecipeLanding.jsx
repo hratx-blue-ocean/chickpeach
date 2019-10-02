@@ -24,8 +24,11 @@ const RecipeLanding = (props) => {
         </div>
         <hr className="recipes_divider" />
         <div className="card_container">
-          <RecipeCard />
-          <RecipeCard />
+          {
+            props.recipes.map(recipe => {
+              return <RecipeCard recipe={recipe}/>
+            })
+          }
         </div>
       </div>
       <NavBar />

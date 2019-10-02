@@ -11,6 +11,9 @@ import SignUp from './components/SignUp.jsx'
 import LogIn from './components/Login.jsx'
 import Splash from './components/Splash.jsx'
 
+//Initial Data
+import { dummyIngredients, dummyRecipe, dummySearchRecipeArray } from '../db/initialData.js'
+
 function RouteManager() {
   return (
     <Router>
@@ -18,11 +21,16 @@ function RouteManager() {
         <Route exact path="/" component={Splash} />
         <Route exact path="/template" component={Template} />
         <Route exact path="/preferences" component={Preferences} />
-        <Route exact path="/shoppingList" component={ShoppingList} />
-        <Route exact path="/recipeView" component={RecipeView} />
-        <Route exact path="/recipeSearch" component={RecipeLanding} />
-        <Route exact path="/menu" component={Menu} />
-        <Route exact path="/createRecipe" component={CreateRecipe} />
+        <Route exact path="/shoppingList" 
+               render={(props) => (<ShoppingList {...props} ingredients={dummyIngredients} />)} />
+        <Route exact path="/recipeView" 
+                     render={(props) => (<RecipeView {...props} recipe={dummyRecipe} />)} />
+        <Route exact path="/recipeSearch" 
+                     render={(props) => (<RecipeLanding {...props} recipes={dummySearchRecipeArray} />)} />
+        <Route exact path="/menu" 
+                     render={(props) => (<Menu {...props} recipes={dummySearchRecipeArray} />)} />
+        <Route exact path="/createRecipe" 
+                     render={(props) => (<CreateRecipe {...props} recipe={dummyRecipe} />)} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/LogIn" component={LogIn} />
       </div>
