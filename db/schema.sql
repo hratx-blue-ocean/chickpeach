@@ -92,25 +92,25 @@ CREATE TABLE Recipes_Ingredients (
 );
 
 ALTER TABLE Users_Recipes 
-ADD FOREIGN KEY (user_id) REFERENCES Users (id);
+ADD FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE;
 
 ALTER TABLE Users_Recipes 
-ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id);
+ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id) ON DELETE CASCADE;
 
 ALTER TABLE Banned_Ingredients 
-ADD FOREIGN KEY (user_id) REFERENCES Users (id);
+ADD FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE;
 
 ALTER TABLE Cooking_Instructions 
-ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id);
+ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id) ON DELETE CASCADE;
 
 ALTER TABLE Recipes 
-ADD FOREIGN KEY (nutrient_id) REFERENCES Nutrients (id);
+ADD FOREIGN KEY (nutrient_id) REFERENCES Nutrients (id) ON DELETE CASCADE;
 
 ALTER TABLE Preferences 
-ADD FOREIGN KEY (user_id) REFERENCES Users (id);
+ADD FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE;
 
 ALTER TABLE Recipes_Ingredients 
-ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id);
+ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id) ON DELETE CASCADE;
 
 ALTER TABLE Recipes_Ingredients 
-ADD FOREIGN KEY (ingredient_id) REFERENCES Ingredients (id);
+ADD FOREIGN KEY (ingredient_id) REFERENCES Ingredients (id) ON DELETE CASCADE;
