@@ -51,10 +51,10 @@ CREATE TABLE Recipes (
 
 CREATE TABLE Ingredients (
     id INT PRIMARY KEY AUTO_INCREMENT,
+    recipe_id INT,
     name TEXT,
     image TEXT,
     aisle TEXT,
-    recipe_id INT,
     quantity INT,
     unit TEXT
 );
@@ -94,4 +94,7 @@ ALTER TABLE Cooking_Instructions
 ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id) ON DELETE CASCADE;
 
 ALTER TABLE Preferences 
-ADD FOREIGN KEY (user_id) REFERENCES Users (id);
+ADD FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE;
+
+ALTER TABLE Ingredients 
+ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id) ON DELETE CASCADE;
