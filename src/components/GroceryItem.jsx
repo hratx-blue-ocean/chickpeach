@@ -1,21 +1,18 @@
 import React from 'react';
-import { Box } from "grommet";
 import { withRouter } from 'react-router-dom';
 
 
 const GroceryItem = (props) => {
   return (
-  <div>
-    <div className='grocery_line_top'>
-    {props.ingredients.map((line) => {
+  <div> 
+    {props.recipe.ingredients.map((ingredient) => {
       return (
-        <div className='grocery_line' key={line[0]}>
-            <span className='list_item' className='list_item_left'>{line[0]}</span>
-            <span className='list_item' className='list_item_right'>{line[1]}</span>
+        <div className='grocery_line' key={ingredient.name}>
+            <span className='list_item list_item_left'>{ingredient.name}</span>
+            <span className='list_item list_item_right'>{`${ingredient.quantity} ${ingredient.unit}`}</span>
         </div>
       )
-    })}
-    </div>
+    })} 
   </div>
   )
 }
