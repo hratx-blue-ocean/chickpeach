@@ -7,20 +7,35 @@ USE chickpeach;
 CREATE TABLE Users (
     id VARCHAR(64) PRIMARY KEY,
     name TEXT,
-    portions_per_week INT,
-    portions_fulfilled INT,
-    vegetarian BOOLEAN,
-    vegan BOOLEAN,
-    gluten_free BOOLEAN,
-    dairy_free BOOLEAN,
-    ketogenic BOOLEAN,
-    whole_thirty BOOLEAN,
     people_to_prep_for INT,
+    portions_per_week INT,
+    portions_fulfilled INT
+);
+
+CREATE TABLE Preferences (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id VARCHAR(64),
+    allergy_egg BOOLEAN,
+    allergy_grain BOOLEAN,
+    allergy_peanut BOOLEAN,
+    allergy_seafood BOOLEAN,
+    allergy_shellfish BOOLEAN,
+    allergy_sesame BOOLEAN,
+    allergy_soy BOOLEAN,
+    allergy_sulfite BOOLEAN,
+    allergy_tree_nut BOOLEAN,
+    allergy_wheat BOOLEAN,
+    diet_vegetarian BOOLEAN,
+    diet_vegan BOOLEAN,
+    diet_gluten_free BOOLEAN,
+    diet_dairy_free BOOLEAN,
+    diet_ketogenic BOOLEAN,
+    diet_whole_thirty BOOLEAN,
     use_metric BOOLEAN
 );
 
 CREATE TABLE Recipes (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     title TEXT,
     image TEXT,
     nutrient_id INT,
@@ -29,13 +44,14 @@ CREATE TABLE Recipes (
 );
 
 CREATE TABLE Ingredients (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name TEXT,
-    image TEXT
+    image TEXT,
+    aisle TEXT
 );
 
 CREATE TABLE Nutrients (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     calories INT,
     carbs TEXT,
     fat TEXT,
@@ -46,30 +62,30 @@ CREATE TABLE Nutrients (
 );
 
 CREATE TABLE Banned_Ingredients (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     user_id VARCHAR(64),
     name TEXT
 );
 
 CREATE TABLE Cooking_Instructions (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     recipe_id INT,
     step_number INT,
     step TEXT
 );
 
 CREATE TABLE Users_Recipes (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     user_id VARCHAR(64),
     recipe_id INT,
     is_saved BOOLEAN,
     is_favorited BOOLEAN,
     is_on_menu BOOLEAN,
-    created_by TEXT
+    created_by_user BOOLEAN
 );
 
 CREATE TABLE Recipes_Ingredients (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     recipe_id INT,
     ingredient_id INT,
     quantity INT,
@@ -89,7 +105,10 @@ ALTER TABLE Cooking_Instructions
 ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id);
 
 ALTER TABLE Recipes 
-ADD FOREIGN KEY (nutrient_id) REFERENCES nutrients (id);
+ADD FOREIGN KEY (nutrient_id) REFERENCES Nutrients (id);
+
+ALTER TABLE Preferences 
+ADD FOREIGN KEY (user_id) REFERENCES Users (id);
 
 ALTER TABLE Recipes_Ingredients 
 ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id);
