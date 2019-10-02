@@ -1,5 +1,7 @@
 node_modules
 .DS_Store
-server/.env
 dist/bundle.js
 firebase.config.js
+package-lock.json
+spoonAPI.config.js
+
