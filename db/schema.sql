@@ -37,20 +37,9 @@ CREATE TABLE Recipes (
     id INT PRIMARY KEY AUTO_INCREMENT,
     title TEXT,
     image TEXT,
-    nutrient_id INT,
     servings INT,
-    prep_time INT
-);
-
-CREATE TABLE Ingredients (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name TEXT,
-    image TEXT,
-    aisle TEXT
-);
-
-CREATE TABLE Nutrients (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    prep_time INT,
+    created_by_user BOOLEAN,
     calories INT,
     carbs TEXT,
     fat TEXT,
@@ -58,6 +47,16 @@ CREATE TABLE Nutrients (
     protein TEXT,
     sodium TEXT,
     sugar TEXT
+);
+
+CREATE TABLE Ingredients (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name TEXT,
+    image TEXT,
+    aisle TEXT,
+    recipe_id INT,
+    quantity INT,
+    unit TEXT
 );
 
 CREATE TABLE Banned_Ingredients (
@@ -82,14 +81,6 @@ CREATE TABLE Users_Recipes (
     is_on_menu BOOLEAN
 );
 
-CREATE TABLE Recipes_Ingredients (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    recipe_id INT,
-    ingredient_id INT,
-    quantity INT,
-    unit TEXT
-);
-
 ALTER TABLE Users_Recipes 
 ADD FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE;
 
@@ -102,14 +93,5 @@ ADD FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE;
 ALTER TABLE Cooking_Instructions 
 ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id) ON DELETE CASCADE;
 
-ALTER TABLE Recipes 
-ADD FOREIGN KEY (nutrient_id) REFERENCES Nutrients (id) ON DELETE CASCADE;
-
 ALTER TABLE Preferences 
-ADD FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE;
-
-ALTER TABLE Recipes_Ingredients 
-ADD FOREIGN KEY (recipe_id) REFERENCES Recipes (id) ON DELETE CASCADE;
-
-ALTER TABLE Recipes_Ingredients 
-ADD FOREIGN KEY (ingredient_id) REFERENCES Ingredients (id) ON DELETE CASCADE;
+ADD FOREIGN KEY (user_id) REFERENCES Users (id);

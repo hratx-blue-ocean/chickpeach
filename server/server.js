@@ -42,8 +42,9 @@ app.get('/user', (req, res) => {
 });
 
 //get user preferences
+
 app.get('/userpreferences', (req, res) => {
-  pool.query(`SELECT * FROM Preferences where id = '${req.query.id}';`, (err, rows, fields) => {
+  pool.query(`SELECT * FROM Preferences where user_id = '${req.query.id}';`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(200).send(rows);
@@ -51,6 +52,7 @@ app.get('/userpreferences', (req, res) => {
 });
 
 //create user preferences
+
 app.get('/createpreferences', (req, res) => {
   pool.query(`INSERT INTO Preferences (
                 user_id,
@@ -70,7 +72,9 @@ app.get('/createpreferences', (req, res) => {
                 diet_dairy_free,
                 diet_ketogenic,
                 diet_whole_thirty,
-                use_metric)
+                use_metric,
+                people_to_prep_for,
+                meals_per_week)
               VALUES (
                 '${req.query.id}',
                 ${req.query.egg},
@@ -89,7 +93,9 @@ app.get('/createpreferences', (req, res) => {
                 ${req.query.dairyFree},
                 ${req.query.keto},
                 ${req.query.wholeThirty},
-                ${req.query.metric});`, (err, rows, fields) => {
+                ${req.query.metric},
+                ${req.query.numPeople},
+                ${req.query.numMeals});`, (err, rows, fields) => {
 
     if (err) console.log(err);
 
@@ -98,6 +104,7 @@ app.get('/createpreferences', (req, res) => {
 });
 
 //update user preferences
+
 app.get('/adjustpreferences', (req, res) => {
   pool.query(`UPDATE Preferences SET
                 allergy_egg = ${req.query.egg},
@@ -116,7 +123,9 @@ app.get('/adjustpreferences', (req, res) => {
                 diet_dairy_free = ${req.query.dairyFree},
                 diet_ketogenic = ${req.query.keto},
                 diet_whole_thirty = ${req.query.wholeThirty},
-                use_metric = ${req.query.metric}
+                use_metric = ${req.query.metric},
+                people_to_prep_for = ${req.query.numPeople},
+                meals_per_week = ${req.query.numMeals}
               WHERE user_id = '${req.query.id}';`, (err, rows, fields) => {
     if (err) console.log(err);
 
@@ -124,7 +133,27 @@ app.get('/adjustpreferences', (req, res) => {
   });
 });
 
-//get banned ingredients by user id
+//get recipe list
+
+app.get('/getrecipes', (req, res) => {
+  pool.query(`SELECT * FROM Recipes;`, (err, rows, fields) => {
+    if (err) console.log(err);
+
+    res.status(200).send(rows);
+  });
+});
+
+//get ingredients
+
+app.get('/getingredients', (req, res) => {
+  pool.query(`SELECT * FROM Ingredients;`, (err, rows, fields) => {
+    if (err) console.log(err);
+
+    res.status(200).send(rows);
+  });
+});
+
+//add banned ingredients for user
 
 app.get('/bannedingredients', (req, res) => {
   pool.query(`INSERT INTO Banned_Ingredients (user_id, name) VALUES ('${req.query.user_id}', ${req.query.name}');`, (err, rows, fields) => {
@@ -143,6 +172,8 @@ app.get('/menuitems', (req, res) => {
     res.status(200).send(rows);
   });
 });
+
+
 
 //SEARCH API route
 // app.get('/searchRecipes', async (req, res) => {
