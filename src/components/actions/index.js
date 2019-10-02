@@ -82,6 +82,7 @@ const updateRecipeList = (recipeListObject) => {
   }
 }
 
+// Updates query to reflect user's search input
 const updateQuery = (query) => {
   return {
     type: 'setQuery',
@@ -89,10 +90,19 @@ const updateQuery = (query) => {
   };
 };
 
+// Updates with results from user's search
 const updateSearch = (search) => {
   return {
     type: 'setSearch',
     searchResults: search
+  };
+};
+
+// Updates with recipes on user's menu
+const updateMenu = (menu) => {
+  return {
+    type: 'UPDATE',
+    recipes: menu
   };
 };
 
@@ -103,6 +113,4 @@ const SetMeals = (number) => {
   }
 }
 
-export {
-  addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, updateQuery, updateSearch,
-  UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList }
+export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList, updateQuery, updateSearch }

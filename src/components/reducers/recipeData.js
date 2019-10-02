@@ -2,8 +2,9 @@ import { dummyIngredients, dummySearchRecipeArray } from '../../../db/initialDat
 
 const menu = (state=dummySearchRecipeArray, action) => {
   if(action.type === 'UPDATE') {
-    let newState = {}
-    newState.recipes = action.recipes
+    let newState = {
+      recipes: action.recipes
+    };
   }
 
   return state;
