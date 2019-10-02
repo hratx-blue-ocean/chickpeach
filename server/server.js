@@ -178,7 +178,7 @@ app.get('/menuitems', (req, res) => {
 
 
 //SEARCH API route
-app.get('/searchRecipes', async (req, res) => {
+app.get('/searchrecipes', async (req, res) => {
     let recipesData = [];
     await axios({
       "method":"GET",
