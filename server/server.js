@@ -50,6 +50,53 @@ app.get('/userpreferences', (req, res) => {
   });
 });
 
+//create user preferences
+app.get('/createpreferences', (req, res) => {
+  pool.query(`INSERT INTO Preferences (
+                user_id,
+                allergy_egg,
+                allergy_grain,
+                allergy_peanut,
+                allergy_seafood,
+                allergy_shellfish,
+                allergy_sesame,
+                allergy_soy,
+                allergy_sulfite,
+                allergy_tree_nut,
+                allergy_wheat,
+                diet_vegetarian,
+                diet_vegan,
+                diet_gluten_free,
+                diet_dairy_free,
+                diet_ketogenic,
+                diet_whole_thirty,
+                use_metric)
+              VALUES (
+                '${req.query.id}',
+                ${req.query.egg},
+                ${req.query.grain},
+                ${req.query.peanut},
+                ${req.query.seafood},
+                ${req.query.shellfish},
+                ${req.query.sesame},
+                ${req.query.soy},
+                ${req.query.sulfite},
+                ${req.query.treeNut},
+                ${req.query.wheat},
+                ${req.query.vegetarian},
+                ${req.query.vegan},
+                ${req.query.glutenFree},
+                ${req.query.dairyFree},
+                ${req.query.keto},
+                ${req.query.wholeThirty},
+                ${req.query.metric});`, (err, rows, fields) => {
+
+    if (err) console.log(err);
+
+    res.status(201).send('success');
+  });
+});
+
 //update user preferences
 app.get('/adjustpreferences', (req, res) => {
   pool.query(`UPDATE Preferences SET
@@ -76,6 +123,35 @@ app.get('/adjustpreferences', (req, res) => {
     res.status(200).send(rows);
   });
 });
+
+// axios.get('/adjustpreferences', {
+//   params: { 
+//     user_id: 'userid',
+//     egg: 'true or false',
+//     grain: 'true or false',
+//     peanut: 'true or false',
+//     seafood: 'true or false',
+//     shellfish: 'true or false',
+//     sesame: 'true or false',
+//     soy: 'true or false',
+//     sulfite: 'true or false',
+//     treeNut: 'true or false',
+//     wheat: 'true or false',
+//     vegetarian: 'true or false',
+//     vegan: 'true or false',
+//     glutenFree: 'true or false',
+//     dairyFree: 'true or false',
+//     keto: 'true or false',
+//     wholeThirty: 'true or false',
+//     metric: 'true or false'
+//   }
+// })
+// .then(function (response) {
+//   console.log(response);
+// })
+// .catch(function (error) {
+//   console.log(error);
+// })
 
 //get banned ingredients by user id
 

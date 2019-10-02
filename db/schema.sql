@@ -79,8 +79,7 @@ CREATE TABLE Users_Recipes (
     recipe_id INT,
     is_saved BOOLEAN,
     is_favorited BOOLEAN,
-    is_on_menu BOOLEAN,
-    created_by_user BOOLEAN
+    is_on_menu BOOLEAN
 );
 
 CREATE TABLE Recipes_Ingredients (
