@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import GroceryItem from  './GroceryItem.jsx';
 import NavBar from './NavBar.jsx';
 
+
 const ShoppingList = (props) => {
   const [ingredients, updateIngredients] = useState(props.ingredients)
   return (
