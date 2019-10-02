@@ -8,13 +8,23 @@ import MaterialIcon from 'material-icons-react';
 import NavBar from './NavBar.jsx';
 import RecipeCard from './RecipeCard.jsx';
 
-const searchForRecipes = () => {
-  
-}
-
 const RecipeLanding = (props) => {
   const dispatch = useDispatch();
-  const state = useSelector(state => state.search);
+  const search = useSelector(state => state.search);
+  const preferences = useSelector(state => state.Preferences);
+
+  const searchForRecipes = () => {
+    axios.get('/searchRecipes', {
+        params: {
+          // diet: preferences.TBD,
+          // banList: preferences.TBD,
+          allergenList: preferences.addedAllergies,
+          searchInput: search.query
+        }
+      })
+      .then(({ data }) => console.log(data))
+      .catch(error => console.log(error));
+  };
 
   return (
     <div>
@@ -24,12 +34,12 @@ const RecipeLanding = (props) => {
           <TextInput
             placeholder="type here"
             plain={true}
-            value={state.query}
+            value={search.query}
             onChange={event => dispatch(updateQuery(event.target.value))}
           />
           <Button
             id="recipes_submit"
-            onClick={() => {console.log(state)}}>
+            onClick={() => searchForRecipes()}>
               <MaterialIcon icon="create" color='whitesmoke' size={20} />
             </Button>
         </div>
