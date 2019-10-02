@@ -27,9 +27,10 @@ const DecrementPageCount = () => {
   }
 }
 
-const SetToggleData = () => {
-  {
-    type: 'SetToggleData'
+const SetToggleData = (newToggleArray) => {
+  return {
+    type: 'SetToggleData',
+    newToggleArray: newToggleArray
   }
 }
 

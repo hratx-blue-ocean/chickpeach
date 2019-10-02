@@ -2,7 +2,7 @@ import React, { Component }from 'react';
 import { Grommet, Button, Box, RadioButton } from 'grommet';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { addAccountInfo, addPreferences } from './actions';
+import { addAccountInfo, addPreferences, SetToggleData } from './actions';
 import ToggleOptions from './ToggleOptions.jsx';
 import AllergyItem from './AllergyItem.jsx';
 import customTheme from './grommet/radioButton';
@@ -126,6 +126,7 @@ const Preferences = (props) => {
 
   let state = useSelector(state => state.prefAppState);
 
+
     return (
       <div id="preferencesViewContainer">
         <h1 className="preferencesHeader">Preferences</h1>
@@ -133,7 +134,6 @@ const Preferences = (props) => {
             { state.page === 0 ? state.userPreferences1.map((toggleArray, index) => {
               return (
                 <ToggleOptions
-                  // updateData={this.updateData.bind(this)}
                   toggleArray={toggleArray}
                   key={index}
                 />

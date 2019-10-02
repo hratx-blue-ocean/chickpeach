@@ -16,19 +16,37 @@ const defaultState = {
 };
 
 const AppStateReducer = (state = defaultState, action) => {
-  if (action.type === 'AddAccountInfo') {
-    let newState = {};
-    newState.uid = action.uid;
-    newState.displayName = action.displayName;
-    newState.email = action.email;
-    newState.vegetarian = state.vegetarian;
-    newState.glutenFree = state.glutenFree;
-    newState.dairyFree = state.dairyFree;
-    newState.keto = state.keto;
-    newState.whole30 = state.whole30;
-    newState.peopleToPrepFor = state.peopleToPrepFor;
-    newState.addedAllergies = state.addedAllergies;
-    newState.isMetric = state.isMetric;
+  if (action.type === 'SetToggleData') {
+    let newState = {
+      details: state.details,
+      page: state.page,
+      addedAllergies: state.addedAllergies,
+      people: state.people,  //peopleToPrepFor
+      isMetric: state.isMetric
+    };
+
+    let newOptions1 = state.userPreferences1.map(array => {
+      return array.slice();
+    })
+
+    let newOptions2 = state.userPreferences2.map(array => {
+      return array.slice();
+    })
+
+    for (let i = 0; i < newOptions1.length; i++) {
+      if (newOptions1[i][0] === action.newToggleArray[0]) {
+        newOptions1[i][1] = action.newToggleArray[1];
+      }
+    }
+
+    for (let i = 0; i < newOptions2.length; i++) {
+      if (newOptions2[i][0] === action.newToggleArray[0]) {
+        newOptions2[i][1] = action.newToggleArray[1];
+      }
+    }
+    newState.userPreferences1 = newOptions1;
+    newState.userPreferences2 = newOptions2;
+
     return newState;
   }
 
