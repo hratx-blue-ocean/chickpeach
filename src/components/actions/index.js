@@ -75,4 +75,11 @@ const SetPeople = (number) => {
   }
 }
 
-export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople }
+const updateRecipeList = (recipeListObject) => {
+  return {
+    type: 'Recipes',
+    recipeListObject: recipeListObject
+  }
+}
+
+export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, updateRecipeList }

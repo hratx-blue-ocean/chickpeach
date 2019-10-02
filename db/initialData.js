@@ -35,10 +35,10 @@ const dummyRecipe = {
     added_sugar: '0g',
     saturated_fat: '26g',
     protein: '20g'
-  }
+  },
+  servings: '4 servings'
 }
 
-const dummySearchRecipe = {title: 'Street Corn', servings: '4 servings'}
-const dummySearchRecipeArray = [dummySearchRecipe, dummySearchRecipe]
+const dummySearchRecipeArray = [dummyRecipe, dummyRecipe]
 
-export { dummyIngredients, dummyRecipe, dummySearchRecipeArray }
+export { dummyIngredients, dummySearchRecipeArray }
