@@ -1,33 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MaterialIcon from 'material-icons-react';
+import { RemoveAllergy, MouseHandler } from './actions';
+import { useSelector, useDispatch } from 'react-redux';
 
-class AllergyItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      onHover: false
-    }
-  }
+const AllergyItem = (props) => {
+  let dispatch = useDispatch();
+  let state = useSelector(state => state.prefAppState);
 
-  mouseHandler(boolean) {
-    console.log(boolean)
-    this.setState({ onHover: boolean });
-  }
-
-  render() {
-    return (
-      <div className="AllergyCancelContainer">
-        <li className="preferencesAllergyItem"
-          onMouseEnter={() => this.mouseHandler(true)} onMouseLeave={() => this.mouseHandler(false)}
-          style={{ cursor: "pointer", color: (this.state.onHover ? "#FFB084" : "#444444") }}>{this.props.allergy}</li>
-        <div className="preferenceIconContainer" style={{ cursor: "pointer" }}
-          onMouseEnter={() => this.mouseHandler(true)} onMouseLeave={() => this.mouseHandler(false)}
-          onClick={() => this.props.removeAllergy(this.props.allergy)}>
-          {this.state.onHover ? <div><MaterialIcon icon="cancel" color="#FFB084" size={18} /></div> : <div> <MaterialIcon icon="cancel" color="#EBEDEF" size={18} /> </div>}
-        </div>
+  return (
+    <div className="AllergyCancelContainer">
+      <li className="preferencesAllergyItem"
+        // onMouseEnter={() => dispatch(MouseHandler(true))} onMouseLeave={() => dispatch(MouseHandler(false))}
+        style={{ cursor: "pointer", color: (state.onHover ? "#FFB084" : "#444444") }}>{props.allergy}</li>
+      <div className="preferenceIconContainer" style={{ cursor: "pointer" }}
+        // onMouseEnter={() => dispatch(MouseHandler(true))} onMouseLeave={() => dispatch(MouseHandler(false))}
+        onClick={() => dispatch(RemoveAllergy(props.allergy))}>
+        {state.onHover ? <div><MaterialIcon icon="cancel" color="#FFB084" size={18} /></div> : <div> <MaterialIcon icon="cancel" color="#EBEDEF" size={18} /> </div>}
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default AllergyItem;
