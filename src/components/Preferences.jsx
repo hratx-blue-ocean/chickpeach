@@ -4,100 +4,14 @@ import { storiesOf } from "@storybook/react";
 import { grommet } from "grommet/themes";
 import { FormDown } from "grommet-icons";
 import { deepMerge } from "grommet/utils";
-import { css } from "styled-components";
 import { useSelector, useDispatch } from 'react-redux';
 import { addAccountInfo, addPreferences } from './actions';
 import NavBar from './NavBar.jsx'
 import data from '../../db/dummyPreferenceData';
 import { withRouter } from 'react-router-dom';
-import MaterialIcon from 'material-icons-react';
-
-/*///////////////////////////////////////////////////////////////////////////
-//////////////     GROMMET RADIO BUTTON   ///////////////////////////////////
-///////////////////////////////////////////////////////////////////////////*/
-
-const customTheme = deepMerge(grommet, {
-  radioButton: {
-    gap: "xsmall",
-    size: "18px",
-    hover: {
-      border: {
-        color: "dark-3"
-      }
-    },
-    check: {
-      color: {
-        light: "neutral-1"
-      }
-    },
-    icon: {
-      size: "10px"
-    }
-  }
-});
-
-
-/*///////////////////////////////////////////////////////////////////////////
-//////////////     GROMMET TOGGLE ///////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////*/
-const checkboxCheckStyle = css`
-  background-color: #FBDCA1;
-  border-color: #FBDCA1;
-`;
-
-const customToggleTheme = {
-  global: {
-    colors: {
-      "focus": undefined,
-      "toggle-bg": "#CCCCCC",
-      "toggle-knob": "white",
-      "toggle-accent": "#CCCCCC"
-    }
-  },
-  checkBox: {
-    border: {
-      color: {
-        light: "toggle-bg"
-      }
-    },
-    color: {
-      light: "toggle-knob"
-    },
-    check: {
-      radius: "2px"
-    },
-    hover: {
-      border: {
-        color: undefined
-      }
-    },
-    toggle: {
-      background: { light: "toggle-accent" },
-      color: {
-        light: "toggle-knob"
-      },
-      size: "35px",
-      knob: {
-        extend: `
-          top: 0px;
-          box-shadow: 0px 0px 2px 0px rgba(66,66,66,1),
-           0px 2px 2px 0px rgba(66,66,66,1);
-        `
-      },
-      extend: ({ checked }) => `
-        height: 22px;
-        ${checked && checkboxCheckStyle}
-      `
-    },
-    gap: "xsmall",
-    size: "18px"
-  }
-};
-
-/*///////////////////////////////////////////////////////////////////////////
-////////////    APP STARTS     //////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////*/
-
+import customToggleTheme from './grommet/toggle';
+import customTheme from './grommet/radioButton';
+import AllergyItem from './AllergyItem.jsx';
 
 class Preferences extends Component {
   constructor(props) {
@@ -230,9 +144,9 @@ class Preferences extends Component {
     newState.peopleToPrepFor = this.state.people;
     newState.isMetric = this.state.isMetric;
 
-    const billy = useSelector(state => preferenceState)
-    console.log(billy)
-    dispatch(addPreferences(newState))
+    // const billy = useSelector(state => preferenceState)
+    // console.log(billy)
+    // dispatch(addPreferences(newState))
 
       // 'vegetarian'
       // 'glutenFree'
@@ -396,70 +310,6 @@ const Option = (props) => {
     </div>
   )
 }
-
-class AllergyItem extends Preferences {
-  constructor (props) {
-    super (props) 
-    this.state = {
-      onHover: false
-    }
-  }
-
-  mouseHandler(boolean) {
-    console.log(boolean)
-    this.setState({onHover: boolean});
-  }
-
-  render () {
-    return (
-      <div className="AllergyCancelContainer"> 
-        <li className="preferencesAllergyItem" 
-          onMouseEnter={() => this.mouseHandler(true)} onMouseLeave={() => this.mouseHandler(false)} 
-          style={{ cursor: "pointer", color: (this.state.onHover ? "#FFB084" : "#444444")}}>{this.props.allergy}</li>
-        <div className="preferenceIconContainer" style={{cursor: "pointer"}}
-          onMouseEnter={() => this.mouseHandler(true)} onMouseLeave={() => this.mouseHandler(false)}
-          onClick={() => this.props.removeAllergy(this.props.allergy)}>
-          {this.state.onHover ? <div><MaterialIcon icon="cancel" color="#FFB084" size={18} /></div> : <div> <MaterialIcon icon="cancel" color="#EBEDEF" size={18} /> </div>}
-        </div>
-      </div>
-    )
-  }
-}
-
-// const CustomMenu = () => (
-//   <Grommet theme={grommet}>
-//     <Box
-//       align="center"
-//       pad="large"
-//       background={{ color: "default", opacity: 0.7 }}
-//     >
-//       <Menu
-//         plain
-//         items={[
-//           { label: "Launch", onClick: () => { } },
-//           { label: "Abort", onClick: () => { } }
-//         ]}
-//       >
-//         {({ drop, hover }) => {
-//           const color = hover && !drop ? "accent-1" : undefined;
-//           return (
-//             <Box
-//               direction="row"
-//               gap="small"
-//               pad="small"
-//               background={hover && drop ? "default" : undefined}
-//             >
-//               <Text color={color}>Amount</Text>
-//               <FormDown color={color} />
-//             </Box>
-//           );
-//         }}
-//       </Menu>
-//     </Box>
-//   </Grommet>
-// );
-
-// storiesOf("Menu", module).add("Custom", () => <CustomMenu />);
 
 export default Preferences;
 
