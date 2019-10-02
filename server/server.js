@@ -80,10 +80,9 @@ app.get('/searchRecipes', async (req, res) => {
       }
     });
     
-    recipesData.results = await recipesSearched.body.results.map(x => {
-      delete x['readyInMinutes'];
-      delete x['imageUrls'];
-      return x;
+    recipesData.results = await recipesSearched.body.results.map(recipe => {
+      delete recipe['imageUrls'];
+      return recipe;
     });
     
     res.send(recipesData).status(200);
@@ -93,10 +92,8 @@ app.get('/searchRecipes', async (req, res) => {
   }
   
 });
-    
-    
-    
-    const recipeIDs = await recipesSearched.body.results.map(x => x.id);
+       
+    //const recipeIDs = await recipesSearched.body.results.map(recipe => recipe.id);
     const recipesInfoBulk = await axios({
       "method":"GET",
       "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk",
