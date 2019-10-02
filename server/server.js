@@ -67,8 +67,8 @@ app.get('/searchRecipes', async (req, res) => {
       "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search",
       "headers":{
         "content-type":"application/octet-stream",
-        "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com", //api Host domain
-        "x-rapidapi-key":spoonAPIKey                                    //api Key Spoonacular set to a config file in server DIR (gitignored)
+        "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com", //api Host domain through rapidAPI
+        "x-rapidapi-key":spoonAPIKey                                    //api Key Spoonacular set to a config file in root DIR (gitignored)
       },"params":{
         "diet": req.query.diet,
         "excludeIngredients":req.query.banList,
@@ -85,8 +85,18 @@ app.get('/searchRecipes', async (req, res) => {
       delete x['imageUrls'];
       return x;
     });
-    const recipeIDs = await recipesSearched.body.results.map(x => x.id);
     
+    res.send(recipesData).status(200);
+    
+  } catch(err) {
+    console.log(err);
+  }
+  
+});
+    
+    
+    
+    const recipeIDs = await recipesSearched.body.results.map(x => x.id);
     const recipesInfoBulk = await axios({
       "method":"GET",
       "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk",
@@ -98,22 +108,6 @@ app.get('/searchRecipes', async (req, res) => {
           "ids":recipeIDs.join()
         }
     });
-    //recipesInfoBulk.body.map
-
-    
-    res.send(recipesData).status(200);
-  
-  } catch(err) {
-    console.log(err);
-  }
-    // .then((response)=>{
-    //   console.log(response)
-    // })
-    // .catch((error)=>{
-    //   console.log(error)
-    // })
-});
-
 //Add new routes above
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../dist/index.html'), function(err) {
