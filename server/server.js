@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const port = 3000;
+<<<<<<< HEAD
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const { spoonAPIKey } = require('./spoonAPI.config.js');
@@ -16,6 +17,19 @@ const pool = mysql.createConnection({
   connectionLimit: 10,
   queueLimit: 0
 });
+=======
+// const mysql = require('mysql2');
+
+// const pool = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'password',
+//   database: 'chickpeach',
+//   waitForConnections: true,
+//   connectionLimit: 10,
+//   queueLimit: 0
+// });
+>>>>>>> Optimize for docker
 
 app.use(express.static('dist'));
 app.use(bodyParser.json());
