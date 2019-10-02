@@ -33,7 +33,6 @@ const dummyRecipe = {
 const CreateRecipe = (props) => {
 
   const [userRecipe, updateUserRecipe] = useState(dummyRecipe)
-  console.log(userRecipe)
   return (
     <div>
       <Heading className="header1">Create Recipe</Heading>

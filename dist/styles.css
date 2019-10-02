@@ -233,6 +233,10 @@ h3 {
 
 .recipe_button {
   width: 44vw;
+  border: none !important;
+  margin-right: 2vw !important;
+  line-height: normal !important;
+  background-color: #FBDCA1 !important;
 }
 
 .nutrient_row {
@@ -490,13 +494,6 @@ h3 {
   height: 25px;
 }
 
-.recipe_button {
-  border: none !important;
-  margin-right: 2vw !important;
-  line-height: normal !important;
-  background-color: #FBDCA1 !important;
-}
-
 .create_directions {
   flex-direction: column;
 }
@@ -509,30 +506,6 @@ h3 {
 .create_directionsContainer {
   width: 86vw !important;
   margin: 0 auto;
-  margin-bottom: 15vh;
-}
-
-/* Landing Page */
-
-/* Menu */
-
-.menu_text {
-  margin: 0 40px;
-}
-
-.menu_recipeCount {
-  font-size: 14px;
-  font-weight: 300;
-}
-
-.menu_footer {
-  justify-content: space-between;
-}
-
-.menu_footer Button {
-  width: 100px;
-  font-size: 12px !important;
-  font-weight: bold !important;
   margin-bottom: 15vh;
 }
 
@@ -560,13 +533,12 @@ h3 {
   margin: 3px 0 -3px 0;
 }
 
+/* Landing Page */
 #splash_container {
   background: url("image-wide.png");
-  /* position: absolute; */
   width: 100vw;
   height: 100vh;
   opacity: 0.85;
-
 
   background-position-x: -130px; 
   background-position-y: -50px; 
@@ -593,7 +565,28 @@ h3 {
 #splash_logo {
   margin: 0;
   color: #FFB084;
-  
+}
+
+/* Menu */
+
+.menu_text {
+  margin: 0 40px;
+}
+
+.menu_recipeCount {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.menu_footer {
+  justify-content: space-between;
+}
+
+.menu_footer Button {
+  width: 100px;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  margin-bottom: 15vh;
 }
 
 /* Login and Sign Up */
