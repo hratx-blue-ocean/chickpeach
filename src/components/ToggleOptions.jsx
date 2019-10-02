@@ -4,7 +4,7 @@ import { deepMerge } from "grommet/utils";
 import { grommet } from "grommet/themes";
 import { CheckBox, Grommet } from 'grommet';
 import { useSelector, useDispatch } from 'react-redux';
-import { SetToggleData } from './actions';
+import { UpdateToggles } from './actions';
 
 const ToggleOptions = (props) => {
   let babel = {
@@ -36,7 +36,7 @@ const ToggleOptions = (props) => {
           label={babel[props.toggleArray[0]]}
           toggle={true}
           onChange={() => {
-            dispatch(SetToggleData([props.toggleArray[0], !props.toggleArray[1]]));
+            dispatch(UpdateToggles([props.toggleArray[0], !props.toggleArray[1]]));
           }}
         />
       </Grommet>

@@ -12,17 +12,19 @@ const defaultState = {
     page: 0,
     addedAllergies: [],
     people: 1,  //peopleToPrepFor
-    isMetric: false
+    isMetric: false,
+    onHover: false
 };
 
 const AppStateReducer = (state = defaultState, action) => {
-  if (action.type === 'SetToggleData') {
+  if (action.type === 'UpdateToggles') {
     let newState = {
       details: state.details,
       page: state.page,
       addedAllergies: state.addedAllergies,
       people: state.people,  //peopleToPrepFor
-      isMetric: state.isMetric
+      isMetric: state.isMetric,
+      onHover: false
     };
 
     let newOptions1 = state.userPreferences1.map(array => {
@@ -50,10 +52,102 @@ const AppStateReducer = (state = defaultState, action) => {
     return newState;
   }
 
-  if (action.type === 'Preferences') {
-    console.log('hellomoto')
+  if (action.type === 'IteratePageCount') {
+    let newState = {
+      userPreferences1: state.userPreferences1,
+      userPreferences2: state.userPreferences2,
+      details: state.details,
+      page: state.page + 1,
+      addedAllergies: state.addedAllergies,
+      people: state.people,  //peopleToPrepFor
+      isMetric: state.isMetric,
+      onHover: false
+    };
+
+    return newState;
   }
+
+  if (action.type === 'RemoveAllergy') {
+    let newState = {
+      userPreferences1: state.userPreferences1,
+      userPreferences2: state.userPreferences2,
+      details: state.details,
+      page: state.page,
+      people: state.people,
+      isMetric: state.isMetric,
+      onHover: false
+    };
+
+    let newAllergyList = state.addedAllergies;
+    newAllergyList.splice(newAllergyList.indexOf(action.allergy), 1);
+
+    newState.addedAllergies = newAllergyList
+
+    return newState;
+  }
+
+  if (action.type === 'MouseHandler') {
+    let newState = {
+      userPreferences1: state.userPreferences1,
+      userPreferences2: state.userPreferences2,
+      details: state.details,
+      addedAllergies: state.addedAllergies,
+      page: state.page,
+      people: state.people,
+      isMetric: state.isMetric
+    };
+
+    newState.onHover = action.boolean;
+
+    return newState;
+  }
+
   
+  if (action.type === 'AddAllergies') {
+    let newState = {
+      userPreferences1: state.userPreferences1,
+      userPreferences2: state.userPreferences2,
+      details: state.details,
+      addedAllergies: action.newList,
+      page: state.page,
+      people: state.people, 
+      isMetric: state.isMetric,
+      onHover: false
+    };
+
+    return newState;
+  }
+
+  if (action.type === 'HandleMetric') {
+    let newState = {
+      userPreferences1: state.userPreferences1,
+      userPreferences2: state.userPreferences2,
+      details: state.details,
+      addedAllergies: state.addedAllergies,
+      page: state.page,
+      people: state.people,
+      isMetric: action.boolean,
+      onHover: false
+    };
+
+    return newState;
+  }
+
+  if (action.type === 'SetPeople') {
+    let newState = {
+      userPreferences1: state.userPreferences1,
+      userPreferences2: state.userPreferences2,
+      details: state.details,
+      addedAllergies: state.addedAllergies,
+      page: state.page,
+      people: action.number,
+      isMetric: state.isMetric,
+      onHover: false
+    };
+
+    return newState;
+  }
+
   let newOptions1 = [
     ['vegetarian', data.vegetarian],
     ['glutenFree', data.glutenFree],
@@ -82,8 +176,9 @@ const AppStateReducer = (state = defaultState, action) => {
     details: state.details,
     page: state.page,
     addedAllergies: state.addedAllergies,
-    people: state.people,  //peopleToPrepFor
-    isMetric: state.isMetric
+    people: state.people,
+    isMetric: state.isMetric,
+    onHover: false
   };
   
   return newState;
