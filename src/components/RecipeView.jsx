@@ -19,6 +19,10 @@ const RecipeView = (props) => {
     .catch(error => console.log(error))
   };
 
+  const onClick = () => {
+    return (props.history.replace('/menu'));
+  };
+
   useMemo(() => { // If useMemo doens't work with all items, replace with useEffect
     getRecipe();
   }, [recipe.id])
@@ -37,9 +41,7 @@ const RecipeView = (props) => {
         {
           recipe.ingredients.map((ingredient, index) => {
             return <p className={'recipe_ingredient'} key={index}>
-              {
-                `${ingredient.quantity} ${ingredient.unit} ${ingredient.name}`
-              }
+              {`${ingredient.quantity} ${ingredient.unit} ${ingredient.name}`}
             </p>
           })
         }
@@ -73,7 +75,7 @@ const RecipeView = (props) => {
       </div>
 
       <div className='recipe_buttons'>
-        <Button className={'primary_button recipe_button'} primary >I cooked this!</Button>
+        <Button className={'primary_button recipe_button'} primary onClick={onClick} >I cooked this!</Button>
         <Button className={'secondary_button recipe_button'} primary >Remove from menu</Button>
       </div>
 
