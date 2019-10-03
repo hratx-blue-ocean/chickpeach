@@ -134,7 +134,7 @@ INSERT INTO Users_Recipes (
     is_on_menu
 ) VALUES (
     'a123',
-    1,
+    10000001,
     true,
     true,
     true
