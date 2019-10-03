@@ -30,8 +30,6 @@ const ShoppingList = (props) => {
         //   maybe do something
         // } 
       }
-      
-      ingredient.isCrossedOut = false;
       ingredient.id = index;
       accumulator.push(ingredient);
       return accumulator;   
@@ -79,6 +77,7 @@ const ShoppingList = (props) => {
       </div>
     </div>
   )
+
 }
 
 export default ShoppingList;

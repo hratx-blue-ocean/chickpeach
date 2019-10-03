@@ -10,6 +10,7 @@ const mysql = require('mysql2');
 const { getNestedObject, allowCrossDomain } = require('./utils.js');
 
 
+
 const pool = mysql.createConnection({
   host: 'localhost',
   user: 'root',
