@@ -387,6 +387,7 @@ app.get('/getSingleRecipe', async (req, res) => {
 });
 
 //POST singleRecipe from API result route
+<<<<<<< HEAD
 app.post('/addmenurecipe', async (req, res) => {
   const [recipe_id] = await pool.query(`INSERT INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ('${req.body.title}', '${req.body.image}', '${req.body.servings}', '${req.body.prep_time}', '${req.body.calories}', '${req.body.carbs}', '${req.body.fat}', '${req.body.fiber}', '${req.body.protein}', '${req.body.sodium}', '${req.body.sugar}');`, (err, results, fields) => {
     if (err) console.log(err);
@@ -409,6 +410,10 @@ app.post('/addmenurecipe', async (req, res) => {
 
   });
   res.status(201).send();
+=======
+app.post('/addmenurecipe', (req, res) => {
+      
+>>>>>>> SQL Pool connection change
 });
 
 /* example Axios POST request
