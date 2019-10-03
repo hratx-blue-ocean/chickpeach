@@ -15,13 +15,13 @@ const defaultState = {
     ['glutenFree', false],
     ['dairyFree', false],
     ['egg', false],
-    ['grain', false]
+    ['grain', false],
+    ['peanut', false],
+    ['sesame', false],
   ],
   
   userPreferences2: [
-    ['peanut', false],
     ['seafood', false],
-    ['sesame', false],
     ['shellfish', false],
     ['soy', false],
     ['sulfite', false],
@@ -30,7 +30,8 @@ const defaultState = {
   ],
     details: [
       'Do you have a preferred diet?',
-      'Do you have any of the following dietary restrictions or allergies?',
+      'Do you have any of the following dietary restrictions or allergies? (page 1 of 2)',
+      'Do you have any of the following dietary restrictions or allergies? (page 2 of 2)',
       'Do you have any additional dietary restrictions or allergies?',
       ''
     ],
@@ -257,13 +258,13 @@ const AppStateReducer = (state = defaultState, action) => {
       ['glutenFree', preferences.glutenFree],
       ['dairyFree', preferences.dairyFree],
       ['egg', preferences.egg],
-      ['grain', preferences.grain]
+      ['grain', preferences.grain],
+      ['peanut', preferences.peanut],
+      ['sesame', preferences.sesame],
     ];
 
     let newOptions2 = [
-      ['peanut', preferences.peanut],
       ['seafood', preferences.seafood],
-      ['sesame', preferences.sesame],
       ['shellfish', preferences.shellfish],
       ['soy', preferences.soy],
       ['sulfite', preferences.sulfite],

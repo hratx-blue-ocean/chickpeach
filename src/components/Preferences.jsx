@@ -49,6 +49,10 @@ const Preferences = (props) => {
   const saveToDatabase = () => {
     let newState = {};
 
+    for (let array of state.diet) {
+      newState[array[0]] = array[1]
+    }
+
     for (let array of state.userPreferences1) {
       newState[array[0]] = array[1]
     }
@@ -97,7 +101,7 @@ const Preferences = (props) => {
   const saveAndContinue = () => {
     dispatch(IteratePageCount())
 
-    if (state.page === 3) {
+    if (state.page === 4) {
       dispatch(SetPeople(Number(document.getElementById('preferencesCountInput').value)));
       dispatch(SetMeals(Number(document.getElementById('preferencesMealCountInput').value)));
     }
@@ -119,7 +123,6 @@ const Preferences = (props) => {
     })
 
     for (let arrayPair of newDiet) {
-      console.log(arrayPair[0])
       if (arrayPair[1]) {
         return showName[arrayPair[0]];
       }
@@ -135,15 +138,17 @@ const Preferences = (props) => {
           <p id="preferencesDetail">{state.details[state.page]}</p>
         </div>
         <div className="preferenceSelectorContainer">
-          <Grommet theme={customTheme}>
-            <RadioButtonGroup
-              name="diet"
-              options={['Vegan', 'Vegetarian', 'Keto', 'Whole 30', 'N/A']}
-              value={getValue()}
-              onChange={(event) => dispatch(UpdateDiet(event.target.value))}
-            />
-          </Grommet>
-          { state.page === 0 && state.userPreferences1.map((toggleArray, index) => {
+          {state.page === 0 && <Grommet theme={customTheme}>
+              <RadioButtonGroup
+                name="diet"
+                options={['Vegan', 'Vegetarian', 'Keto', 'Whole 30', 'N/A']}
+                value={getValue()}
+                onChange={(event) => dispatch(UpdateDiet(event.target.value))}
+              />
+            </Grommet>
+          }
+
+          { state.page === 1 && state.userPreferences1.map((toggleArray, index) => {
             return (
               <ToggleOptions
                 toggleArray={toggleArray}
@@ -152,7 +157,7 @@ const Preferences = (props) => {
             )
           })}
 
-        {state.page === 1 && state.userPreferences2.map((toggleArray, index) => {
+        {state.page === 2 && state.userPreferences2.map((toggleArray, index) => {
           return (
             <ToggleOptions
               toggleArray={toggleArray}
@@ -161,7 +166,7 @@ const Preferences = (props) => {
           )
         })}
 
-        {state.page === 2 &&
+        {state.page === 3 &&
         <div className="inputContainer">
           <p id="preferencesInputInstructions">Other Allergies or Restrictions:</p>
             <ul id="preferencesUl">
@@ -180,7 +185,7 @@ const Preferences = (props) => {
             </div>
           </div> }
 
-        {state.page === 3 && 
+        {state.page === 4 && 
             <div id="preferencesCountContainer">
               <p className="preferenceDescription">How many people you are preparing for?</p>
               <input id="preferencesCountInput" placeholder="ex: 3"></input>
