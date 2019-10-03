@@ -67,7 +67,7 @@ const preferenceState = (state = defaultState, action) => {
       keto: preferences.keto,
       vegan: preferences.vegan,
       dairyFree: preferences.dairyFree,
-      whole30: preferences.wholeThirty,
+      whole30: preferences.whole30,
       egg: preferences.egg,
       grain: preferences.grain,
       peanut: preferences.peanut,
@@ -78,10 +78,10 @@ const preferenceState = (state = defaultState, action) => {
       sulfite: preferences.sulfite,
       treeNut: preferences.treeNut,
       wheat: preferences.wheat,
-      peopleToPrepFor: preferences.numPeople,
+      peopleToPrepFor: preferences.peopleToPrepFor,
       addedAllergies: preferences.addedAllergies,
-      isMetric: preferences.metric,
-      numberOfMeals: preferences.numMeals
+      isMetric: preferences.isMetric,
+      numberOfMeals: preferences.numberOfMeals
     };
 
     console.log('reduce', newState)

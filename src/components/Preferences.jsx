@@ -102,9 +102,7 @@ const Preferences = (props) => {
   }
 
   const saveAndContinue = () => {
-
     dispatch(IteratePageCount())
-    //put request to server
 
     if (state.page === 3) {
       dispatch(SetPeople(Number(document.getElementById('preferencesCountInput').value)));
