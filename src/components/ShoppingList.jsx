@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import GroceryItem from  './GroceryItem.jsx';
 import NavBar from './NavBar.jsx';
-// import { useStore } from 'react-redux';
 
-// let store = useStore()
-// userInfo = store.getState().ingredients
 
 const ShoppingList = (props) => {
   const [ingredients, updateIngredients] = useState(props.ingredients)
@@ -17,7 +14,7 @@ const ShoppingList = (props) => {
     return allIngredients.flat();
   }
 
-  const allIngredients = individualIngredientsArray(props.ingredients);
+  const allIngredients = individualIngredientsArray(ingredients.recipes);
  
   function consolodateIngredients(ingredientsToConsolodate) {
     const consolodated = ingredientsToConsolodate.reduce((accumulator, ingredient, index) => {
@@ -33,7 +30,8 @@ const ShoppingList = (props) => {
         //   maybe do something
         // } 
       }
-
+      
+      ingredient.isCrossedOut = false;
       ingredient.id = index;
       accumulator.push(ingredient);
       return accumulator;   
@@ -45,6 +43,17 @@ const ShoppingList = (props) => {
 
   const ingredientsForList = consolodateIngredients(allIngredients);
 
+  const makeAisleList = function(arrOfIngredients) {
+    let allAisles = []
+    arrOfIngredients.map((ingredient) => {
+      if (!allAisles.includes(ingredient.aisle))
+      allAisles.push(ingredient.aisle);
+    })
+    return allAisles;
+  }
+  
+  const aisleList = makeAisleList(ingredientsForList);
+
   return (
     <div>
       <div>
@@ -53,14 +62,13 @@ const ShoppingList = (props) => {
           <div className='grocery_line_top'>
             <div className='grocery_item_container'>
             <div> 
-              {ingredientsForList.map((ingredient) => {
-                return (
-                  <div key={ingredient.id} className='grocery_line'>
-                    <span className='list_item list_item_left'>{ingredient.name}</span>
-                    <span className='list_item list_item_right'>{`${ingredient.quantity} ${ingredient.unit}`}</span>
-                  </div>
-                )
-              })} 
+            {aisleList.map((aisle) => {
+              return (
+                <div key={aisle} className={aisle}>
+                  <GroceryItem aisle={aisle} ingredients={ingredientsForList} />
+                </div>
+              )
+            })} 
             </div>
             </div>   
           </div>
@@ -71,7 +79,6 @@ const ShoppingList = (props) => {
       </div>
     </div>
   )
-
 }
 
 export default ShoppingList;
