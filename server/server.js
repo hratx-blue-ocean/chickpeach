@@ -278,6 +278,7 @@ app.get('/searchrecipes', async (req, res) => {
     await res.status(200).send(recipesData);
 });
 
+//Get Single Recipe Info route by local db MySQL and by SpoonAPI
 app.get('/getSingleRecipe', async (req, res) => {
   let recipeID = req.query.recipeID;
   let obj = {};
@@ -344,6 +345,9 @@ app.get('/getSingleRecipe', async (req, res) => {
    await res.status(200).send(recipeData);
   }
 })
+
+//POST singleRecipe from FORM route
+app.post('/writereview', )
 
 
 //Add new routes above
