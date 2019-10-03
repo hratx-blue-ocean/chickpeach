@@ -25,7 +25,6 @@ const ToggleOptions = (props) => {
     treeNut: 'Tree Nuts',
     wheat: 'Wheat',
   }
-  console.log(props.toggleArray)
 
   let dispatch = useDispatch();
 

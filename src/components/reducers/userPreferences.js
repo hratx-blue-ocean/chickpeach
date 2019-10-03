@@ -84,7 +84,6 @@ const preferenceState = (state = defaultState, action) => {
       numberOfMeals: preferences.numberOfMeals
     };
 
-    console.log('reduce', newState)
     return newState;
   }
 

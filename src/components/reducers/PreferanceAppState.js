@@ -1,9 +1,5 @@
 import data from '../../../db/dummyPreferenceData.js';
 
-
-
-
-
 const defaultState = {
   diet: [
     ['vegetarian', false],
