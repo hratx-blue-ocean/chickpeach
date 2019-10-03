@@ -320,14 +320,6 @@ h3 {
   height: 30px;
 }
 
-.preferenceButton {
-  align-self: flex-end;
-  margin: 50px 10% 0 0 !important;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 5px;
-}
-
 #preferencesUl {
   margin: 0;
 }
@@ -397,14 +389,26 @@ h3 {
   text-align: center;
   margin: 20px 0 10px 0;
 }
+
+.preferenceButton {
+  display: flex;
+  align-self: flex-end;
+  width: 147px;
+  height: auto;
+  /* margin: 50px 10% 0 0 !important; */
+  /* justify-content: space-between; */
+  /* margin-top: 5px; */
+}
+
 .preferencesFooter{
   /* card_footer recipe_footer */
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
-  width: 100%;
+  justify-content: space-between;
+  align-content: flex-end;
+  width: 80%;
   height: 20vh;
-  margin-right: 2vw !important;
+  margin: 0 10vw 0 10vw !important;
 }
 
 
