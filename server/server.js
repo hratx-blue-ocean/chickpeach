@@ -198,7 +198,6 @@ app.get('/searchrecipes', async (req, res) => {
         "query":req.query.searchInput
       }
     }).then(res => {
-      console.log(res.data.results)
       recipesData = res.data.results;
     })
     .catch(err => {
