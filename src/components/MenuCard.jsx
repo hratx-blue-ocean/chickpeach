@@ -21,7 +21,7 @@ const MenuCard = (props) => {
   return (
     <div className="card">
       <div>
-        <img src="https://shazamazon.s3.us-east-2.amazonaws.com/wands/chickpeach/yum.png"></img>
+        <img src={props.recipe.image}></img>
       </div>
       <div className="card_bottom">
         <div className="card_text">
