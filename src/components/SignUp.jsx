@@ -19,23 +19,25 @@ const SignUp = (props) => {
       const reg = new Promise((resolve, reject) => {
         resolve(firebase.register(name, email, password))
         var user = firebase.auth.currentUser;
-        console.log(user);
         uid = user.uid;
+        console.log(uid)
+  
+        axios.get('/register', {
+          params: { 
+            id: uid,
+            name: name
+          }
+        })
+        .then(function () {
+          dispatch(addAccountInfo(uid, name, email))
+          props.history.replace('/preferences')
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
       }, 300);
       
-      reg.then(axios.get('/register', {
-        params: { 
-          id: uid,
-          name: name
-        }
-      })
-      .then(function () {
-        dispatch(addAccountInfo(uid, name, email))
-        props.history.replace('/preferences')
-      })
-      .catch(function (error) {
-        console.log(error);
-      }));
     }
 
     return (

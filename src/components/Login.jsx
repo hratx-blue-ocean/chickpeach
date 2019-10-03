@@ -18,26 +18,26 @@ const LogIn = (props) => {
 
       const reg = new Promise((resolve, reject) => {
         resolve(firebase.login(email, password));
-
-        dispatch(addAccountInfo(firebase.auth.currentUser.uid, firebase.auth.currentUser.displayName, firebase.auth.currentUser.email))
-      }, 300)
-      reg.then(() => {
-        props.history.replace('/menu')
-        getUserData(firebase.auth.currentUser.uid);
+        
+      })
+      .then(() => {
+        console.log(1, firebase.auth.currentUser.uid)
+  
+        // dispatch(addAccountInfo(firebase.auth.currentUser.uid, firebase.auth.currentUser.displayName, firebase.auth.currentUser.email))
+        // userId = firebase.auth.currentUser.uid;
+        // console.log(userId)
+        // axios.get('/userpreferences', {
+        //   params: {
+        //     id: userId
+        //   }
+        // })
+        // .then(({data}) => {
+        //   dispatch(addPreferences(data))
+        //   props.history.replace('/menu')
+        // });
       })
     }
 
-    function getUserData(userId) {
-      console.log(userId)
-      axios.get('/userpreferences', {
-        params: {
-          id: userId
-        }
-      })
-      .then(({data}) => {
-        dispatch(addPreferences(data))
-      });
-    }
 
     return (
       <Grommet >
