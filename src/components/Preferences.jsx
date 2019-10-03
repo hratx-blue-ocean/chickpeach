@@ -8,7 +8,6 @@ import ToggleOptions from './ToggleOptions.jsx';
 import AllergyItem from './AllergyItem.jsx';
 import customTheme from './grommet/radioButton';
 import NavBar from './NavBar.jsx'
-import { getValueAndUnit } from 'polished';
 
 const Preferences = (props) => {
   let state = useSelector(state => state.prefAppState);
@@ -104,6 +103,9 @@ const Preferences = (props) => {
     if (state.page === 4) {
       dispatch(SetPeople(Number(document.getElementById('preferencesCountInput').value)));
       dispatch(SetMeals(Number(document.getElementById('preferencesMealCountInput').value)));
+      saveToDatabase();
+      console.log('hello2')
+      return props.history.replace('/recipeView');
     }
 
     saveToDatabase()
@@ -220,4 +222,4 @@ const Preferences = (props) => {
   )
 }
 
-export default Preferences;
+export default withRouter(Preferences);
