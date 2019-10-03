@@ -208,10 +208,10 @@ app.get('/menuitems', (req, res) => {
 //remove menu item by user id and recipe id
 
 app.put('/removemenuitem', (req, res) => {
-  console.log(req.body);
-  pool.query(`UPDATE Users_Recipes SET is_on_menu = 0 WHERE users_recipes.user_id = ${req.query.userId} AND users_recipes.recipe_id = ${req.query.recipeId};`, (err, rows, fields) => {
+  console.log(req.query);
+  pool.query(`UPDATE Users_Recipes SET is_on_menu = 0 WHERE user_id = ${req.query.user_id} AND recipe_id = ${+req.query.recipe_id};`, (err, rows, fields) => {
     if (err) res.status(404).send(err);
-    res.status(200).send();
+    res.status(200).send('success');
   });
 });
 
