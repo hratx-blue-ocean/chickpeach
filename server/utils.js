@@ -10,10 +10,22 @@ const name = getNestedObject(user, ['personalInfo', 'name']);
 
 const city = getNestedObject(user, ['personalInfo', 'addresses', 0, 'city']);
 */
-
 const getNestedObject = (nestedObj, pathArr) => {
     return pathArr.reduce((obj, key) =>
         (obj && obj[key] !== 'undefined') ? obj[key] : undefined, nestedObj);
 };
 
-module.exports = { getNestedObject }
+//allowCrossDomain Middleware
+const allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+ // intercept OPTIONS method
+  if ('OPTIONS' == req.method) {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+};
+
+module.exports = { getNestedObject, allowCrossDomain }
