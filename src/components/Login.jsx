@@ -27,19 +27,19 @@ const LogIn = (props) => {
       })
       //.then(props.history.replace('/recipes'))
       .then(props.history.replace('/menu'))
-      getUserData();
+      getUserData(firebase.auth.currentUser.uid);
     }
 
-    function getUserData() {
+    function getUserData(userId) {
       axios.get('/userpreferences', {
-        query: {
-          id: userpreferences.uid
+        params: {
+          id: 'a123' //replace with userId
         }
       })
       .then(({data}) => {
-
-        console.log(userpreferences)
+        dispatch(addPreferences(data))
       });
+
     }
     
     return (
