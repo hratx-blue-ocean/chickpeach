@@ -19,8 +19,8 @@ const SignUp = (props) => {
       const reg = new Promise((resolve, reject) => {
         resolve(firebase.register(name, email, password))
         var user = firebase.auth.currentUser;
-
-        
+        console.log(user);
+        // props.history.replace('/menu')
         uid = user.uid;
       }, 300);
       
@@ -30,16 +30,13 @@ const SignUp = (props) => {
           name: name
         }
       })
-      .then(function (response) {
-        console.log(response);
-        //props.history.replace('/preferences')
+      .then(function () {
+        dispatch(addAccountInfo(uid, name, email))
       })
       .catch(function (error) {
         console.log(error);
       }));
-      
     }
-
 
     return (
       <Grommet >

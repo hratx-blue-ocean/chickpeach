@@ -3,7 +3,7 @@ import { Grommet, Button, FormField, TextInput } from 'grommet';
 import firebase from './firebase.js';
 import { withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { addAccountInfo } from './actions';
+import { addAccountInfo, addPreferences } from './actions';
 import axios from 'axios';
 
 const LogIn = (props) => {
@@ -11,21 +11,34 @@ const LogIn = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch= useDispatch();
+    const userpreferences = useSelector(state => state.Preferences);
 
     function onRegister() {
+      let uid = '';
 
       const reg = new Promise((resolve, reject) => {
-        resolve(firebase.login(email, password))
+        resolve(firebase.login(email, password));
+
         dispatch(addAccountInfo(firebase.auth.currentUser.uid, firebase.auth.currentUser.displayName, firebase.auth.currentUser.email))
       }, 300)
-      .then(() => {
-
-        //SETUP for JEFF -- Add axios call and 
-
-        props.history.replace('/menu')
+      reg.then(() => {
+        // props.history.replace('/menu')
+        getUserData(firebase.auth.currentUser.uid);
       })
     }
-    
+
+    function getUserData(userId) {
+      console.log(userId)
+      axios.get('/userpreferences', {
+        params: {
+          id: 'a123' 
+        }
+      })
+      .then(({data}) => {
+        dispatch(addPreferences(data))
+      });
+    }
+
     return (
       <Grommet >
         <div className='signup_container'>

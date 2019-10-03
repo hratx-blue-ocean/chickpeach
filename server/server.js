@@ -4,7 +4,7 @@ const path = require('path');
 const port = 3000;
 const axios = require('axios');
 const bodyParser = require('body-parser');
-const { spoonAPIKey } = require('../spoonAPI.config.js');
+// const { spoonAPIKey } = require('../spoonAPI.config.js');
 const mysql = require('mysql2');
 
 const pool = mysql.createConnection({
@@ -23,10 +23,13 @@ app.use(bodyParser.json());
 //add user to database
 
 app.get('/register', (req, res) => {
-  pool.query(`INSERT INTO Users (id, name, people_to_prep_for, portions_per_week, portions_fulfilled) VALUES ("${req.query.id}", "${req.query.name}");`, (err, rows, fields) => {
-    if (err) console.log(err);
 
-    res.status(201).send('success');
+  pool.query(`INSERT INTO Users (id, name) VALUES ("${req.query.id}", "${req.query.name}");`, (err, rows, fields) => {
+    if (err) {
+      console.error(err);
+    } else {
+      res.status(201).send('success');
+    }
   });
 });
 
@@ -44,9 +47,35 @@ app.get('/user', (req, res) => {
 
 app.get('/userpreferences', (req, res) => {
   pool.query(`SELECT * FROM Preferences where user_id = '${req.query.id}';`, (err, rows, fields) => {
-    if (err) console.log(err);
+    if (err) {
+      console.error(err);
+    } else {
+      let row = rows[0];
+      let userPreferencesData = {
+        vegetarian: !!row.diet_vegetarian,
+        glutenFree: !!row.diet_gluten_free,
+        keto: !!row.diet_ketogenic,
+        vegan: !!row.diet_vegan,
+        dairyFree: !!row.diet_dairy_free,
+        whole30: !!row.diet_whole_thirty,
+        egg: !!row.allergy_egg,
+        grain: !!row.allergy_grain,
+        peanut: !!row.allergy_peanut,
+        seafood: !!row.allergy_seafood,
+        sesame: !!row.allergy_sesame,
+        shellfish: !!row.allergy_shellfish,
+        soy: !!row.allergy_soy,
+        sulfite: !!row.allergy_sulfite,
+        treeNut: !!row.allergy_tree_nut,
+        wheat: !!row.allergy_wheat,
+        peopleToPrepFor: row.people_to_prep_for,
+        addedAllergies: [], //**replace with an array of allergies
+        isMetric: !!row.use_metric,
+        numberOfMeals: row.meals_per_week
+      }
 
-    res.status(200).send(rows);
+      res.status(200).send(userPreferencesData);
+    }
   });
 });
 
