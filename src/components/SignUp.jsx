@@ -20,7 +20,6 @@ const SignUp = (props) => {
         resolve(firebase.register(name, email, password))
         var user = firebase.auth.currentUser;
         console.log(user);
-        // props.history.replace('/menu')
         uid = user.uid;
       }, 300);
       
@@ -32,6 +31,7 @@ const SignUp = (props) => {
       })
       .then(function () {
         dispatch(addAccountInfo(uid, name, email))
+        props.history.replace('/preferences')
       })
       .catch(function (error) {
         console.log(error);
