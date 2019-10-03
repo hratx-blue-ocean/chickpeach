@@ -24,7 +24,6 @@ const Menu = (props) => {
         }
       })
       .then(({ data }) => {
-        console.log('fromserver', data); // May remove once data is confirmed to be an array of recipes
         dispatch(updateMenu(data));
       })
       .catch(error => console.log(error));
@@ -38,7 +37,19 @@ const Menu = (props) => {
         }
       })
       .then(({ data }) => {
-        console.log('fromserver', data); // May remove once data is confirmed to be an array of recipes
+        dispatch(updateMenu(data));
+      })
+      .catch(error => console.log(error));
+  }
+
+  const getHistory = () => {
+    axios.get('/saveditems', {
+        params: {
+          id: 'a123'
+          // preferences.uid
+        }
+      })
+      .then(({ data }) => {
         dispatch(updateMenu(data));
       })
       .catch(error => console.log(error));
@@ -46,12 +57,13 @@ const Menu = (props) => {
 
   useEffect(() => {
     if (currentView.view === 'Menu') {
-      console.log('menu')
       getMenu();
     }
     if (currentView.view === 'Favorites') {
-      console.log('fav')
       getFavorites();
+    }
+    if (currentView.view === 'History') {
+      getHistory();
     }
   }, [currentView.view]);
 
@@ -71,13 +83,18 @@ const Menu = (props) => {
         </div>
         <div className="card_container">
           {currentView.view === 'Menu' &&
-            (recipes.recipes.map(recipe => {
-              return <MenuCard recipe={recipe} key={recipe.id} />
-            }))
+            recipes.recipes.map((recipe, index) => {
+              return <MenuCard recipe={recipe} key={index} />
+            })
           }
           {currentView.view === 'Favorites' &&
-            recipes.recipes.map(recipe => {
-              return <MenuCard recipe={recipe} key={recipe.id} />
+            recipes.recipes.map((recipe, index) => {
+              return <MenuCard recipe={recipe} key={index} />
+            })
+          }
+          {currentView.view === 'History' &&
+            recipes.recipes.map((recipe, index) => {
+              return <MenuCard recipe={recipe} key={index} />
             })
           }
         </div>
