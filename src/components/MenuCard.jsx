@@ -1,7 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { withRouter } from "react-router-dom";
 import { Button } from 'grommet';
 
 const MenuCard = (props) => {
+  const onClick = (id) => {
+    return (
+      // <Redirect to={{
+      //   pathname: '/recipeView',
+      //   props: {
+      //     id: id
+      //   }
+      // }} />
+      props.history.replace({
+        pathname: '/recipeView',
+        state: {id: id}
+      })
+    )
+  };
+
   return (
     <div className="card">
       <div>
@@ -17,7 +33,7 @@ const MenuCard = (props) => {
           </p>
         </div>
         <div className="card_footer menu_footer">
-          <Button onClick={() => {}}>Preview</Button>
+          <Button onClick={() => {onClick(props.recipe.id)}}>Preview</Button>
           <Button onClick={() => {}}>Cook</Button>
         </div>
       </div>
@@ -25,4 +41,4 @@ const MenuCard = (props) => {
   );
 };
 
-export default MenuCard;
+export default withRouter(MenuCard);
