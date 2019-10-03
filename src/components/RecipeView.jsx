@@ -42,7 +42,7 @@ const RecipeView = (props) => {
           recipe.ingredients.map(ingredient => {
             return <p className={'recipe_ingredient'} key={ingredient}>
               {
-                `${ingredient.quantity} ${ingredient.unit} ${ingredient.name}`
+                `${ingredient.stringRender}`
               }
             </p>
           })
