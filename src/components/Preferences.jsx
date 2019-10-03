@@ -3,7 +3,7 @@ import { Grommet, Button, Box, RadioButton, RadioButtonGroup } from 'grommet';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { IteratePageCount, AddAllergies, HandleMetric, SetPeople, SetMeals, addPreferences, UpdateDiet } from './actions';
+import { IteratePageCount, AddAllergies, HandleMetric, SetPeople, SetMeals, addPreferences, UpdateDiet, DecrementPageCount } from './actions';
 import ToggleOptions from './ToggleOptions.jsx';
 import AllergyItem from './AllergyItem.jsx';
 import customTheme from './grommet/radioButton';
@@ -105,7 +105,7 @@ const Preferences = (props) => {
       dispatch(SetMeals(Number(document.getElementById('preferencesMealCountInput').value)));
       saveToDatabase();
       console.log('hello2')
-      return props.history.replace('/recipeView');
+      return props.history.replace('/menu');
     }
 
     saveToDatabase()
@@ -188,7 +188,7 @@ const Preferences = (props) => {
           </div> }
 
         {state.page === 4 && 
-            <div id="preferencesCountContainer">
+          <div id="preferenceSelectorContainer">
               <p className="preferenceDescription">How many people you are preparing for?</p>
               <input id="preferencesCountInput" placeholder="ex: 3"></input>
             <p className="preferenceDescription">Would you like quantities displayed in imperial or metric?</p>
@@ -214,9 +214,14 @@ const Preferences = (props) => {
               <p className="preferenceDescription">How many meals per week are you preparing for?</p>
               <input id="preferencesMealCountInput" placeholder="ex: 18"></input>
             </div>}
+            </div>
+      {/* <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary >{'Save & Continue'}</Button> */}
+      <div className="preferencesFooter">
+        {state.page !== 0 && <Button className="secondary_button" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>}
+        <Button className="primary_button" onClick={() => saveAndContinue()} primary>{'Save & Continue'}</Button>
 
       </div>
-      <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary >{'Save & Continue'}</Button>
+
     <NavBar />
     </div>
   )

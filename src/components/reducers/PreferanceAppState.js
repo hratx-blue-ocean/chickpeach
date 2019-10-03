@@ -132,6 +132,23 @@ const AppStateReducer = (state = defaultState, action) => {
     return newState;
   }
 
+  if (action.type === 'DecrementPageCount') {
+    let newState = {
+      diet: state.diet,
+      userPreferences1: state.userPreferences1,
+      userPreferences2: state.userPreferences2,
+      details: state.details,
+      page: state.page - 1,
+      addedAllergies: state.addedAllergies,
+      people: state.people,  //peopleToPrepFor
+      isMetric: state.isMetric,
+      onHover: false,
+      numberOfMeals: 0
+    };
+
+    return newState;
+  }
+
   if (action.type === 'RemoveAllergy') {
     let newState = {
       diet: state.diet,

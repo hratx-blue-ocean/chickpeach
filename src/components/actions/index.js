@@ -22,7 +22,7 @@ const IteratePageCount = () => {
 };
 
 const DecrementPageCount = () => {
-  {
+  return {
     type: 'DecrementPageCount'
   }
 }
