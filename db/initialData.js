@@ -30,12 +30,12 @@ const dummyRecipe = {
     },
     { 
       name: 'pressed tofu (bean curd)',
-      quantity: 2,
+      quanity: 2,
       unit: 'tablespoons',
       aisle: 'produce'
     },
     { 
-      name: 'sweet preserved shredded radish',
+      name: 'sweet preserved shredded radish, rinsed, chopped into 1-inch pieces',
       quantity: 1,
       unit: 'tablespoon',
       aisle: 'canned items'
@@ -48,7 +48,7 @@ const dummyRecipe = {
     },
     { 
       name: 'tamarind water',
-      quantity: 5,
+      quanity: 5,
       unit: 'tablespoons',
       aisle: 'condiments'
     },

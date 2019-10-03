@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateMenu } from './actions';
 import { withRouter } from 'react-router-dom';
