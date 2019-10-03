@@ -347,7 +347,7 @@ app.get('/getSingleRecipe', async (req, res) => {
 })
 
 //POST singleRecipe from FORM route
-// app.post('/writerecipe', )
+app.post('/addmenurecipe', )
 
 
 //Add new routes above
