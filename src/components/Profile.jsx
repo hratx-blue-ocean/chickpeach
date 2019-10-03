@@ -6,13 +6,14 @@ import firebase from './firebase.js'
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from './actions'
 
-const Profile = () => {
+const Profile = (props) => {
 
   const dispatch = useDispatch();
 
   function signOut() {
     firebase.signOut();
     dispatch(logout())
+    props.history.replace('/')
   }
 
   return (
