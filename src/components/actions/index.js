@@ -113,4 +113,10 @@ const updateMenu = (menu) => {
   };
 };
 
-export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList, updateQuery, updateSearch, updateMenu }
+const logout = () => {
+  return {
+    type: 'Logout',
+  }
+}
+
+export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList, updateQuery, updateSearch, updateMenu, logout }
