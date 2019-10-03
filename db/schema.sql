@@ -39,7 +39,7 @@ CREATE TABLE Recipes (
     image TEXT,
     servings INT,
     prep_time INT,
-    created_by_user BOOLEAN,
+    created_by_user BOOLEAN DEFAULT 0,
     calories INT,
     carbs TEXT,
     fat TEXT,
@@ -76,9 +76,9 @@ CREATE TABLE Users_Recipes (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id VARCHAR(64),
     recipe_id INT,
-    is_saved BOOLEAN,
-    is_favorited BOOLEAN,
-    is_on_menu BOOLEAN
+    is_saved BOOLEAN DEFAULT 1,
+    is_favorited BOOLEAN DEFAULT 0,
+    is_on_menu BOOLEAN DEFAULT 0
 );
 
 ALTER TABLE Users_Recipes 
