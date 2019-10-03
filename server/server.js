@@ -172,6 +172,8 @@ app.get('/getrecipes', (req, res) => {
   });
 });
 
+//get recipe by ID
+
 //get ingredients
 
 app.get('/getingredients', (req, res) => {
@@ -201,6 +203,15 @@ app.get('/menuitems', (req, res) => {
   });
 });
 
+//remove menu item by user id and recipe id
+
+app.get('/removemenuitem', (req, res) => {
+  pool.query(`UPDATE Users_Recipes SET is_on_menu = 0 WHERE user_id = ${req.query.userId} AND recipe_id = ${req.query.recipeId}`, (err, rows, fields) => {
+    if (err) console.log(err);
+    res.status(200).send();
+  });
+});
+
 //get user favorited items by user id
 
 app.get('/favoriteitems', (req, res) => {
@@ -210,12 +221,30 @@ app.get('/favoriteitems', (req, res) => {
   });
 });
 
+//remove user favorited items by user id and recipe id
+
+app.get('/removefavoriteitem', (req, res) => {
+  pool.query(`UPDATE Users_Recipes SET is_favorited = 0 WHERE user_id = ${req.query.userId} AND recipe_id = ${req.query.recipeId}`, (err, rows, fields) => {
+    if (err) console.log(err);
+    res.status(200).send();
+  })
+})
+
 //get saved items by user id
 
 app.get('/saveditems', (req, res) => {
   pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE users_recipes.user_id = '${req.query.id}' AND is_saved = 1;`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send(rows);
+  });
+});
+
+//remove user saved item by user id and recipe id
+
+app.get('/removesaveditems', (req, res) => {
+  pool.query(`UPDATE Users_Recipe SET is_saved = 0 WHERE user_id = ${req.query.userId} AND recipe_id = ${req.query.recipeId}`, (err, rows, fields) => {
+    if (err) console.log(err);
+    res.status(200).send();
   });
 });
 
