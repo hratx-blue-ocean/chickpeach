@@ -49,7 +49,7 @@ const RecipeLanding = (props) => {
         <div className="card_container">
           {
             search.searchResults.map(recipe => {
-              return <RecipeCard recipe={recipe}/>
+              return <RecipeCard recipe={recipe} key={recipe.id}/>
             })
           }
         </div>

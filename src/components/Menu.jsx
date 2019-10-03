@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateMenu } from './actions';
 import { withRouter } from 'react-router-dom';
@@ -51,6 +51,10 @@ const Menu = (props) => {
     return favorites;
   };
 
+  useEffect(() => {
+    getRecipes();
+  }, []);
+
   return (
     <div>
       <Heading className="header1">Menu</Heading>
@@ -68,12 +72,12 @@ const Menu = (props) => {
         <div className="card_container">
           {currentView.view === 'Menu' &&
             getMenu(recipes).map(recipe => {
-              return <MenuCard recipe={recipe} />
+              return <MenuCard recipe={recipe} key={recipe.id} />
             })
           }
           {currentView.view === 'Favorites' &&
             getFavorites(recipes).map(recipe => {
-              return <MenuCard recipe={recipe} />
+              return <MenuCard recipe={recipe} key={recipe.id} />
             })
           }
         </div>
