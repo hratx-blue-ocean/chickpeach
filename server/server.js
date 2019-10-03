@@ -203,7 +203,6 @@ app.get('/menuitems', (req, res) => {
 //get user favorited items by user id
 
 app.get('/favoriteitems', (req, res) => {
-  // pool.query(`SELECT * FROM Users_Recipes WHERE user_id = '${req.query.id}' AND is_on_menu = 1;`, (err, rows, fields) => {
   pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE users_recipes.user_id = '${req.query.id}' AND is_favorited = 1;`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send(rows);
@@ -213,7 +212,6 @@ app.get('/favoriteitems', (req, res) => {
 //get saved items by user id
 
 app.get('/saveditems', (req, res) => {
-  // pool.query(`SELECT * FROM Users_Recipes WHERE user_id = '${req.query.id}' AND is_on_menu = 1;`, (err, rows, fields) => {
   pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE users_recipes.user_id = '${req.query.id}' AND is_saved = 1;`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send(rows);
