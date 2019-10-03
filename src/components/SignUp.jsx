@@ -12,16 +12,18 @@ const SignUp = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch= useDispatch();
+    const [submitPressed, changeSubmitState] = useState(false)
 
     function onRegister() {
 
       const reg = new Promise((resolve, reject) => {
+        firebase.signOut()
         resolve(firebase.register(name, email, password))
+        changeSubmitState(true)
       })
       reg.then(() => {
         setTimeout(function() {
           var user = firebase.auth.currentUser;
-          console.log(user.uid)
           
           let uid = user.uid;
           console.log('uid is', uid)
@@ -39,7 +41,7 @@ const SignUp = (props) => {
           })
           dispatch(addAccountInfo(uid, name, email))
           props.history.replace('/preferences')
-        }, 1000)
+        }, 2000)
       })
       .catch(function (error) {
         console.log(error);
@@ -59,7 +61,12 @@ const SignUp = (props) => {
             <FormField name="password" label="Password" >
               <TextInput value={password} onChange={(e) => setPassword(e.target.value)} />
             </FormField>
-            <Button type="submit" className={'primary_button'} primary label="Submit" onClick={() => onRegister()}/>
+            {
+              submitPressed ?
+              <Button type="submit" className={'primary_button'} primary label="Loading" />
+              :
+              <Button type="submit" className={'primary_button'} primary label="Submit" onClick={() => onRegister()}/>
+            }
           </div>
         </div>
       </Grommet>
