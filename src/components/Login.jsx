@@ -22,7 +22,7 @@ const LogIn = (props) => {
         dispatch(addAccountInfo(firebase.auth.currentUser.uid, firebase.auth.currentUser.displayName, firebase.auth.currentUser.email))
       }, 300)
       reg.then(() => {
-        props.history.replace('/preferences')
+        props.history.replace('/menu')
         getUserData(firebase.auth.currentUser.uid);
       })
     }

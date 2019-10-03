@@ -1,9 +1,9 @@
 import React, { Component, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateMenu } from './actions';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import axios from 'axios';
-import { Heading, Select } from 'grommet';
+import { Heading, Select, Button } from 'grommet';
 import MenuCard from './MenuCard.jsx';
 import NavBar from './NavBar.jsx';
 
@@ -70,6 +70,7 @@ const Menu = (props) => {
   return (
     <div>
       <Heading className="header1">Menu</Heading>
+      <NavLink to='/profile'><Button className={'primary_button logout'}>Profile</Button></NavLink>
       <div className="menu">
         <div className="menu_text">
           <p className="menu_recipeCount">You have <b>4</b> recipes serving <b>{preferences.numberOfMeals}</b> portions.</p>

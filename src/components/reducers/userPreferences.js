@@ -88,6 +88,10 @@ const preferenceState = (state = defaultState, action) => {
     return newState;
   }
 
+  if(action.type === 'Logout') {
+    return defaultState;
+  }
+
   return state;
 }
 
