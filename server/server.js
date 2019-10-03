@@ -170,8 +170,7 @@ app.get('/bannedingredients', (req, res) => {
 app.get('/menuitems', (req, res) => {
   pool.query(`SELECT Recipes.*,Users_Recipes.is_saved,Users_Recipes.is_favorited,Users_Recipes.is_on_menu,Cooking_Instructions.*, Ingredients.* FROM Recipes, Users_Recipes, Cooking_Instructions, Ingredients  WHERE users_recipes.user_id = '${req.query.id}';`, (err, rows, fields) => {
     if (err) console.log(err);
-    console.log(rows);
-
+    console.log(rows)
     res.status(200).send(rows);
   });
 });
