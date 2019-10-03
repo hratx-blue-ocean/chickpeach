@@ -23,10 +23,13 @@ app.use(bodyParser.json());
 //add user to database
 
 app.get('/register', (req, res) => {
-  pool.query(`INSERT INTO Users (id, name, people_to_prep_for, portions_per_week, portions_fulfilled) VALUES ("${req.query.id}", "${req.query.name}");`, (err, rows, fields) => {
-    if (err) console.log(err);
 
-    res.status(201).send('success');
+  pool.query(`INSERT INTO Users (id, name) VALUES ("${req.query.id}", "${req.query.name}");`, (err, rows, fields) => {
+    if (err) {
+      console.error(err);
+    } else {
+      res.status(201).send('success');
+    }
   });
 });
 

@@ -25,8 +25,6 @@ const LogIn = (props) => {
 
         props.history.replace('/menu')
       })
-      //.then(props.history.replace('/recipes'))
-      .then(props.history.replace('/menu'))
       getUserData(firebase.auth.currentUser.uid);
     }
 
