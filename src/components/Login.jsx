@@ -31,7 +31,7 @@ const LogIn = (props) => {
       console.log(userId)
       axios.get('/userpreferences', {
         params: {
-          id: 'a123' //replace with userId
+          id: userId
         }
       })
       .then(({data}) => {
