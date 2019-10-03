@@ -191,16 +191,6 @@ app.get('/bannedingredients', (req, res) => {
   });
 });
 
-//get user menu items and favorite items by user id
-
-// app.get('/menuitems', (req, res) => {
-//   pool.query(`SELECT Recipes.*,Users_Recipes.is_saved,Users_Recipes.is_favorited,Users_Recipes.is_on_menu,Cooking_Instructions.*, Ingredients.* FROM Recipes, Users_Recipes, Cooking_Instructions, Ingredients  WHERE users_recipes.user_id = '${req.query.id}';`, (err, rows, fields) => {
-//     if (err) console.log(err);
-//     console.log(rows)
-//     res.status(200).send(rows);
-//   });
-// });
-
 //get user menu items by user id
 
 app.get('/menuitems', (req, res) => {
@@ -211,6 +201,15 @@ app.get('/menuitems', (req, res) => {
   });
 });
 
+//get user menu items by user id
+
+app.get('/favoriteitems', (req, res) => {
+  // pool.query(`SELECT * FROM Users_Recipes WHERE user_id = '${req.query.id}' AND is_on_menu = 1;`, (err, rows, fields) => {
+  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE users_recipes.user_id = '${req.query.id}' AND is_favorited = 1;`, (err, rows, fields) => {
+    if (err) console.log(err);
+    res.status(200).send(rows);
+  });
+});
 
 //SEARCH API route
 app.get('/searchrecipes', async (req, res) => {

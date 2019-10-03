@@ -30,11 +30,27 @@ const Menu = (props) => {
       .catch(error => console.log(error));
   }
 
+  const getFavorites = () => {
+    axios.get('/favoriteitems', {
+        params: {
+          id: 'a123'
+          // preferences.uid
+        }
+      })
+      .then(({ data }) => {
+        console.log('fromserver', data); // May remove once data is confirmed to be an array of recipes
+        dispatch(updateMenu(data));
+      })
+      .catch(error => console.log(error));
+  }
+
   useEffect(() => {
     if (currentView.view === 'Menu') {
+      console.log('menu')
       getMenu();
     }
     if (currentView.view === 'Favorites') {
+      console.log('fav')
       getFavorites();
     }
   }, [currentView.view]);
@@ -60,7 +76,7 @@ const Menu = (props) => {
             }))
           }
           {currentView.view === 'Favorites' &&
-            getFavorites(recipes).map(recipe => {
+            recipes.recipes.map(recipe => {
               return <MenuCard recipe={recipe} key={recipe.id} />
             })
           }
