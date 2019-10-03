@@ -1,48 +1,44 @@
-import React, { useState } from 'react';
-import NavBar from './NavBar.jsx'
-import { Button } from "grommet";
+import React, { useState, useEffect, useMemo } from 'react';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios'
-
-const formatter = {
-  calories: 'Calories',
-  carbs: 'Carbs',
-  sugar: 'Sugar',
-  fat: 'Fat',
-  sodium: 'Sodium',
-  fiber: 'Fiber',
-  net_carbs: 'Net Carbs',
-  added_sugar: 'Added Sugar',
-  saturated_fat: 'Saturated Fat',
-  protein: 'Protein'
-}
+import axios from 'axios';
+import { Button } from "grommet";
+import NavBar from './NavBar.jsx';
 
 const RecipeView = (props) => {
+  const [recipe, updateRecipe] = useState({});
+  
+  const getRecipe = (cb) => {
+    axios.get('/getSingleRecipe', {
+      params: {
+        recipeID: 1 // props.recipe.id <- Replace once there are more items in database
+      }
+    })
+    .then(({ data }) => {
+      updateRecipe(data);
+    })
+    .finally(cb())
+  };
 
-  const [recipe, updateRecipe] = useState(props.recipe)
-  // axios.get('/', {
-  //   params: {
-  //     recipeID: props.recipe.id
-  //   }
-  // })
-  // .then((recipe) => {
-  //   console.log(recipe)
-  //   //updateRecipe(recipe)
-  // })
+  useMemo(() => { // If useMemo doens't work with all items, replace with useEffect
+    getRecipe(() => console.log(recipe.ingredients));
+  }, [recipe.id])
 
-  let nutrientArray = Object.keys(recipe.nutrition_info)
+  // Render empty div if axios request has not yet updated recipe
+  if (Object.entries(recipe).length === 0 && recipe.constructor === Object) {
+    return <div />
+  }
 
   return (
     <div id='recipeView_container'>
       <h1 className={'header1'}>{recipe.title}</h1>
-      <img className={'recipe_hero'} src={recipe.images[0]} />
+      <img className={'recipe_hero'} src={recipe.image} />
       <div className={'grey_container'}>
         <h3>Ingredients</h3>
         {
-          recipe.ingredients.map(ingredient => {
-            return <p className={'recipe_ingredient'} key={ingredient}>
+          recipe.ingredients.map((ingredient, index) => {
+            return <p className={'recipe_ingredient'} key={index}>
               {
-                `${ingredient.stringRender}`
+                `${ingredient.quantity} ${ingredient.unit} ${ingredient.name}`
               }
             </p>
           })
@@ -51,8 +47,9 @@ const RecipeView = (props) => {
 
       <div id={'recipe_directions_container'}>
         <h3 className={'recipe_directions_label'}>Directions</h3>
+        <p>{`${recipe.prep_time} minutes`}</p>
         {
-          recipe.directions.map((step, index) => {
+          recipe.steps.map((step, index) => {
             return (
               <div className={'recipe_step'} key={index}>
                 <div className={'recipe_step_number'}>{index + 1 + '.'}</div>
@@ -64,17 +61,15 @@ const RecipeView = (props) => {
       </div>
 
       <div className={'grey_container'}>
-        <h3>Nutrition Info</h3>
-        {
-          nutrientArray.map((nutrient, index) => {
-            return (
-              <div className={'nutrient_row'} key={index}>
-                <div>{formatter[nutrient]}</div>
-                <div>{recipe.nutrition_info[nutrient]}</div>
-              </div>
-            )
-          })
-        }
+        <h3>Nutritional Information</h3>
+        <div>Servings Per Recipe: {recipe.servings}</div>
+        <div>Amount Per Serving</div>
+        <div>{`Calories: ${recipe.calories}`}</div>
+        <div className={'nutrient_row'}>{`Sodium: ${recipe.sodium}`}</div>
+        <div className={'nutrient_row'}>{`Total Carbohydrates: ${recipe.carbs}`}</div>
+        <div className={'nutrient_row'}>{`Protein: ${recipe.protein}`}</div>
+        <div className={'nutrient_row'}>{`Sugars: ${recipe.sugar}`}</div>
+        <div className={'nutrient_row'}>{`Fiber: ${recipe.fiber}`}</div>
       </div>
 
       <div className='recipe_buttons'>
