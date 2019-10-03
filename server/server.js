@@ -6,7 +6,7 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 // const { spoonAPIKey } = require('../spoonAPI.config.js');
 const mysql = require('mysql2');
-const { getNestedObject } = require('./utils.js');
+const { getNestedObject, allowCrossDomain } = require('./utils.js');
 
 const pool = mysql.createConnection({
   host: 'localhost',
@@ -20,6 +20,7 @@ const pool = mysql.createConnection({
 
 app.use(express.static('dist'));
 app.use(bodyParser.json());
+app.use(allowCrossDomain);
 
 //add user to database
 
@@ -344,10 +345,26 @@ app.get('/getSingleRecipe', async (req, res) => {
    });
    await res.status(200).send(recipeData);
   }
-})
+});
 
-//POST singleRecipe from FORM route
-app.post('/addmenurecipe', )
+//POST singleRecipe from API result route
+app.post('/addmenurecipe', (req, res) => {
+
+});
+
+/* example Axios POST request
+  for singleRecipeFromAPI
+
+  axios({
+    method: 'post',
+    url: '/user/12345',
+    data: {
+      firstName: 'Fred',
+      lastName: 'Flintstone'
+    }
+  });
+
+*/
 
 
 //Add new routes above
