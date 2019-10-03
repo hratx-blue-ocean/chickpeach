@@ -281,7 +281,7 @@ app.get('/getSingleRecipe', async (req, res) => {
   let recipeID = req.query.recipeID;
   let obj = {};
   //change to 10 Million
-  if(+recipeID === 1){
+  if(+recipeID === 10000000){
     pool.query(`SELECT*FROM recipes WHERE ID = ${recipeID}`, (err, rows, fields) => {
       obj = rows[0]
 
@@ -319,19 +319,22 @@ app.get('/getSingleRecipe', async (req, res) => {
       "includeNutrition":"true"
       }
     }).then(res => {
-      console.log(res.data);
-      recipeData[recipeID] = res.data.id;
-      recipeData[title] = res.data.title;
-      recipeData[image] = res.data.image;
-      recipeData[ingredients] = res.data.extendedIngredients.map(ing => {
+      // console.log(res.data);
+      recipeData["recipeID"] = res.data.id;
+      recipeData["title"] = res.data.title;
+      recipeData["image"] = res.data.image;
+      recipeData["servings"] = res.data.servings;
+      recipeData["prep_time"] = res.data.readyInMinutes;
+      recipeData["ingredients"] = res.data.extendedIngredients.map(ing => {
         let ingredient = {};  
-        ingredient[stringRender] = ing.original;
-        ingredient[quantity] = ing.amount;
-        ingredient[unit] = ing.unit;
-        ingredient[name] = ing.name;
+        ingredient["stringRender"] = ing.original;
+        ingredient["quantity"] = ing.amount;
+        ingredient["unit"] = ing.unit;
+        ingredient["name"] = ing.name;
+        return ingredient;
       });
-      recipeData[nutrition_info] = res.data.nutrition.nutrients;
-      recipeData[directions] = res.data.analyzedInstructions[0].steps.map(stepObj => stepObj.step);
+      recipeData["nutrition_info"] = res.data.nutrition.nutrients;
+      recipeData["directions"] = res.data.analyzedInstructions[0].steps.map(stepObj => stepObj.step);
    })
    .catch(err => {
      console.log(err);
