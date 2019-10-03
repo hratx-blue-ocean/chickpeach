@@ -14,30 +14,30 @@ const SignUp = (props) => {
     const dispatch= useDispatch();
 
     function onRegister() {
-      let uid = '';
 
       const reg = new Promise((resolve, reject) => {
         resolve(firebase.register(name, email, password))
-        var user = firebase.auth.currentUser;
-        uid = user.uid;
-        console.log(uid)
-  
-        axios.get('/register', {
-          params: { 
-            id: uid,
-            name: name
-          }
-        })
-        .then(function () {
+      })
+      reg.then(() => {
+        setTimeout(function() {
+          var user = firebase.auth.currentUser;
+          console.log(user.uid)
+          
+          let uid = user.uid;
+          console.log('uid is', uid)
+          axios.get('/register', {
+            params: { 
+              id: uid,
+              name: name
+            }
+          })
           dispatch(addAccountInfo(uid, name, email))
           props.history.replace('/preferences')
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-      }, 300);
-      
+        }, 1000)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     }
 
     return (
@@ -53,7 +53,7 @@ const SignUp = (props) => {
             <FormField name="password" label="Password" >
               <TextInput value={password} onChange={(e) => setPassword(e.target.value)} />
             </FormField>
-            <Button type="submit" className={'primary_button'} primary label="Submit" onClick={onRegister}/>
+            <Button type="submit" className={'primary_button'} primary label="Submit" onClick={() => onRegister()}/>
           </div>
         </div>
       </Grommet>
