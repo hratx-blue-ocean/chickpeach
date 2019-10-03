@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Button } from 'grommet';
 import firebase from './firebase.js'
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from './actions'
+import { logout } from './actions';
 
 const Profile = (props) => {
 
