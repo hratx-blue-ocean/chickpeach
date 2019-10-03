@@ -205,6 +205,58 @@ app.get('/searchrecipes', async (req, res) => {
     });
     await res.status(200).send(recipesData);
 });
+
+app.get('/getSingleRecipe', (req, res) => {
+  let recipeID = req.query.recipeID;
+  let obj = {};
+  //change to 10 Million
+  if(+recipeID === 1){
+    pool.query(`SELECT*FROM recipes WHERE ID = ${recipeID}`, (err, rows, fields) => {
+      obj = rows[0]
+
+
+      pool.query(`SELECT*FROM cooking_instructions WHERE recipe_ID = ${recipeID}`, (err, rows, fields) => {
+        let steps = [];
+        rows.forEach(step => {
+          steps.push(step.step)
+        })
+        obj.steps = steps;
+
+
+        pool.query(`SELECT*FROM Ingredients WHERE recipe_id = ${recipeID}`, (err, rows, fields) => {
+          let ingredients = [];
+          rows.forEach(ingredient => {
+            ingredients.push(ingredient)
+          })
+          obj.ingredients = ingredients;
+          console.log(obj)
+          res.status(200).send(obj)
+        })
+      })
+
+    })
+  } else {
+    axios({
+      "method":"GET",
+      "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk?ids=4563",
+      "headers":{
+        "content-type":"application/octet-stream",
+        "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com", //api Host domain through rapidAPI
+        "x-rapidapi-key":spoonAPIKey                                    //api Key Spoonacular set to a config file in Root DIR (gitignored)
+      },"params":{
+        "ids": recipeID
+      }
+    }).then(result => {
+      console.log(result)
+      recipesData = result
+      res.status(200).send(recipesData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(404).send({error: err});
+    });
+  }
+})
        
     //const recipeIDs = await recipesSearched.body.results.map(recipe => recipe.id);
     // const recipesInfoBulk = await axios({
