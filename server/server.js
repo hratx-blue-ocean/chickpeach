@@ -281,7 +281,7 @@ app.get('/getSingleRecipe', async (req, res) => {
     let recipeData = {};
     await axios({
       "method":"GET",
-      "url":`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${req.query.searchInput}/information`,
+      "url":`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${req.query.recipeID}/information`,
       "headers":{
       "content-type":"application/octet-stream",
       "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
