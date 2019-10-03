@@ -1,17 +1,21 @@
 import React from 'react';
+import Ingredient from  './Ingredient.jsx';
 import { withRouter } from 'react-router-dom';
 
 
-const GroceryItem = (props) => {
+const GroceryItem = (props) => { 
+
   return (
   <div> 
-    {props.recipe.ingredients.map((ingredient) => {
-      return (
-        <div className='grocery_line' key={ingredient.name}>
-            <span className='list_item list_item_left'>{ingredient.name}</span>
-            <span className='list_item list_item_right'>{`${ingredient.quantity} ${ingredient.unit}`}</span>
-        </div>
-      )
+    <div className="aisle_text">{props.aisle.toUpperCase()}</div>
+    {props.ingredients.map((ingredient) => {
+      if (ingredient.aisle === props.aisle) {
+        return (
+          <div key={ingredient.id} value={ingredient.id} >
+            <Ingredient ingredient={ingredient} />
+          </div>
+        )
+      }
     })} 
   </div>
   )
