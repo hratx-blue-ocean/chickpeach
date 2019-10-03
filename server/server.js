@@ -172,6 +172,11 @@ app.get('/getrecipes', (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+=======
+//get recipe by ID
+
+>>>>>>> slight changes
 //get ingredients
 
 app.get('/getingredients', (req, res) => {
