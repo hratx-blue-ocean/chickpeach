@@ -4,7 +4,6 @@ const path = require('path');
 const port = 3000;
 const axios = require('axios');
 const bodyParser = require('body-parser');
-
 const { spoonAPIKey } = require('../spoonAPI.config.js');
 const mysql = require('mysql2');
 const { getNestedObject, allowCrossDomain } = require('./utils.js');
@@ -211,10 +210,12 @@ app.get('/menuitems', (req, res) => {
 //remove menu item by user id and recipe id
 
 app.put('/removemenuitem', (req, res) => {
-  console.log(req.query);
-  pool.query(`UPDATE Users_Recipes SET is_on_menu = 0 WHERE user_id = ${req.query.user_id} AND recipe_id = ${+req.query.recipe_id};`, (err, rows, fields) => {
-    if (err) res.status(404).send(err);
-    res.status(200).send('success');
+  pool.query(`UPDATE Users_Recipes SET is_on_menu = 0 WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id};`, (err, rows, fields) => {
+    if (err) {
+      console.log(err)
+      res.status(404).send(err);
+    }
+    res.status(200).end('success');
   });
 });
 
