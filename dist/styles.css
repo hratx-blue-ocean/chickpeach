@@ -154,10 +154,33 @@ h3 {
   justify-content: space-between;
 }
 
+.aisle_text {
+  border: none;
+  border-bottom: 2px solid #FBDCA1; 
+  padding: 7px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: Helvetica Neue;
+  font-size: 16px;
+  line-height: 30px;
+  font-weight: bold;
+}
+
 .list_item {
   font-family: Helvetica Neue;
   font-size: 12px;
   line-height: 30px;
+}
+
+.crossed_out {
+  border: none;
+  border-bottom: 2px solid #FBDCA1; 
+  padding: 7px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-decoration: line-through;
 }
 
 /* Recipe View */
