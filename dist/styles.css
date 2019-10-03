@@ -257,9 +257,9 @@ h3 {
 .preferenceSelectorContainer {
   top: 0;
   left: 0;
-  margin: 10% 10% 0 10% ;
+  margin: 10px 10% 0 10% ;
   width: 80%;
-  min-height: 327px;
+  min-height: 410px;
   height: auto;
   background-color: #FFFFFF;
   border-radius: 10px;
