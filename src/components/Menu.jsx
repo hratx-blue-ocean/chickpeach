@@ -27,7 +27,7 @@ const Menu = (props) => {
         dispatch(updateMenu(data));
       })
       .catch(error => console.log(error));
-  }
+  };
 
   const getFavorites = () => {
     axios.get('/favoriteitems', {
@@ -40,7 +40,7 @@ const Menu = (props) => {
         dispatch(updateMenu(data));
       })
       .catch(error => console.log(error));
-  }
+  };
 
   const getHistory = () => {
     axios.get('/saveditems', {
@@ -53,7 +53,7 @@ const Menu = (props) => {
         dispatch(updateMenu(data));
       })
       .catch(error => console.log(error));
-  }
+  };
 
   useEffect(() => {
     if (currentView.view === 'Menu') {
