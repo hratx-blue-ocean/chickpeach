@@ -14,27 +14,26 @@ const LogIn = (props) => {
     const userpreferences = useSelector(state => state.Preferences);
 
     function onRegister() {
-      let uid = '';
 
       const reg = new Promise((resolve, reject) => {
         resolve(firebase.login(email, password));
-        
       })
       .then(() => {
-        console.log(1, firebase.auth.currentUser.uid)
-  
-        // dispatch(addAccountInfo(firebase.auth.currentUser.uid, firebase.auth.currentUser.displayName, firebase.auth.currentUser.email))
-        // userId = firebase.auth.currentUser.uid;
-        // console.log(userId)
-        // axios.get('/userpreferences', {
-        //   params: {
-        //     id: userId
-        //   }
-        // })
-        // .then(({data}) => {
-        //   dispatch(addPreferences(data))
-        //   props.history.replace('/menu')
-        // });
+        dispatch(addAccountInfo(firebase.auth.currentUser.uid, firebase.auth.currentUser.displayName, firebase.auth.currentUser.email))
+        let userId = firebase.auth.currentUser.uid;
+
+        setTimeout(function() {
+          console.log(userId)
+          axios.get('/userpreferences', {
+            params: {
+              id: userId
+            }
+          })
+          .then(({data}) => {
+            dispatch(addPreferences(data))
+            props.history.replace('/menu')
+          });
+        }, 1000)
       })
     }
 
