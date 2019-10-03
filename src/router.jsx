@@ -10,6 +10,7 @@ import CreateRecipe from './components/CreateRecipe.jsx';
 import SignUp from './components/SignUp.jsx'
 import LogIn from './components/Login.jsx'
 import Splash from './components/Splash.jsx'
+import Profile from './components/Profile.jsx'
 
 import { useStore } from 'react-redux'
 
@@ -35,6 +36,7 @@ function RouteManager() {
                      render={(props) => (<CreateRecipe {...props} recipe={menuRecipes[0]} />)} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/LogIn" component={LogIn} />
+        <Route exact path="/profile" component={Profile} />
       </div>
     </Router>
   );
