@@ -12,18 +12,20 @@ const LogIn = (props) => {
     const [password, setPassword] = useState('');
     const dispatch= useDispatch();
     const userpreferences = useSelector(state => state.Preferences);
+    const [submitPressed, changeSubmitState] = useState(false)
 
     function onRegister() {
 
       const reg = new Promise((resolve, reject) => {
+        firebase.signOut()
         resolve(firebase.login(email, password));
+        changeSubmitState(true)
       })
       .then(() => {
         dispatch(addAccountInfo(firebase.auth.currentUser.uid, firebase.auth.currentUser.displayName, firebase.auth.currentUser.email))
         let userId = firebase.auth.currentUser.uid;
 
         setTimeout(function() {
-          console.log(userId)
           axios.get('/userpreferences', {
             params: {
               id: userId
@@ -33,7 +35,7 @@ const LogIn = (props) => {
             dispatch(addPreferences(data))
             props.history.replace('/menu')
           });
-        }, 1000)
+        }, 2000)
       })
     }
 
@@ -48,7 +50,12 @@ const LogIn = (props) => {
             <FormField name="password" label="Password" >
               <TextInput value={password} onChange={(e) => setPassword(e.target.value)} />
             </FormField>
-            <Button className={'primary_button'} type="submit" primary label="Submit" onClick={onRegister}/>
+            {
+              submitPressed ?
+              <Button type="submit" className={'primary_button'} primary label="Loading" />
+              :
+              <Button className={'primary_button'} type="submit" primary label="Submit" onClick={onRegister}/>
+            }
           </div>
         </div>
       </Grommet>
