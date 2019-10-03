@@ -9,7 +9,7 @@ import NavBar from './NavBar.jsx';
 
 const Menu = (props) => {
   const [currentView, updateCurrentView] = useState({
-    view: 'Select recipes'
+    view: 'Menu'
   });
   const dispatch = useDispatch();
   const preferences = useSelector(state => state.Preferences);
