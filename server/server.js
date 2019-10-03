@@ -9,9 +9,6 @@ const { spoonAPIKey } = require('../spoonAPI.config.js');
 const mysql = require('mysql2');
 const { getNestedObject } = require('./utils.js');
 
-const { spoonAPIKey } = require('./spoonAPI.config.js');
-const mysql = require('mysql2');
-
 
 const pool = mysql.createConnection({
   host: 'localhost',
