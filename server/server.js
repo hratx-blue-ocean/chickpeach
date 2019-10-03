@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 //add user to database
 
 app.get('/register', (req, res) => {
-  pool.query(`INSERT INTO Users (id, name, people_to_prep_for, portions_per_week, portions_fulfilled) VALUES ("${req.query.id}", "${req.query.name}", 0,0, 0);`, (err, rows, fields) => {
+  pool.query(`INSERT INTO Users (id, name, people_to_prep_for, portions_per_week, portions_fulfilled) VALUES ("${req.query.id}", "${req.query.name}");`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(201).send('success');
@@ -170,6 +170,7 @@ app.get('/bannedingredients', (req, res) => {
 app.get('/menuitems', (req, res) => {
   pool.query(`SELECT Recipes.*,Users_Recipes.is_saved,Users_Recipes.is_favorited,Users_Recipes.is_on_menu,Cooking_Instructions.*, Ingredients.* FROM Recipes, Users_Recipes, Cooking_Instructions, Ingredients  WHERE users_recipes.user_id = '${req.query.id}';`, (err, rows, fields) => {
     if (err) console.log(err);
+    console.log(rows);
 
     res.status(200).send(rows);
   });
@@ -178,10 +179,9 @@ app.get('/menuitems', (req, res) => {
 
 
 //SEARCH API route
-app.get('/searchRecipes', async (req, res) => {
-  try {
-    let recipesData = {};
-    const recipesSearched = await axios({
+app.get('/searchrecipes', async (req, res) => {
+    let recipesData = [];
+    await axios({
       "method":"GET",
       "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search",
       "headers":{
@@ -197,21 +197,18 @@ app.get('/searchRecipes', async (req, res) => {
         "instructionsRequired":"true",
         "query":req.query.searchInput
       }
-    });
-
-    recipesData.results = await recipesSearched.body.results.map(recipe => {
-      delete recipe['imageUrls'];
-      return recipe;
-    });  
-    res.status(200).send(recipesSearched);
-
-    } catch(err) {
+    }).then(res => {
+      console.log(res.data.results)
+      recipesData = res.data.results;
+    })
+    .catch(err => {
       console.log(err);
-      res.status(404).send({});
-    }
+      res.status(404).send({error: err});
+    });
+    await res.status(200).send(recipesData);
 });
 
-//     const recipeIDs = await recipesSearched.body.results.map(x => x.id);
+//    const recipeIDs = await recipesSearched.body.results.map(x => x.id);
 //     const recipesInfoBulk = await axios({
 //       "method":"GET",
 //       "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk",
