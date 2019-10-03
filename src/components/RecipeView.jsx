@@ -20,14 +20,14 @@ const formatter = {
 const RecipeView = (props) => {
 
   const [recipe, updateRecipe] = useState(props.recipe)
-  // Waiting on route
   // axios.get('/', {
   //   params: {
   //     recipeID: props.recipe.id
   //   }
   // })
   // .then((recipe) => {
-  //   updateRecipe(recipe)
+  //   console.log(recipe)
+  //   //updateRecipe(recipe)
   // })
 
   let nutrientArray = Object.keys(recipe.nutrition_info)
