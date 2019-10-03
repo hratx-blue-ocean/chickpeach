@@ -9,6 +9,16 @@ const RecipeView = (props) => {
   const [recipe, updateRecipe] = useState({});
   const preferences = useSelector(state => state.Preferences);
   
+  const formatter = {
+    Carbohydrates: 'Carbs',
+    Sugar: 'Sugar',
+    Fat: 'Fat',
+    Sodium: 'Sodium',
+    Fiber: 'Fiber',
+    'Saturated Fat': 'Saturated Fat',
+    Protein: 'Protein'
+  }
+
   const getRecipe = () => {
     axios.get('/getSingleRecipe', {
       params: {
@@ -26,11 +36,9 @@ const RecipeView = (props) => {
   };
 
   const onRemoveClick = () => {
-    axios.put('/removemenuitem', null, {
- 
-        user_id: 'a123', // preferences.uid <- Replace once there are more users in database
-        recipe_id: props.location.state.id
-
+    axios.put('/removemenuitem', {
+      user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+      recipe_id: props.location.state.id
     })
     .then(alert('Successfully removed recipe'))
     .catch(error => console.log(error));
@@ -54,7 +62,7 @@ const RecipeView = (props) => {
         {
           recipe.ingredients.map((ingredient, index) => {
             return <p className={'recipe_ingredient'} key={index}>
-              {`${ingredient.quantity} ${ingredient.unit} ${ingredient.name}`}
+              {`${ingredient.stringRender}`}
             </p>
           })
         }
@@ -64,7 +72,7 @@ const RecipeView = (props) => {
         <h3 className={'recipe_directions_label'}>Directions</h3>
         <p>{`${recipe.prep_time} minutes`}</p>
         {
-          recipe.steps.map((step, index) => {
+          recipe.directions.map((step, index) => {
             return (
               <div className={'recipe_step'} key={index}>
                 <div className={'recipe_step_number'}>{index + 1 + '.'}</div>
@@ -79,12 +87,21 @@ const RecipeView = (props) => {
         <h3>Nutritional Information</h3>
         <div>Servings Per Recipe: {recipe.servings}</div>
         <div>Amount Per Serving</div>
-        <div>{`Calories: ${recipe.calories}`}</div>
-        <div className={'nutrient_row'}>{`Sodium: ${recipe.sodium}`}</div>
-        <div className={'nutrient_row'}>{`Total Carbohydrates: ${recipe.carbs}`}</div>
-        <div className={'nutrient_row'}>{`Protein: ${recipe.protein}`}</div>
-        <div className={'nutrient_row'}>{`Sugars: ${recipe.sugar}`}</div>
-        <div className={'nutrient_row'}>{`Fiber: ${recipe.fiber}`}</div>
+        <div className={'nutrient_row'}>{`Calories ${recipe.nutrition_info[0].amount}`}</div>
+        {
+          recipe.nutrition_info.map((nutrient, index) => {
+            if (formatter[nutrient.title]) {
+              return (
+                <div className={'nutrient_row'} key={index}>
+                  <div>{nutrient.title}</div>
+                  <div>{nutrient.amount}</div>
+                  <div>{nutrient.unit}</div>
+                  <div>{nutrient.percentOfDailyNeeds}</div>
+                </div>
+              );
+            }
+          })
+        }
       </div>
 
       <div className='recipe_buttons'>
