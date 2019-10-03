@@ -22,7 +22,7 @@ const LogIn = (props) => {
         dispatch(addAccountInfo(firebase.auth.currentUser.uid, firebase.auth.currentUser.displayName, firebase.auth.currentUser.email))
       }, 300)
       reg.then(() => {
-        // props.history.replace('/menu')
+        props.history.replace('/preferences')
         getUserData(firebase.auth.currentUser.uid);
       })
     }
@@ -31,7 +31,7 @@ const LogIn = (props) => {
       console.log(userId)
       axios.get('/userpreferences', {
         params: {
-          id: 'a123' 
+          id: 'a123' //replace with userId
         }
       })
       .then(({data}) => {

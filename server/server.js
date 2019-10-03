@@ -134,8 +134,6 @@ app.get('/createpreferences', (req, res) => {
 //update user preferences
 
 app.get('/adjustpreferences', (req, res) => {
-
-  console.log(req.query)
   pool.query(`UPDATE Preferences SET
                 allergy_egg = ${req.query.egg},
                 allergy_grain = ${req.query.grain},
