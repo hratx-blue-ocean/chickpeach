@@ -1,7 +1,11 @@
 import { dummyIngredients, dummySearchRecipeArray } from '../../../db/initialData.js'
 
-const menu = (state=dummySearchRecipeArray, action) => {
-  if(action.type === 'UPDATE') {
+const defaultState = {
+  recipes: dummySearchRecipeArray
+};
+
+const menu = (state = defaultState, action) => {
+  if (action.type === 'UPDATE') {
     let newState = {
       recipes: action.recipes
     };
