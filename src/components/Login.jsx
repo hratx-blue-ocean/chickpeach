@@ -11,7 +11,7 @@ const LogIn = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch= useDispatch();
-    const userpreferences = useSelector(state => state.Preferences)
+    const userpreferences = useSelector(state => state.Preferences);
 
     function onRegister() {
 
@@ -26,6 +26,7 @@ const LogIn = (props) => {
         props.history.replace('/menu')
       })
       //.then(props.history.replace('/recipes'))
+      .then(props.history.replace('/menu'))
       getUserData();
     }
 
@@ -36,7 +37,8 @@ const LogIn = (props) => {
         }
       })
       .then(({data}) => {
-        console.log(data)
+
+        console.log(userpreferences)
       });
     }
     
