@@ -7,7 +7,7 @@ import NavBar from './NavBar.jsx';
 const RecipeView = (props) => {
   const [recipe, updateRecipe] = useState({});
   
-  const getRecipe = (cb) => {
+  const getRecipe = () => {
     axios.get('/getSingleRecipe', {
       params: {
         recipeID: 1 // props.recipe.id <- Replace once there are more items in database
@@ -16,11 +16,11 @@ const RecipeView = (props) => {
     .then(({ data }) => {
       updateRecipe(data);
     })
-    .finally(cb())
+    .catch(error => console.log(error))
   };
 
   useMemo(() => { // If useMemo doens't work with all items, replace with useEffect
-    getRecipe(() => console.log(recipe.ingredients));
+    getRecipe();
   }, [recipe.id])
 
   // Render empty div if axios request has not yet updated recipe
