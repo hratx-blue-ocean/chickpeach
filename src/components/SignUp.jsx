@@ -31,6 +31,12 @@ const SignUp = (props) => {
               name: name
             }
           })
+
+          axios.get('/createpreferences', {
+            params: {
+              uid: uid
+            }
+          })
           dispatch(addAccountInfo(uid, name, email))
           props.history.replace('/preferences')
         }, 1000)

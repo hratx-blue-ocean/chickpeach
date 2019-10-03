@@ -104,33 +104,34 @@ app.get('/createpreferences', (req, res) => {
                 diet_whole_thirty,
                 use_metric,
                 people_to_prep_for,
-                meals_per_week)
+                meals_per_week
+                )
               VALUES (
-                '${req.query.id}',
-                ${req.query.egg},
-                ${req.query.grain},
-                ${req.query.peanut},
-                ${req.query.seafood},
-                ${req.query.shellfish},
-                ${req.query.sesame},
-                ${req.query.soy},
-                ${req.query.sulfite},
-                ${req.query.treeNut},
-                ${req.query.wheat},
-                ${req.query.vegetarian},
-                ${req.query.vegan},
-                ${req.query.glutenFree},
-                ${req.query.dairyFree},
-                ${req.query.keto},
-                ${req.query.wholeThirty},
-                ${req.query.metric},
-                ${req.query.numPeople},
-                ${req.query.numMeals});`, (err, rows, fields) => {
+                '${req.query.uid}',
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                1,
+                0);`), (err, rows, fields) => {
 
     if (err) console.log(err);
 
     res.status(201).send('success');
-  });
+  }
 });
 
 //update user preferences
