@@ -22,7 +22,7 @@ const IteratePageCount = () => {
 };
 
 const DecrementPageCount = () => {
-  {
+  return {
     type: 'DecrementPageCount'
   }
 }
@@ -119,4 +119,11 @@ const logout = () => {
   }
 }
 
-export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList, updateQuery, updateSearch, updateMenu, logout }
+const UpdateDiet = (selection) => {
+  return {
+    type: 'UpdateDiet',
+    selection: selection
+  };
+}
+
+export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList, updateQuery, updateSearch, updateMenu, UpdateDiet, logout }

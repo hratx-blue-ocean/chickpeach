@@ -1,20 +1,15 @@
 import React from 'react';
-import { Grommet, Button, Box, RadioButton } from 'grommet';
+import { Grommet, Button, Box, RadioButton, RadioButtonGroup } from 'grommet';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { IteratePageCount, AddAllergies, HandleMetric, SetPeople, SetMeals, addPreferences } from './actions';
+import { IteratePageCount, AddAllergies, HandleMetric, SetPeople, SetMeals, addPreferences, UpdateDiet, DecrementPageCount } from './actions';
 import ToggleOptions from './ToggleOptions.jsx';
 import AllergyItem from './AllergyItem.jsx';
 import customTheme from './grommet/radioButton';
 import NavBar from './NavBar.jsx'
 
 const Preferences = (props) => {
-
-  // setData() {
-  //   //axios request
-  //   //send to Redux
-  // }
   let state = useSelector(state => state.prefAppState);
   let userState = useSelector(state => state.Preferences);
   let dispatch = useDispatch();
@@ -52,6 +47,10 @@ const Preferences = (props) => {
 
   const saveToDatabase = () => {
     let newState = {};
+
+    for (let array of state.diet) {
+      newState[array[0]] = array[1]
+    }
 
     for (let array of state.userPreferences1) {
       newState[array[0]] = array[1]
@@ -101,37 +100,75 @@ const Preferences = (props) => {
   const saveAndContinue = () => {
     dispatch(IteratePageCount())
 
-    if (state.page === 3) {
+    if (state.page === 4) {
       dispatch(SetPeople(Number(document.getElementById('preferencesCountInput').value)));
       dispatch(SetMeals(Number(document.getElementById('preferencesMealCountInput').value)));
+      saveToDatabase();
+      console.log('hello2')
+      return props.history.replace('/menu');
     }
 
     saveToDatabase()
   };
+  let value = 'N/A'
+
+  const getValue = () => {
+    const showName = {
+      vegetarian: 'Vegetarian',
+      vegan: 'Vegan',
+      keto: 'Keto',
+      whole30: 'Whole 30'
+    };
+
+    let newDiet = state.diet.map(array => {
+      return array.slice();
+    })
+
+    for (let arrayPair of newDiet) {
+      if (arrayPair[1]) {
+        return showName[arrayPair[0]];
+      }
+    }
+
+    return 'N/A';
+  }
 
   return (
     <div id="preferencesViewContainer">
       <h1 className="preferencesHeader">Preferences</h1>
-      <div className="preferenceSelectorContainer">
-          { state.page === 0 ? state.userPreferences1.map((toggleArray, index) => {
+        <div id="preferencesDetailContainer">
+          <p id="preferencesDetail">{state.details[state.page]}</p>
+        </div>
+        <div className="preferenceSelectorContainer">
+          {state.page === 0 && <Grommet theme={customTheme}>
+              <RadioButtonGroup
+                name="diet"
+                options={['Vegan', 'Vegetarian', 'Keto', 'Whole 30', 'N/A']}
+                value={getValue()}
+                onChange={(event) => dispatch(UpdateDiet(event.target.value))}
+              />
+            </Grommet>
+          }
+
+          { state.page === 1 && state.userPreferences1.map((toggleArray, index) => {
             return (
               <ToggleOptions
                 toggleArray={toggleArray}
                 key={index}
               />
             )
-          }) : null }
+          })}
 
-        {state.page === 1 ? state.userPreferences2.map((toggleArray, index) => {
+        {state.page === 2 && state.userPreferences2.map((toggleArray, index) => {
           return (
             <ToggleOptions
               toggleArray={toggleArray}
               key={index}
             />
           )
-        }) : null}
+        })}
 
-        {state.page === 2 ?
+        {state.page === 3 &&
         <div className="inputContainer">
           <p id="preferencesInputInstructions">Other Allergies or Restrictions:</p>
             <ul id="preferencesUl">
@@ -148,11 +185,10 @@ const Preferences = (props) => {
               <input id="preferenceAllergiesInput" onKeyUp={(event) => addAllergies(event)} placeholder="ex: Peanuts"></input>
             <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => addAllergies(event)}primary >Add</Button>
             </div>
-          </div> 
-          : null }
+          </div> }
 
-        {state.page === 3 ? 
-            <div id="preferencesCountContainer">
+        {state.page === 4 && 
+          <div id="preferenceSelectorContainer">
               <p className="preferenceDescription">How many people you are preparing for?</p>
               <input id="preferencesCountInput" placeholder="ex: 3"></input>
             <p className="preferenceDescription">Would you like quantities displayed in imperial or metric?</p>
@@ -177,17 +213,18 @@ const Preferences = (props) => {
 
               <p className="preferenceDescription">How many meals per week are you preparing for?</p>
               <input id="preferencesMealCountInput" placeholder="ex: 18"></input>
+            </div>}
             </div>
-          : null}
+      {/* <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary >{'Save & Continue'}</Button> */}
+      <div className="preferencesFooter">
+        {state.page !== 0 && <Button className="secondary_button" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>}
+        <Button className="primary_button" onClick={() => saveAndContinue()} primary>{'Save & Continue'}</Button>
 
       </div>
-      <div id="preferencesDetailContainer">
-        <p id="preferencesDetail">{state.details[state.page]}</p>
-      </div>
-      <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary >{'Save & Continue'}</Button>
+
     <NavBar />
     </div>
   )
 }
 
-export default Preferences;
+export default withRouter(Preferences);

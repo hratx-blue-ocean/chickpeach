@@ -22,7 +22,7 @@ const ToggleOptions = (props) => {
     shellfish: 'Shellfish',
     soy: 'Soy',
     sulfite: 'Sulfite',
-    treeNut: 'TreeNut',
+    treeNut: 'Tree Nuts',
     wheat: 'Wheat',
   }
 

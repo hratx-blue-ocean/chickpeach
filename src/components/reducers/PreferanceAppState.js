@@ -1,20 +1,23 @@
 import data from '../../../db/dummyPreferenceData.js';
 
 const defaultState = {
-  userPreferences1: [
+  diet: [
     ['vegetarian', false],
-    ['glutenFree', false],
     ['vegan', false],
-    ['dairyFree', false],
     ['keto', false],
-    ['whole30', false],
-    ['egg', false],
-    ['grain', false]
+    ['whole30', false]
   ],
-  userPreferences2: [
+  userPreferences1: [
+    ['glutenFree', false],
+    ['dairyFree', false],
+    ['egg', false],
+    ['grain', false],
     ['peanut', false],
-    ['seafood', false],
     ['sesame', false],
+  ],
+  
+  userPreferences2: [
+    ['seafood', false],
     ['shellfish', false],
     ['soy', false],
     ['sulfite', false],
@@ -22,8 +25,9 @@ const defaultState = {
     ['wheat', false]
   ],
     details: [
-      'Do you have any of the following dietary restrictions or allergies?',
-      'Do you have any of the following dietary restrictions or allergies?',
+      'Do you have a preferred diet?',
+      'Do you have any of the following dietary restrictions or allergies? (page 1 of 2)',
+      'Do you have any of the following dietary restrictions or allergies? (page 2 of 2)',
       'Do you have any additional dietary restrictions or allergies?',
       ''
     ],
@@ -38,6 +42,7 @@ const defaultState = {
 const AppStateReducer = (state = defaultState, action) => {
   if (action.type === 'UpdateToggles') {
     let newState = {
+      diet: state.diet,
       details: state.details,
       page: state.page,
       addedAllergies: state.addedAllergies,
@@ -66,14 +71,53 @@ const AppStateReducer = (state = defaultState, action) => {
         newOptions2[i][1] = action.newToggleArray[1];
       }
     }
+
     newState.userPreferences1 = newOptions1;
     newState.userPreferences2 = newOptions2;
 
     return newState;
   }
 
+  if (action.type === 'UpdateDiet') {
+    let newState = {
+      userPreferences1: state.userPreferences1,
+      userPreferences2: state.userPreferences2,
+      details: state.details,
+      page: state.page,
+      addedAllergies: state.addedAllergies,
+      people: state.people,
+      isMetric: state.isMetric,
+      onHover: false,
+      numberOfMeals: 0
+    };
+
+    const showName = {
+      Vegetarian: 'vegetarian',
+      Vegan: 'vegan',
+      Keto: 'keto',
+      'Whole 30': 'whole30'
+    };
+
+    let newDiet = state.diet.map(array => {
+      return array.slice();
+    })
+
+    for (let i = 0; i < newDiet.length; i++) {
+      if (newDiet[i][0] === showName[action.selection]) {
+        newDiet[i][1] = true
+      } else {
+        newDiet[i][1] = false;
+      }
+    }
+
+    newState.diet = newDiet;
+    
+    return newState;
+  }
+
   if (action.type === 'IteratePageCount') {
     let newState = {
+      diet: state.diet,
       userPreferences1: state.userPreferences1,
       userPreferences2: state.userPreferences2,
       details: state.details,
@@ -88,8 +132,26 @@ const AppStateReducer = (state = defaultState, action) => {
     return newState;
   }
 
+  if (action.type === 'DecrementPageCount') {
+    let newState = {
+      diet: state.diet,
+      userPreferences1: state.userPreferences1,
+      userPreferences2: state.userPreferences2,
+      details: state.details,
+      page: state.page - 1,
+      addedAllergies: state.addedAllergies,
+      people: state.people,  //peopleToPrepFor
+      isMetric: state.isMetric,
+      onHover: false,
+      numberOfMeals: 0
+    };
+
+    return newState;
+  }
+
   if (action.type === 'RemoveAllergy') {
     let newState = {
+      diet: state.diet,
       userPreferences1: state.userPreferences1,
       userPreferences2: state.userPreferences2,
       details: state.details,
@@ -110,6 +172,7 @@ const AppStateReducer = (state = defaultState, action) => {
 
   if (action.type === 'MouseHandler') {
     let newState = {
+      diet: state.diet,
       userPreferences1: state.userPreferences1,
       userPreferences2: state.userPreferences2,
       details: state.details,
@@ -128,6 +191,7 @@ const AppStateReducer = (state = defaultState, action) => {
   
   if (action.type === 'AddAllergies') {
     let newState = {
+      diet: state.diet,
       userPreferences1: state.userPreferences1,
       userPreferences2: state.userPreferences2,
       details: state.details,
@@ -144,6 +208,7 @@ const AppStateReducer = (state = defaultState, action) => {
 
   if (action.type === 'HandleMetric') {
     let newState = {
+      diet: state.diet,
       userPreferences1: state.userPreferences1,
       userPreferences2: state.userPreferences2,
       details: state.details,
@@ -160,6 +225,7 @@ const AppStateReducer = (state = defaultState, action) => {
 
   if (action.type === 'SetPeople') {
     let newState = {
+      diet: state.diet,
       userPreferences1: state.userPreferences1,
       userPreferences2: state.userPreferences2,
       details: state.details,
@@ -176,6 +242,7 @@ const AppStateReducer = (state = defaultState, action) => {
 
   if (action.type === 'SetMeals') {
     let newState = {
+      diet: state.diet,
       userPreferences1: state.userPreferences1,
       userPreferences2: state.userPreferences2,
       details: state.details,
@@ -193,21 +260,24 @@ const AppStateReducer = (state = defaultState, action) => {
   if (action.type === 'Preferences') {
     let preferences = action.preferencesObject;
 
-    let newOptions1 = [
+    let newDiet = [
       ['vegetarian', preferences.vegetarian],
-      ['glutenFree', preferences.glutenFree],
       ['vegan', preferences.vegan],
-      ['dairyFree', preferences.dairyFree],
       ['keto', preferences.keto],
-      ['whole30', preferences.whole30],
+      ['whole30', preferences.whole30]
+    ];
+
+    let newOptions1 = [
+      ['glutenFree', preferences.glutenFree],
+      ['dairyFree', preferences.dairyFree],
       ['egg', preferences.egg],
-      ['grain', preferences.grain]
+      ['grain', preferences.grain],
+      ['peanut', preferences.peanut],
+      ['sesame', preferences.sesame],
     ];
 
     let newOptions2 = [
-      ['peanut', preferences.peanut],
       ['seafood', preferences.seafood],
-      ['sesame', preferences.sesame],
       ['shellfish', preferences.shellfish],
       ['soy', preferences.soy],
       ['sulfite', preferences.sulfite],
@@ -215,9 +285,8 @@ const AppStateReducer = (state = defaultState, action) => {
       ['wheat', preferences.wheat]
     ];
 
-    console.log(action.type)
-
     let newState = {
+      diet: newDiet,
       userPreferences1: newOptions1,
       userPreferences2: newOptions2,
       details: state.details,
