@@ -208,8 +208,8 @@ app.get('/menuitems', (req, res) => {
 
 app.put('/removemenuitem', (req, res) => {
   console.log(req.body);
-  pool.query(`UPDATE Users_Recipes SET is_on_menu = 0 WHERE user_id = ${req.query.userId} AND recipe_id = ${req.query.recipeId}`, (err, rows, fields) => {
-    if (err) console.log(err);
+  pool.query(`UPDATE Users_Recipes SET is_on_menu = 0 WHERE users_recipes.user_id = ${req.query.userId} AND users_recipes.recipe_id = ${req.query.recipeId};`, (err, rows, fields) => {
+    if (err) res.status(404).send(err);
     res.status(200).send();
   });
 });
@@ -217,7 +217,7 @@ app.put('/removemenuitem', (req, res) => {
 //get user favorited items by user id
 
 app.get('/favoriteitems', (req, res) => {
-  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE users_recipes.user_id = '${req.query.id}' AND is_favorited = 1;`, (err, rows, fields) => {
+  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes AND Users_Recipes WHERE users_recipes.user_id = '${req.query.id}' AND is_favorited = 1;`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send(rows);
   });
@@ -226,7 +226,7 @@ app.get('/favoriteitems', (req, res) => {
 //remove user favorited items by user id and recipe id
 
 app.get('/removefavoriteitem', (req, res) => {
-  pool.query(`UPDATE Users_Recipes SET is_favorited = 0 WHERE user_id = ${req.query.userId} AND recipe_id = ${req.query.recipeId}`, (err, rows, fields) => {
+  pool.query(`UPDATE Users_Recipes SET is_favorited = 0 WHERE user_id = ${req.query.userId} AND recipe_id = ${req.query.recipeId};`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send();
   })

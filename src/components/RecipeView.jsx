@@ -26,7 +26,7 @@ const RecipeView = (props) => {
   };
 
   const onRemoveClick = () => {
-    axios.put('/removemenuitem', {
+    axios.put('/removemenuitem', null, {
  
         user_id: 'a123', // preferences.uid <- Replace once there are more users in database
         recipe_id: props.location.state.id
