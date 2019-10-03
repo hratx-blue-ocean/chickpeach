@@ -134,6 +134,8 @@ app.get('/createpreferences', (req, res) => {
 //update user preferences
 
 app.get('/adjustpreferences', (req, res) => {
+
+  console.log(req.query)
   pool.query(`UPDATE Preferences SET
                 allergy_egg = ${req.query.egg},
                 allergy_grain = ${req.query.grain},
@@ -150,11 +152,11 @@ app.get('/adjustpreferences', (req, res) => {
                 diet_gluten_free = ${req.query.glutenFree},
                 diet_dairy_free = ${req.query.dairyFree},
                 diet_ketogenic = ${req.query.keto},
-                diet_whole_thirty = ${req.query.wholeThirty},
-                use_metric = ${req.query.metric},
-                people_to_prep_for = ${req.query.numPeople},
-                meals_per_week = ${req.query.numMeals}
-              WHERE user_id = '${req.query.id}';`, (err, rows, fields) => {
+                diet_whole_thirty = ${req.query.whole30},
+                use_metric = ${req.query.isMetric},
+                people_to_prep_for = ${req.query.peopleToPrepFor},
+                meals_per_week = ${req.query.numberOfMeals}
+              WHERE user_id = '${req.query.user_id}';`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(200).send(rows);

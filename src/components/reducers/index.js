@@ -5,7 +5,7 @@ import { menu } from './recipeData.js';
 import searchData from './searchData';
 
 const allReducers = combineReducers({
-  AddAccountInfo: userPreferences,
+  // AddAccountInfo: userPreferences,
   Preferences: userPreferences,
   prefAppState: AppStateReducer,
   Menu: menu,

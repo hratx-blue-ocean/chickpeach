@@ -54,7 +54,6 @@ const Preferences = (props) => {
     let newState = {};
 
     for (let array of state.userPreferences1) {
-      console.log(array[1])
       newState[array[0]] = array[1]
     }
 
@@ -79,10 +78,10 @@ const Preferences = (props) => {
       glutenFree: newState.glutenFree,
       dairyFree: newState.dairyFree,
       keto: newState.keto,
-      wholeThirty: newState.whole30,
-      metric: state.isMetric,
-      numPeople: state.people,
-      numMeals: state.numberOfMeals,
+      whole30: newState.whole30,
+      isMetric: state.isMetric,
+      peopleToPrepFor: state.people,
+      numberOfMeals: state.numberOfMeals,
       addedAllergies: state.addedAllergies
     };
 
@@ -96,8 +95,6 @@ const Preferences = (props) => {
       .catch(error => {
         console.log(error);
       })
-
-    console.log('react', preferencesObject)
     dispatch(addPreferences(preferencesObject))
   }
 
