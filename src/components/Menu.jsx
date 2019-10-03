@@ -16,44 +16,56 @@ const Menu = (props) => {
   const recipes = useSelector(state => state.Menu);
 
   // Get all recipes associated with user from database
-  const getRecipes = () => {
+  const getMenu = () => {
     axios.get('/menuitems', {
         params: {
-          id: preferences.uid
+          id: 'a123'
+          // preferences.uid
         }
       })
       .then(({ data }) => {
-        console.log(data); // May remove once data is confirmed to be an array of recipes
         dispatch(updateMenu(data));
       })
       .catch(error => console.log(error));
-  }
-
-  let menu = [];
-  // Get all recipes from user's menu
-  const getMenu = (recipes) => {
-    for (let i = 0; i < recipes.length; i++) {
-      if (recipes[i].is_on_menu) {
-        menu.push(recipes[i]);
-      }
-    }
-    return menu;
   };
 
-  let favorites = [];
-  // Get all recipes from user's favorites
-  const getFavorites = (recipes) => {
-    for (let i = 0; i < recipes.length; i++) {
-      if (recipes[i].is_favorited) {
-        favorites.push(recipes[i]);
-      }
-    }
-    return favorites;
+  const getFavorites = () => {
+    axios.get('/favoriteitems', {
+        params: {
+          id: 'a123'
+          // preferences.uid
+        }
+      })
+      .then(({ data }) => {
+        dispatch(updateMenu(data));
+      })
+      .catch(error => console.log(error));
+  };
+
+  const getHistory = () => {
+    axios.get('/saveditems', {
+        params: {
+          id: 'a123'
+          // preferences.uid
+        }
+      })
+      .then(({ data }) => {
+        dispatch(updateMenu(data));
+      })
+      .catch(error => console.log(error));
   };
 
   useEffect(() => {
-    getRecipes();
-  }, []);
+    if (currentView.view === 'Menu') {
+      getMenu();
+    }
+    if (currentView.view === 'Favorites') {
+      getFavorites();
+    }
+    if (currentView.view === 'History') {
+      getHistory();
+    }
+  }, [currentView.view]);
 
   return (
     <div>
@@ -71,13 +83,18 @@ const Menu = (props) => {
         </div>
         <div className="card_container">
           {currentView.view === 'Menu' &&
-            getMenu(recipes).map(recipe => {
-              return <MenuCard recipe={recipe} key={recipe.id} />
+            recipes.recipes.map((recipe, index) => {
+              return <MenuCard recipe={recipe} key={index} />
             })
           }
           {currentView.view === 'Favorites' &&
-            getFavorites(recipes).map(recipe => {
-              return <MenuCard recipe={recipe} key={recipe.id} />
+            recipes.recipes.map((recipe, index) => {
+              return <MenuCard recipe={recipe} key={index} />
+            })
+          }
+          {currentView.view === 'History' &&
+            recipes.recipes.map((recipe, index) => {
+              return <MenuCard recipe={recipe} key={index} />
             })
           }
         </div>
