@@ -25,9 +25,9 @@ const defaultState = {
     ['wheat', false]
   ],
     details: [
-      'Do you have a preferred diet?',
-      'Do you have any of the following dietary restrictions or allergies? (page 1 of 2)',
-      'Do you have any of the following dietary restrictions or allergies? (page 2 of 2)',
+      'What is your preferred diet?',
+      'Do you have any of the following dietary restrictions or allergies?',
+      'Do you have any of the following dietary restrictions or allergies?',
       'Do you have any additional dietary restrictions or allergies?',
       ''
     ],

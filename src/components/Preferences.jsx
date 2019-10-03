@@ -98,19 +98,16 @@ const Preferences = (props) => {
   }
 
   const saveAndContinue = () => {
-    dispatch(IteratePageCount())
-
     if (state.page === 4) {
       dispatch(SetPeople(Number(document.getElementById('preferencesCountInput').value)));
       dispatch(SetMeals(Number(document.getElementById('preferencesMealCountInput').value)));
       saveToDatabase();
-      console.log('hello2')
       return props.history.replace('/menu');
     }
+    dispatch(IteratePageCount())
 
     saveToDatabase()
   };
-  let value = 'N/A'
 
   const getValue = () => {
     const showName = {
@@ -130,7 +127,7 @@ const Preferences = (props) => {
       }
     }
 
-    return 'N/A';
+    return 'I eat it all!';
   }
 
   return (
@@ -143,7 +140,7 @@ const Preferences = (props) => {
           {state.page === 0 && <Grommet theme={customTheme}>
               <RadioButtonGroup
                 name="diet"
-                options={['Vegan', 'Vegetarian', 'Keto', 'Whole 30', 'N/A']}
+            options={['Vegan', 'Vegetarian', 'Keto', 'Whole 30', 'I eat it all!']}
                 value={getValue()}
                 onChange={(event) => dispatch(UpdateDiet(event.target.value))}
               />
@@ -217,8 +214,8 @@ const Preferences = (props) => {
             </div>
       {/* <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary >{'Save & Continue'}</Button> */}
       <div className="preferencesFooter">
-        {state.page !== 0 && <Button className="secondary_button" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>}
-        <Button className="primary_button" onClick={() => saveAndContinue()} primary>{'Save & Continue'}</Button>
+        {state.page !== 0 && <Button className="secondary_button preferenceButton" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>}
+        <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary>{'Save & Continue'}</Button>
 
       </div>
 
