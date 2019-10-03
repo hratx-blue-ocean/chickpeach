@@ -6,6 +6,7 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 // const { spoonAPIKey } = require('../spoonAPI.config.js');
 const mysql = require('mysql2');
+const { getNestedObject } = require('./utils.js');
 
 const pool = mysql.createConnection({
   host: 'localhost',
@@ -299,6 +300,33 @@ app.get('/getSingleRecipe', (req, res) => {
     //       "ids":recipeIDs.join()
     //     }
     // });
+//getRecipeFromAPI route
+app.get('/recipe', async (req, res) => {
+  let recipeData = {};
+  await axios({
+    "method":"GET",
+    "url":`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${req.query.user_id}/information`,
+    "headers":{
+    "content-type":"application/octet-stream",
+    "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+    "x-rapidapi-key":spoonAPIKey
+    },"params":{
+    "includeNutrition":"true"
+    }
+    }).then(res => {
+     console.log(res.data);
+     recipeData[recipeID] = res.data.id;
+     recipeData[title] = res.data.title;
+     recipeData[image] = res.data.image;
+     recipeData[ingredients] = res.data
+     getNestedObject(res.data, []);
+   })
+   .catch(err => {
+     console.log(err);
+     res.status(404).send({error: err});
+   });
+   await res.status(200).send(recipeData);
+});
 
 //Add new routes above
 app.get('/*', function(req, res) {
@@ -309,4 +337,4 @@ app.get('/*', function(req, res) {
   });
 });
 
-app.listen(port, () => console.log(`listening from port: ${port}`));
+app.listen(port, () => console.log(`listening from port: ${port}`));  
