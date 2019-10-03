@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 
-const GroceryItem = (props) => {
+const GroceryItem = (props) => { 
   return (
   <div> 
     {props.recipe.ingredients.map((ingredient) => {
