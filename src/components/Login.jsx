@@ -11,6 +11,7 @@ const LogIn = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch= useDispatch();
+    const userpreferences = useSelector(state => state.Preferences)
 
     function onRegister() {
 
@@ -24,6 +25,19 @@ const LogIn = (props) => {
 
         props.history.replace('/menu')
       })
+      //.then(props.history.replace('/recipes'))
+      getUserData();
+    }
+
+    function getUserData() {
+      axios.get('/userpreferences', {
+        query: {
+          id: userpreferences.uid
+        }
+      })
+      .then(({data}) => {
+        console.log(data)
+      });
     }
     
     return (
