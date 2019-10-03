@@ -236,7 +236,7 @@ app.get('/searchrecipes', async (req, res) => {
     await res.status(200).send(recipesData);
 });
 
-app.get('/getSingleRecipe', (req, res) => {
+app.get('/getSingleRecipe', async (req, res) => {
   let recipeID = req.query.recipeID;
   let obj = {};
   //change to 10 Million
@@ -269,7 +269,7 @@ app.get('/getSingleRecipe', (req, res) => {
     let recipeData = {};
     await axios({
       "method":"GET",
-      "url":`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${req.query.user_id}/information`,
+      "url":`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${req.query.searchInput}/information`,
       "headers":{
       "content-type":"application/octet-stream",
       "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
