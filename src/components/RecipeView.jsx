@@ -22,7 +22,7 @@ const RecipeView = (props) => {
   const getRecipe = () => {
     axios.get('/getSingleRecipe', {
       params: {
-        recipeID: 1 // props.recipe.id <- Replace once there are more items in database
+        recipeID: props.history.location.state.id
       }
     })
     .then(({ data }) => {
@@ -38,7 +38,7 @@ const RecipeView = (props) => {
   const onRemoveClick = () => {
     axios.put('/removemenuitem', {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
-      recipe_id: props.location.state.id
+      recipe_id: props.history.location.state.id
     })
     .then(alert('Successfully removed recipe'))
     .catch(error => console.log(error));
