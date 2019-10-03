@@ -6,7 +6,7 @@ const RecipeCard = (props) => {
   return (
     <div className="card">
       <div>
-        <img src="https://shazamazon.s3.us-east-2.amazonaws.com/wands/chickpeach/yum.png"></img>
+        <img src={`https://webknox.com/recipeImages/${props.recipe.image}`}></img>
       </div>
       <div className="card_bottom">
         <div className="card_text">
@@ -14,7 +14,7 @@ const RecipeCard = (props) => {
             {props.recipe.title}
           </h4>
           <p className="card_servings">
-            {props.recipe.servings}
+            {`${props.recipe.servings} servings`}
           </p>
         </div>
         <div className="card_footer recipe_footer">

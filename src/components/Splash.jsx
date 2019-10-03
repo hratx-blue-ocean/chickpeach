@@ -16,7 +16,7 @@ const Splash = (props) => {
             </Button>
           </NavLink>
           <NavLink to='/signUp'>Create an account</NavLink>
-          <NavLink to='/recipes'>Login as guest</NavLink>
+          <NavLink to='/menu'>Login as guest</NavLink>
         </div>
       </div>
     </>

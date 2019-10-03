@@ -22,7 +22,9 @@ const RecipeLanding = (props) => {
           searchInput: search.query
         }
       })
-      .then(({ data }) => console.log(data))
+      .then(({ data }) => {
+        dispatch(updateSearch(data));
+      })
       .catch(error => console.log(error));
   };
 
@@ -46,8 +48,8 @@ const RecipeLanding = (props) => {
         <hr className="recipes_divider" />
         <div className="card_container">
           {
-            props.recipes.map(recipe => {
-              return <RecipeCard recipe={recipe}/>
+            search.searchResults.map(recipe => {
+              return <RecipeCard recipe={recipe} key={recipe.id}/>
             })
           }
         </div>
