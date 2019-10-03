@@ -205,7 +205,8 @@ app.get('/menuitems', (req, res) => {
 
 //remove menu item by user id and recipe id
 
-app.get('/removemenuitem', (req, res) => {
+app.put('/removemenuitem', (req, res) => {
+  console.log(req.body);
   pool.query(`UPDATE Users_Recipes SET is_on_menu = 0 WHERE user_id = ${req.query.userId} AND recipe_id = ${req.query.recipeId}`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send();

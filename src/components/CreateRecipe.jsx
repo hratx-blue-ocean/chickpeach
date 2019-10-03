@@ -68,7 +68,7 @@ const CreateRecipe = (props) => {
         />
         <h4>{'[USER TITLE]'}</h4>
       </div>
-      <div className="grey_container">
+      {/* <div className="grey_container">
         <h3>Ingredients</h3>
         {
           userRecipe.ingredients.map(ingredient => {
@@ -96,7 +96,7 @@ const CreateRecipe = (props) => {
             )
           })
         }
-      </div>
+      </div> */}
       <NavBar />
     </div>
   )

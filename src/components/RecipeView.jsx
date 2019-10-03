@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from "grommet";
@@ -6,6 +7,7 @@ import NavBar from './NavBar.jsx';
 
 const RecipeView = (props) => {
   const [recipe, updateRecipe] = useState({});
+  const preferences = useSelector(state => state.Preferences);
   
   const getRecipe = () => {
     axios.get('/getSingleRecipe', {
@@ -17,6 +19,21 @@ const RecipeView = (props) => {
       updateRecipe(data);
     })
     .catch(error => console.log(error))
+  };
+
+  const onCookedClick = () => {
+    return (props.history.replace('/menu'));
+  };
+
+  const onRemoveClick = () => {
+    axios.put('/removemenuitem', {
+ 
+        user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+        recipe_id: props.location.state.id
+
+    })
+    .then(alert('Successfully removed recipe'))
+    .catch(error => console.log(error));
   };
 
   useMemo(() => { // If useMemo doens't work with all items, replace with useEffect
@@ -37,9 +54,7 @@ const RecipeView = (props) => {
         {
           recipe.ingredients.map((ingredient, index) => {
             return <p className={'recipe_ingredient'} key={index}>
-              {
-                `${ingredient.quantity} ${ingredient.unit} ${ingredient.name}`
-              }
+              {`${ingredient.quantity} ${ingredient.unit} ${ingredient.name}`}
             </p>
           })
         }
@@ -73,8 +88,8 @@ const RecipeView = (props) => {
       </div>
 
       <div className='recipe_buttons'>
-        <Button className={'primary_button recipe_button'} primary >I cooked this!</Button>
-        <Button className={'secondary_button recipe_button'} primary >Remove from menu</Button>
+        <Button className={'primary_button recipe_button'} primary onClick={onCookedClick}>I cooked this!</Button>
+        <Button className={'secondary_button recipe_button'} primary onClick={onRemoveClick}>Remove from menu</Button>
       </div>
 
       <NavBar />
