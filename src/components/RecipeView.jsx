@@ -9,6 +9,7 @@ import NavBar from './NavBar.jsx';
 const RecipeView = (props) => {
   const [recipe, updateRecipe] = useState({});
   const dispatch = useDispatch();
+  const { view } = useSelector(state => state.Menu);
   const preferences = useSelector(state => state.Preferences);
   
   const formatter = {
@@ -118,10 +119,24 @@ const RecipeView = (props) => {
         }
       </div>
 
-      <div className='recipe_buttons'>
-        <Button className={'primary_button recipe_button'} primary onClick={onFavoritesClickMenu}>Add to favorites</Button>
-        <Button className={'secondary_button recipe_button'} primary onClick={onRemoveClickMenu}>Remove from menu</Button>
-      </div>
+      {view === 'Menu' && (
+        <div className='recipe_buttons'>
+          <Button className={'primary_button recipe_button'} primary onClick={onFavoritesClickMenu}>Add to favorites</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={onRemoveClickMenu}>Remove from menu</Button>
+        </div>
+      )}
+      {view === 'Favorites' && (
+        <div className='recipe_buttons'>
+          <Button className={'primary_button recipe_button'} primary onClick={}>Add to menu</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={}>Remove from favorites</Button>
+        </div>
+      )}
+      {view === 'History' && (
+        <div className='recipe_buttons'>
+          <Button className={'primary_button recipe_button'} primary onClick={}>Add to menu</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={}>Remove from history</Button>
+        </div>
+      )}
 
       <NavBar />
     </div>
