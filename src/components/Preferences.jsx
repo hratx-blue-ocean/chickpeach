@@ -213,11 +213,19 @@ const Preferences = (props) => {
             </div>}
             </div>
       {/* <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary >{'Save & Continue'}</Button> */}
-      <div className="preferencesFooter">
-        {state.page !== 0 && <Button className="secondary_button preferenceButton" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>}
+      
+        {state.page === 0 ?
+        <div className="preferencesLonelyButtonFooter">
         <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary>{'Save & Continue'}</Button>
-
-      </div>
+        </div> : state.page === 4 ?
+          <div className="preferencesFooter">
+          <Button className="secondary_button preferenceButton" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>
+          <Button className="primary_button preferenceLastButton" onClick={() => saveAndContinue()} primary>{'Save'}</Button>
+        </div> :
+        <div className="preferencesFooter">
+        <Button className="secondary_button preferenceButton" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>
+        <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary>{'Save & Continue'}</Button>
+      </div>}
 
     <NavBar />
     </div>

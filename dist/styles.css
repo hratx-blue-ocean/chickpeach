@@ -413,13 +413,36 @@ h3 {
   align-self: flex-end;
   width: 147px;
   height: auto;
-  /* margin: 50px 10% 0 0 !important; */
-  /* justify-content: space-between; */
-  /* margin-top: 5px; */
+}
+
+.preferencesLonelyButtonFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-content: flex-end;
+  width: 80%;
+  height: 20vh;
+  margin: 0 10vw 0 10vw !important;
+}
+
+/* .preferencesLonelyLastButtonFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: flex-end;
+  width: 80%;
+  height: 20vh;
+  margin: 0 10vw 0 10vw !important;
+} */
+
+.preferenceLastButton {
+  display: flex;
+  align-self: flex-end;
+  width: 155px;
+  height: auto;
 }
 
 .preferencesFooter{
-  /* card_footer recipe_footer */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
