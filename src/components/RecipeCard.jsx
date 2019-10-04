@@ -7,7 +7,7 @@ import { Button } from 'grommet';
 
 const RecipeCard = (props) => {
   const dispatch = useDispatch();
-  
+
   const onPreviewClick = (id) => {
     dispatch(updateView('Search'))
     props.history.replace({
@@ -39,12 +39,6 @@ const RecipeCard = (props) => {
           <Button
             className="recipe_save"
             label={'Add to menu'}
-            onClick={() => {}}>
-          />
-          </Button>
-          <Button
-            className="recipe_favorite"
-            label={'Add to favorites'}
             onClick={() => {}}>
           />
           </Button>
