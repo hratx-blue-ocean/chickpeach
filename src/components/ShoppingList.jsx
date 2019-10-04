@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import GroceryItem from  './GroceryItem.jsx';
 import NavBar from './NavBar.jsx';
 
 
 const ShoppingList = (props) => {
-  const [ingredients, updateIngredients] = useState(props.ingredients)
+  const ingredients = props.ingredients
 
   const individualIngredientsArray = function(arrOfRecipes) {
     let allIngredients = []
@@ -25,10 +25,27 @@ const ShoppingList = (props) => {
         ) {
           val.quantity = val.quantity + ingredient.quantity;
           return accumulator;
+        } else if (
+          ingredient.name === val.name &&
+          ingredient.unit === val.unit + 's'
+        ) {
+          val.quantity = val.quantity + ingredient.quantity;
+          val.unit = val.unit + 's';
+          return accumulator;
+        } else if (
+          ingredient.name === val.name &&
+          ingredient.unit + 's' === val.unit
+        ) {
+          val.quantity = val.quantity + ingredient.quantity;
+          return accumulator;
+        } else if (
+          ingredient.name === val.name &&
+          ingredient.unit !== val.unit
+        ) {
+          val.quantity = val.quantity + ' ' + val.unit + ', ' + ingredient.quantity + ' ' + ingredient.unit;
+          val.unit = '';
+          return accumulator;
         } 
-        // else if (ingredient.name === val.name) {
-        //   maybe do something
-        // } 
       }
       ingredient.id = index;
       accumulator.push(ingredient);
@@ -40,6 +57,14 @@ const ShoppingList = (props) => {
   }
 
   const ingredientsForList = consolodateIngredients(allIngredients);
+
+  for (let ingredient of ingredientsForList) {
+    if ((ingredient.quantity > 1) && (ingredient.unit.substr(-1) !== 's') && (ingredient.unit !== '')) {
+      ingredient.unit = ingredient.unit + 's';
+    }
+  }
+
+
 
   const makeAisleList = function(arrOfIngredients) {
     let allAisles = []
