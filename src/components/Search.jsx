@@ -8,7 +8,7 @@ import axios from 'axios';
 import NavBar from './NavBar.jsx';
 import RecipeCard from './RecipeCard.jsx';
 
-const RecipeLanding = (props) => {
+const Search = (props) => {
   const dispatch = useDispatch();
   const search = useSelector(state => state.search);
   const preferences = useSelector(state => state.Preferences);
@@ -58,4 +58,4 @@ const RecipeLanding = (props) => {
   )
 }
 
-export default withRouter(RecipeLanding);
+export default withRouter(Search);

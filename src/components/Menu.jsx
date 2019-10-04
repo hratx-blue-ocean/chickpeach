@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateMenu, updateView, updateSearch } from './actions';
+import { updateMenu, updateView, updateSearch, updateQuery } from './actions';
 import { withRouter, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { Heading, Select, Button } from 'grommet';
