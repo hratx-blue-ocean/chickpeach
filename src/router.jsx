@@ -4,7 +4,7 @@ import Template from './components/Template.jsx';
 import Preferences from "./components/Preferences.jsx";
 import ShoppingList from './components/ShoppingList.jsx';
 import RecipeView from './components/RecipeView.jsx';
-import RecipeLanding from './components/RecipeLanding.jsx';
+import Search from './components/Search.jsx';
 import Menu from './components/Menu.jsx';
 import CreateRecipe from './components/CreateRecipe.jsx';
 import SignUp from './components/SignUp.jsx'
@@ -29,7 +29,7 @@ function RouteManager() {
         <Route exact path="/recipeView" 
                      render={(props) => (<RecipeView {...props} recipe={menuRecipes[0]} />)} />
         <Route exact path="/recipeSearch" 
-                     render={(props) => (<RecipeLanding {...props} recipes={menuRecipes} />)} />
+                     render={(props) => (<Search {...props} recipes={menuRecipes} />)} />
         <Route exact path="/menu" 
                      render={(props) => (<Menu {...props} recipes={menuRecipes} />)} />
         <Route exact path="/createRecipe" 

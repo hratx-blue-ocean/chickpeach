@@ -9,6 +9,14 @@ const MenuCard = (props) => {
   const dispatch = useDispatch();
   const { view } = useSelector(state => state.Menu);
 
+  const getImageURL = () => {
+    if (props.recipe.image.includes('https')) {
+      return props.recipe.image;
+    } else {
+      return `https://webknox.com/recipeImages/${props.recipe.image}`
+    }
+  }
+
   const getMenu = () => {
     axios.get('/menuitems', {
         params: {

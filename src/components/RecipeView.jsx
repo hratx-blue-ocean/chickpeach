@@ -145,7 +145,7 @@ const RecipeView = (props) => {
         <h3>Nutritional Information</h3>
         <div>Servings Per Recipe: {recipe.servings}</div>
         <div>Amount Per Serving</div>
-        <div className={'nutrient_row'}>{`Calories ${recipe.nutrition_info[0].amount}`}</div>
+        <div className={'nutrient_row'}>{`Calories ${Math.round(recipe.nutrition_info[0].amount / 10) * 10}`}</div>
         {
           recipe.nutrition_info.map((nutrient, index) => {
             if (formatter[nutrient.title]) {
@@ -178,6 +178,12 @@ const RecipeView = (props) => {
         <div className='recipe_buttons'>
           <Button className={'primary_button recipe_button'} primary onClick={addToMenu}>Add to menu</Button>
           <Button className={'secondary_button recipe_button'} primary onClick={removeFromHistory}>Remove from history</Button>
+        </div>
+      )}
+      {view === 'Search' && (
+        <div className='recipe_buttons'>
+          <Button className={'primary_button recipe_button'} primary onClick={() => {}}>Add to menu</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={() => {}}>Add to favorites</Button>
         </div>
       )}
 
