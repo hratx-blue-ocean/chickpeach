@@ -179,13 +179,33 @@ app.get('/getingredients', (req, res) => {
 
 //add banned ingredients for user
 
-app.get('/bannedingredients', (req, res) => {
+app.post('/addbannedingredients', (req, res) => {
   //req.query.arrayOfAllergies has the array
 
-  pool.query(`INSERT INTO Banned_Ingredients (user_id, name) VALUES ('${req.query.user_id}', '${req.query.name}');`, (err, rows, fields) => {
+  pool.query(`INSERT INTO Banned_Ingredients (user_id, name) VALUES ('${req.query.user_id}', '${req.query.ingredients}');`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(200).send(rows);
+  });
+});
+
+//get user's banned ingredients 
+
+app.get('/getbannedingredients', (req, res) => {
+
+  pool.query(`SELECT * FROM Banned_Ingredients WHERE user_id = '${req.query.user_id};`, (err, rows, fields) => {
+    if (err) console.log(err);
+
+    res.status(200).send(rows);
+  });
+});
+
+app.put('/updatebannedingredients', (req, res) => {
+  
+  pool.query(`UPDATE Banned_Ingredients SET name = ${req.query.ingredients} WHERE user_id = '${req.query.user_id}';`, (err, res) => {
+    if (err) console.log(err);
+
+    res.status(201).send();
   });
 });
 
@@ -197,6 +217,8 @@ app.get('/menuitems', (req, res) => {
     res.status(200).send(rows);
   });
 });
+
+//add saved item to user menu
 
 app.put('/addtomenu', (req, res) => {
   pool.query(`UPDATE Users_Recipes SET is_on_menu = 1 WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id};`, (err, rows, fields) => {
@@ -220,6 +242,8 @@ app.put('/removemenuitem', (req, res) => {
   });
 });
 
+//add saved item to user favorites
+
 app.put('/addtofavorites', (req, res) => {
   pool.query(`UPDATE Users_Recipes SET is_favorited = 1 WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id};`, (err, rows, fields) => {
     if (err) {
@@ -241,6 +265,8 @@ app.put('/removefromfavorites', (req, res) => {
     res.status(200).end('success');
   });
 });
+
+//remove items from user history
 
 app.put('/removefromhistory', (req, res) => {
   pool.query(`UPDATE Users_Recipes SET is_saved = 0 WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id};`, (err, rows, fields) => {
