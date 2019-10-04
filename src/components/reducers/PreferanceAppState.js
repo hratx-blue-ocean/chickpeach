@@ -1,15 +1,10 @@
 import data from '../../../db/dummyPreferenceData.js';
 
 const defaultState = {
-  diet: [
-    ['vegetarian', false],
-    ['vegan', false],
-    ['keto', false],
-    ['whole30', false]
-  ],
+  diet: '',
   userPreferences1: [
-    ['glutenFree', false],
-    ['dairyFree', false],
+    ['gluten', false],
+    ['dairy', false],
     ['egg', false],
     ['grain', false],
     ['peanut', false],
@@ -91,29 +86,19 @@ const AppStateReducer = (state = defaultState, action) => {
       people: state.people,
       isMetric: state.isMetric,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
 
     const showName = {
       Vegetarian: 'vegetarian',
       Vegan: 'vegan',
       Keto: 'keto',
-      'Whole 30': 'whole30'
+      Whole30: 'whole30',
+      Paleo: 'paleo',
+      Pescetarian: 'pescetarian'
     };
 
-    let newDiet = state.diet.map(array => {
-      return array.slice();
-    })
-
-    for (let i = 0; i < newDiet.length; i++) {
-      if (newDiet[i][0] === showName[action.selection]) {
-        newDiet[i][1] = true
-      } else {
-        newDiet[i][1] = false;
-      }
-    }
-
-    newState.diet = newDiet;
+    newState.diet = showName[action.selection];
     
     return newState;
   }
@@ -130,7 +115,7 @@ const AppStateReducer = (state = defaultState, action) => {
       people: state.people,  //peopleToPrepFor
       isMetric: state.isMetric,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
 
     return newState;
@@ -148,7 +133,7 @@ const AppStateReducer = (state = defaultState, action) => {
       people: state.people,  //peopleToPrepFor
       isMetric: state.isMetric,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
 
     return newState;
@@ -165,7 +150,7 @@ const AppStateReducer = (state = defaultState, action) => {
       people: state.people,
       isMetric: state.isMetric,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
 
     let newAllergyList = state.addedAllergies;
@@ -187,7 +172,7 @@ const AppStateReducer = (state = defaultState, action) => {
       page: state.page,
       people: state.people,
       isMetric: state.isMetric,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
 
     newState.onHover = action.boolean;
@@ -208,7 +193,7 @@ const AppStateReducer = (state = defaultState, action) => {
       people: state.people, 
       isMetric: state.isMetric,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
 
     return newState;
@@ -226,7 +211,7 @@ const AppStateReducer = (state = defaultState, action) => {
       people: state.people,
       isMetric: action.boolean,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
 
     return newState;
@@ -244,8 +229,10 @@ const AppStateReducer = (state = defaultState, action) => {
       people: action.number,
       isMetric: state.isMetric,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
+
+    console.log('from reucer', action.number);
 
     return newState;
   }
@@ -264,6 +251,7 @@ const AppStateReducer = (state = defaultState, action) => {
       onHover: false,
       numberOfMeals: action.number
     };
+    console.log('from meals', action.number)
 
     return newState;
   }
@@ -271,16 +259,11 @@ const AppStateReducer = (state = defaultState, action) => {
   if (action.type === 'Preferences') {
     let preferences = action.preferencesObject;
 
-    let newDiet = [
-      ['vegetarian', preferences.vegetarian],
-      ['vegan', preferences.vegan],
-      ['keto', preferences.keto],
-      ['whole30', preferences.whole30]
-    ];
+    let newDiet = preferences.diet;
 
     let newOptions1 = [
-      ['glutenFree', preferences.glutenFree],
-      ['dairyFree', preferences.dairyFree],
+      ['gluten', preferences.gluten],
+      ['dairy', preferences.dairy],
       ['egg', preferences.egg],
       ['grain', preferences.grain],
       ['peanut', preferences.peanut],
@@ -307,7 +290,7 @@ const AppStateReducer = (state = defaultState, action) => {
       people: state.people,
       isMetric: state.isMetric,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
     return newState;
   }

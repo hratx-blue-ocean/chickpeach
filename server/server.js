@@ -142,9 +142,9 @@ app.get('/adjustpreferences', (req, res) => {
                 allergy_sulfite = ${req.query.sulfite},
                 allergy_tree_nut = ${req.query.treeNut},
                 allergy_wheat = ${req.query.wheat},
-                allery_gluten = ${req.query.gluten},
-                allery_dairy = ${req.query.dairy},
-                diet = ${req.query.diet},
+                allergy_gluten = ${req.query.gluten},
+                allergy_dairy = ${req.query.dairy},
+                diet = '${req.query.diet}',
                 use_metric = ${req.query.isMetric},
                 people_to_prep_for = ${req.query.peopleToPrepFor},
                 meals_per_week = ${req.query.numberOfMeals}
@@ -180,6 +180,8 @@ app.get('/getingredients', (req, res) => {
 //add banned ingredients for user
 
 app.get('/bannedingredients', (req, res) => {
+  //req.query.arrayOfAllergies has the array
+
   pool.query(`INSERT INTO Banned_Ingredients (user_id, name) VALUES ('${req.query.user_id}', '${req.query.name}');`, (err, rows, fields) => {
     if (err) console.log(err);
 
@@ -190,7 +192,7 @@ app.get('/bannedingredients', (req, res) => {
 //get user menu items by user id
 
 app.get('/menuitems', (req, res) => {
-  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE users_recipes.user_id = '${req.query.id}' AND is_on_menu = 1;`, (err, rows, fields) => {
+  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE recipes.id = users_recipes.recipe_id AND users_recipes.user_id = '${req.user.id}' AND is_on_menu = 1;`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send(rows);
   });
@@ -253,7 +255,7 @@ app.put('/removefromhistory', (req, res) => {
 //get user favorited items by user id
 
 app.get('/favoriteitems', (req, res) => {
-  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE users_recipes.user_id = '${req.query.id}' AND is_favorited = 1;`, (err, rows, fields) => {
+  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE recipes.id = users_recipes.recipe_id AND users_recipes.user_id = '${req.user.id}' AND is_favorited = 1;`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send(rows);
   });
@@ -262,7 +264,7 @@ app.get('/favoriteitems', (req, res) => {
 //get saved items by user id
 
 app.get('/saveditems', (req, res) => {
-  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE users_recipes.user_id = '${req.query.id}' AND is_saved = 1;`, (err, rows, fields) => {
+  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE recipes.id = users_recipes.recipe_id AND users_recipes.user_id = '${req.user.id}' AND is_saved = 1;`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send(rows);
   });

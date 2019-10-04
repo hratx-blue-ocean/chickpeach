@@ -45,12 +45,8 @@ const Preferences = (props) => {
   //   this.setState({ page: this.state.page - 1 })
   // }
 
-  const saveToDatabase = () => {
+  const saveToDatabase = (amountOfPeople = state.people, amountOfMeals = state.numberOfMeals) => {
     let newState = {};
-
-    for (let array of state.diet) {
-      newState[array[0]] = array[1]
-    }
 
     for (let array of state.userPreferences1) {
       newState[array[0]] = array[1]
@@ -62,6 +58,7 @@ const Preferences = (props) => {
 
     let preferencesObject = {
       user_id: userState.uid,
+      diet: state.diet,
       egg: newState.egg,
       grain: newState.grain,
       peanut: newState.peanut,
@@ -72,36 +69,50 @@ const Preferences = (props) => {
       sulfite: newState.sulfite,
       treeNut: newState.treeNut,
       wheat: newState.wheat,
-      vegetarian: newState.vegetarian,
-      vegan: newState.vegan,
-      glutenFree: newState.glutenFree,
-      dairyFree: newState.dairyFree,
-      keto: newState.keto,
-      whole30: newState.whole30,
+      gluten: newState.gluten,
+      dairy: newState.dairy,
       isMetric: state.isMetric,
-      peopleToPrepFor: state.people,
-      numberOfMeals: state.numberOfMeals,
+      peopleToPrepFor: amountOfPeople,
+      numberOfMeals: amountOfMeals,
       addedAllergies: state.addedAllergies
     };
-
+    
     //***Change to Post***
     axios.get('/adjustpreferences', {
       params: preferencesObject
     })
       .then(response => {
-        console.log('sumbitted');
+        console.log('sumbitted preferences');
       })
       .catch(error => {
         console.log(error);
       })
+    
+    axios.get('/bannedingredients', {
+      params: {
+        user_id: preferencesObject.user_id,
+        arrayOfAllergies: preferencesObject.addAllergies
+      }
+    })
+      .then(response => {
+        console.log('sumbitted allergies');
+      })
+      .catch(error => {
+        console.log(error);
+      })
+
+
     dispatch(addPreferences(preferencesObject))
   }
 
   const saveAndContinue = () => {
     if (state.page === 4) {
-      dispatch(SetPeople(Number(document.getElementById('preferencesCountInput').value)));
-      dispatch(SetMeals(Number(document.getElementById('preferencesMealCountInput').value)));
-      saveToDatabase();
+      let amountOfPeople = Number(document.getElementById('preferencesCountInput').value);
+      let amountOfMeals = Number(document.getElementById('preferencesMealCountInput').value);
+
+      dispatch(SetPeople(amountOfPeople));
+      dispatch(SetMeals(amountOfMeals));
+      saveToDatabase(amountOfPeople, amountOfMeals);
       return props.history.replace('/menu');
     }
     dispatch(IteratePageCount())
@@ -114,20 +125,16 @@ const Preferences = (props) => {
       vegetarian: 'Vegetarian',
       vegan: 'Vegan',
       keto: 'Keto',
-      whole30: 'Whole 30'
+      whole30: 'Whole30',
+      paleo: 'Paleo',
+      pescetarian: 'Pescetarian' 
     };
 
-    let newDiet = state.diet.map(array => {
-      return array.slice();
-    })
-
-    for (let arrayPair of newDiet) {
-      if (arrayPair[1]) {
-        return showName[arrayPair[0]];
-      }
+    if (state.diet === '') {
+      return 'I eat it all!';
     }
 
-    return 'I eat it all!';
+    return showName[state.diet];
   }
 
   return (
@@ -142,7 +149,7 @@ const Preferences = (props) => {
           <Grommet theme={customTheme}>
               <RadioButtonGroup
                 name="diet"
-            options={['Vegan', 'Vegetarian', 'Keto', 'Whole 30', 'I eat it all!']}
+              options={['Vegan', 'Vegetarian', 'Keto', 'Whole30', 'Paleo', 'Pescetarian',  'I eat it all!']}
                 value={getValue()}
                 onChange={(event) => dispatch(UpdateDiet(event.target.value))}
               />
@@ -152,7 +159,7 @@ const Preferences = (props) => {
 
           { state.page === 1 && 
           <div>
-            {/* <p id="preferencesInputInstructions">Toggle Right to Remove Ingredient from Search Results:</p> */}
+            <p id="preferencesInputInstructions">Toggle Right to Remove Ingredient from Search Results:</p>
             {state.userPreferences1.map((toggleArray, index) => {
               return (
                 <ToggleOptions
@@ -165,7 +172,7 @@ const Preferences = (props) => {
 
         {state.page === 2 && 
           <div>
-            {/* <p id="preferencesInputInstructions">Toggle Right to Remove Ingredient from Search Results:</p> */}
+            <p id="preferencesInputInstructions">Toggle Right to Remove Ingredient from Search Results:</p>
             {state.userPreferences2.map((toggleArray, index) => {
               return (
                 <ToggleOptions
@@ -212,8 +219,7 @@ const Preferences = (props) => {
               <input id="preferencesMealCountInput" placeholder="ex: 18"></input>
             </div>}
           </div>
-      {/* <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary >{'Save & Continue'}</Button> */}
-      
+
         {state.page === 0 ?
         <div className="preferencesLonelyButtonFooter">
           <div id="preferencesNextPageTextContainer">
