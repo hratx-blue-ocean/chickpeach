@@ -17,15 +17,15 @@ const dummyRecipe = {
       aisle: 'baking'
     },
     { 
-      name: 'egg, room temperature',
+      name: 'egg',
       quantity: 1,
-      unit: 'large',
+      unit: '',
       aisle: 'dairy and eggs'
     },
     { 
       name: 'shrimp, peeled, deveined (optional)',
       quantity: 6,
-      unit: 'medium',
+      unit: '',
       aisle: 'meat and seafood'
     },
     { 
@@ -109,6 +109,82 @@ const dummyRecipe = {
   servings: '4 servings'
 }
 
-const dummySearchRecipeArray = [dummyRecipe, dummyRecipe]
+const dummyRecipe2 = {
+  title: 'Pad Thai',
+  images: ['https://images.unsplash.com/photo-1473093226795-af9932fe5856?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1885&q=80'],
+  ingredients: [
+    {
+      stringRender: '1lb of anchovies cleaned, spine removed',
+      quantity: 1,
+      unit: 'lb',
+      name: 'anchovies',
+      aisle: 'meat and seafood'
+    },
+    {
+      stringRender: '1 teaspoon of baking powder',
+      quantity: 1,
+      unit: 'teaspoon',
+      name: 'baking powder',
+      aisle: 'baking'
+    },
+    { stringRender: '1 egg', quantity: 1, unit: '', name: 'egg', aisle: 'dairy and eggs' },
+    {
+      stringRender: '1 cup of flour',
+      quantity: 1,
+      unit: 'cup',
+      name: 'flour',
+      aisle: 'baking'
+    },
+    {
+      stringRender: 'sage leaves (optional - if you are not a fan of sage just omit)',
+      quantity: 1,
+      unit: 'leaf',
+      name: 'sage leaves',
+      aisle: 'baking'
+    },
+    {
+      stringRender: '1 teaspoon of salt',
+      quantity: 1,
+      unit: 'teaspoon',
+      name: 'salt',
+      aisle: 'baking'
+    },
+    {
+      stringRender: 'seltzer water',
+      quantity: 3,
+      unit: 'servings',
+      name: 'seltzer water',
+      aisle: 'beverages'
+    },
+    {
+      stringRender: 'vegetable oil for frying',
+      quantity: 3,
+      unit: 'servings',
+      name: 'vegetable oil',
+      aisle: 'baking'
+    }
+  ],
+  directions: [
+    'Place noodles in a large bowl; pour hot water over to cover. Let soak until tender but not mushy, 5–10 minutes. Drain; set aside.',
+    'Heat vegetable oil in a wok or large skillet over medium-high heat. Add egg; stir until barely set, about 30 seconds. Add shrimp, if using. Cook, stirring, until shrimp and egg are almost cooked through, 2–3 minutes. Add tofu and radish; cook for 30 seconds. Add noodles and cook for 1 minute. Stir in sprouts. Add tamarind water, fish sauce, and simple syrup and stir-fry until sauce is absorbed by noodles and noodles are well coated, about 1 minute. Stir in chopped garlic chives. Add 1/4 tsp. ground chiles and 1 Tbsp. peanuts and toss well. Transfer to serving plates.',
+    'Garnish with remaining 1/4 tsp. ground chiles, 1 Tbsp. peanuts, and lime wedges.',
+  ],
+  nutrition_info: {
+    calories: 500,
+    carbs: '37g',
+    sugar: '16g',
+    fat: '39g',
+    sodium: '1073mg',
+    fiber: '9g',
+    net_carbs: '28g',
+    added_sugar: '0g',
+    saturated_fat: '26g',
+    protein: '20g'
+  },
+  servings: '4 servings'
+}
+
+
+const dummySearchRecipeArray = [dummyRecipe, dummyRecipe2]
 
 export { dummyIngredients, dummySearchRecipeArray }
