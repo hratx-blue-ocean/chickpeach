@@ -91,7 +91,7 @@ const AppStateReducer = (state = defaultState, action) => {
       people: state.people,
       isMetric: state.isMetric,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
 
     const showName = {
@@ -130,7 +130,7 @@ const AppStateReducer = (state = defaultState, action) => {
       people: state.people,  //peopleToPrepFor
       isMetric: state.isMetric,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
 
     return newState;
@@ -148,7 +148,7 @@ const AppStateReducer = (state = defaultState, action) => {
       people: state.people,  //peopleToPrepFor
       isMetric: state.isMetric,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
 
     return newState;
@@ -165,7 +165,7 @@ const AppStateReducer = (state = defaultState, action) => {
       people: state.people,
       isMetric: state.isMetric,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
 
     let newAllergyList = state.addedAllergies;
@@ -187,7 +187,7 @@ const AppStateReducer = (state = defaultState, action) => {
       page: state.page,
       people: state.people,
       isMetric: state.isMetric,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
 
     newState.onHover = action.boolean;
@@ -208,7 +208,7 @@ const AppStateReducer = (state = defaultState, action) => {
       people: state.people, 
       isMetric: state.isMetric,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
 
     return newState;
@@ -226,7 +226,7 @@ const AppStateReducer = (state = defaultState, action) => {
       people: state.people,
       isMetric: action.boolean,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
 
     return newState;
@@ -244,8 +244,10 @@ const AppStateReducer = (state = defaultState, action) => {
       people: action.number,
       isMetric: state.isMetric,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
+
+    console.log('from reucer', action.number);
 
     return newState;
   }
@@ -264,6 +266,7 @@ const AppStateReducer = (state = defaultState, action) => {
       onHover: false,
       numberOfMeals: action.number
     };
+    console.log('from meals', action.number)
 
     return newState;
   }
@@ -307,7 +310,7 @@ const AppStateReducer = (state = defaultState, action) => {
       people: state.people,
       isMetric: state.isMetric,
       onHover: false,
-      numberOfMeals: 0
+      numberOfMeals: state.numberOfMeals
     };
     return newState;
   }

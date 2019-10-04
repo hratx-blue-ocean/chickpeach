@@ -45,7 +45,7 @@ const Preferences = (props) => {
   //   this.setState({ page: this.state.page - 1 })
   // }
 
-  const saveToDatabase = () => {
+  const saveToDatabase = (amountOfPeople, amountOfMeals) => {
     let newState = {};
 
     for (let array of state.diet) {
@@ -79,10 +79,16 @@ const Preferences = (props) => {
       keto: newState.keto,
       whole30: newState.whole30,
       isMetric: state.isMetric,
-      peopleToPrepFor: state.people,
-      numberOfMeals: state.numberOfMeals,
+      peopleToPrepFor: amountOfPeople,
+      numberOfMeals: amountOfMeals,
       addedAllergies: state.addedAllergies
     };
+    console.log(state);
+
+    //not pulling current information from state use hook?
+
+    console.log('savetodb function meals', state.numberOfMeals)
+    console.log('savetodb function people', state.people)
 
     //***Change to Post***
     axios.get('/adjustpreferences', {
@@ -99,9 +105,12 @@ const Preferences = (props) => {
 
   const saveAndContinue = () => {
     if (state.page === 4) {
-      dispatch(SetPeople(Number(document.getElementById('preferencesCountInput').value)));
-      dispatch(SetMeals(Number(document.getElementById('preferencesMealCountInput').value)));
-      saveToDatabase();
+      let amountOfPeople = Number(document.getElementById('preferencesCountInput').value);
+      let amountOfMeals = Number(document.getElementById('preferencesMealCountInput').value);
+
+      dispatch(SetPeople(amountOfPeople));
+      dispatch(SetMeals(amountOfMeals));
+      saveToDatabase(amountOfPeople, amountOfMeals);
       return props.history.replace('/menu');
     }
     dispatch(IteratePageCount())
@@ -152,7 +161,7 @@ const Preferences = (props) => {
 
           { state.page === 1 && 
           <div>
-            {/* <p id="preferencesInputInstructions">Toggle Right to Remove Ingredient from Search Results:</p> */}
+            <p id="preferencesInputInstructions">Toggle Right to Remove Ingredient from Search Results:</p>
             {state.userPreferences1.map((toggleArray, index) => {
               return (
                 <ToggleOptions
@@ -165,7 +174,7 @@ const Preferences = (props) => {
 
         {state.page === 2 && 
           <div>
-            {/* <p id="preferencesInputInstructions">Toggle Right to Remove Ingredient from Search Results:</p> */}
+            <p id="preferencesInputInstructions">Toggle Right to Remove Ingredient from Search Results:</p>
             {state.userPreferences2.map((toggleArray, index) => {
               return (
                 <ToggleOptions
@@ -212,8 +221,7 @@ const Preferences = (props) => {
               <input id="preferencesMealCountInput" placeholder="ex: 18"></input>
             </div>}
           </div>
-      {/* <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary >{'Save & Continue'}</Button> */}
-      
+
         {state.page === 0 ?
         <div className="preferencesLonelyButtonFooter">
           <div id="preferencesNextPageTextContainer">
