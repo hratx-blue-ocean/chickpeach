@@ -1,7 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { withRouter } from "react-router-dom";
+import axios from 'axios';
 import { Button } from 'grommet';
 
 const RecipeCard = (props) => {
+  const onPreviewClick = (id) => {
+    props.history.replace({
+      pathname: '/recipeView',
+      state: {id: id}
+    })
+  };
+
   return (
     <div className="card">
       <div>
@@ -20,11 +29,17 @@ const RecipeCard = (props) => {
           <Button
             className="recipe_preview"
             label={'Preview'}
-            onClick={() => {}}
+            onClick={() => {onPreviewClick(props.recipe.id)}}
           />
           <Button
             className="recipe_save"
             label={'Add to menu'}
+            onClick={() => {}}>
+          />
+          </Button>
+          <Button
+            className="recipe_favorite"
+            label={'Add to favorites'}
             onClick={() => {}}>
           />
           </Button>
@@ -34,4 +49,4 @@ const RecipeCard = (props) => {
   );
 };
 
-export default RecipeCard;
+export default withRouter(RecipeCard);
