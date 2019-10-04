@@ -372,7 +372,7 @@ app.get('/getSingleRecipe', async (req, res) => {
         ingredient["stringRender"] = ing.original;
         ingredient["quantity"] = ing.amount;
         ingredient["unit"] = ing.unit;
-        ingredient["name"] = ing.name;
+        ingredient["name"] = ing.name;      //!Store aisle data for ingredients
         return ingredient;
       });
       recipeData["nutrition_info"] = res.data.nutrition.nutrients;
