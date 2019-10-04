@@ -57,18 +57,17 @@ const MenuCard = (props) => {
   };
 
   const onCookClick = (id) => {
-    return (
-      // <Redirect to={{
-      //   pathname: '/recipeView',
-      //   props: {
-      //     id: id
-      //   }
-      // }} />
-      props.history.replace({
-        pathname: '/recipeView',
-        state: {id: id}
-      })
-    )
+    props.history.replace({
+      pathname: '/recipeView',
+      state: {id: id}
+    })
+  };
+
+  const onViewClick = (id) => {
+    props.history.replace({
+      pathname: '/recipeView',
+      state: {id: id}
+    })
   };
 
   const onRemoveClick = () => {
@@ -117,10 +116,18 @@ const MenuCard = (props) => {
             {`${props.recipe.servings} servings`}
           </p>
         </div>
-        <div className="card_footer menu_footer">
-          <Button className={'primary_button'} onClick={() => {onCookClick(props.recipe.id)}}>Cook</Button>
-          <Button className={'primary_button'} onClick={onRemoveClick}>Remove</Button>
-        </div>
+        {view === 'Menu' && (
+          <div className="card_footer menu_footer">
+            <Button className={'primary_button'} onClick={() => {onCookClick(props.recipe.id)}}>Cook</Button>
+            <Button className={'primary_button'} onClick={onRemoveClick}>Remove</Button>
+          </div>
+        )}
+        {(view === 'Favorites' || 'History') && (
+          <div className="card_footer menu_footer">
+            <Button className={'primary_button'} onClick={() => {onViewClick(props.recipe.id)}}>View</Button>
+            <Button className={'primary_button'} onClick={onRemoveClick}>Remove</Button>
+          </div>
+        )}
       </div>
     </div>
   );

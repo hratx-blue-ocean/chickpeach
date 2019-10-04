@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateMenu, updateView, updateSearch, updateQuery } from './actions';
+import { updateMenu, updateView, updateServings, updateSearch, updateQuery } from './actions';
 import { withRouter, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { Heading, Select, Button } from 'grommet';
@@ -12,6 +12,14 @@ const Menu = (props) => {
   const preferences = useSelector(state => state.Preferences);
   const recipes = useSelector(state => state.Menu);
 
+  const getTotalServings = (recipes) => {
+    let servings = 0;
+    recipes.forEach(recipe => {
+      servings += recipe.servings
+    });
+    return servings;
+  }
+
   // Get all recipes associated with user from database
   const getMenu = () => {
     axios.get('/menuitems', {
@@ -22,6 +30,9 @@ const Menu = (props) => {
       })
       .then(({ data }) => {
         dispatch(updateMenu(data));
+      })
+      .then(() => {
+        dispatch(updateServings(getTotalServings(recipes.recipes)));
       })
       .catch(error => console.log(error));
   };
@@ -36,6 +47,9 @@ const Menu = (props) => {
       .then(({ data }) => {
         dispatch(updateMenu(data));
       })
+      .then(() => {
+        dispatch(updateServings(getTotalServings(recipes.recipes)));
+      })
       .catch(error => console.log(error));
   };
 
@@ -48,6 +62,9 @@ const Menu = (props) => {
       })
       .then(({ data }) => {
         dispatch(updateMenu(data));
+      })
+      .then(() => {
+        dispatch(updateServings(getTotalServings(recipes.recipes)));
       })
       .catch(error => console.log(error));
   };
