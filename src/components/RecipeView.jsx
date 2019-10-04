@@ -34,25 +34,54 @@ const RecipeView = (props) => {
     .catch(error => console.log(error))
   };
 
-  const onFavoritesClickMenu = () => {
+  // Menu >> Recipe View
+  const onFavoritesClickFromMenu = () => {
     axios.put('/addtofavorites', {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
     })
     .then(dispatch(updateView('Favorites')))
-    .then(alert('Recipes added to favorites'))
+    .then(alert('Recipe added to favorites'))
     .then(
       props.history.replace('/menu')
     )
     .catch(error => console.log(error));
   };
 
-  const onRemoveClickMenu = () => {
+  const onRemoveClickFromMenu = () => {
     axios.put('/removemenuitem', {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
     })
-    .then(alert('Successfully removed recipe'))
+    .then(dispatch(updateView('Menu')))
+    .then(alert('Successfully removed recipe from menu'))
+    .then(
+      props.history.replace('/menu')
+    )
+    .catch(error => console.log(error));
+  };
+
+  // Favorites >> Recipe View
+  const onMenuClickFromFavorites = () => {
+    axios.put('/addtomenu', {
+      user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+      recipe_id: props.history.location.state.id
+    })
+    .then(dispatch(updateView('Menu')))
+    .then(alert('Recipe added to menu'))
+    .then(
+      props.history.replace('/menu')
+    )
+    .catch(error => console.log(error));
+  };
+
+  const onRemoveClickFromFavorites = () => {
+    axios.put('/removefromfavorites', {
+      user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+      recipe_id: props.history.location.state.id
+    })
+    .then(dispatch(updateView('Favorites')))
+    .then(alert('Successfully removed recipe from favorites'))
     .then(
       props.history.replace('/menu')
     )
@@ -121,14 +150,14 @@ const RecipeView = (props) => {
 
       {view === 'Menu' && (
         <div className='recipe_buttons'>
-          <Button className={'primary_button recipe_button'} primary onClick={onFavoritesClickMenu}>Add to favorites</Button>
-          <Button className={'secondary_button recipe_button'} primary onClick={onRemoveClickMenu}>Remove from menu</Button>
+          <Button className={'primary_button recipe_button'} primary onClick={onFavoritesClickFromMenu}>Add to favorites</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={onRemoveClickFromMenu}>Remove from menu</Button>
         </div>
       )}
       {view === 'Favorites' && (
         <div className='recipe_buttons'>
-          <Button className={'primary_button recipe_button'} primary onClick={}>Add to menu</Button>
-          <Button className={'secondary_button recipe_button'} primary onClick={}>Remove from favorites</Button>
+          <Button className={'primary_button recipe_button'} primary onClick={onMenuClickFromFavorites}>Add to menu</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={onRemoveClickFromFavorites}>Remove from favorites</Button>
         </div>
       )}
       {view === 'History' && (
