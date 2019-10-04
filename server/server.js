@@ -378,39 +378,87 @@ app.get('/getSingleRecipe', async (req, res) => {
 });
 
 //POST singleRecipe from API result route
-// app.post('/addmenurecipe', async (req, res) => {
-//   const [recipe_id] = await pool.query(`INSERT INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ('${req.body.title}', '${req.body.image}', '${req.body.servings}', '${req.body.prep_time}', '${req.body.calories}', '${req.body.carbs}', '${req.body.fat}', '${req.body.fiber}', '${req.body.protein}', '${req.body.sodium}', '${req.body.sugar}');`, (err, results, fields) => {
-//     if (err) console.log(err);
-//     console.log('InsertedROW ID recipes: ' + results.insertId);
-//   });
-//   //mapping collection of ingredients- need to change 
-//   await req.body.ingredients.forEach((ing) => {
-//     await pool.query(`INSERT INTO ingredients (name, quantity, unit, aisle, recipe_id) VALUES ('${ing.name}', '${ing.quantity}', '${ing.unit}', '${ing.aisle}', ${recipe_id});`, (err, results, fields) => {
-//       if (err) console.log(err);
-//       console.log('INSERT ingredients: ' + results);
-//     });
+app.post('/addrecipe', async (req, res) => {
+  const postAction = req.query.action ? req.query.action : 'menu';
+  
+  
+  //INSERT Recipe and return Recipe UID in SQL DB
+  const [recipe_id] = await pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ('${req.body.title}', '${req.body.image}', '${req.body.servings}', '${req.body.prep_time}', '${req.body.calories}', '${req.body.carbs}', '${req.body.fat}', '${req.body.fiber}', '${req.body.protein}', '${req.body.sodium}', '${req.body.sugar}');`, (err, results, fields) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('InsertedROW ID recipes: ' + results.insertId);
+    }
+  });
+  
+  //Checking for user_recipe record duplicate
+  const u_rInsert = `INSERT INTO users_recipes (recipe_id, user_id) VALUES (${recipe_id}, '${req.query.user}');`;
+  await pool.query(`SELECT * FROM users_recipes WHERE recipe_id = ${recipe_id} AND user_id = '${req.query.user}';`, (err, results, fields) => {
+    if (!results) {
+      await pool.query(u_rInsert, (err, results, fields) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('INSERT users_recipes record: ' + results + 'fields meta: ' + fields);
+        }
+      });
+    }
+    if (postAction === 'menu') {
+      await pool.query(`UPDATE users_recipes SET is_on_menu = 1 WHERE recipe_id = ${recipe_id} AND user_id = '${req.query.user}';`, (err, results, fields) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('UPDATE users_recipes record is_on_menu: ' + results);
+        }
+      });
+    } else {
+      await pool.query(`UPDATE users_recipes SET is_favorited = 1 WHERE recipe_id = ${recipe_id} AND user_id = '${req.query.user}';`, (err, results, fields) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('UPDATE users_recipes record is_favorited: ' + results);
+        }
+      });
+    }
+  });
+  
+  //mapping async insert collection of ingredients 
+  asyncForEach(req.body.ingredients, async (ing) => {
+    await pool.query(`INSERT INTO ingredients (name, quantity, unit, aisle, recipe_id) VALUES ('${ing.name}', '${ing.quantity}', '${ing.unit}', '${ing.aisle}', ${recipe_id});`, (err, results, fields) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('INSERT ingredient: ' + results);
+      }
+    });
 
-//   });
-//   //mapping collection of instructions
-//   await req.body.instructions.forEach((inst, idx) => {
-//     await pool.query(`INSERT INTO cooking_instructions (step, step_number, recipe_id) VALUES ('${inst}', ${idx + 1}, ${recipe_id});`, (err, results, fields) => {
-//       if (err) console.log(err);
-//       console.log(results);
-//     });
+  });
+  //mapping async insert collection of instructions
+  asyncForEach(req.body.instructions, async (inst, idx) => {
+    await pool.query(`INSERT INTO cooking_instructions (step, step_number, recipe_id) VALUES ('${inst}', ${idx + 1}, ${recipe_id});`, (err, results, fields) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('INSERT instruction: ' + results);
+      }
+    });
 
-//   });
-//   res.status(201).send();
-// });
+  });
+  res.status(201).send(recipe_id);
+});
 
 /* example Axios POST request
   for singleRecipeFromAPI
 
   axios({
     method: 'post',
-    url: '/user/12345',
+    url: '/addrecipe',
+    params: {
+      action: 'menu' or 'fave'
+      user: uid
+    },
     data: {
-      firstName: 'Fred',
-      lastName: 'Flintstone'
+      recipedata: {}
     }
   });
 
