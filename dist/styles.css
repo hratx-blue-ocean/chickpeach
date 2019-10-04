@@ -368,23 +368,22 @@ h3 {
 }
 
 #preferencesDetailContainer{
-  /* background-color: greenyellow; */
-  /* border: 1px double #444444; */
+  background-color: greenyellow;
+  border: 1px double #444444;
   align-items: center;
   margin: 10px 0;
   width: 100%;
   min-height: 70px;
   display: flex;
-  /* background-color: #FBDCA1; */
 }
 
 #preferencesDetail {
-  /* font-family: "Comic Sans MS", "Comic Sans", cursive; */
-  /* color: skyblue; */
-  /* font-size: 30px; */
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  color: skyblue;
   font-size: 22px;
-  color: #444444;
+  /* font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"; */
+  /* font-size: 22px; */
+  /* color: #444444; */
   width: 100vw;
   font-weight: bold;
   text-align: center;
