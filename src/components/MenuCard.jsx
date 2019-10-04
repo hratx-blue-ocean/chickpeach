@@ -33,8 +33,8 @@ const MenuCard = (props) => {
           </p>
         </div>
         <div className="card_footer menu_footer">
-          <Button onClick={() => {onClick(props.recipe.id)}}>Preview</Button>
-          <Button onClick={() => {}}>Cook</Button>
+          <Button className={'primary_button'} onClick={() => {onClick(props.recipe.id)}}>Preview</Button>
+          <Button className={'primary_button'} onClick={() => {}}>Cook</Button>
         </div>
       </div>
     </div>
