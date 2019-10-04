@@ -35,7 +35,7 @@ const RecipeView = (props) => {
   };
 
   // Menu -> Recipe View
-  const onFavoritesClickFromMenu = () => {
+  const addToFavorites = () => {
     axios.put('/addtofavorites', {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
@@ -48,7 +48,7 @@ const RecipeView = (props) => {
     .catch(error => console.log(error));
   };
 
-  const onRemoveClickFromMenu = () => {
+  const removeFromMenu = () => {
     axios.put('/removemenuitem', {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
@@ -62,7 +62,7 @@ const RecipeView = (props) => {
   };
 
   // Favorites -> Recipe View
-  const onMenuClick = () => {
+  const addToMenu = () => {
     axios.put('/addtomenu', {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
@@ -75,7 +75,7 @@ const RecipeView = (props) => {
     .catch(error => console.log(error));
   };
 
-  const onRemoveClickFromFavorites = () => {
+  const removeFromFavorites = () => {
     axios.put('/removefromfavorites', {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
@@ -89,7 +89,7 @@ const RecipeView = (props) => {
   };
 
   // History -> Recipe View
-  const onRemoveClickFromHistory = () => {
+  const removeFromHistory = () => {
     axios.put('/removefromhistory', {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
@@ -164,20 +164,20 @@ const RecipeView = (props) => {
 
       {view === 'Menu' && (
         <div className='recipe_buttons'>
-          <Button className={'primary_button recipe_button'} primary onClick={onFavoritesClickFromMenu}>Add to favorites</Button>
-          <Button className={'secondary_button recipe_button'} primary onClick={onRemoveClickFromMenu}>Remove from menu</Button>
+          <Button className={'primary_button recipe_button'} primary onClick={addToFavorites}>Add to favorites</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={removeFromMenu}>Remove from menu</Button>
         </div>
       )}
       {view === 'Favorites' && (
         <div className='recipe_buttons'>
-          <Button className={'primary_button recipe_button'} primary onClick={onMenuClick}>Add to menu</Button>
-          <Button className={'secondary_button recipe_button'} primary onClick={onRemoveClickFromFavorites}>Remove from favorites</Button>
+          <Button className={'primary_button recipe_button'} primary onClick={addToMenu}>Add to menu</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={removeFromFavorites}>Remove from favorites</Button>
         </div>
       )}
       {view === 'History' && (
         <div className='recipe_buttons'>
-          <Button className={'primary_button recipe_button'} primary onClick={onMenuClick}>Add to menu</Button>
-          <Button className={'secondary_button recipe_button'} primary onClick={onRemoveClickFromHistory}>Remove from history</Button>
+          <Button className={'primary_button recipe_button'} primary onClick={addToMenu}>Add to menu</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={removeFromHistory}>Remove from history</Button>
         </div>
       )}
 
