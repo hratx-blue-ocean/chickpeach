@@ -66,7 +66,7 @@ const Menu = (props) => {
 
   return (
     <div>
-      <Heading className="header1">Menu</Heading>
+      <Heading className="header1">Menus</Heading>
       <NavLink to='/profile'><Button className={'primary_button logout'}>Profile</Button></NavLink>
       <div className="menu">
         <div className="menu_text">
