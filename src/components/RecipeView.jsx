@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { updateView } from './actions';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from "grommet";
@@ -7,6 +8,7 @@ import NavBar from './NavBar.jsx';
 
 const RecipeView = (props) => {
   const [recipe, updateRecipe] = useState({});
+  const dispatch = useDispatch();
   const preferences = useSelector(state => state.Preferences);
   
   const formatter = {
@@ -31,11 +33,20 @@ const RecipeView = (props) => {
     .catch(error => console.log(error))
   };
 
-  const onCookedClick = () => {
-    return (props.history.replace('/menu'));
+  const onFavoritesClickMenu = () => {
+    axios.put('/addtofavorites', {
+      user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+      recipe_id: props.history.location.state.id
+    })
+    .then(dispatch(updateView('Favorites')))
+    .then(alert('Recipes added to favorites'))
+    .then(
+      props.history.replace('/menu')
+    )
+    .catch(error => console.log(error));
   };
 
-  const onRemoveClick = () => {
+  const onRemoveClickMenu = () => {
     axios.put('/removemenuitem', {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
@@ -108,8 +119,8 @@ const RecipeView = (props) => {
       </div>
 
       <div className='recipe_buttons'>
-        <Button className={'primary_button recipe_button'} primary onClick={onCookedClick}>I cooked this!</Button>
-        <Button className={'secondary_button recipe_button'} primary onClick={onRemoveClick}>Remove from menu</Button>
+        <Button className={'primary_button recipe_button'} primary onClick={onFavoritesClickMenu}>Add to favorites</Button>
+        <Button className={'secondary_button recipe_button'} primary onClick={onRemoveClickMenu}>Remove from menu</Button>
       </div>
 
       <NavBar />
