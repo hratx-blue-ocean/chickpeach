@@ -5,6 +5,24 @@ body {
   margin-bottom: 60px;
 }
 
+/* Grommet Resets */
+.iPmlVq {
+  border-bottom: solid 1px #FBDCA1  !important;
+}
+
+.jxEXYf {
+  box-shadow: 0 0 2px 2px #FBDCA1 !important;
+}
+
+.czusFq{
+  background-color: #FFB084 !important;
+}
+
+.gXImjf {
+  padding: 6px !important;
+  padding-left: 11px !important;
+}
+
 /* Template & Globals*/
 
 #changethis_container {
@@ -40,6 +58,7 @@ h3 {
   text-align: center !important;
   font-weight: bold !important;
   border: none !important;
+  border-radius: 50px;
 }
 
 .secondary_button {
@@ -105,11 +124,10 @@ h3 {
   display: flex;
   flex-direction: row;
   width: 100%;
-  margin-bottom: 4vw;
+  
 }
 
 .card_footer Button {
-  height: 25px;
   border: none !important;
   margin-right: 2vw !important;
   line-height: normal !important;
@@ -598,6 +616,7 @@ h3 {
 @media all and (min-width: 69em){
   #splash_container {
     background-position-x: 0px; 
+    background-size: cover;
   }
 }
 
@@ -608,12 +627,13 @@ h3 {
 }
 
 .menu_recipeCount {
-  font-size: 14px;
+  font-size: 1.3em;
   font-weight: 300;
 }
 
 .menu_footer {
   justify-content: space-between;
+  padding: auto 10px;
 }
 
 .menu_footer Button {
@@ -625,8 +645,15 @@ h3 {
 
 .logout {
   position: fixed;
-  left: 75vw;
+  left: 80vw;
   top: 4vw;
+  border-radius: 50px;
+}
+
+@media all and (min-width: 45em){
+  .card_container {
+    background-color: blue;
+  }
 }
 
 /* Login and Sign Up */
