@@ -216,15 +216,33 @@ const Preferences = (props) => {
       
         {state.page === 0 ?
         <div className="preferencesLonelyButtonFooter">
-        <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary>{'Save & Continue'}</Button>
-        </div> : state.page === 4 ?
+          <div id="preferencesNextPageTextContainer">
+            <p id="preferencesNextPage"><b>{'Next: '}</b>Allergies</p>
+          </div>
+          <div id="preferencesLonelyFooterButtonContainer">
+            <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary>{'Save & Continue'}</Button>
+          </div>
+        </div> 
+        
+        : state.page === 4 ?
           <div className="preferencesFooter">
-          <Button className="secondary_button preferenceButton" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>
-          <Button className="primary_button preferenceLastButton" onClick={() => saveAndContinue()} primary>{'Save'}</Button>
-        </div> :
+            <div id="preferencesNextPageTextContainer">
+              <p id="preferencesNextPage"><b>{'Next: '}</b>To Menu</p>
+            </div>
+            <div id="preferencesFooterButtonContainer">
+              <Button className="secondary_button preferenceButton" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>
+              <Button className="primary_button preferenceLastButton" onClick={() => saveAndContinue()} primary>{'Save'}</Button>
+            </div>
+            </div>
+        :
         <div className="preferencesFooter">
-        <Button className="secondary_button preferenceButton" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>
-        <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary>{'Save & Continue'}</Button>
+          <div id="preferencesNextPageTextContainer">
+            <p id="preferencesNextPage"><b>{'Next: '}</b>pg 2 of 2</p>
+          </div>
+          <div id="preferencesFooterButtonContainer">
+            <Button className="secondary_button preferenceButton" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>
+            <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary>{'Save & Continue'}</Button>
+          </div> 
       </div>}
 
     <NavBar />

@@ -398,9 +398,6 @@ h3 {
   flex-direction: column;
   min-height: 420px;
 }
-
-/* /////////////////////////////////////////////////////////////////////// */
-
 #preferencesCountInput {
   color: #444444;
   justify-self: center;
@@ -442,12 +439,44 @@ h3 {
 
 .preferencesLonelyButtonFooter {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-end;
   align-content: flex-end;
   width: 80%;
   height: 11vh;
   margin: 0 10vw 0 10vw !important;
+}
+
+#preferencesLonelyFooterButtonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-content: flex-end;
+  width: 80vw;
+  height: 39px;
+}
+
+#preferencesFooterButtonContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: flex-end;
+  width: 80vw;
+  height: 39px;
+}
+
+#preferencesNextPageTextContainer{
+  display: flex;
+  width: 80vw;
+  margin: 0;
+  justify-content: flex-end;
+}
+
+#preferencesNextPage {  
+  text-align: center;
+  height: 20px;
+  width: 147px;
+  margin: 10px 0;
 }
 
 .preferenceLastButton {
@@ -459,7 +488,7 @@ h3 {
 
 .preferencesFooter{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-content: flex-end;
   width: 80%;
