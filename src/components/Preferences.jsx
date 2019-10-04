@@ -62,6 +62,7 @@ const Preferences = (props) => {
 
     let preferencesObject = {
       user_id: userState.uid,
+      diet: newState.diet,
       egg: newState.egg,
       grain: newState.grain,
       peanut: newState.peanut,
@@ -72,12 +73,8 @@ const Preferences = (props) => {
       sulfite: newState.sulfite,
       treeNut: newState.treeNut,
       wheat: newState.wheat,
-      vegetarian: newState.vegetarian,
-      vegan: newState.vegan,
-      glutenFree: newState.glutenFree,
-      dairyFree: newState.dairyFree,
-      keto: newState.keto,
-      whole30: newState.whole30,
+      gluten: newState.gluten,
+      dairy: newState.dairy,
       isMetric: state.isMetric,
       peopleToPrepFor: amountOfPeople,
       numberOfMeals: amountOfMeals,
@@ -95,11 +92,25 @@ const Preferences = (props) => {
       params: preferencesObject
     })
       .then(response => {
-        console.log('sumbitted');
+        console.log('sumbitted preferences');
       })
       .catch(error => {
         console.log(error);
       })
+    
+    axios.get('/bannedingredients', {
+      params: {
+        addedAllergies: preferencesObject.addAllergies
+      }
+    })
+      .then(response => {
+        console.log('sumbitted allergies');
+      })
+      .catch(error => {
+        console.log(error);
+      })
+
+
     dispatch(addPreferences(preferencesObject))
   }
 
@@ -123,20 +134,16 @@ const Preferences = (props) => {
       vegetarian: 'Vegetarian',
       vegan: 'Vegan',
       keto: 'Keto',
-      whole30: 'Whole 30'
+      whole30: 'Whole30',
+      paleo: 'Paleo',
+      pescetarian: 'Pescetarian' 
     };
 
-    let newDiet = state.diet.map(array => {
-      return array.slice();
-    })
-
-    for (let arrayPair of newDiet) {
-      if (arrayPair[1]) {
-        return showName[arrayPair[0]];
-      }
+    if (state.diet === '') {
+      return 'I eat it all!';
     }
 
-    return 'I eat it all!';
+    return showName[state.diet];
   }
 
   return (
@@ -151,7 +158,7 @@ const Preferences = (props) => {
           <Grommet theme={customTheme}>
               <RadioButtonGroup
                 name="diet"
-            options={['Vegan', 'Vegetarian', 'Keto', 'Whole 30', 'I eat it all!']}
+              options={['Vegan', 'Vegetarian', 'Keto', 'Whole30', 'Paleo', 'Pescetarian',  'I eat it all!']}
                 value={getValue()}
                 onChange={(event) => dispatch(UpdateDiet(event.target.value))}
               />

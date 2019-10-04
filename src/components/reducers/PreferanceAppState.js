@@ -1,15 +1,10 @@
 import data from '../../../db/dummyPreferenceData.js';
 
 const defaultState = {
-  diet: [
-    ['vegetarian', false],
-    ['vegan', false],
-    ['keto', false],
-    ['whole30', false]
-  ],
+  diet: '',
   userPreferences1: [
-    ['glutenFree', false],
-    ['dairyFree', false],
+    ['gluten', false],
+    ['dairy', false],
     ['egg', false],
     ['grain', false],
     ['peanut', false],
@@ -98,22 +93,12 @@ const AppStateReducer = (state = defaultState, action) => {
       Vegetarian: 'vegetarian',
       Vegan: 'vegan',
       Keto: 'keto',
-      'Whole 30': 'whole30'
+      Whole30: 'whole30',
+      Paleo: 'paleo',
+      Pescetarian: 'pescetarian'
     };
 
-    let newDiet = state.diet.map(array => {
-      return array.slice();
-    })
-
-    for (let i = 0; i < newDiet.length; i++) {
-      if (newDiet[i][0] === showName[action.selection]) {
-        newDiet[i][1] = true
-      } else {
-        newDiet[i][1] = false;
-      }
-    }
-
-    newState.diet = newDiet;
+    newState.diet = showName[action.selection];
     
     return newState;
   }
@@ -282,8 +267,8 @@ const AppStateReducer = (state = defaultState, action) => {
     ];
 
     let newOptions1 = [
-      ['glutenFree', preferences.glutenFree],
-      ['dairyFree', preferences.dairyFree],
+      ['gluten', preferences.gluten],
+      ['dairy', preferences.dairy],
       ['egg', preferences.egg],
       ['grain', preferences.grain],
       ['peanut', preferences.peanut],
