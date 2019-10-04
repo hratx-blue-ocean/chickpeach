@@ -1,7 +1,7 @@
 body {
   padding-top: 10px;
   margin: 0;
-  font-family: Helvetica Neue;
+  font-family: Helvetica Neue, Helvetica;
   margin-bottom: 60px;
 }
 
@@ -582,7 +582,7 @@ h3 {
 #splash_content {
   margin: 10%;
   width: 200px;
-  height: 250px;
+  height: 210px;
 
   display: flex;
   flex-direction: column;
@@ -593,6 +593,12 @@ h3 {
 #splash_logo {
   margin: 0;
   color: #FFB084;
+}
+
+@media all and (min-width: 69em){
+  #splash_container {
+    background-position-x: 0px; 
+  }
 }
 
 /* Menu */
