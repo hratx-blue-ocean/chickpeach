@@ -1,10 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { updateSearch, updateQuery } from './actions';
 import GroceryItem from  './GroceryItem.jsx';
 import NavBar from './NavBar.jsx';
 
 
 const ShoppingList = (props) => {
-  const ingredients = props.ingredients
+  const dispatch = useDispatch();
+  dispatch(updateSearch([]));
+  dispatch(updateQuery(''));
+
+  const ingredients = props.ingredients;
 
   const individualIngredientsArray = function(arrOfRecipes) {
     let allIngredients = []

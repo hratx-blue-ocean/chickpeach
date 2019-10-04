@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateQuery, updateSearch } from './actions';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
 import { Heading, TextInput, Button } from 'grommet';
 import MaterialIcon from 'material-icons-react';
+import axios from 'axios';
 import NavBar from './NavBar.jsx';
 import RecipeCard from './RecipeCard.jsx';
 
-const RecipeLanding = (props) => {
+const Search = (props) => {
   const dispatch = useDispatch();
   const search = useSelector(state => state.search);
   const preferences = useSelector(state => state.Preferences);
@@ -16,7 +16,7 @@ const RecipeLanding = (props) => {
   const searchForRecipes = () => {
     axios.get('/searchRecipes', {
         params: {
-          // diet: preferences.TBD,
+          diet: preferences.diet,
           // banList: preferences.TBD,
           allergenList: preferences.addedAllergies,
           searchInput: search.query
@@ -36,7 +36,6 @@ const RecipeLanding = (props) => {
           <TextInput
             placeholder="type here"
             plain={true}
-            value={search.query}
             onChange={event => dispatch(updateQuery(event.target.value))}
           />
           <Button
@@ -59,4 +58,4 @@ const RecipeLanding = (props) => {
   )
 }
 
-export default withRouter(RecipeLanding);
+export default withRouter(Search);

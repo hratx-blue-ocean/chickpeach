@@ -1,6 +1,6 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateMenu } from './actions';
+import { updateMenu, updateView, updateSearch, updateQuery } from './actions';
 import { withRouter, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { Heading, Select, Button } from 'grommet';
@@ -8,9 +8,6 @@ import MenuCard from './MenuCard.jsx';
 import NavBar from './NavBar.jsx';
 
 const Menu = (props) => {
-  const [currentView, updateCurrentView] = useState({
-    view: 'Menu'
-  });
   const dispatch = useDispatch();
   const preferences = useSelector(state => state.Preferences);
   const recipes = useSelector(state => state.Menu);
@@ -56,20 +53,26 @@ const Menu = (props) => {
   };
 
   useEffect(() => {
-    if (currentView.view === 'Menu') {
+    dispatch(updateSearch([]));
+    dispatch(updateQuery(''));
+    
+    if (recipes.view === 'Menu') {
       getMenu();
     }
-    if (currentView.view === 'Favorites') {
+    if (recipes.view === 'Favorites') {
       getFavorites();
     }
-    if (currentView.view === 'History') {
+    if (recipes.view === 'History') {
       getHistory();
     }
-  }, [currentView.view]);
+    if (recipes.view === 'Search') {
+      dispatch(updateView('Menu'));
+    }
+  }, [recipes.view]);
 
   return (
     <div>
-      <Heading className="header1">Menu</Heading>
+      <Heading className="header1">Menus</Heading>
       <NavLink to='/profile'><Button className={'primary_button logout'}>Profile</Button></NavLink>
       <div className="menu">
         <div className="menu_text">
@@ -78,22 +81,22 @@ const Menu = (props) => {
             id="menu_select"
             options={['Menu', 'Favorites', 'History']}
             size={'small'}
-            value={currentView.view}
-            onChange={({ option }) => updateCurrentView({view: option})}
+            value={recipes.view}
+            onChange={({ option }) => dispatch(updateView(option))}
           />
         </div>
         <div className="card_container">
-          {currentView.view === 'Menu' &&
+          {recipes.view === 'Menu' &&
             recipes.recipes.map((recipe, index) => {
               return <MenuCard recipe={recipe} key={index} />
             })
           }
-          {currentView.view === 'Favorites' &&
+          {recipes.view === 'Favorites' &&
             recipes.recipes.map((recipe, index) => {
               return <MenuCard recipe={recipe} key={index} />
             })
           }
-          {currentView.view === 'History' &&
+          {recipes.view === 'History' &&
             recipes.recipes.map((recipe, index) => {
               return <MenuCard recipe={recipe} key={index} />
             })

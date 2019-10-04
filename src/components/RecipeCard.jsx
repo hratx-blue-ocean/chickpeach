@@ -1,8 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { updateView } from './actions';
+import { withRouter } from "react-router-dom";
+import axios from 'axios';
 import { Button } from 'grommet';
-import MaterialIcon from 'material-icons-react';
 
 const RecipeCard = (props) => {
+  const dispatch = useDispatch();
+
+  const onPreviewClick = (id) => {
+    dispatch(updateView('Search'))
+    props.history.replace({
+      pathname: '/recipeView',
+      state: {id: id}
+    })
+  };
+
   return (
     <div className="card">
       <div>
@@ -20,14 +33,14 @@ const RecipeCard = (props) => {
         <div className="card_footer recipe_footer">
           <Button
             className="recipe_preview"
-            icon={'Preview'}
-            label
-            onClick={() => {}}
+            label={'Preview'}
+            onClick={() => {onPreviewClick(props.recipe.id)}}
           />
           <Button
             className="recipe_save"
+            label={'Add to menu'}
             onClick={() => {}}>
-            <MaterialIcon icon="create" color='whitesmoke' size={20} />
+          />
           </Button>
         </div>
       </div>
@@ -35,4 +48,4 @@ const RecipeCard = (props) => {
   );
 };
 
-export default RecipeCard;
+export default withRouter(RecipeCard);

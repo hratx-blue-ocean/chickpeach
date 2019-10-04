@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { updateView } from './actions';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from "grommet";
@@ -7,6 +8,8 @@ import NavBar from './NavBar.jsx';
 
 const RecipeView = (props) => {
   const [recipe, updateRecipe] = useState({});
+  const dispatch = useDispatch();
+  const { view } = useSelector(state => state.Menu);
   const preferences = useSelector(state => state.Preferences);
   
   const formatter = {
@@ -31,16 +34,71 @@ const RecipeView = (props) => {
     .catch(error => console.log(error))
   };
 
-  const onCookedClick = () => {
-    return (props.history.replace('/menu'));
+  // Menu -> Recipe View
+  const addToFavorites = () => {
+    axios.put('/addtofavorites', {
+      user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+      recipe_id: props.history.location.state.id
+    })
+    .then(dispatch(updateView('Favorites')))
+    .then(alert('Recipe added to favorites'))
+    .then(
+      props.history.replace('/menu')
+    )
+    .catch(error => console.log(error));
   };
 
-  const onRemoveClick = () => {
+  const removeFromMenu = () => {
     axios.put('/removemenuitem', {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
     })
-    .then(alert('Successfully removed recipe'))
+    .then(dispatch(updateView('Menu')))
+    .then(alert('Successfully removed recipe from menu'))
+    .then(
+      props.history.replace('/menu')
+    )
+    .catch(error => console.log(error));
+  };
+
+  // Favorites -> Recipe View
+  const addToMenu = () => {
+    axios.put('/addtomenu', {
+      user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+      recipe_id: props.history.location.state.id
+    })
+    .then(dispatch(updateView('Menu')))
+    .then(alert('Recipe added to menu'))
+    .then(
+      props.history.replace('/menu')
+    )
+    .catch(error => console.log(error));
+  };
+
+  const removeFromFavorites = () => {
+    axios.put('/removefromfavorites', {
+      user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+      recipe_id: props.history.location.state.id
+    })
+    .then(dispatch(updateView('Favorites')))
+    .then(alert('Successfully removed recipe from favorites'))
+    .then(
+      props.history.replace('/menu')
+    )
+    .catch(error => console.log(error));
+  };
+
+  // History -> Recipe View
+  const removeFromHistory = () => {
+    axios.put('/removefromhistory', {
+      user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+      recipe_id: props.history.location.state.id
+    })
+    .then(dispatch(updateView('History')))
+    .then(alert('Recipe removed from history'))
+    .then(
+      props.history.replace('/menu')
+    )
     .catch(error => console.log(error));
   };
 
@@ -87,7 +145,7 @@ const RecipeView = (props) => {
         <h3>Nutritional Information</h3>
         <div>Servings Per Recipe: {recipe.servings}</div>
         <div>Amount Per Serving</div>
-        <div className={'nutrient_row'}>{`Calories ${recipe.nutrition_info[0].amount}`}</div>
+        <div className={'nutrient_row'}>{`Calories ${Math.round(recipe.nutrition_info[0].amount / 10) * 10}`}</div>
         {
           recipe.nutrition_info.map((nutrient, index) => {
             if (formatter[nutrient.title]) {
@@ -104,10 +162,30 @@ const RecipeView = (props) => {
         }
       </div>
 
-      <div className='recipe_buttons'>
-        <Button className={'primary_button recipe_button'} primary onClick={onCookedClick}>I cooked this!</Button>
-        <Button className={'secondary_button recipe_button'} primary onClick={onRemoveClick}>Remove from menu</Button>
-      </div>
+      {view === 'Menu' && (
+        <div className='recipe_buttons'>
+          <Button className={'primary_button recipe_button'} primary onClick={addToFavorites}>Add to favorites</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={removeFromMenu}>Remove from menu</Button>
+        </div>
+      )}
+      {view === 'Favorites' && (
+        <div className='recipe_buttons'>
+          <Button className={'primary_button recipe_button'} primary onClick={addToMenu}>Add to menu</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={removeFromFavorites}>Remove from favorites</Button>
+        </div>
+      )}
+      {view === 'History' && (
+        <div className='recipe_buttons'>
+          <Button className={'primary_button recipe_button'} primary onClick={addToMenu}>Add to menu</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={removeFromHistory}>Remove from history</Button>
+        </div>
+      )}
+      {view === 'Search' && (
+        <div className='recipe_buttons'>
+          <Button className={'primary_button recipe_button'} primary onClick={() => {}}>Add to menu</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={() => {}}>Add to favorites</Button>
+        </div>
+      )}
 
       <NavBar />
     </div>
