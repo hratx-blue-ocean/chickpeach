@@ -480,6 +480,7 @@ app.get('/getSingleRecipe', async (req, res) => {
 );
 
 //POST singleRecipe from API result route
+<<<<<<< HEAD
 app.post('/addrecipe', (req, res) => {
   const postAction = req.body.params.action ? req.body.params.action : 'menu';
   console.log(req.body.params.action);
@@ -549,6 +550,76 @@ app.post('/addrecipe', (req, res) => {
   
   res.status(201).send('');
 });
+=======
+// app.post('/addrecipe', async (req, res) => {
+//   const postAction = req.query.action ? req.query.action : 'menu';
+  
+  
+//   //INSERT Recipe and return Recipe UID in SQL DB
+//   const [recipe_id] = await pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ('${req.body.title}', '${req.body.image}', '${req.body.servings}', '${req.body.prep_time}', '${req.body.calories}', '${req.body.carbs}', '${req.body.fat}', '${req.body.fiber}', '${req.body.protein}', '${req.body.sodium}', '${req.body.sugar}');`, (err, results, fields) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log('InsertedROW ID recipes: ' + results.insertId);
+//     }
+//   });
+  
+//   //Checking for user_recipe record duplicate
+//   const u_rInsert = `INSERT INTO users_recipes (recipe_id, user_id) VALUES (${recipe_id}, '${req.query.user}');`;
+//   await pool.query(`SELECT * FROM users_recipes WHERE recipe_id = ${recipe_id} AND user_id = '${req.query.user}';`, (err, results, fields) => {
+//     if (!results) {
+//       await pool.query(u_rInsert, (err, results, fields) => {
+//         if (err) {
+//           console.log(err);
+//         } else {
+//           console.log('INSERT users_recipes record: ' + results + 'fields meta: ' + fields);
+//         }
+//       });
+//     }
+//     if (postAction === 'menu') {
+//       await pool.query(`UPDATE users_recipes SET is_on_menu = 1 WHERE recipe_id = ${recipe_id} AND user_id = '${req.query.user}';`, (err, results, fields) => {
+//         if (err) {
+//           console.log(err);
+//         } else {
+//           console.log('UPDATE users_recipes record is_on_menu: ' + results);
+//         }
+//       });
+//     } else {
+//       await pool.query(`UPDATE users_recipes SET is_favorited = 1 WHERE recipe_id = ${recipe_id} AND user_id = '${req.query.user}';`, (err, results, fields) => {
+//         if (err) {
+//           console.log(err);
+//         } else {
+//           console.log('UPDATE users_recipes record is_favorited: ' + results);
+//         }
+//       });
+//     }
+//   });
+  
+//   //mapping async insert collection of ingredients 
+//   asyncForEach(req.body.ingredients, async (ing) => {
+//     await pool.query(`INSERT INTO ingredients (name, quantity, unit, aisle, recipe_id) VALUES ('${ing.name}', '${ing.quantity}', '${ing.unit}', '${ing.aisle}', ${recipe_id});`, (err, results, fields) => {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         console.log('INSERT ingredient: ' + results);
+//       }
+//     });
+
+//   });
+//   //mapping async insert collection of instructions
+//   asyncForEach(req.body.instructions, async (inst, idx) => {
+//     await pool.query(`INSERT INTO cooking_instructions (step, step_number, recipe_id) VALUES ('${inst}', ${idx + 1}, ${recipe_id});`, (err, results, fields) => {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         console.log('INSERT instruction: ' + results);
+//       }
+//     });
+
+//   });
+//   res.status(201).send(recipe_id);
+// });
+>>>>>>> Comment out buggy server POST request line 380
 
 /* example Axios POST request
   for singleRecipeFromAPI
