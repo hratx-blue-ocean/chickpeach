@@ -34,7 +34,7 @@ const RecipeView = (props) => {
     .catch(error => console.log(error))
   };
 
-  // Menu >> Recipe View
+  // Menu -> Recipe View
   const onFavoritesClickFromMenu = () => {
     axios.put('/addtofavorites', {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
@@ -61,8 +61,8 @@ const RecipeView = (props) => {
     .catch(error => console.log(error));
   };
 
-  // Favorites >> Recipe View
-  const onMenuClickFromFavorites = () => {
+  // Favorites -> Recipe View
+  const onMenuClick = () => {
     axios.put('/addtomenu', {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
@@ -82,6 +82,20 @@ const RecipeView = (props) => {
     })
     .then(dispatch(updateView('Favorites')))
     .then(alert('Successfully removed recipe from favorites'))
+    .then(
+      props.history.replace('/menu')
+    )
+    .catch(error => console.log(error));
+  };
+
+  // History -> Recipe View
+  const onRemoveClickFromHistory = () => {
+    axios.put('/removefromhistory', {
+      user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+      recipe_id: props.history.location.state.id
+    })
+    .then(dispatch(updateView('History')))
+    .then(alert('Recipe removed from history'))
     .then(
       props.history.replace('/menu')
     )
@@ -156,14 +170,14 @@ const RecipeView = (props) => {
       )}
       {view === 'Favorites' && (
         <div className='recipe_buttons'>
-          <Button className={'primary_button recipe_button'} primary onClick={onMenuClickFromFavorites}>Add to menu</Button>
+          <Button className={'primary_button recipe_button'} primary onClick={onMenuClick}>Add to menu</Button>
           <Button className={'secondary_button recipe_button'} primary onClick={onRemoveClickFromFavorites}>Remove from favorites</Button>
         </div>
       )}
       {view === 'History' && (
         <div className='recipe_buttons'>
-          <Button className={'primary_button recipe_button'} primary onClick={}>Add to menu</Button>
-          <Button className={'secondary_button recipe_button'} primary onClick={}>Remove from history</Button>
+          <Button className={'primary_button recipe_button'} primary onClick={onMenuClick}>Add to menu</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={onRemoveClickFromHistory}>Remove from history</Button>
         </div>
       )}
 
