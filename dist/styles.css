@@ -206,6 +206,18 @@ h3 {
   text-decoration: line-through;
 }
 
+@media all and (min-width: 38em){
+  #shopping_list_container {
+    display: flex;
+    justify-content: center;
+  }
+
+  #shopping_list {
+    margin-top: 5vh;
+    width: 50vw;
+  }
+}
+
 /* Recipe View */
 
 #recipeView_container {
