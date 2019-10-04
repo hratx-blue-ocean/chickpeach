@@ -29,10 +29,9 @@ const Menu = (props) => {
         }
       })
       .then(({ data }) => {
+        const servingCount = getTotalServings(data)
+        dispatch(updateServings(servingCount));
         dispatch(updateMenu(data));
-      })
-      .then(() => {
-        dispatch(updateServings(getTotalServings(recipes.recipes)));
       })
       .catch(error => console.log(error));
   };
@@ -47,9 +46,6 @@ const Menu = (props) => {
       .then(({ data }) => {
         dispatch(updateMenu(data));
       })
-      .then(() => {
-        dispatch(updateServings(getTotalServings(recipes.recipes)));
-      })
       .catch(error => console.log(error));
   };
 
@@ -62,9 +58,6 @@ const Menu = (props) => {
       })
       .then(({ data }) => {
         dispatch(updateMenu(data));
-      })
-      .then(() => {
-        dispatch(updateServings(getTotalServings(recipes.recipes)));
       })
       .catch(error => console.log(error));
   };
@@ -93,7 +86,7 @@ const Menu = (props) => {
       <NavLink to='/profile'><Button className={'primary_button logout'}>Profile</Button></NavLink>
       <div className="menu">
         <div className="menu_text">
-          <p className="menu_recipeCount">You have <b>4</b> recipes serving <b>{preferences.numberOfMeals}</b> portions.</p>
+          <p className="menu_recipeCount">You have <b>4</b> recipes serving <b>{recipes.servings}</b> portions.</p>
           <Select
             id="menu_select"
             options={['Menu', 'Favorites', 'History']}

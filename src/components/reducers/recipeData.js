@@ -2,7 +2,7 @@ import { dummyIngredients, dummySearchRecipeArray } from '../../../db/initialDat
 
 const defaultState = {
   view: 'Menu',
-  recipes: dummySearchRecipeArray,
+  recipes: [], // dummySearchRecipeArray,
   servings: 0
 };
 

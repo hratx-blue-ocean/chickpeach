@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateMenu } from './actions';
+import { updateMenu, updateServings } from './actions';
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
 import { Button } from 'grommet';
 
 const MenuCard = (props) => {
   const dispatch = useDispatch();
-  const { view } = useSelector(state => state.Menu);
+  const { view, servings } = useSelector(state => state.Menu);
 
   const getImageURL = () => {
     if (props.recipe.image.includes('https')) {
@@ -59,7 +59,10 @@ const MenuCard = (props) => {
   const onCookClick = (id) => {
     props.history.replace({
       pathname: '/recipeView',
-      state: {id: id}
+      state: {
+        id: id,
+        servings: props.recipe.servings
+      }
     })
   };
 
@@ -77,6 +80,11 @@ const MenuCard = (props) => {
         recipe_id: props.recipe.id
       })
       .then(alert('Successfully removed recipe from menu'))
+      .then(() => {
+        console.log(props.recipe.servings)
+        const servingCount = servings - props.recipe.servings;
+        dispatch(updateServings(servingCount));
+      })
       .then(getMenu())
       .catch(error => console.log(error));
     }
@@ -116,13 +124,12 @@ const MenuCard = (props) => {
             {`${props.recipe.servings} servings`}
           </p>
         </div>
-        {view === 'Menu' && (
+        {view === 'Menu' ? (
           <div className="card_footer menu_footer">
             <Button className={'primary_button'} onClick={() => {onCookClick(props.recipe.id)}}>Cook</Button>
             <Button className={'primary_button'} onClick={onRemoveClick}>Remove</Button>
           </div>
-        )}
-        {(view === 'Favorites' || 'History') && (
+        ) : (
           <div className="card_footer menu_footer">
             <Button className={'primary_button'} onClick={() => {onViewClick(props.recipe.id)}}>View</Button>
             <Button className={'primary_button'} onClick={onRemoveClick}>Remove</Button>

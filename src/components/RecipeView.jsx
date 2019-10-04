@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateView } from './actions';
+import { updateView, updateServings } from './actions';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from "grommet";
@@ -9,7 +9,7 @@ import NavBar from './NavBar.jsx';
 const RecipeView = (props) => {
   const [recipe, updateRecipe] = useState({});
   const dispatch = useDispatch();
-  const { view } = useSelector(state => state.Menu);
+  const { view, servings } = useSelector(state => state.Menu);
   const preferences = useSelector(state => state.Preferences);
   
   const formatter = {
@@ -53,6 +53,7 @@ const RecipeView = (props) => {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
     })
+    .then(dispatch(updateServings(servings - props.history.location.state.servings)))
     .then(dispatch(updateView('Menu')))
     .then(alert('Successfully removed recipe from menu'))
     .then(
