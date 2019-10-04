@@ -57,12 +57,7 @@ app.get('/userpreferences', (req, res) => {
     } else {
       let row = rows[0];
       let userPreferencesData = {
-        vegetarian: !!row.diet_vegetarian,
-        glutenFree: !!row.diet_gluten_free,
-        keto: !!row.diet_ketogenic,
-        vegan: !!row.diet_vegan,
-        dairyFree: !!row.diet_dairy_free,
-        whole30: !!row.diet_whole_thirty,
+        diet: row.diet,
         egg: !!row.allergy_egg,
         grain: !!row.allergy_grain,
         peanut: !!row.allergy_peanut,
@@ -73,6 +68,8 @@ app.get('/userpreferences', (req, res) => {
         sulfite: !!row.allergy_sulfite,
         treeNut: !!row.allergy_tree_nut,
         wheat: !!row.allergy_wheat,
+        gluten: !!row.allergy_gluten,
+        dairy: !!row.allergy_dairy,
         peopleToPrepFor: row.people_to_prep_for,
         addedAllergies: [], //**replace with an array of allergies
         isMetric: !!row.use_metric,
@@ -99,12 +96,9 @@ app.get('/createpreferences', (req, res) => {
                 allergy_sulfite,
                 allergy_tree_nut,
                 allergy_wheat,
-                diet_vegetarian,
-                diet_vegan,
-                diet_gluten_free,
-                diet_dairy_free,
-                diet_ketogenic,
-                diet_whole_thirty,
+                allergy_gluten,
+                allergy_dairy,
+                diet,
                 use_metric,
                 people_to_prep_for,
                 meals_per_week
@@ -123,12 +117,9 @@ app.get('/createpreferences', (req, res) => {
                 false,
                 false,
                 false,
-                false,
-                false,
-                false,
-                false,
-                false,
+                '',
                 1,
+                0,
                 0);`), (err, rows, fields) => {
 
     if (err) console.log(err);
@@ -151,12 +142,9 @@ app.get('/adjustpreferences', (req, res) => {
                 allergy_sulfite = ${req.query.sulfite},
                 allergy_tree_nut = ${req.query.treeNut},
                 allergy_wheat = ${req.query.wheat},
-                diet_vegetarian = ${req.query.vegetarian},
-                diet_vegan = ${req.query.vegan},
-                diet_gluten_free = ${req.query.glutenFree},
-                diet_dairy_free = ${req.query.dairyFree},
-                diet_ketogenic = ${req.query.keto},
-                diet_whole_thirty = ${req.query.whole30},
+                allery_gluten = ${req.query.gluten},
+                allery_dairy = ${req.query.dairy},
+                diet = ${req.query.diet},
                 use_metric = ${req.query.isMetric},
                 people_to_prep_for = ${req.query.peopleToPrepFor},
                 meals_per_week = ${req.query.numberOfMeals}
@@ -372,7 +360,8 @@ app.get('/getSingleRecipe', async (req, res) => {
         ingredient["stringRender"] = ing.original;
         ingredient["quantity"] = ing.amount;
         ingredient["unit"] = ing.unit;
-        ingredient["name"] = ing.name;      //!Store aisle data for ingredients
+        ingredient["name"] = ing.name;
+        ingredient["aisle"] = ing.aisle;
         return ingredient;
       });
       recipeData["nutrition_info"] = res.data.nutrition.nutrients;
