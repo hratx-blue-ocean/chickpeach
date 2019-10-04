@@ -114,7 +114,7 @@ const MenuCard = (props) => {
             {props.recipe.title}
           </h4>
           <p className="card_servings">
-            {props.recipe.servings}
+            {`${props.recipe.servings} servings`}
           </p>
         </div>
         <div className="card_footer menu_footer">
