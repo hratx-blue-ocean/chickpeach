@@ -182,8 +182,8 @@ const RecipeView = (props) => {
       )}
       {view === 'Search' && (
         <div className='recipe_buttons'>
-          <Button className={'primary_button recipe_button'} primary onClick={addToMenu}>Add to menu</Button>
-          <Button className={'secondary_button recipe_button'} primary onClick={removeFromHistory}>Add to favorites</Button>
+          <Button className={'primary_button recipe_button'} primary onClick={() => {}}>Add to menu</Button>
+          <Button className={'secondary_button recipe_button'} primary onClick={() => {}}>Add to favorites</Button>
         </div>
       )}
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateMenu, updateView } from './actions';
+import { updateMenu, updateView, updateSearch } from './actions';
 import { withRouter, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { Heading, Select, Button } from 'grommet';
@@ -53,6 +53,7 @@ const Menu = (props) => {
   };
 
   useEffect(() => {
+    dispatch(updateSearch([]));
     if (recipes.view === 'Menu') {
       getMenu();
     }
@@ -61,6 +62,9 @@ const Menu = (props) => {
     }
     if (recipes.view === 'History') {
       getHistory();
+    }
+    if (recipes.view === 'Search') {
+      dispatch(updateView('Menu'));
     }
   }, [recipes.view]);
 
