@@ -192,7 +192,7 @@ app.get('/getingredients', (req, res) => {
 //add banned ingredients for user
 
 app.get('/bannedingredients', (req, res) => {
-  pool.query(`INSERT INTO Banned_Ingredients (user_id, name) VALUES ('${req.query.user_id}', ${req.query.name}');`, (err, rows, fields) => {
+  pool.query(`INSERT INTO Banned_Ingredients (user_id, name) VALUES (${req.query.user_id}, ${req.query.name});`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(200).send(rows);
@@ -387,8 +387,20 @@ app.get('/getSingleRecipe', async (req, res) => {
 });
 
 //POST singleRecipe from API result route
-app.post('/addmenurecipe', (req, res) => {
-      
+app.post('/addmenurecipe', async (req, res) => {
+  await pool.query(`INSERT INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ('${req.body.title}', '${req.body.image}', '${req.body.servings}', '${req.body.prep_time}', '${req.body.calories}', '${req.body.carbs}', '${req.body.fat}', '${req.body.fiber}', '${req.body.protein}', '${req.body.sodium}', '${req.body.sugar}');`, (err, results, fields) => {
+    if (err) console.log(err);
+    console.log(results);
+  });
+  await pool.query(``, (err, results, fields) => {
+    if (err) console.log(err);
+    console.log(results);
+  });
+  await pool.query(``, (err, results, fields) => {
+    if (err) console.log(err);
+    console.log(results);
+  });
+  res.status(201).send();
 });
 
 /* example Axios POST request
