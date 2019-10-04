@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateQuery, updateSearch } from './actions';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
 import { Heading, TextInput, Button } from 'grommet';
 import MaterialIcon from 'material-icons-react';
+import axios from 'axios';
 import NavBar from './NavBar.jsx';
 import RecipeCard from './RecipeCard.jsx';
 
@@ -16,8 +16,8 @@ const RecipeLanding = (props) => {
   const searchForRecipes = () => {
     axios.get('/searchRecipes', {
         params: {
-          // diet: preferences.TBD,
-          // banList: preferences.TBD,
+          diet: preferences.diet,
+          banList: preferences.TBD,
           allergenList: preferences.addedAllergies,
           searchInput: search.query
         }
@@ -36,7 +36,6 @@ const RecipeLanding = (props) => {
           <TextInput
             placeholder="type here"
             plain={true}
-            value={search.query}
             onChange={event => dispatch(updateQuery(event.target.value))}
           />
           <Button

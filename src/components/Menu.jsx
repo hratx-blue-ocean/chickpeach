@@ -54,6 +54,8 @@ const Menu = (props) => {
 
   useEffect(() => {
     dispatch(updateSearch([]));
+    dispatch(updateQuery(''));
+    
     if (recipes.view === 'Menu') {
       getMenu();
     }
