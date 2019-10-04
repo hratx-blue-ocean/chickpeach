@@ -207,6 +207,16 @@ app.get('/menuitems', (req, res) => {
   });
 });
 
+app.put('/addtomenu', (req, res) => {
+  pool.query(`UPDATE Users_Recipes SET is_on_menu = 1 WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id};`, (err, rows, fields) => {
+    if (err) {
+      console.log(err)
+      res.status(404).send(err);
+    }
+    res.status(200).end('success');
+  });
+});
+
 //remove menu item by user id and recipe id
 
 app.put('/removemenuitem', (req, res) => {
@@ -229,6 +239,8 @@ app.put('/addtofavorites', (req, res) => {
   });
 });
 
+//remove user favorited items by user id and recipe id
+
 app.put('/removefromfavorites', (req, res) => {
   pool.query(`UPDATE Users_Recipes SET is_favorited = 0 WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id};`, (err, rows, fields) => {
     if (err) {
@@ -239,8 +251,8 @@ app.put('/removefromfavorites', (req, res) => {
   });
 });
 
-app.put('/addtomenu', (req, res) => {
-  pool.query(`UPDATE Users_Recipes SET is_on_menu = 1 WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id};`, (err, rows, fields) => {
+app.put('/removefromhistory', (req, res) => {
+  pool.query(`UPDATE Users_Recipes SET is_saved = 0 WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id};`, (err, rows, fields) => {
     if (err) {
       console.log(err)
       res.status(404).send(err);
@@ -257,15 +269,6 @@ app.get('/favoriteitems', (req, res) => {
     res.status(200).send(rows);
   });
 });
-
-//remove user favorited items by user id and recipe id
-
-app.get('/removefavoriteitem', (req, res) => {
-  pool.query(`UPDATE Users_Recipes SET is_favorited = 0 WHERE user_id = ${req.query.userId} AND recipe_id = ${req.query.recipeId};`, (err, rows, fields) => {
-    if (err) console.log(err);
-    res.status(200).send();
-  })
-})
 
 //get saved items by user id
 
