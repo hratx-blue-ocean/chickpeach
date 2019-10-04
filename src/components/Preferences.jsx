@@ -137,7 +137,9 @@ const Preferences = (props) => {
           <p id="preferencesDetail">{state.details[state.page]}</p>
         </div>
         <div className="preferenceSelectorContainer">
-          {state.page === 0 && <Grommet theme={customTheme}>
+          {state.page === 0 && 
+          <div id="preferenceDietContainer">
+          <Grommet theme={customTheme}>
               <RadioButtonGroup
                 name="diet"
             options={['Vegan', 'Vegetarian', 'Keto', 'Whole 30', 'I eat it all!']}
@@ -145,29 +147,38 @@ const Preferences = (props) => {
                 onChange={(event) => dispatch(UpdateDiet(event.target.value))}
               />
             </Grommet>
+            </div>
           }
 
-          { state.page === 1 && state.userPreferences1.map((toggleArray, index) => {
-            return (
-              <ToggleOptions
-                toggleArray={toggleArray}
-                key={index}
-              />
-            )
-          })}
+          { state.page === 1 && 
+          <div>
+            {/* <p id="preferencesInputInstructions">Toggle Right to Remove Ingredient from Search Results:</p> */}
+            {state.userPreferences1.map((toggleArray, index) => {
+              return (
+                <ToggleOptions
+                  toggleArray={toggleArray}
+                  key={index}
+                />
+              )
+            })}
+          </div>}
 
-        {state.page === 2 && state.userPreferences2.map((toggleArray, index) => {
-          return (
-            <ToggleOptions
-              toggleArray={toggleArray}
-              key={index}
-            />
-          )
-        })}
+        {state.page === 2 && 
+          <div>
+            {/* <p id="preferencesInputInstructions">Toggle Right to Remove Ingredient from Search Results:</p> */}
+            {state.userPreferences2.map((toggleArray, index) => {
+              return (
+                <ToggleOptions
+                  toggleArray={toggleArray}
+                  key={index}
+                />
+              )
+            })}
+          </div>}
 
         {state.page === 3 &&
         <div className="inputContainer">
-          <p id="preferencesInputInstructions">Other Allergies or Restrictions:</p>
+          {/* <p id="preferencesInputInstructions">Other Allergies or Restrictions:</p> */}
             <ul id="preferencesUl">
               {state.addedAllergies.map((allergy, index) => {
                 return (
@@ -179,39 +190,28 @@ const Preferences = (props) => {
               })}
             </ul>
             <div id="preferencesInputButtonContainer">
-              <input id="preferenceAllergiesInput" onKeyUp={(event) => addAllergies(event)} placeholder="ex: Peanuts"></input>
+              <input id="preferenceAllergiesInput" onKeyUp={(event) => addAllergies(event)} placeholder="ex: Bananas"></input>
             <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => addAllergies(event)}primary >Add</Button>
             </div>
           </div> }
 
         {state.page === 4 && 
-          <div id="preferenceSelectorContainer">
+          <div id="preferenceMeasurementsContainer">
               <p className="preferenceDescription">How many people you are preparing for?</p>
               <input id="preferencesCountInput" placeholder="ex: 3"></input>
-            <p className="preferenceDescription">Would you like quantities displayed in imperial or metric?</p>
+              <p className="preferenceDescription">Would you like quantities displayed in imperial or metric?</p>
               <Grommet theme={customTheme}>
-                <Box align="start" pad="large" gap="small">
-                  <RadioButton
-                    label="Imperial"
-                    name="radio"
-                    value="c2"
-                    checked={!state.isMetric}
-                    onChange={() => dispatch(HandleMetric(false))}
-                  />
-                  <RadioButton
-                    label="Metric"
-                    name="radio"
-                    value="c1"
-                    checked={state.isMetric}
-                    onChange={() => dispatch(HandleMetric(true))}
-                  />
-                </Box>
+                <RadioButtonGroup
+                  name="measurements"
+                  options={['Imperial', 'Metric']}
+                  value={state.isMetric ? 'Metric': 'Imperial'}
+                  onChange={(event) => event.target.value === 'Metric' ? dispatch(HandleMetric(true)) : dispatch(HandleMetric(false))}
+                />
               </Grommet>
-
               <p className="preferenceDescription">How many meals per week are you preparing for?</p>
               <input id="preferencesMealCountInput" placeholder="ex: 18"></input>
             </div>}
-            </div>
+          </div>
       {/* <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary >{'Save & Continue'}</Button> */}
       
         {state.page === 0 ?
