@@ -192,7 +192,7 @@ app.get('/getingredients', (req, res) => {
 //add banned ingredients for user
 
 app.get('/bannedingredients', (req, res) => {
-  pool.query(`INSERT INTO Banned_Ingredients (user_id, name) VALUES (${req.query.user_id}, ${req.query.name});`, (err, rows, fields) => {
+  pool.query(`INSERT INTO Banned_Ingredients (user_id, name) VALUES ('${req.query.user_id}', '${req.query.name}');`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(200).send(rows);
