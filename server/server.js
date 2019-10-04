@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 const { spoonAPIKey } = require('../spoonAPI.config.js');
 const mysql = require('mysql2');
-const { getNestedObject, allowCrossDomain } = require('./utils.js');
+const { getNestedObject, allowCrossDomain, asyncForEach } = require('./utils.js');
 
 
 
@@ -388,17 +388,25 @@ app.get('/getSingleRecipe', async (req, res) => {
 
 //POST singleRecipe from API result route
 app.post('/addmenurecipe', async (req, res) => {
-  await pool.query(`INSERT INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ('${req.body.title}', '${req.body.image}', '${req.body.servings}', '${req.body.prep_time}', '${req.body.calories}', '${req.body.carbs}', '${req.body.fat}', '${req.body.fiber}', '${req.body.protein}', '${req.body.sodium}', '${req.body.sugar}');`, (err, results, fields) => {
+  const [recipe_id] = await pool.query(`INSERT INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ('${req.body.title}', '${req.body.image}', '${req.body.servings}', '${req.body.prep_time}', '${req.body.calories}', '${req.body.carbs}', '${req.body.fat}', '${req.body.fiber}', '${req.body.protein}', '${req.body.sodium}', '${req.body.sugar}');`, (err, results, fields) => {
     if (err) console.log(err);
-    console.log(results);
+    console.log('InsertedROW ID recipes: ' + results.insertId);
   });
-  await pool.query(``, (err, results, fields) => {
-    if (err) console.log(err);
-    console.log(results);
+  //mapping collection of ingredients- need to change 
+  await req.body.ingredients.forEach((ing) => {
+    await pool.query(`INSERT INTO ingredients (name, quantity, unit, aisle, recipe_id) VALUES ('${ing.name}', '${ing.quantity}', '${ing.unit}', '${ing.aisle}', ${recipe_id});`, (err, results, fields) => {
+      if (err) console.log(err);
+      console.log('INSERT ingredients: ' + results);
+    });
+
   });
-  await pool.query(``, (err, results, fields) => {
-    if (err) console.log(err);
-    console.log(results);
+  //mapping collection of instructions
+  await req.body.instructions.forEach((inst, idx) => {
+    await pool.query(`INSERT INTO cooking_instructions (step, step_number, recipe_id) VALUES ('${inst}', ${idx + 1}, ${recipe_id});`, (err, results, fields) => {
+      if (err) console.log(err);
+      console.log(results);
+    });
+
   });
   res.status(201).send();
 });
