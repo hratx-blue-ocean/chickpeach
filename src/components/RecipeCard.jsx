@@ -19,7 +19,7 @@ const RecipeCard = (props) => {
   return (
     <div className="card">
       <div>
-        <img src={`https://webknox.com/recipeImages/${props.recipe.image}`}></img>
+        <img className={'card_image'} src={`https://webknox.com/recipeImages/${props.recipe.image}`}></img>
       </div>
       <div className="card_bottom">
         <div className="card_text">
@@ -27,20 +27,20 @@ const RecipeCard = (props) => {
             {props.recipe.title}
           </h4>
           <p className="card_servings">
-            {`${props.recipe.servings} servings`}
+            {`${props.recipe.servings} servings • ${props.recipe.readyInMinutes} minutes`}
           </p>
         </div>
-        <div className="card_footer recipe_footer">
+        <div className="card_footer">
           <Button
-            className="recipe_preview"
-            label={'Preview'}
+            className="primary_button card_button"
             onClick={() => {onPreviewClick(props.recipe.id)}}
-          />
+          >
+          Preview
+          </Button>
           <Button
-            className="recipe_save"
-            label={'Add to menu'}
+            className="primary_button card_button"
             onClick={() => {}}>
-          />
+            Add to Menu
           </Button>
         </div>
       </div>

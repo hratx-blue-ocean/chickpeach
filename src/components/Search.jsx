@@ -39,9 +39,10 @@ const Search = (props) => {
             onChange={event => dispatch(updateQuery(event.target.value))}
           />
           <Button
+            className={'primary_button'}
             id="recipes_submit"
             onClick={() => searchForRecipes()}>
-              <MaterialIcon icon="create" color='whitesmoke' size={20} />
+              <MaterialIcon icon="search" color='whitesmoke' size={20} />
             </Button>
         </div>
         <hr className="recipes_divider" />
