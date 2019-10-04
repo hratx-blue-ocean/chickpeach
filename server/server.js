@@ -142,9 +142,9 @@ app.get('/adjustpreferences', (req, res) => {
                 allergy_sulfite = ${req.query.sulfite},
                 allergy_tree_nut = ${req.query.treeNut},
                 allergy_wheat = ${req.query.wheat},
-                allery_gluten = ${req.query.gluten},
-                allery_dairy = ${req.query.dairy},
-                diet = ${req.query.diet},
+                allergy_gluten = ${req.query.gluten},
+                allergy_dairy = ${req.query.dairy},
+                diet = '${req.query.diet}',
                 use_metric = ${req.query.isMetric},
                 people_to_prep_for = ${req.query.peopleToPrepFor},
                 meals_per_week = ${req.query.numberOfMeals}
@@ -180,6 +180,8 @@ app.get('/getingredients', (req, res) => {
 //add banned ingredients for user
 
 app.get('/bannedingredients', (req, res) => {
+  //req.query.arrayOfAllergies has the array
+
   pool.query(`INSERT INTO Banned_Ingredients (user_id, name) VALUES ('${req.query.user_id}', '${req.query.name}');`, (err, rows, fields) => {
     if (err) console.log(err);
 
@@ -376,29 +378,29 @@ app.get('/getSingleRecipe', async (req, res) => {
 });
 
 //POST singleRecipe from API result route
-app.post('/addmenurecipe', async (req, res) => {
-  const [recipe_id] = await pool.query(`INSERT INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ('${req.body.title}', '${req.body.image}', '${req.body.servings}', '${req.body.prep_time}', '${req.body.calories}', '${req.body.carbs}', '${req.body.fat}', '${req.body.fiber}', '${req.body.protein}', '${req.body.sodium}', '${req.body.sugar}');`, (err, results, fields) => {
-    if (err) console.log(err);
-    console.log('InsertedROW ID recipes: ' + results.insertId);
-  });
-  //mapping collection of ingredients- need to change 
-  await req.body.ingredients.forEach((ing) => {
-    await pool.query(`INSERT INTO ingredients (name, quantity, unit, aisle, recipe_id) VALUES ('${ing.name}', '${ing.quantity}', '${ing.unit}', '${ing.aisle}', ${recipe_id});`, (err, results, fields) => {
-      if (err) console.log(err);
-      console.log('INSERT ingredients: ' + results);
-    });
+// app.post('/addmenurecipe', async (req, res) => {
+//   const [recipe_id] = await pool.query(`INSERT INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ('${req.body.title}', '${req.body.image}', '${req.body.servings}', '${req.body.prep_time}', '${req.body.calories}', '${req.body.carbs}', '${req.body.fat}', '${req.body.fiber}', '${req.body.protein}', '${req.body.sodium}', '${req.body.sugar}');`, (err, results, fields) => {
+//     if (err) console.log(err);
+//     console.log('InsertedROW ID recipes: ' + results.insertId);
+//   });
+//   //mapping collection of ingredients- need to change 
+//   await req.body.ingredients.forEach((ing) => {
+//     await pool.query(`INSERT INTO ingredients (name, quantity, unit, aisle, recipe_id) VALUES ('${ing.name}', '${ing.quantity}', '${ing.unit}', '${ing.aisle}', ${recipe_id});`, (err, results, fields) => {
+//       if (err) console.log(err);
+//       console.log('INSERT ingredients: ' + results);
+//     });
 
-  });
-  //mapping collection of instructions
-  await req.body.instructions.forEach((inst, idx) => {
-    await pool.query(`INSERT INTO cooking_instructions (step, step_number, recipe_id) VALUES ('${inst}', ${idx + 1}, ${recipe_id});`, (err, results, fields) => {
-      if (err) console.log(err);
-      console.log(results);
-    });
+//   });
+//   //mapping collection of instructions
+//   await req.body.instructions.forEach((inst, idx) => {
+//     await pool.query(`INSERT INTO cooking_instructions (step, step_number, recipe_id) VALUES ('${inst}', ${idx + 1}, ${recipe_id});`, (err, results, fields) => {
+//       if (err) console.log(err);
+//       console.log(results);
+//     });
 
-  });
-  res.status(201).send();
-});
+//   });
+//   res.status(201).send();
+// });
 
 /* example Axios POST request
   for singleRecipeFromAPI

@@ -8,12 +8,8 @@ import { UpdateToggles } from './actions';
 
 const ToggleOptions = (props) => {
   let babel = {
-    vegetarian: 'Vegetarian',
-    glutenFree: 'Gluten',
-    keto: 'Keto',
-    vegan: 'Vegan',
-    dairyFree: 'Dairy',
-    whole30: 'Whole 30',
+    gluten: 'Gluten',
+    dairy: 'Dairy',
     egg: 'Eggs',
     grain: 'Grain',
     peanut: 'Peanuts',
