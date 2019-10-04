@@ -113,6 +113,13 @@ const updateMenu = (menu) => {
   };
 };
 
+const updateView = (view) => {
+  return {
+    type: 'setView',
+    view: view
+  }
+};
+
 const logout = () => {
   return {
     type: 'Logout',
@@ -126,4 +133,4 @@ const UpdateDiet = (selection) => {
   };
 }
 
-export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList, updateQuery, updateSearch, updateMenu, UpdateDiet, logout }
+export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList, updateQuery, updateSearch, updateMenu, updateView, UpdateDiet, logout }
