@@ -145,7 +145,7 @@ const RecipeView = (props) => {
         <h3>Nutritional Information</h3>
         <div>Servings Per Recipe: {recipe.servings}</div>
         <div>Amount Per Serving</div>
-        <div className={'nutrient_row'}>{`Calories ${recipe.nutrition_info[0].amount}`}</div>
+        <div className={'nutrient_row'}>{`Calories ${Math.round(recipe.nutrition_info[0].amount / 10) * 10}`}</div>
         {
           recipe.nutrition_info.map((nutrient, index) => {
             if (formatter[nutrient.title]) {
