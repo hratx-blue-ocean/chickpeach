@@ -716,9 +716,9 @@ h3 {
 }
 
 @media all and (min-width: 45em){
-  .card_container {
+  /* .card_container {
     background-color: blue;
-  }
+  } */
 }
 
 /* Login and Sign Up */
@@ -751,6 +751,25 @@ h3 {
   align-items: center;
   height: 85vh;
 }
+
+.profile_content {
+  display: flex;
+  flex-direction: column;
+  max-width: 80vw;
+}
+
+.profile_preferences_button {
+  width: 100%;
+  margin: 20px auto !important;
+}
+
+@media all and (min-width: 34em) {
+  /* .profile_content {
+    max-width: 80px;
+  } */
+}
+
+
 
 
 
