@@ -1,10 +1,15 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { updateView } from './actions';
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
 import { Button } from 'grommet';
 
 const RecipeCard = (props) => {
+  const dispatch = useDispatch();
+  
   const onPreviewClick = (id) => {
+    dispatch(updateView('Search'))
     props.history.replace({
       pathname: '/recipeView',
       state: {id: id}
