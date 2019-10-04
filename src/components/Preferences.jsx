@@ -25,7 +25,7 @@ const Preferences = (props) => {
       allergyArray.push(document.getElementById('preferenceAllergiesInput').value);
       document.getElementById('preferenceAllergiesInput').value = '';
 
-      dispatch(AddAllergies(allergyArray))
+      dispatch(AddAllergies(allergyArray));
       return;
     }
     
@@ -35,11 +35,11 @@ const Preferences = (props) => {
         event.target.value = '';
         return;
       }
-      allergyArray.push(event.target.value)
+      allergyArray.push(event.target.value);
       event.target.value = '';
-      dispatch(AddAllergies(allergyArray))
+      dispatch(AddAllergies(allergyArray));
     }
-  }
+  };
 
   // previousPage() {
   //   this.setState({ page: this.state.page - 1 })
@@ -103,7 +103,7 @@ const Preferences = (props) => {
 
 
     dispatch(addPreferences(preferencesObject))
-  }
+  };
 
   const saveAndContinue = () => {
     if (state.page === 4) {
@@ -135,7 +135,7 @@ const Preferences = (props) => {
     }
 
     return showName[state.diet];
-  }
+  };
 
   return (
     <div id="preferencesViewContainer">
@@ -184,38 +184,39 @@ const Preferences = (props) => {
           </div>}
 
         {state.page === 3 &&
-        <div className="inputContainer">
-          {/* <p id="preferencesInputInstructions">Other Allergies or Restrictions:</p> */}
-            <ul id="preferencesUl">
-              {state.addedAllergies.map((allergy, index) => {
-                return (
-                  <AllergyItem 
-                    allergy={allergy}
-                    key={index}
-                  />
-                )
-              })}
-            </ul>
-            <div id="preferencesInputButtonContainer">
-              <input id="preferenceAllergiesInput" onKeyUp={(event) => addAllergies(event)} placeholder="ex: Bananas"></input>
-            <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => addAllergies(event)}primary >Add</Button>
-            </div>
-          </div> }
+            <div className="inputContainer">
+              <ul id="preferencesUl">
+                {state.addedAllergies.map((allergy, index) => {
+                  return (
+                    <AllergyItem 
+                      allergy={allergy}
+                      key={index}
+                    />
+                  )
+                })}
+              </ul>
+              <div id="preferencesInputButtonContainer">
+                <input id="preferenceAllergiesInput" onKeyUp={(event) => addAllergies(event)} placeholder="ex: Bananas"></input>
+              <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => addAllergies(event)}primary >Add</Button>
+            </div> 
+          </div>}
 
         {state.page === 4 && 
           <div id="preferenceMeasurementsContainer">
               <p className="preferenceDescription">How many people you are preparing for?</p>
               <input id="preferencesCountInput" placeholder="ex: 3"></input>
               <p className="preferenceDescription">Would you like quantities displayed in imperial or metric?</p>
-              <Grommet theme={customTheme}>
-                <RadioButtonGroup
-                  name="measurements"
-                  options={['Imperial', 'Metric']}
-                  value={state.isMetric ? 'Metric': 'Imperial'}
-                  onChange={(event) => event.target.value === 'Metric' ? dispatch(HandleMetric(true)) : dispatch(HandleMetric(false))}
-                />
-              </Grommet>
-              <p className="preferenceDescription">How many meals per week are you preparing for?</p>
+              <div id="preferenceRadioButtonContainer">
+                <Grommet theme={customTheme}>
+                  <RadioButtonGroup
+                    name="measurements"
+                    options={['Imperial', 'Metric']}
+                    value={state.isMetric ? 'Metric': 'Imperial'}
+                    onChange={(event) => event.target.value === 'Metric' ? dispatch(HandleMetric(true)) : dispatch(HandleMetric(false))}
+                  />
+                </Grommet>
+              </div>
+          <p className="preferenceDescription">How many meals per week is each person preparing for?</p>
               <input id="preferencesMealCountInput" placeholder="ex: 18"></input>
             </div>}
           </div>

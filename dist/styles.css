@@ -290,17 +290,21 @@ h3 {
 
 .inputContainer {
   display: flex;
+  align-self: center;
+  width: 80vw;
+  justify-self: center;
   align-content: center;
   flex-direction: column;
   flex-wrap: wrap;
 }
 
 .preferenceSelectorContainer {
+  display: flex;
   top: 0;
   left: 0;
   margin: 10px 10% 0 10% ;
   width: 80%;
-  min-height: 420px;
+  min-height: 355px;
   height: auto;
   background-color: #FFFFFF;
   border-radius: 10px;
@@ -311,9 +315,10 @@ h3 {
 
 #preferenceMeasurementsContainer {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   align-items: center;
+  width: 80vw
 }
 
 #preferenceAllergiesInput {
@@ -392,13 +397,18 @@ h3 {
   flex-direction: column;
   min-height: 420px;
 }
+
+#preferenceRadioButtonContainer {
+    margin: 6px 0 10px 0;
+}
+
 #preferencesCountInput {
   color: #444444;
   justify-self: center;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
   width: 100px;
   font-size: 18px;
-  margin: 6px 0 20px 0;
+  margin: 6px 0 10px 0;
   box-shadow: 1px 1px 6px
     rgba(0, 0, 0, 0.25);
   border-radius: 6px;
@@ -421,7 +431,7 @@ h3 {
   font-size: 18px;
   padding: 0 25px;
   text-align: center;
-  margin: 20px 0 10px 0;
+  margin: 8px 0 10px 0;
 }
 
 .preferenceButton {
@@ -437,17 +447,8 @@ h3 {
   justify-content: flex-end;
   align-content: flex-end;
   width: 80%;
-  height: 11vh;
+  height: 15vh;
   margin: 0 10vw 0 10vw !important;
-}
-
-#preferencesLonelyFooterButtonContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-content: flex-end;
-  width: 80vw;
-  height: 39px;
 }
 
 #preferencesFooterButtonContainer{
@@ -480,13 +481,22 @@ h3 {
   height: auto;
 }
 
+#preferencesLonelyFooterButtonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-content: flex-end;
+  width: 80vw;
+  height: 39px;
+}
+
 .preferencesFooter{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-content: flex-end;
   width: 80%;
-  height: 11vh;
+  height: 15vh;
   margin: 0 10vw 0 10vw !important;
 }
 
