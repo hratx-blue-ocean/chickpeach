@@ -45,12 +45,8 @@ const Preferences = (props) => {
   //   this.setState({ page: this.state.page - 1 })
   // }
 
-  const saveToDatabase = (amountOfPeople, amountOfMeals) => {
+  const saveToDatabase = (amountOfPeople = state.people, amountOfMeals = state.numberOfMeals) => {
     let newState = {};
-
-    for (let array of state.diet) {
-      newState[array[0]] = array[1]
-    }
 
     for (let array of state.userPreferences1) {
       newState[array[0]] = array[1]
@@ -62,7 +58,7 @@ const Preferences = (props) => {
 
     let preferencesObject = {
       user_id: userState.uid,
-      diet: newState.diet,
+      diet: state.diet,
       egg: newState.egg,
       grain: newState.grain,
       peanut: newState.peanut,
@@ -80,13 +76,7 @@ const Preferences = (props) => {
       numberOfMeals: amountOfMeals,
       addedAllergies: state.addedAllergies
     };
-    console.log(state);
-
-    //not pulling current information from state use hook?
-
-    console.log('savetodb function meals', state.numberOfMeals)
-    console.log('savetodb function people', state.people)
-
+    
     //***Change to Post***
     axios.get('/adjustpreferences', {
       params: preferencesObject
@@ -100,7 +90,8 @@ const Preferences = (props) => {
     
     axios.get('/bannedingredients', {
       params: {
-        addedAllergies: preferencesObject.addAllergies
+        user_id: preferencesObject.user_id,
+        arrayOfAllergies: preferencesObject.addAllergies
       }
     })
       .then(response => {

@@ -259,12 +259,7 @@ const AppStateReducer = (state = defaultState, action) => {
   if (action.type === 'Preferences') {
     let preferences = action.preferencesObject;
 
-    let newDiet = [
-      ['vegetarian', preferences.vegetarian],
-      ['vegan', preferences.vegan],
-      ['keto', preferences.keto],
-      ['whole30', preferences.whole30]
-    ];
+    let newDiet = preferences.diet;
 
     let newOptions1 = [
       ['gluten', preferences.gluten],
