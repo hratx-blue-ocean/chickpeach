@@ -17,7 +17,7 @@ const RecipeLanding = (props) => {
     axios.get('/searchRecipes', {
         params: {
           diet: preferences.diet,
-          banList: preferences.TBD,
+          // banList: preferences.TBD,
           allergenList: preferences.addedAllergies,
           searchInput: search.query
         }
