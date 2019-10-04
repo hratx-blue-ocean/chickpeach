@@ -229,6 +229,26 @@ app.put('/addtofavorites', (req, res) => {
   });
 });
 
+app.put('/removefromfavorites', (req, res) => {
+  pool.query(`UPDATE Users_Recipes SET is_favorited = 0 WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id};`, (err, rows, fields) => {
+    if (err) {
+      console.log(err)
+      res.status(404).send(err);
+    }
+    res.status(200).end('success');
+  });
+});
+
+app.put('/addtomenu', (req, res) => {
+  pool.query(`UPDATE Users_Recipes SET is_on_menu = 1 WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id};`, (err, rows, fields) => {
+    if (err) {
+      console.log(err)
+      res.status(404).send(err);
+    }
+    res.status(200).end('success');
+  });
+});
+
 //get user favorited items by user id
 
 app.get('/favoriteitems', (req, res) => {
