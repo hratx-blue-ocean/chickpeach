@@ -41,6 +41,9 @@ const RecipeView = (props) => {
       recipe_id: props.history.location.state.id
     })
     .then(alert('Successfully removed recipe'))
+    .then(
+      props.history.replace('/menu')
+    )
     .catch(error => console.log(error));
   };
 
