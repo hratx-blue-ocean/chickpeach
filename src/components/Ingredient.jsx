@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 const Ingredient= (props) => { 
 
   const [isCrossedOut, setCrossedOut] = useState(false);
-  console.log(isCrossedOut);
 
   if (isCrossedOut === true) {
     return (
