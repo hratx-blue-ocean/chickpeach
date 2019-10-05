@@ -24,7 +24,7 @@ const Menu = (props) => {
   const getMenu = () => {
     axios.get('/menuitems', {
         params: {
-          id: 'a123'
+          user_id: 'a123'
           // preferences.uid
         }
       })
@@ -39,7 +39,7 @@ const Menu = (props) => {
   const getFavorites = () => {
     axios.get('/favoriteitems', {
         params: {
-          id: 'a123'
+          user_id: 'a123'
           // preferences.uid
         }
       })
@@ -52,7 +52,7 @@ const Menu = (props) => {
   const getHistory = () => {
     axios.get('/saveditems', {
         params: {
-          id: 'a123'
+          user_id: 'a123'
           // preferences.uid
         }
       })
