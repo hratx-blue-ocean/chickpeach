@@ -24,7 +24,7 @@ const Menu = (props) => {
   const getMenu = () => {
     axios.get('/menuitems', {
         params: {
-          id: preferences.uid
+          user_id: preferences.uid
         }
       })
       .then(({ data }) => {
