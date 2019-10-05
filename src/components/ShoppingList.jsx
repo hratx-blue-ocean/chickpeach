@@ -85,7 +85,7 @@ const ShoppingList = (props) => {
 
   return (
     <div id={'ShoppingList_Container'}>
-      <h1 className='ShoppingList_text'>Shopping List</h1>
+      <h1 className={'header1 shopping_header'}>Shopping List</h1>
       <div id='shopping_list_container'>
         <div id='shopping_list'>
           <div className='grocery_line_top'>
