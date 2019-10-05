@@ -119,6 +119,10 @@ const RecipeView = (props) => {
       data: recipe
     })
       .then(alert('Successfully added recipe to menu'))
+      .then(dispatch(updateView('Menu')))
+      .then(
+        props.history.replace('/menu')
+      )
       .catch(error => console.log(error));
   };
   
@@ -131,6 +135,10 @@ const RecipeView = (props) => {
       data: recipe
     })
       .then(alert('Successfully added recipe to menu'))
+      .then(dispatch(updateView('Favorites')))
+      .then(
+        props.history.replace('/menu')
+      )
       .catch(error => console.log(error));
   };
 
