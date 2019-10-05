@@ -58,7 +58,7 @@ const Preferences = (props) => {
       dairy: newState.dairy,
       peopleToPrepFor: amountOfPeople,
       numberOfMeals: amountOfMeals,
-      addedAllergies: state.addedAllergies
+      addedAllergies: state.addedAllergies.length === 0 ? [''] : state.addedAllergies
     };
     
     //***Change to Post***
