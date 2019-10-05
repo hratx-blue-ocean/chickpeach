@@ -63,6 +63,8 @@ h3 {
   font-weight: bold !important;
   border: none !important;
   border-radius: 50px;
+  box-shadow: none !important;
+  outline-color: none !important;
 }
 
 .secondary_button {
@@ -71,6 +73,8 @@ h3 {
   padding: 10px !important;
   text-align: center !important;
   font-weight: bold !important;
+  box-shadow: none !important;
+  outline-color: none !important;
 }
 
 .card, .card_container, .card_bottom, .card_text {
