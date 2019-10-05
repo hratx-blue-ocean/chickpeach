@@ -478,7 +478,8 @@ app.get('/getSingleRecipe', async (req, res) => {
 
 //POST singleRecipe from API result route
 app.post('/addrecipe', (req, res) => {
-  const postAction = req.query.action ? req.query.action : 'menu';
+  const postAction = req.body.params.action ? req.body.params.action : 'menu';
+  console.log(req.body.params.action);
   
   //NutritionData Validation
   const nutrients = checkNutritionData(req);
@@ -486,7 +487,6 @@ app.post('/addrecipe', (req, res) => {
   //INSERT Recipe and return Recipe UID in SQL DB
   pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ("${req.body.data.title}", "${req.body.data.image}", ${req.body.data.servings}, ${req.body.data.prep_time}, ${nutrients.Calories}, "${nutrients.Carbohydrates}", "${nutrients.Fat}", "${nutrients.Fiber}", "${nutrients.Protein}", "${nutrients.Sodium}", "${nutrients.Sugar}");`, (err, results, fields) => {
     const recipe_id = results.insertId;
-    // console.log(recipe_id)
     if (err) {
       console.log(err);
     } else {
