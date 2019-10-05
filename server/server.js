@@ -328,6 +328,7 @@ app.get('/removesaveditems', (req, res) => {
 //SEARCH API route
 app.get('/searchrecipes', async (req, res) => {
     let recipesData = [];
+    console.log(req.query)
     await axios({
       "method":"GET",
       "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search",
@@ -337,8 +338,8 @@ app.get('/searchrecipes', async (req, res) => {
         "x-rapidapi-key":spoonAPIKey                                    //api Key Spoonacular set to a config file in Root DIR (gitignored)
       },"params":{
         "diet": req.query.diet,
-        "excludeIngredients":'', //req.query.banList,
-        "intolerances": '', //req.query.allergenList,
+        "excludeIngredients": "",
+        "intolerances":"",
         "number":"20",
         "offset":"0",
         "instructionsRequired":"true",
@@ -469,8 +470,7 @@ app.post('/addrecipe', (req, res) => {
   const nutrients = checkNutritionData(req);
 
   //INSERT Recipe and return Recipe UID in SQL DB
-  //"${req.body.data}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data.unt || 0)} ${req.data.t || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}");
-  pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ("${req.body.data.title}", "${req.body.data.image}", ${req.body.data.servings}, ${req.body.data.prep_time}, ${nutrients.Calories}, ${nutrients.Carbohydrates}, ${nutrients.Fat}, ${nutrients.Fiber}, ${nutrients.Protein}, ${nutrients.Sodium}, ${nutrients.Sugar});`, (err, results, fields) => {
+  pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ("${req.body.data.title}", "${req.body.data.image}", ${req.body.data.servings}, ${req.body.data.prep_time}, 0, "0", "0", "0", "0", "0", "0");`, (err, results, fields) => {
     const recipe_id = results.insertId;
     // console.log(recipe_id)
     if (err) {
