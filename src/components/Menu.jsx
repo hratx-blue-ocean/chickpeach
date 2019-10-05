@@ -75,7 +75,7 @@ const Menu = (props) => {
     if (recipes.view === 'Search') {
       dispatch(updateView('Menu'));
     }
-  }, [recipes.view]);
+  }, [recipes.servings]);
 
   return (
     <div id={'menu_container'}>
