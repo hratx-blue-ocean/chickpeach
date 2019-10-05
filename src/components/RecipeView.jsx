@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateView } from './actions';
+import { updateView, updateServings } from './actions';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from "grommet";
@@ -9,7 +9,7 @@ import NavBar from './NavBar.jsx';
 const RecipeView = (props) => {
   const [recipe, updateRecipe] = useState({});
   const dispatch = useDispatch();
-  const { view } = useSelector(state => state.Menu);
+  const { view, servings } = useSelector(state => state.Menu);
   const preferences = useSelector(state => state.Preferences);
   
   const formatter = {
@@ -53,6 +53,7 @@ const RecipeView = (props) => {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
     })
+    .then(dispatch(updateServings(servings - props.history.location.state.servings)))
     .then(dispatch(updateView('Menu')))
     .then(alert('Successfully removed recipe from menu'))
     .then(
@@ -86,6 +87,20 @@ const RecipeView = (props) => {
       props.history.replace('/menu')
     )
     .catch(error => console.log(error));
+  };
+
+  // Search -> Recipe View
+  const addToMenuFromSearch = () => {
+    console.log(recipe);
+    axios.post('/addrecipe', {
+      params: {
+        action: 'menu',
+        user: 'a123' // preferences.uid
+      },
+      data: recipe
+    })
+      .then(alert('Successfully added recipe to menu'))
+      .catch(error => console.log(error));
   };
 
   // History -> Recipe View
@@ -161,35 +176,33 @@ const RecipeView = (props) => {
               }
             })
           }
+
+          {view === 'Menu' && (
+              <div className='recipe_buttons'>
+                <Button className={'primary_button recipe_button'} primary onClick={addToFavorites}>Add to favorites</Button>
+                <Button className={'secondary_button recipe_button'} primary onClick={removeFromMenu}>Remove from menu</Button>
+              </div>
+            )}
+          {view === 'Favorites' && (
+            <div className='recipe_buttons'>
+              <Button className={'primary_button recipe_button'} primary onClick={addToMenu}>Add to menu</Button>
+              <Button className={'secondary_button recipe_button'} primary onClick={removeFromFavorites}>Remove from favorites</Button>
+            </div>
+          )}
+          {view === 'History' && (
+            <div className='recipe_buttons'>
+              <Button className={'primary_button recipe_button'} primary onClick={addToMenu}>Add to menu</Button>
+              <Button className={'secondary_button recipe_button'} primary onClick={removeFromHistory}>Remove from history</Button>
+            </div>
+          )}
+          {view === 'Search' && (
+            <div className='recipe_buttons'>
+              <Button className={'primary_button recipe_button'} primary onClick={addToMenuFromSearch}>Add to menu</Button>
+              <Button className={'secondary_button recipe_button'} primary onClick={() => {}}>Add to favorites</Button>
+            </div>
+          )}
         </div>
-
-        {view === 'Menu' && (
-          <div className='recipe_buttons'>
-            <Button className={'primary_button recipe_button'} primary onClick={addToFavorites}>Add to favorites</Button>
-            <Button className={'secondary_button recipe_button'} primary onClick={removeFromMenu}>Remove from menu</Button>
-          </div>
-        )}
-        {view === 'Favorites' && (
-          <div className='recipe_buttons'>
-            <Button className={'primary_button recipe_button'} primary onClick={addToMenu}>Add to menu</Button>
-            <Button className={'secondary_button recipe_button'} primary onClick={removeFromFavorites}>Remove from favorites</Button>
-          </div>
-        )}
-        {view === 'History' && (
-          <div className='recipe_buttons'>
-            <Button className={'primary_button recipe_button'} primary onClick={addToMenu}>Add to menu</Button>
-            <Button className={'secondary_button recipe_button'} primary onClick={removeFromHistory}>Remove from history</Button>
-          </div>
-        )}
-        {view === 'Search' && (
-          <div className='recipe_buttons'>
-            <Button className={'primary_button recipe_button'} primary onClick={() => {}}>Add to menu</Button>
-            <Button className={'secondary_button recipe_button'} primary onClick={() => {}}>Add to favorites</Button>
-          </div>
-        )}
-
         <NavBar />
-
       </div>
     </div>
   )

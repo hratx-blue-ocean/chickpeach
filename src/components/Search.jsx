@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateQuery, updateSearch } from './actions';
 import { withRouter } from 'react-router-dom';
-import { Heading, TextInput, Button } from 'grommet';
+import { Heading, TextInput, Button, Keyboard } from 'grommet';
 import MaterialIcon from 'material-icons-react';
 import axios from 'axios';
 import NavBar from './NavBar.jsx';
@@ -38,12 +38,13 @@ const Search = (props) => {
             plain={true}
             onChange={event => dispatch(updateQuery(event.target.value))}
           />
-          <Button
-            className={'primary_button'}
-            id="recipes_submit"
-            onClick={() => searchForRecipes()}>
-              <MaterialIcon icon="search" color='whitesmoke' size={20} />
+          <Keyboard target="document" onEnter={searchForRecipes}>
+            <Button
+              id="recipes_submit"
+              onClick={searchForRecipes}>
+              <MaterialIcon icon="create" color='whitesmoke' size={20} />
             </Button>
+          </Keyboard>
         </div>
         <hr className="recipes_divider" />
         <div className="card_container">

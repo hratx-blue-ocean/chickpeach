@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateMenu, updateView, updateSearch, updateQuery } from './actions';
+import { updateMenu, updateView, updateServings, updateSearch, updateQuery } from './actions';
 import { withRouter, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { Heading, Select, Button } from 'grommet';
@@ -12,6 +12,14 @@ const Menu = (props) => {
   const preferences = useSelector(state => state.Preferences);
   const recipes = useSelector(state => state.Menu);
 
+  const getTotalServings = (recipes) => {
+    let servings = 0;
+    recipes.forEach(recipe => {
+      servings += recipe.servings
+    });
+    return servings;
+  }
+
   // Get all recipes associated with user from database
   const getMenu = () => {
     axios.get('/menuitems', {
@@ -21,6 +29,8 @@ const Menu = (props) => {
         }
       })
       .then(({ data }) => {
+        const servingCount = getTotalServings(data)
+        dispatch(updateServings(servingCount));
         dispatch(updateMenu(data));
       })
       .catch(error => console.log(error));
@@ -76,7 +86,7 @@ const Menu = (props) => {
       <NavLink to='/profile'><Button className={'primary_button logout'}>Profile</Button></NavLink>
       <div className="menu">
         <div className="menu_text">
-          <p className="menu_recipeCount">You have <b>4</b> recipes serving <b>{preferences.numberOfMeals}</b> portions.</p>
+          <p className="menu_recipeCount">You have <b>4</b> recipes serving <b>{recipes.servings}</b> portions.</p>
           <Select
             id="menu_select"
             options={['Menu', 'Favorites', 'History']}
