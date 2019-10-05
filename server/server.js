@@ -10,12 +10,11 @@ const mysql = require('mysql2');
 const { getNestedObject, allowCrossDomain, asyncForEach, checkNutritionData } = require('./utils.js');
 
 
-
 const pool = mysql.createConnection({
   host: 'chickpeach.crlbgpq4n5lp.us-east-2.rds.amazonaws.com',
   user: 'admin',
-  password: 'chickpeach',
-  database: passRDS,
+  password: passRDS,
+  database: 'chickpeach',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
