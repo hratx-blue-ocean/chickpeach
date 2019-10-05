@@ -4,17 +4,16 @@ const path = require('path');
 const port = 3000;
 const axios = require('axios');
 const bodyParser = require('body-parser');
-
+const passRDS = require('../AWS.RDS.config.js');
 const { spoonAPIKey } = require('../spoonAPI.config.js');
 const mysql = require('mysql2');
 const { getNestedObject, allowCrossDomain, asyncForEach, checkNutritionData } = require('./utils.js');
 
 
-
 const pool = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
+  host: 'chickpeach.crlbgpq4n5lp.us-east-2.rds.amazonaws.com',
+  user: 'admin',
+  password: passRDS,
   database: 'chickpeach',
   waitForConnections: true,
   connectionLimit: 10,
