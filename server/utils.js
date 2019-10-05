@@ -36,7 +36,7 @@ const asyncForEach = async function(array, callback) {
 };
 
 //Checking for ALL properties of nutritionInfo
-const nutritionDataCheck = (req) => {
+const checkNutritionData = (req) => {
   let nutrObj = {
     Calories: 0,
     Fat: 0,
@@ -56,4 +56,4 @@ const nutritionDataCheck = (req) => {
   return nutrObj;
 };
 
-module.exports = { getNestedObject, allowCrossDomain, asyncForEach, nutritionDataCheck }
+module.exports = { getNestedObject, allowCrossDomain, asyncForEach, checkNutritionData }
