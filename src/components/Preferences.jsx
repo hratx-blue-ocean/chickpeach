@@ -65,13 +65,7 @@ const Preferences = (props) => {
     axios.get('/adjustpreferences', {
       params: preferencesObject
     })
-      .then(response => {
-        console.log('sumbitted preferences');
-      })
-      .catch(error => {
-        console.log(error);
-      })
-    
+
     //**Change to Post
     axios.get('/bannedingredients', {
       params: {
@@ -79,13 +73,6 @@ const Preferences = (props) => {
         arrayOfAllergies: preferencesObject.addAllergies
       }
     })
-      .then(response => {
-        console.log('sumbitted allergies');
-      })
-      .catch(error => {
-        console.log(error);
-      })
-
 
     dispatch(addPreferences(preferencesObject))
   };
@@ -170,7 +157,8 @@ const Preferences = (props) => {
             <div id="preferencesInputButtonContainer">
               <Grommet>
                 <FormField name="email">
-                  <TextInput id="preferenceAllergiesInput" placeholder="ex: Bananas" value={allergiesInput} onKeyDown={(e) => e.key === 'Enter' && addAllergies()} onChange={(e) => setAllergiesInput(e.target.value)} />
+                  <TextInput id="preferenceAllergiesInput" placeholder="ex: Bananas" value={allergiesInput} 
+                    onKeyDown={(e) => e.key === 'Enter' && addAllergies()} onChange={(e) => setAllergiesInput(e.target.value)} />
                 </FormField>
               </Grommet>
               <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => addAllergies(event)}primary >Add</Button>
@@ -193,7 +181,7 @@ const Preferences = (props) => {
               <p className="preferenceDescription">How many people you are preparing for?</p>
               <Grommet>
                 <FormField name="email">
-                  <TextInput id="preferencesCountInput" placeholder="ex: 3" value={amountOfPeople} onChange={(e) => setPeople(+e.target.value)} />
+                  <TextInput id="preferencesCountInput" placeholder="ex: 3" value={amountOfPeople} onChange={(e) => isNaN(+e.target.value) ? alert('Please enter a number') : setPeople(+e.target.value)} />
                 </FormField>
               </Grommet>
             </div>
@@ -201,7 +189,7 @@ const Preferences = (props) => {
               <p className="preferenceDescription">How many meals per week is each person preparing for?</p>
               <Grommet>
                 <FormField name="password">
-                    <TextInput id="preferencesMealCountInput" placeholder="ex: 18" value={amountOfMeals} onChange={(e) => setMeals(+e.target.value)} />
+                <TextInput id="preferencesMealCountInput" placeholder="ex: 18" value={amountOfMeals} onChange={(e) => isNaN(+e.target.value) ? alert('Please enter a number') : setMeals(+e.target.value)} />
                 </FormField>
               </Grommet>
             </div>
