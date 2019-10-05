@@ -29,7 +29,7 @@ const Search = (props) => {
   };
 
   return (
-    <div>
+    <div id={'search_container'}>
       <Heading className="header1">Recipes</Heading>
       <div className="recipes">
         <div className="recipes_search">

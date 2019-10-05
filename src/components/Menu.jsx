@@ -71,7 +71,7 @@ const Menu = (props) => {
   }, [recipes.view]);
 
   return (
-    <div>
+    <div id={'menu_container'}>
       <Heading className="header1">Menus</Heading>
       <NavLink to='/profile'><Button className={'primary_button logout'}>Profile</Button></NavLink>
       <div className="menu">
