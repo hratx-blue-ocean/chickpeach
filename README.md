@@ -89,6 +89,16 @@ This repo contains our first release. Here are the features we are currently wor
 
 # Get started
 
+Take the following steps to run the app in your localhost, you will need to have the following:
+- MySQL should be running on your machine
+- You will need to register for a [Spoonacular api key](https://spoonacular.com/food-api/)
+
+From your MySql shell:
+```
+source [PATH TO ROOT/db/schema.sql]
+```
+
+From terminal in the index folder:
 ```
 npm install
 npm run compile
