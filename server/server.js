@@ -366,25 +366,25 @@ app.get('/getsingledbrecipe', (req, res) => {
     obj['created_by_user'] = recipe.created_by_user;
     obj['nutrition_info'] = [
       { title: 'Calories',
-        amount: recipe.calories,
+        amount: +recipe.calories,
         unit: 'cal' },
       { title: 'Carbohydrates',
-        amount: recipe.carbs, 
+        amount: +recipe.carbs, 
         unit: 'g' },
       { title: 'Fat',
-        amount: recipe.fat,
+        amount: +recipe.fat,
         unit: 'g' },
       { title: 'Fiber',
-        amount: recipe.fiber,
+        amount: +recipe.fiber,
         unit: 'g' },
       { title: 'Protein',
-        amount: recipe.protein,
+        amount: +recipe.protein,
         unit: 'g' },
       { title: 'Sodium',
-        amount: recipe.sodium,
+        amount: +recipe.sodium,
         unit: 'mg' },
       { title: 'Sugar',
-        amount: recipe.sugar,
+        amount: +recipe.sugar,
         unit: 'g' }
     ];
 
