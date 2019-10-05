@@ -10,10 +10,7 @@ const ShoppingList = (props) => {
   const dispatch = useDispatch();
   const store = useStore().getState();
   const ingredients = useSelector(state => state.Ingredients);
-  console.log(store)
   const allIngredients = ingredients.ingredients;
-
-  console.log(allIngredients);
 
   let recipesForQuery = store['Menu'].recipes;
 

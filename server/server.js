@@ -216,7 +216,7 @@ app.put('/updatebannedingredients', (req, res) => {
 //get user menu items by user id
 
 app.get('/menuitems', (req, res) => {
-  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE recipes.id = users_recipes.recipe_id AND users_recipes.user_id = '${req.query.user_id}' AND is_on_menu = 1;`, (err, rows, fields) => {
+  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE recipes.id = users_recipes.recipe_id AND users_recipes.user_id = '${req.query.user_id}' AND is_on_menu = 1 ORDER BY Users_Recipes.recipe_id DESC;`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send(rows);
   });

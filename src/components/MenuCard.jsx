@@ -7,6 +7,7 @@ import { Button } from 'grommet';
 
 const MenuCard = (props) => {
   const dispatch = useDispatch();
+  const preferences = useSelector(state => state.Preferences);
   const { view, recipes, servings } = useSelector(state => state.Menu);
 
   const getImageURL = () => {

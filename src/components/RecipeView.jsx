@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateView, updateServings } from './actions';
+import { updateView, updateServings, updateMenu } from './actions';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from "grommet";
@@ -21,6 +21,14 @@ const RecipeView = (props) => {
     'Saturated Fat': 'Saturated Fat',
     Protein: 'Protein'
   }
+
+  const getTotalServings = (recipes) => {
+    let servings = 0;
+    recipes.forEach(recipe => {
+      servings += recipe.servings
+    });
+    return servings;
+  };
 
   const getRecipe = () => {
     if (view === 'Search') {
@@ -44,6 +52,20 @@ const RecipeView = (props) => {
       })
       .catch(error => console.log(error))
     }
+  };
+
+  const getMenu = () => {
+    axios.get('/menuitems', {
+        params: {
+          user_id: preferences.uid
+        }
+      })
+      .then(({ data }) => {
+        const servingCount = getTotalServings(data)
+        dispatch(updateServings(servingCount));
+        dispatch(updateMenu(data));
+      })
+      .catch(error => console.log(error));
   };
 
   // Menu -> Recipe View
@@ -120,6 +142,7 @@ const RecipeView = (props) => {
     })
       .then(alert('Successfully added recipe to menu'))
       .then(dispatch(updateView('Menu')))
+      .then(getMenu())
       .then(
         props.history.replace('/menu')
       )
@@ -136,6 +159,7 @@ const RecipeView = (props) => {
     })
       .then(alert('Successfully added recipe to favorites'))
       .then(dispatch(updateView('Favorites')))
+      .then(getMenu())
       .then(
         props.history.replace('/menu')
       )
