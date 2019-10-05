@@ -8,7 +8,7 @@ Chickpeach is your one stop meal planning, recipe discovery and grocery-manageme
 
 # Contributors
 
-[John Connolly](https://www.google.com), [Arohan Dutt](https://www.google.com), Gibran Iqbal, Julia Kim, Whitney Lee, Sean McCarthy, Jeff Salinas
+[John Connolly](https://github.com/jkcryptolock), [Arohan Dutt](https://github.com/ArohanD), [Gibran Iqbal](https://github.com/Jibbscript), [Julia Kim](https://github.com/jxkim), [Whitney Lee](https://github.com/wiggitywhitney), [Sean McCarthy](https://github.com/SeanMcCarthy3223), [Jeff Salinas](https://github.com/JeffSalinas)
 
 # Work Flow
 
