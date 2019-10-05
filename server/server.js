@@ -329,8 +329,8 @@ app.get('/searchrecipes', async (req, res) => {
         "x-rapidapi-key":spoonAPIKey                                    //api Key Spoonacular set to a config file in Root DIR (gitignored)
       },"params":{
         "diet": req.query.diet,
-        "excludeIngredients":req.query.banList,
-        "intolerances":req.query.allergenList,
+        "excludeIngredients":'', //req.query.banList,
+        "intolerances": '', //req.query.allergenList,
         "number":"20",
         "offset":"0",
         "instructionsRequired":"true",
