@@ -96,8 +96,9 @@ const Preferences = (props) => {
       keto: 'Keto',
       whole30: 'Whole30',
       paleo: 'Paleo',
-      pescetarian: 'Pescetarian' 
+      pescetarian: 'Pescetarian'
     };
+    console.log(state.diet)
 
     if (state.diet === '') {
       return 'I eat it all!';
@@ -115,15 +116,14 @@ const Preferences = (props) => {
         <div className="preferenceSelectorContainer">
           {state.page === 0 && 
           <div id="preferenceDietContainer">
-          <Grommet theme={customTheme}>
+            <Grommet theme={customTheme}>
               <RadioButtonGroup
                 name="diet"
               options={['Vegan', 'Vegetarian', 'Keto', 'Whole30', 'Paleo', 'Pescetarian',  'I eat it all!']}
                 value={getValue()}
-                onChange={(event) => dispatch(UpdateDiet(event.target.value))}
-              />
+              onChange={(event) => event.target.value === 'I eat it all!' ? dispatch(UpdateDiet('')) : dispatch(UpdateDiet(event.target.value))}/>
             </Grommet>
-            </div>
+          </div>
           }
 
           { state.page === 1 && 
@@ -197,7 +197,7 @@ const Preferences = (props) => {
         </div>
 
         {state.page === 0 ?
-        <div className="preferencesLonelyButtonFooter">
+        <div className="preferencesFooter">
           <div id="preferencesNextPageTextContainer">
             <p id="preferencesNextPage"><b>{'Next: '}</b>{state.nextPage[state.page]}</p>
           </div>

@@ -95,7 +95,11 @@ const AppStateReducer = (state = defaultState, action) => {
       Pescetarian: 'pescetarian'
     };
 
-    newState.diet = showName[action.selection];
+    if (action.selection === '') {
+      newState.diet = '';
+    } else {
+      newState.diet = showName[action.selection];
+    }
     
     return newState;
   }
