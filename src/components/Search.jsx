@@ -17,8 +17,8 @@ const Search = (props) => {
     axios.get('/searchRecipes', {
         params: {
           diet: preferences.diet,
-          // banList: preferences.TBD,
-          allergenList: preferences.addedAllergies,
+          banList: preferences.addedAllergies,
+          allergenList: preferences.preferences,
           searchInput: search.query
         }
       })
