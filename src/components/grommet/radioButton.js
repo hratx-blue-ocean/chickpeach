@@ -2,21 +2,29 @@ import { grommet } from "grommet/themes";
 import { deepMerge } from "grommet/utils";
 
 const customTheme = deepMerge(grommet, {
+  global: {
+    colors: {
+      "focus": undefined,
+    }
+  },
   radioButton: {
-    gap: "xsmall",
-    size: "18px",
+    gap: "medium",
+    size: "30px",
+    color: {
+      light:'#444444',
+    },
     hover: {
       border: {
-        color: "dark-3"
+        color: undefined
       }
     },
     check: {
       color: {
-        light: "neutral-1"
+        light: "#FFB084"
       }
     },
     icon: {
-      size: "10px"
+      size: "100%"
     }
   }
 });

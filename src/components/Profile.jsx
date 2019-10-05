@@ -66,7 +66,7 @@ const Profile = (props) => {
               <p><strong>Additional Restrictions:</strong>{details.addedAllergies.length > 0 ? ` ${details.addedAllergies.join(', ')}` : ' none'}</p>
             </div>
             <NavLink to='/preferences'>
-            <Button className={'primary_button profile_preferences_button'} onClick={() => dispatch(resetPage())}>Edit Preferences</Button>
+              <Button className={'primary_button profile_preferences_button'} onClick={() => dispatch(resetPage())}>Edit Preferences</Button>
             </NavLink>
             <Button className={'primary_button'}
                     onClick={() => signOut()}>Logout</Button>

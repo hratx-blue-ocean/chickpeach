@@ -3,19 +3,19 @@ import { Grommet, Button, FormField, TextInput, RadioButtonGroup } from 'grommet
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { IteratePageCount, AddAllergies, HandleMetric, SetPeople, SetMeals, addPreferences, UpdateDiet, DecrementPageCount } from './actions';
+import { IteratePageCount, AddAllergies, HandleMetric, SetPeople, SetMeals, addPreferences, UpdateDiet, DecrementPageCount, resetPage } from './actions';
 import ToggleOptions from './ToggleOptions.jsx';
 import AllergyItem from './AllergyItem.jsx';
 import customTheme from './grommet/radioButton';
 import NavBar from './NavBar.jsx'
 
 const Preferences = (props) => {
-  const [amountOfPeople, setPeople] = useState(0);
-  const [amountOfMeals, setMeals] = useState(0);
-  const [allergiesInput, setAllergiesInput ] = useState('');
   let state = useSelector(state => state.prefAppState);
   let userState = useSelector(state => state.Preferences);
   let dispatch = useDispatch();
+  const [amountOfPeople, setPeople] = useState(state.people);
+  const [amountOfMeals, setMeals] = useState(state.numberOfMeals);
+  const [allergiesInput, setAllergiesInput ] = useState('');
 
   const addAllergies = () => {
     let allergyArray = state.addedAllergies;
@@ -58,7 +58,7 @@ const Preferences = (props) => {
       dairy: newState.dairy,
       peopleToPrepFor: amountOfPeople,
       numberOfMeals: amountOfMeals,
-      addedAllergies: state.addedAllergies
+      addedAllergies: state.addedAllergies.length === 0 ? [''] : state.addedAllergies
     };
     
     //***Change to Post***
@@ -83,6 +83,7 @@ const Preferences = (props) => {
       dispatch(SetPeople(amountOfPeople));
       dispatch(SetMeals(amountOfMeals));
       saveToDatabase(amountOfPeople, amountOfMeals);
+      dispatch(resetPage())
       return props.history.replace('/menu');
     }
 
