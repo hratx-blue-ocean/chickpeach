@@ -4,10 +4,9 @@ import { withRouter } from 'react-router-dom';
 
 
 const GroceryItem = (props) => { 
-
   return (
   <div> 
-    <div className="aisle_text">{props.aisle.toUpperCase()}</div>
+    <div className="aisle_text">{props.aisle}</div>
     {props.ingredients.map((ingredient) => {
       if (ingredient.aisle === props.aisle) {
         return (

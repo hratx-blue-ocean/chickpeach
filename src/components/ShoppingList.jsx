@@ -1,32 +1,49 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { updateSearch, updateQuery } from './actions';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector, useStore } from 'react-redux';
+import { updateSearch, updateIngredients, updateQuery } from './actions';
 import GroceryItem from  './GroceryItem.jsx';
 import NavBar from './NavBar.jsx';
+import Axios from 'axios';
 
 
 const ShoppingList = (props) => {
   const dispatch = useDispatch();
-  dispatch(updateSearch([]));
-  dispatch(updateQuery(''));
+  const store = useStore().getState();
+  const ingredients = useSelector(state => state.Ingredients);
 
-  const ingredients = props.ingredients;
+  const allIngredients = ingredients.ingredients;
 
-  const individualIngredientsArray = function(arrOfRecipes) {
-    let allIngredients = []
-    arrOfRecipes.map((recipe) => {
-      allIngredients.push(recipe.ingredients);
+  let recipesForQuery = store['Menu'].recipes;
+
+  let recipeQuery = [];
+
+  recipesForQuery.forEach( recipe => {
+    recipeQuery.push(recipe['id']);
+  });
+
+  const getRecipes = () => {
+    Axios.get('/getingredients', {
+      params: {
+        recipes: recipeQuery
+      }
     })
-    return allIngredients.flat();
+    .then(data => {
+      dispatch(updateIngredients(data.data));
+    });
   }
 
-  const allIngredients = individualIngredientsArray(ingredients.recipes);
+  useEffect(() => {
+    dispatch(updateSearch([]));
+    dispatch(updateQuery(''));
+    getRecipes();
+
+  }, []);
  
   function consolodateIngredients(ingredientsToConsolodate) {
     const consolodated = ingredientsToConsolodate.reduce((accumulator, ingredient, index) => {
       for (let val of accumulator) {
         if (
-          ingredient.name === val.name &&
+          ingredient['name'] === val.name &&
           ingredient.unit === val.unit
         ) {
           val.quantity = val.quantity + ingredient.quantity;
@@ -70,18 +87,20 @@ const ShoppingList = (props) => {
     }
   }
 
-
-
   const makeAisleList = function(arrOfIngredients) {
     let allAisles = []
     arrOfIngredients.map((ingredient) => {
-      if (!allAisles.includes(ingredient.aisle))
-      allAisles.push(ingredient.aisle);
+      if (!allAisles.includes(ingredient['aisle']))
+      allAisles.push(ingredient['aisle']);
     })
     return allAisles;
   }
   
-  const aisleList = makeAisleList(ingredientsForList);
+  const aisleList = makeAisleList(allIngredients);
+
+  if (!allIngredients) {
+    return <div />
+  }
 
   return (
     <div id={'ShoppingList_Container'}>
