@@ -215,7 +215,7 @@ app.put('/updatebannedingredients', (req, res) => {
 //get user menu items by user id
 
 app.get('/menuitems', (req, res) => {
-  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE recipes.id = users_recipes.recipe_id AND users_recipes.user_id = '${req.query.user_id}' AND is_on_menu = 1 ORDER BY Users_Recipes.recipe_id DESC;`, (err, rows, fields) => {
+  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE Recipes.id = Users_Recipes.recipe_id AND Users_Recipes.user_id = '${req.query.user_id}' AND is_on_menu = 1 ORDER BY Users_Recipes.recipe_id DESC;`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send(rows);
   });
@@ -300,7 +300,7 @@ app.put('/removefromhistory', (req, res) => {
 //get user favorited items by user id
 
 app.get('/favoriteitems', (req, res) => {
-  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE recipes.id = users_recipes.recipe_id AND users_recipes.user_id = '${req.query.user_id}' AND is_favorited = 1;`, (err, rows, fields) => {
+  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE recipes.id = Users_Recipes.recipe_id AND Users_Recipes.user_id = '${req.query.user_id}' AND is_favorited = 1;`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send(rows);
   });
@@ -309,7 +309,7 @@ app.get('/favoriteitems', (req, res) => {
 //get saved items by user id
 
 app.get('/saveditems', (req, res) => {
-  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE recipes.id = users_recipes.recipe_id AND users_recipes.user_id = '${req.query.user_id}' AND is_saved = 1;`, (err, rows, fields) => {
+  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE Recipes.id = Users_Recipes.recipe_id AND Users_Recipes.user_id = '${req.query.user_id}' AND is_saved = 1;`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send(rows);
   });
