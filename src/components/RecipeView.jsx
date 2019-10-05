@@ -89,6 +89,20 @@ const RecipeView = (props) => {
     .catch(error => console.log(error));
   };
 
+  // Search -> Recipe View
+  const addToMenuFromSearch = () => {
+    console.log(recipe);
+    axios.post('/addrecipe', {
+      params: {
+        action: 'menu',
+        user: 'a123' // preferences.uid
+      },
+      data: recipe
+    })
+      .then(alert('Successfully added recipe to menu'))
+      .catch(error => console.log(error));
+  };
+
   // History -> Recipe View
   const removeFromHistory = () => {
     axios.put('/removefromhistory', {

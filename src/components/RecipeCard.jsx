@@ -9,7 +9,7 @@ const RecipeCard = (props) => {
   const dispatch = useDispatch();
 
   const onPreviewClick = (id) => {
-    dispatch(updateView('Search'))
+    dispatch(updateView('Search'));
     props.history.replace({
       pathname: '/recipeView',
       state: {id: id}
