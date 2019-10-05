@@ -140,4 +140,8 @@ const UpdateDiet = (selection) => {
   };
 }
 
-export { addAccountInfo, addPreferences, updateIngredients , IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList, updateQuery, updateSearch, updateMenu, updateView, updateServings, UpdateDiet, logout }
+export { addAccountInfo, addPreferences, updateIngredients, 
+  IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, 
+  AddAllergies, RemoveAllergy, MouseHandler, SetPeople, SetMeals, 
+  updateRecipeList, updateQuery, updateSearch, updateMenu, updateView, 
+  updateServings, UpdateDiet, logout }
