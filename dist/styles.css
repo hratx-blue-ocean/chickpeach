@@ -522,16 +522,6 @@ h3 {
   height: auto;
 }
 
-.preferencesLonelyButtonFooter {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-content: flex-end;
-  width: 80%;
-  height: 15vh;
-  margin: 0 10vw 0 10vw !important;
-}
-
 #preferencesFooterButtonContainer{
   display: flex;
   flex-direction: row;
@@ -558,7 +548,7 @@ h3 {
 .preferenceLastButton {
   display: flex;
   align-self: flex-end;
-  width: 155px;
+  width: 147px;
   height: auto;
 }
 
@@ -571,11 +561,20 @@ h3 {
   height: 39px;
 }
 
+.preferencesLonelyButtonFooter {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-content: flex-end;
+  width: 80%;
+  height: 15vh;
+  margin: 0 10vw 0 10vw !important;
+}
+
 .preferencesFooter{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-content: flex-end;
   width: 80%;
   height: 15vh;
   margin: 0 10vw 0 10vw !important;

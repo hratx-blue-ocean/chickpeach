@@ -41,10 +41,6 @@ const Preferences = (props) => {
     }
   };
 
-  // previousPage() {
-  //   this.setState({ page: this.state.page - 1 })
-  // }
-
   const saveToDatabase = (amountOfPeople = state.people, amountOfMeals = state.numberOfMeals) => {
     let newState = {};
 
@@ -88,6 +84,7 @@ const Preferences = (props) => {
         console.log(error);
       })
     
+    //**Change to Post
     axios.get('/bannedingredients', {
       params: {
         user_id: preferencesObject.user_id,
@@ -205,8 +202,8 @@ const Preferences = (props) => {
           <div id="preferenceMeasurementsContainer">
               <p className="preferenceDescription">How many people you are preparing for?</p>
               <input id="preferencesCountInput" placeholder="ex: 3"></input>
-              <p className="preferenceDescription">Would you like quantities displayed in imperial or metric?</p>
-              <div id="preferenceRadioButtonContainer">
+              {/* <p className="preferenceDescription">Would you like quantities displayed in imperial or metric?</p> */}
+              {/* <div id="preferenceRadioButtonContainer">
                 <Grommet theme={customTheme}>
                   <RadioButtonGroup
                     name="measurements"
@@ -215,7 +212,7 @@ const Preferences = (props) => {
                     onChange={(event) => event.target.value === 'Metric' ? dispatch(HandleMetric(true)) : dispatch(HandleMetric(false))}
                   />
                 </Grommet>
-              </div>
+              </div> */}
           <p className="preferenceDescription">How many meals per week is each person preparing for?</p>
               <input id="preferencesMealCountInput" placeholder="ex: 18"></input>
             </div>}
