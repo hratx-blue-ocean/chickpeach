@@ -11,6 +11,7 @@ const Menu = (props) => {
   const dispatch = useDispatch();
   const preferences = useSelector(state => state.Preferences);
   const recipes = useSelector(state => state.Menu);
+  const recipeString = JSON.stringify(recipes.recipes);
 
   const getTotalServings = (recipes) => {
     let servings = 0;
@@ -75,7 +76,7 @@ const Menu = (props) => {
     if (recipes.view === 'Search') {
       dispatch(updateView('Menu'));
     }
-  }, [recipes.servings]);
+  }, [recipes.view, recipeString]);
 
   return (
     <div id={'menu_container'}>
