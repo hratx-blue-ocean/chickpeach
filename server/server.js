@@ -221,12 +221,11 @@ app.get('/menuitems', (req, res) => {
 //add saved item to user menu
 
 app.put('/addtomenu', (req, res) => {
-
-  pool.query(`SELECT * from Users_Recipes WHERE user_id = ${req.query.user_id} AND recipe_id = ${+req.query.recipe_id}`, (err, rows, fields) => {
+  pool.query(`SELECT * from Users_Recipes WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id} AND is_on_menu = 1`, (err, rows, fields) => {
     if (err) {
       console.log(err);
     } else if (rows.length) {
-      res.status(500).send('already on menu');
+      res.send('already on menu');
     } else {
       pool.query(`UPDATE Users_Recipes SET is_on_menu = 1 WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id};`, (err, rows, fields) => {
         if (err) {

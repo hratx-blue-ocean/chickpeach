@@ -68,11 +68,15 @@ const RecipeView = (props) => {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
     })
-    .then(dispatch(updateView('Menu')))
-    .then(alert('Recipe added to menu'))
-    .then(
-      props.history.replace('/menu')
-    )
+    .then(({ data }) => {
+      if (data === 'already on menu') {
+        alert('Recipe already on menu');
+      } else {
+        dispatch(updateView('Menu'));
+        alert('Recipe added to menu');
+        props.history.replace('/menu');
+      }
+    })
     .catch(error => console.log(error));
   };
 
