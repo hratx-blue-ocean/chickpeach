@@ -205,8 +205,6 @@ const AppStateReducer = (state = defaultState, action) => {
       numberOfMeals: state.numberOfMeals
     };
 
-    console.log('from reucer', action.number);
-
     return newState;
   }
 
@@ -223,7 +221,6 @@ const AppStateReducer = (state = defaultState, action) => {
       onHover: false,
       numberOfMeals: action.number
     };
-    console.log('from meals', action.number)
 
     return newState;
   }

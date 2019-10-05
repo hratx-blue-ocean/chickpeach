@@ -219,7 +219,7 @@ const Preferences = (props) => {
         :
         <div className="preferencesFooter">
           <div id="preferencesNextPageTextContainer">
-              <p id="preferencesNextPage"><b>{'Next: '}</b>{state.nextPage[state.page]}</p>
+            <p id="preferencesNextPage"><b>{'Next: '}</b>{state.nextPage[state.page]}</p>
           </div>
           <div id="preferencesFooterButtonContainer">
             <Button className="secondary_button preferenceButton" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>
@@ -230,6 +230,6 @@ const Preferences = (props) => {
     <NavBar />
     </div>
   )
-}
+};
 
 export default withRouter(Preferences);

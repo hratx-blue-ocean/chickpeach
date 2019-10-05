@@ -527,15 +527,6 @@ h3 {
   height: auto;
 }
 
-#preferencesFooterButtonContainer{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-content: flex-end;
-  width: 80vw;
-  height: 39px;
-}
-
 #preferencesNextPageTextContainer{
   display: flex;
   width: 80vw;
@@ -555,6 +546,15 @@ h3 {
   align-self: flex-end;
   width: 147px;
   height: auto;
+}
+
+#preferencesFooterButtonContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: flex-end;
+  width: 80vw;
+  height: 39px;
 }
 
 #preferencesLonelyFooterButtonContainer {
@@ -579,7 +579,8 @@ h3 {
 .preferencesFooter{
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-content: flex-end;
   width: 80%;
   height: 15vh;
   margin: 0 10vw 0 10vw !important;
