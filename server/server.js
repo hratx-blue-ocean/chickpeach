@@ -293,7 +293,11 @@ app.put('/removefromhistory', (req, res) => {
 //get user favorited items by user id
 
 app.get('/favoriteitems', (req, res) => {
+<<<<<<< HEAD
   pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE recipes.id = users_recipes.recipe_id AND users_recipes.user_id = '${req.query.user_id}' AND is_favorited = 1;`, (err, rows, fields) => {
+=======
+  pool.query(`SELEC T Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE recipes.id = users_recipes.recipe_id AND users_recipes.user_id = '${req.user.id}' AND is_favorited = 1;`, (err, rows, fields) => {
+>>>>>>> comment stuff
     if (err) console.log(err);
     res.status(200).send(rows);
   });
@@ -535,9 +539,7 @@ app.post('/addrecipe', (req, res) => {
       action: 'menu' or 'fave'
       user: uid
     },
-    data: {
-      recipedata: {}
-    }
+    data: recipeData
   });
 
 */
