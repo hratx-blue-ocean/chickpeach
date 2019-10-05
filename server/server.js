@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 const { spoonAPIKey } = require('../spoonAPI.config.js');
 const mysql = require('mysql2');
-const { getNestedObject, allowCrossDomain, asyncForEach } = require('./utils.js');
+const { getNestedObject, allowCrossDomain, asyncForEach, nutritionDataCheck } = require('./utils.js');
 
 
 
