@@ -134,7 +134,7 @@ const RecipeView = (props) => {
       },
       data: recipe
     })
-      .then(alert('Successfully added recipe to menu'))
+      .then(alert('Successfully added recipe to favorites'))
       .then(dispatch(updateView('Favorites')))
       .then(
         props.history.replace('/menu')
