@@ -72,7 +72,6 @@ app.get('/userpreferences', (req, res) => {
         dairy: !!row.allergy_dairy,
         peopleToPrepFor: row.people_to_prep_for,
         addedAllergies: [], //**replace with an array of allergies
-        isMetric: !!row.use_metric,
         numberOfMeals: row.meals_per_week
       }
 
@@ -99,7 +98,6 @@ app.get('/createpreferences', (req, res) => {
                 allergy_gluten,
                 allergy_dairy,
                 diet,
-                use_metric,
                 people_to_prep_for,
                 meals_per_week
                 )
@@ -118,7 +116,6 @@ app.get('/createpreferences', (req, res) => {
                 false,
                 false,
                 '',
-                1,
                 0,
                 0);`), (err, rows, fields) => {
 
@@ -145,7 +142,6 @@ app.get('/adjustpreferences', (req, res) => {
                 allergy_gluten = ${req.query.gluten},
                 allergy_dairy = ${req.query.dairy},
                 diet = '${req.query.diet}',
-                use_metric = ${req.query.isMetric},
                 people_to_prep_for = ${req.query.peopleToPrepFor},
                 meals_per_week = ${req.query.numberOfMeals}
               WHERE user_id = '${req.query.user_id}';`, (err, rows, fields) => {

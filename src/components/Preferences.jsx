@@ -1,5 +1,5 @@
-import React from 'react';
-import { Grommet, Button, Box, RadioButton, RadioButtonGroup } from 'grommet';
+import React, { useState } from 'react';
+import { Grommet, Button, FormField, TextInput, RadioButtonGroup } from 'grommet';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
@@ -10,40 +10,25 @@ import customTheme from './grommet/radioButton';
 import NavBar from './NavBar.jsx'
 
 const Preferences = (props) => {
+  const [amountOfPeople, setPeople] = useState('');
+  const [amountOfMeals, setMeals] = useState('');
+  const [allergiesInput, setAllergiesInput ] = useState('');
   let state = useSelector(state => state.prefAppState);
   let userState = useSelector(state => state.Preferences);
   let dispatch = useDispatch();
 
-  const addAllergies = (event) => {
+  const addAllergies = () => {
     let allergyArray = state.addedAllergies;
 
-    if (event.type === 'click') {
-      if (document.getElementById('preferenceAllergiesInput').value === '' || state.addedAllergies.indexOf(document.getElementById('preferenceAllergiesInput').value) >= 0) {
-        document.getElementById('preferenceAllergiesInput').value = '';
-        return;
-      }
-      allergyArray.push(document.getElementById('preferenceAllergiesInput').value);
-      document.getElementById('preferenceAllergiesInput').value = '';
-
-      dispatch(AddAllergies(allergyArray));
+    if (allergiesInput === '' || state.addedAllergies.indexOf(allergiesInput) >= 0) {
       return;
     }
-    
-    if (event.key === 'Enter') { 
-      state.addedAllergies.indexOf(event.target.value)
-      if (event.target.value === '' || state.addedAllergies.indexOf(event.target.value) >= 0) {
-        event.target.value = '';
-        return;
-      }
-      allergyArray.push(event.target.value);
-      event.target.value = '';
-      dispatch(AddAllergies(allergyArray));
-    }
-  };
+    allergyArray.push(allergiesInput);
+    setAllergiesInput('')
 
-  // previousPage() {
-  //   this.setState({ page: this.state.page - 1 })
-  // }
+    dispatch(AddAllergies(allergyArray));
+    return;
+  };
 
   const saveToDatabase = (amountOfPeople = state.people, amountOfMeals = state.numberOfMeals) => {
     let newState = {};
@@ -71,7 +56,6 @@ const Preferences = (props) => {
       wheat: newState.wheat,
       gluten: newState.gluten,
       dairy: newState.dairy,
-      isMetric: state.isMetric,
       peopleToPrepFor: amountOfPeople,
       numberOfMeals: amountOfMeals,
       addedAllergies: state.addedAllergies
@@ -88,6 +72,7 @@ const Preferences = (props) => {
         console.log(error);
       })
     
+    //**Change to Post
     axios.get('/bannedingredients', {
       params: {
         user_id: preferencesObject.user_id,
@@ -107,16 +92,13 @@ const Preferences = (props) => {
 
   const saveAndContinue = () => {
     if (state.page === 4) {
-      let amountOfPeople = Number(document.getElementById('preferencesCountInput').value);
-      let amountOfMeals = Number(document.getElementById('preferencesMealCountInput').value);
-
-      dispatch(SetPeople(amountOfPeople));
+       dispatch(SetPeople(amountOfPeople));
       dispatch(SetMeals(amountOfMeals));
       saveToDatabase(amountOfPeople, amountOfMeals);
       return props.history.replace('/menu');
     }
-    dispatch(IteratePageCount())
 
+    dispatch(IteratePageCount())
     saveToDatabase()
   };
 
@@ -184,42 +166,47 @@ const Preferences = (props) => {
           </div>}
 
         {state.page === 3 &&
-            <div className="inputContainer">
-              <ul id="preferencesUl">
-                {state.addedAllergies.map((allergy, index) => {
-                  return (
-                    <AllergyItem 
-                      allergy={allergy}
-                      key={index}
-                    />
-                  )
-                })}
-              </ul>
-              <div id="preferencesInputButtonContainer">
-                <input id="preferenceAllergiesInput" onKeyUp={(event) => addAllergies(event)} placeholder="ex: Bananas"></input>
+          <div className="inputContainer">
+            <div id="preferencesInputButtonContainer">
+              <Grommet>
+                <FormField name="email">
+                  <TextInput id="preferenceAllergiesInput" placeholder="ex: Bananas" value={allergiesInput} onKeyDown={(e) => e.key === 'Enter' && addAllergies()} onChange={(e) => setAllergiesInput(e.target.value)} />
+                </FormField>
+              </Grommet>
               <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => addAllergies(event)}primary >Add</Button>
             </div> 
+            <ul id="preferencesUl">
+              {state.addedAllergies.map((allergy, index) => {
+                return (
+                  <AllergyItem 
+                    allergy={allergy}
+                    key={index}
+                  />
+                )
+              })}
+            </ul>
           </div>}
 
         {state.page === 4 && 
           <div id="preferenceMeasurementsContainer">
+            <div className="preferenceInputDescriptionContainer">
               <p className="preferenceDescription">How many people you are preparing for?</p>
-              <input id="preferencesCountInput" placeholder="ex: 3"></input>
-              <p className="preferenceDescription">Would you like quantities displayed in imperial or metric?</p>
-              <div id="preferenceRadioButtonContainer">
-                <Grommet theme={customTheme}>
-                  <RadioButtonGroup
-                    name="measurements"
-                    options={['Imperial', 'Metric']}
-                    value={state.isMetric ? 'Metric': 'Imperial'}
-                    onChange={(event) => event.target.value === 'Metric' ? dispatch(HandleMetric(true)) : dispatch(HandleMetric(false))}
-                  />
-                </Grommet>
-              </div>
-          <p className="preferenceDescription">How many meals per week is each person preparing for?</p>
-              <input id="preferencesMealCountInput" placeholder="ex: 18"></input>
-            </div>}
-          </div>
+              <Grommet>
+                <FormField name="email">
+                  <TextInput id="preferencesCountInput" placeholder="ex: 3" value={amountOfPeople} onChange={(e) => setPeople(+e.target.value)} />
+                </FormField>
+              </Grommet>
+            </div>
+            <div className="preferenceInputDescriptionContainer">
+              <p className="preferenceDescription">How many meals per week is each person preparing for?</p>
+              <Grommet>
+                <FormField name="password">
+                    <TextInput id="preferencesMealCountInput" placeholder="ex: 18" value={amountOfMeals} onChange={(e) => setMeals(+e.target.value)} />
+                </FormField>
+              </Grommet>
+            </div>
+          </div>}
+        </div>
 
         {state.page === 0 ?
         <div className="preferencesLonelyButtonFooter">
