@@ -164,7 +164,15 @@ app.get('/getrecipes', (req, res) => {
 //get ingredients
 
 app.get('/getingredients', (req, res) => {
-  pool.query(`SELECT * FROM Ingredients;`, (err, rows, fields) => {
+  let query = '';
+
+  req.query.recipes.forEach( recipe => {
+    query += ` recipe_id = ${recipe} OR `;
+  });
+
+  query = query.substring(0, query.length - 4);
+
+  pool.query(`SELECT * FROM Ingredients WHERE ${query};`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(200).send(rows);
