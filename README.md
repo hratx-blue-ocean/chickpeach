@@ -37,6 +37,18 @@ Chickpeach is your one stop meal planning, recipe discovery and grocery-manageme
   </tr>
 </table>
 
+## Front-End
+Although we lifted some components from the Grommet library, the majority of the styling is custom in order to match the [wireframes](https://www.figma.com/file/JnKGDEIyFEjL456ZDV97XL/chickpeach?node-id=5643%3A3615) we had designed. We were aso fans of Grommet's built in accessibility features. React Router was used to managed routes, and state is managed using Redux. Persistence is maintained at the browser level, but we will be moving it to the account level at a later date. 
+
+## Back-End 
+Users, preferences, favorites and recipes had to be tracked in our database. Additionally, because of how the Spoonacular api is structured, recipes were broken down into general info, nutrition, ingredients and steps. We chose to implement a relational database to both handle complex queries and reduce the amount of duplicated data. MySql was a great option for this, and the the MySql npm packages helped us easily design queries. The server was built on express.
+
+## Deployment
+As we were split into different teams, we manged deployment through working partitions (usually front-end and back-end) of Docker images. We then deployed on AWS EC2 using PM2 to keep our server running and routed traffic with the help of NGINX.
+
+## APIs
+We used the Firebase Auth API for authentication. For recipes, we found Spoonacular's API to be the most comprehensive.
+
 # Contributors
 
 [John Connolly](https://github.com/jkcryptolock), [Arohan Dutt](https://github.com/ArohanD), [Gibran Iqbal](https://github.com/Jibbscript), [Julia Kim](https://github.com/jxkim), [Whitney Lee](https://github.com/wiggitywhitney), [Sean McCarthy](https://github.com/SeanMcCarthy3223), [Jeff Salinas](https://github.com/JeffSalinas)
@@ -49,6 +61,8 @@ This repo contains our first release. Here are the features we are currently wor
 
 - User generated recipes
 - Calendar view for cook planning
+- Tie state persistence to account, not browser
+- Login with Google
 
 # Get started
 
