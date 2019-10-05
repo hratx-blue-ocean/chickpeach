@@ -41,8 +41,7 @@ const Profile = (props) => {
   const details = store.Preferences;
   console.log(details);
 
-  const allergies = Object.keys(details).map(detail => (allergens.includes(detail) && details[detail]) ? detail === 'treeNut' ? 'tree nut' : detail : undefined).filter(detail => !!detail).concat(details.addedAllergies).join(', ')
-  const dietPrefs = Object.keys(details).map(detail => (diets.includes(detail) && details[detail] ) ? detail : undefined).filter(detail => !!detail).join(', ');
+  const allergies = Object.keys(details).map(detail => (allergens.includes(detail) && details[detail]) ? detail === 'treeNut' ? 'tree nut' : detail : undefined).filter(detail => !!detail)
   //Super long array method is to make first letter of each word uppercase
   const casedName = details.displayName.split(' ').map(word => word.split('')[0].toUpperCase().concat(word.split('').slice(1).join(''))).join(' ');
 
@@ -62,10 +61,10 @@ const Profile = (props) => {
               <p>{`${greetings[Math.floor(Math.random() * 3)]} Here are your account details:`}</p>
               <p><strong>e-mail:</strong>{` ${details.email}`}</p>
               <p>You are cooking <strong>{` ${details.numberOfMeals} `}</strong> meals for <strong>{` ${details.peopleToPrepFor} `}</strong> {details.peopleToPrepFor === 1 ? ' chickpeach ' : ' chickpeaches '} in a week.</p>
-              <p><strong>Allergies:</strong>{` ${allergies.length > 0 ? allergies : 'none'}`}
+              <p><strong>Allergies:</strong>{` ${allergies.length > 0 ? allergies.join(', ') : 'none'}`}
               </p>
-              <p><strong>Diet Preference:</strong>{` ${dietPrefs.length > 0 ? dietPrefs : 'none'}`}
-              </p>
+              <p><strong>Diet Preference:</strong>{` ${details.diet === '' ? ' none' : details.diet}`}</p>
+              <p><strong>Additional Restrictions:</strong>{details.addedAllergies.length > 0 ? ` ${details.addedAllergies.join(', ')}` : ' none'}</p>
             </div>
             <NavLink to='/preferences'>
               <Button className={'primary_button profile_preferences_button'}>Edit Preferences</Button>
