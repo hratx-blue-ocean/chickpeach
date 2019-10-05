@@ -455,10 +455,7 @@ app.get('/getSingleRecipe', async (req, res) => {
 
 //POST singleRecipe from API result route
 app.post('/addrecipe', (req, res) => {
-  // console.log(req.body)
   const postAction = req.query.action ? req.query.action : 'menu';
-  // console.log(postAction);
-  console.log(req.body);
   //INSERT Recipe and return Recipe UID in SQL DB
   //"${req.body.data}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data.unt || 0)} ${req.data.t || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}");
   pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ("${req.body.data.title}", "${req.body.data.image}", ${req.body.data.servings}, ${req.body.data.prep_time}, 0, "0 g", "0 g", "0 g", "0 g","0 mg", "0 g");`, (err, results, fields) => {
@@ -467,10 +464,8 @@ app.post('/addrecipe', (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(req.body.params.user);
       let u_rInsert = `INSERT INTO users_recipes (recipe_id, user_id) VALUES (${recipe_id}, '${req.body.params.user}');`;
       pool.query(`SELECT * FROM users_recipes WHERE recipe_id = ${recipe_id} AND user_id = '${req.body.params.user}';`, (err, results, fields) => {
-        console.log(results);
         const user = req.body.params.user;
         if (results.length === 0) {
           pool.query(u_rInsert, (err, results, fields) => {
@@ -482,7 +477,6 @@ app.post('/addrecipe', (req, res) => {
           });
         }
         if (postAction === 'menu') {
-          console.log(user)
           pool.query(`UPDATE users_recipes SET is_on_menu = 1 WHERE recipe_id = ${recipe_id} AND user_id = '${user}';`, (err, results, fields) => {
             if (err) {
               console.log(err);
