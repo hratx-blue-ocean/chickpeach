@@ -10,8 +10,10 @@ const ShoppingList = (props) => {
   const dispatch = useDispatch();
   const store = useStore().getState();
   const ingredients = useSelector(state => state.Ingredients);
-
+  console.log(store)
   const allIngredients = ingredients.ingredients;
+
+  console.log(allIngredients);
 
   let recipesForQuery = store['Menu'].recipes;
 
@@ -22,14 +24,18 @@ const ShoppingList = (props) => {
   });
 
   const getRecipes = () => {
-    Axios.get('/getingredients', {
-      params: {
-        recipes: recipeQuery
-      }
-    })
-    .then(data => {
-      dispatch(updateIngredients(data.data));
-    });
+    if (recipeQuery.length) {
+      Axios.get('/getingredients', {
+        params: {
+          recipes: recipeQuery
+        }
+      })
+      .then(data => {
+        dispatch(updateIngredients(data.data));
+      });
+    } else {
+      dispatch(updateIngredients([]))
+    }
   }
 
   useEffect(() => {
@@ -98,8 +104,24 @@ const ShoppingList = (props) => {
   
   const aisleList = makeAisleList(allIngredients);
 
-  if (!allIngredients) {
-    return <div />
+  if (allIngredients.length === 0) {
+    return (
+      <div id={'ShoppingList_Container'}>
+        <h1 className={'header1 shopping_header'}>Shopping List</h1>
+        <div id='shopping_list_container'>
+          <div id='shopping_list'>
+            <div className='grocery_line_top'>
+              <div className='grocery_item_container'>
+              {/* <h2>Add a recipe to your menu to get started.</h2> */}
+              </div>   
+            </div>
+          </div>
+        </div>
+        <div>
+          <NavBar />
+        </div>
+      </div>
+    )
   }
 
   return (
