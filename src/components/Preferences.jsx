@@ -10,8 +10,8 @@ import customTheme from './grommet/radioButton';
 import NavBar from './NavBar.jsx'
 
 const Preferences = (props) => {
-  const [amountOfPeople, setPeople] = useState('');
-  const [amountOfMeals, setMeals] = useState('');
+  const [amountOfPeople, setPeople] = useState(0);
+  const [amountOfMeals, setMeals] = useState(0);
   const [allergiesInput, setAllergiesInput ] = useState('');
   let state = useSelector(state => state.prefAppState);
   let userState = useSelector(state => state.Preferences);
@@ -79,7 +79,8 @@ const Preferences = (props) => {
 
   const saveAndContinue = () => {
     if (state.page === 4) {
-       dispatch(SetPeople(amountOfPeople));
+
+      dispatch(SetPeople(amountOfPeople));
       dispatch(SetMeals(amountOfMeals));
       saveToDatabase(amountOfPeople, amountOfMeals);
       return props.history.replace('/menu');
@@ -98,7 +99,6 @@ const Preferences = (props) => {
       paleo: 'Paleo',
       pescetarian: 'Pescetarian'
     };
-    console.log(state.diet)
 
     if (state.diet === '') {
       return 'I eat it all!';
@@ -181,7 +181,8 @@ const Preferences = (props) => {
               <p className="preferenceDescription">How many people you are preparing for?</p>
               <Grommet>
                 <FormField name="email">
-                  <TextInput id="preferencesCountInput" placeholder="ex: 3" value={amountOfPeople} onChange={(e) => isNaN(+e.target.value) ? alert('Please enter a number') : setPeople(+e.target.value)} />
+                  <TextInput id="preferencesCountInput" placeholder="ex: 3" value={amountOfPeople} 
+                    onChange={(e) => isNaN(+e.target.value) ? alert('Please enter a number') : setPeople(+e.target.value)} />
                 </FormField>
               </Grommet>
             </div>
@@ -189,7 +190,8 @@ const Preferences = (props) => {
               <p className="preferenceDescription">How many meals per week is each person preparing for?</p>
               <Grommet>
                 <FormField name="password">
-                <TextInput id="preferencesMealCountInput" placeholder="ex: 18" value={amountOfMeals} onChange={(e) => isNaN(+e.target.value) ? alert('Please enter a number') : setMeals(+e.target.value)} />
+                <TextInput id="preferencesMealCountInput" placeholder="ex: 18" value={amountOfMeals} 
+                  onChange={(e) => isNaN(+e.target.value) ? alert('Please enter a number') : setMeals(+e.target.value)} />
                 </FormField>
               </Grommet>
             </div>
@@ -215,7 +217,7 @@ const Preferences = (props) => {
               <Button className="secondary_button preferenceButton" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>
               <Button className="primary_button preferenceLastButton" onClick={() => saveAndContinue()} primary>{'Save'}</Button>
             </div>
-            </div>
+          </div>
         :
         <div className="preferencesFooter">
           <div id="preferencesNextPageTextContainer">
@@ -225,7 +227,7 @@ const Preferences = (props) => {
             <Button className="secondary_button preferenceButton" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>
             <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary>{'Save & Continue'}</Button>
           </div> 
-      </div>}
+        </div>}
 
     <NavBar />
     </div>

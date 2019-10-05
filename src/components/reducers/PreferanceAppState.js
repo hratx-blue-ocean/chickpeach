@@ -29,7 +29,7 @@ const defaultState = {
   nextPage: ['Allergies', 'Allergies', 'Allergies', 'Counts', 'To Menu'],
     page: 0,
     addedAllergies: [],
-    people: 1,
+    people: 0,
     onHover: false,
     numberOfMeals: 0
 };

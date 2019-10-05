@@ -15,7 +15,7 @@ const defaultState = {
   sulfite: false,
   treeNut: false,
   wheat: true,
-  peopleToPrepFor: 1,
+  peopleToPrepFor: 0,
   addedAllergies: [],
   numberOfMeals: 0
 }
