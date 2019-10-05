@@ -12,7 +12,7 @@ import LogIn from './components/Login.jsx'
 import Splash from './components/Splash.jsx'
 import Profile from './components/Profile.jsx'
 
-import { useStore } from 'react-redux'
+import { useStore } from 'react-redux';
 
 function RouteManager() {
 

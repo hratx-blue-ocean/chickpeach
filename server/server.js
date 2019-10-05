@@ -50,7 +50,7 @@ app.get('/user', (req, res) => {
 //get user preferences
 
 app.get('/userpreferences', (req, res) => {
-  pool.query(`SELECT * FROM Preferences where user_id = '${req.query.id}';`, (err, rows, fields) => {
+  pool.query(`SELECT * FROM Preferences WHERE user_id = '${req.query.id}';`, (err, rows, fields) => {
     if (err) {
       console.error(err);
     } else {
@@ -155,7 +155,7 @@ app.get('/adjustpreferences', (req, res) => {
 app.get('/getrecipes', (req, res) => {
   pool.query(`SELECT * FROM Recipes;`, (err, rows, fields) => {
     if (err) console.log(err);
-
+    console.log(rows)
     res.status(200).send(rows);
   });
 });
@@ -215,8 +215,9 @@ app.put('/updatebannedingredients', (req, res) => {
 //get user menu items by user id
 
 app.get('/menuitems', (req, res) => {
-  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE Recipes.id = Users_Recipes.recipe_id AND Users_Recipes.user_id = '${req.query.user_id}' AND is_on_menu = 1 ORDER BY Users_Recipes.recipe_id DESC;`, (err, rows, fields) => {
+  pool.query(`SELECT Recipes.id, Recipes.title, Recipes.image, Recipes.servings FROM Recipes, Users_Recipes WHERE Recipes.id = Users_Recipes.recipe_id AND Users_Recipes.user_id = '${req.query.user_id}' AND is_on_menu = 1 ORDER BY Users_Recipes.recipe_id DESC;`, (err, rows, fields) => {
     if (err) console.log(err);
+    console.log(rows)
     res.status(200).send(rows);
   });
 });
@@ -300,8 +301,9 @@ app.put('/removefromhistory', (req, res) => {
 //get user favorited items by user id
 
 app.get('/favoriteitems', (req, res) => {
-  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE recipes.id = Users_Recipes.recipe_id AND Users_Recipes.user_id = '${req.query.user_id}' AND is_favorited = 1;`, (err, rows, fields) => {
+  pool.query(`SELECT Recipes.id, Recipes.title, Recipes.image, Recipes.servings FROM Recipes, Users_Recipes WHERE Recipes.id = Users_Recipes.recipe_id AND Users_Recipes.user_id = '${req.query.user_id}' AND is_favorited = 1;`, (err, rows, fields) => {
     if (err) console.log(err);
+    console.log(rows)
     res.status(200).send(rows);
   });
 });
@@ -309,7 +311,7 @@ app.get('/favoriteitems', (req, res) => {
 //get saved items by user id
 
 app.get('/saveditems', (req, res) => {
-  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE Recipes.id = Users_Recipes.recipe_id AND Users_Recipes.user_id = '${req.query.user_id}' AND is_saved = 1;`, (err, rows, fields) => {
+  pool.query(`SELECT Recipes.id, Recipes.title, Recipes.image, Recipes.servings FROM Recipes, Users_Recipes WHERE Recipes.id = Users_Recipes.recipe_id AND Users_Recipes.user_id = '${req.query.user_id}' AND is_saved = 1;`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send(rows);
   });
@@ -318,7 +320,7 @@ app.get('/saveditems', (req, res) => {
 //remove user saved item by user id and recipe id
 
 app.get('/removesaveditems', (req, res) => {
-  pool.query(`UPDATE Users_Recipe SET is_saved = 0 WHERE user_id = ${req.query.userId} AND recipe_id = ${req.query.recipeId}`, (err, rows, fields) => {
+  pool.query(`UPDATE Users_Recipes SET is_saved = 0 WHERE user_id = ${req.query.userId} AND recipe_id = ${req.query.recipeId}`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send();
   });
@@ -376,7 +378,7 @@ app.get('/getsingledbrecipe', (req, res) => {
   let recipeID = req.query.recipeID;
   let obj = {};
 
-  pool.query(`SELECT*FROM recipes WHERE ID = ${recipeID}`, (err, rows, fields) => {
+  pool.query(`SELECT * FROM Recipes WHERE id = ${recipeID}`, (err, rows, fields) => {
     let recipe = rows[0];
 
     obj['id'] = recipe.id;
@@ -409,7 +411,7 @@ app.get('/getsingledbrecipe', (req, res) => {
         unit: 'g' }
     ];
 
-    pool.query(`SELECT*FROM cooking_instructions WHERE recipe_ID = ${recipeID}`, (err, rows, fields) => {
+    pool.query(`SELECT * FROM Cooking_Instructions WHERE recipe_id = ${recipeID}`, (err, rows, fields) => {
       let steps = [];
 
       rows.forEach(step => {
@@ -418,7 +420,7 @@ app.get('/getsingledbrecipe', (req, res) => {
 
       obj['directions'] = steps;
 
-      pool.query(`SELECT*FROM Ingredients WHERE recipe_id = ${recipeID}`, (err, rows, fields) => {
+      pool.query(`SELECT * FROM Ingredients WHERE recipe_id = ${recipeID}`, (err, rows, fields) => {
         obj['ingredients'] = rows.map( ing => {
           let ingredient = {};
 
@@ -487,37 +489,37 @@ app.post('/addrecipe', (req, res) => {
   const nutrients = checkNutritionData(req);
 
   //INSERT Recipe and return Recipe UID in SQL DB
-  pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ("${req.body.data.title}", "${req.body.data.image}", ${req.body.data.servings}, ${req.body.data.prep_time}, ${nutrients.Calories}, '${nutrients.Carbohydrates}', '${nutrients.Fat}', '${nutrients.Fiber}', '${nutrients.Protein}', '${nutrients.Sodium}', '${nutrients.Sugar}');`, (err, results, fields) => {
+  pool.query(`REPLACE INTO Recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ("${req.body.data.title}", "${req.body.data.image}", ${req.body.data.servings}, ${req.body.data.prep_time}, ${nutrients.Calories}, '${nutrients.Carbohydrates}', '${nutrients.Fat}', '${nutrients.Fiber}', '${nutrients.Protein}', '${nutrients.Sodium}', '${nutrients.Sugar}');`, (err, results, fields) => {
     const recipe_id = results.insertId;
     if (err) {
       console.log(err);
     } else {
-      let u_rInsert = `INSERT INTO users_recipes (recipe_id, user_id) VALUES (${recipe_id}, '${req.body.params.user}');`;
-      pool.query(`SELECT * FROM users_recipes WHERE recipe_id = ${recipe_id} AND user_id = '${req.body.params.user}';`, (err, results, fields) => {
+      let u_rInsert = `INSERT INTO Users_Recipes (recipe_id, user_id) VALUES (${recipe_id}, '${req.body.params.user}');`;
+      pool.query(`SELECT * FROM Users_Recipes WHERE recipe_id = ${recipe_id} AND user_id = '${req.body.params.user}';`, (err, results, fields) => {
         const user = req.body.params.user;
         if (results.length === 0) {
           pool.query(u_rInsert, (err, results, fields) => {
             if (err) {
               console.log(err);
             } else {
-              console.log('INSERT users_recipes record: ' + results + 'fields meta: ' + fields);
+              console.log('INSERT Users_Recipes record: ' + results + 'fields meta: ' + fields);
             }
           });
         }
         if (postAction === 'menu') {
-          pool.query(`UPDATE users_recipes SET is_on_menu = 1 WHERE recipe_id = ${recipe_id} AND user_id = '${user}';`, (err, results, fields) => {
+          pool.query(`UPDATE Users_Recipes SET is_on_menu = 1 WHERE recipe_id = ${recipe_id} AND user_id = '${user}';`, (err, results, fields) => {
             if (err) {
               console.log(err);
             } else {
-              console.log('UPDATE users_recipes record is_on_menu: ' + results);
+              console.log('UPDATE Users_Recipes record is_on_menu: ' + results);
             }
           });
         } else {
-          pool.query(`UPDATE users_recipes SET is_favorited = 1 WHERE recipe_id = ${recipe_id} AND user_id = '${user}';`, (err, results, fields) => {
+          pool.query(`UPDATE Users_Recipes SET is_favorited = 1 WHERE recipe_id = ${recipe_id} AND user_id = '${user}';`, (err, results, fields) => {
             if (err) {
               console.log(err);
             } else {
-              console.log('UPDATE users_recipes record is_favorited: ' + results);
+              console.log('UPDATE Users_Recipes record is_favorited: ' + results);
             }
           });
         }
@@ -525,7 +527,7 @@ app.post('/addrecipe', (req, res) => {
     }
     //mapping async insert collection of ingredients 
     asyncForEach(req.body.data.ingredients, async (ing) => {
-      pool.query(`INSERT INTO ingredients (name, quantity, unit, aisle, recipe_id) VALUES ("${ing.name}", "${ing.quantity}", "${ing.unit}", "${ing.aisle}", ${recipe_id});`, (err, results, fields) => {
+      pool.query(`INSERT INTO Ingredients (name, quantity, unit, aisle, recipe_id) VALUES ("${ing.name}", "${ing.quantity}", "${ing.unit}", "${ing.aisle}", ${recipe_id});`, (err, results, fields) => {
         if (err) {
           console.log(err);
         } else {
@@ -536,7 +538,7 @@ app.post('/addrecipe', (req, res) => {
     });
     //mapping async insert collection of instructions
     asyncForEach(req.body.data.directions, async (inst, idx) => {
-      pool.query(`INSERT INTO cooking_instructions (step, step_number, recipe_id) VALUES (${JSON.stringify(inst)}, ${idx + 1}, ${recipe_id});`, (err, results, fields) => {
+      pool.query(`INSERT INTO Cooking_Instructions (step, step_number, recipe_id) VALUES (${JSON.stringify(inst)}, ${idx + 1}, ${recipe_id});`, (err, results, fields) => {
         if (err) {
           console.log(err);
         } else {
