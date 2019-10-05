@@ -13,7 +13,7 @@ const Search = (props) => {
   const search = useSelector(state => state.search);
   const preferences = useSelector(state => state.Preferences);
 
-  const banList = () => {
+  const allergenList = () => {
     let allergies = {
       egg: preferences.egg,
       grain: preferences.grain,
@@ -35,8 +35,8 @@ const Search = (props) => {
     axios.get('/searchRecipes', {
         params: {
           diet: preferences.diet,
-          banList: banList,
-          allergenList: preferences.preferences,
+          banList: preferences.addedAllergies,
+          allergenList: allergenList,
           searchInput: search.query
         }
       })
