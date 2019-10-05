@@ -371,7 +371,7 @@ h3 {
 
 .inputContainer {
   display: flex;
-  align-self: center;
+  align-self: flex-start;
   width: 80vw;
   justify-self: center;
   align-content: center;

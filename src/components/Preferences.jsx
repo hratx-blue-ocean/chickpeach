@@ -181,21 +181,21 @@ const Preferences = (props) => {
           </div>}
 
         {state.page === 3 &&
-            <div className="inputContainer">
-              <ul id="preferencesUl">
-                {state.addedAllergies.map((allergy, index) => {
-                  return (
-                    <AllergyItem 
-                      allergy={allergy}
-                      key={index}
-                    />
-                  )
-                })}
-              </ul>
-              <div id="preferencesInputButtonContainer">
-                <input id="preferenceAllergiesInput" onKeyUp={(event) => addAllergies(event)} placeholder="ex: Bananas"></input>
+          <div className="inputContainer">
+            <div id="preferencesInputButtonContainer">
+              <input id="preferenceAllergiesInput" onKeyUp={(event) => addAllergies(event)} placeholder="ex: Bananas"></input>
               <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => addAllergies(event)}primary >Add</Button>
             </div> 
+            <ul id="preferencesUl">
+              {state.addedAllergies.map((allergy, index) => {
+                return (
+                  <AllergyItem 
+                    allergy={allergy}
+                    key={index}
+                  />
+                )
+              })}
+            </ul>
           </div>}
 
         {state.page === 4 && 
