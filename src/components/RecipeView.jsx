@@ -23,15 +23,27 @@ const RecipeView = (props) => {
   }
 
   const getRecipe = () => {
-    axios.get('/getSingleRecipe', {
-      params: {
-        recipeID: props.history.location.state.id
-      }
-    })
-    .then(({ data }) => {
-      updateRecipe(data);
-    })
-    .catch(error => console.log(error))
+    if (view === 'Search') {
+      axios.get('/getSingleRecipe', {
+        params: {
+          recipeID: props.history.location.state.id
+        }
+      })
+      .then(({ data }) => {
+        updateRecipe(data);
+      })
+      .catch(error => console.log(error))
+    } else {
+      axios.get('/getsingledbrecipe', {
+        params: {
+          recipeID: props.history.location.state.id
+        }
+      })
+      .then(({ data }) => {
+        updateRecipe(data);
+      })
+      .catch(error => console.log(error))
+    }
   };
 
   // Menu -> Recipe View

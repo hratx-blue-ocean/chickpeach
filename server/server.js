@@ -381,35 +381,35 @@ app.get('/getsingledbrecipe', (req, res) => {
 
 //Get Single Recipe Info route by local db MySQL and by SpoonAPI
 app.get('/getSingleRecipe', async (req, res) => {
-    let recipeData = {};
-    await axios({
-      "method":"GET",
-      "url":`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${recipeID}/information`,
-      "headers":{
-      "content-type":"application/octet-stream",
-      "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-      "x-rapidapi-key":spoonAPIKey
-      },"params":{
-      "includeNutrition":"true"
-      }
-    }).then(res => {
-      // console.log(res.data);
-      recipeData["recipeID"] = res.data.id;
-      recipeData["title"] = res.data.title;
-      recipeData["image"] = res.data.image;
-      recipeData["servings"] = res.data.servings;
-      recipeData["prep_time"] = res.data.readyInMinutes;
-      recipeData["ingredients"] = res.data.extendedIngredients.map(ing => {
-        let ingredient = {};  
-        ingredient["stringRender"] = ing.original;
-        ingredient["quantity"] = ing.amount;
-        ingredient["unit"] = ing.unit;
-        ingredient["name"] = ing.name;
-        ingredient["aisle"] = ing.aisle;
-        return ingredient;
-      });
-      recipeData["nutrition_info"] = res.data.nutrition.nutrients;
-      recipeData["directions"] = res.data.analyzedInstructions[0].steps.map(stepObj => stepObj.step);
+  const recipeID = req.query.recipeID
+  let recipeData = {};
+  await axios({
+    "method":"GET",
+    "url":`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${recipeID}/information`,
+    "headers":{
+    "content-type":"application/octet-stream",
+    "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+    "x-rapidapi-key":spoonAPIKey
+    },"params":{
+    "includeNutrition":"true"
+    }
+  }).then(res => {
+    recipeData["recipeID"] = res.data.id;
+    recipeData["title"] = res.data.title;
+    recipeData["image"] = res.data.image;
+    recipeData["servings"] = res.data.servings;
+    recipeData["prep_time"] = res.data.readyInMinutes;
+    recipeData["ingredients"] = res.data.extendedIngredients.map(ing => {
+      let ingredient = {};  
+      ingredient["stringRender"] = ing.original;
+      ingredient["quantity"] = ing.amount;
+      ingredient["unit"] = ing.unit;
+      ingredient["name"] = ing.name;
+      ingredient["aisle"] = ing.aisle;
+      return ingredient;
+    });
+    recipeData["nutrition_info"] = res.data.nutrition.nutrients;
+    recipeData["directions"] = res.data.analyzedInstructions[0].steps.map(stepObj => stepObj.step);
    })
    .catch(err => {
      console.log(err);
