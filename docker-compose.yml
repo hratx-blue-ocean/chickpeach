@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: wiggitywhitney/chickpeachapp:latest
+    container_name: chickpeachapp_container
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - SPOON_API_KEY=$SPOON_API_KEY
+    ports:
+      - "80:3000"
+    volumes:
+      - .:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    networks:
+      - app-network
+    command: ./wait-for.sh db:27017 -- /home/node/app/node_modules/.bin/nodemon app.js
+  
+  db:
+    image: wiggitywhitney/chickpdb:latest
+    container_name: chickpdb_container
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=chickpeach
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+    volumes:  
+      - dbdata:/data/db   
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+  node_modules: 

@@ -1,6 +1,7 @@
 const app = require('firebase');
 const firebaseConfig = require('../../firebase.config.js');
 
+
 class Firebase {
     constructor() {
         app.initializeApp(firebaseConfig);
