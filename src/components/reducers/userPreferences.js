@@ -17,7 +17,6 @@ const defaultState = {
   wheat: true,
   peopleToPrepFor: 1,
   addedAllergies: [],
-  isMetric: false,
   numberOfMeals: 0
 }
 
@@ -42,7 +41,6 @@ const preferenceState = (state = defaultState, action) => {
       wheat: state.wheat,
       peopleToPrepFor: state.peopleToPrepFor,
       addedAllergies: state.addedAllergies,
-      isMetric: state.isMetric,
       numberOfMeals: state.numberOfMeals
     };
 
@@ -71,7 +69,6 @@ const preferenceState = (state = defaultState, action) => {
       wheat: preferences.wheat,
       peopleToPrepFor: preferences.peopleToPrepFor,
       addedAllergies: preferences.addedAllergies,
-      isMetric: preferences.isMetric,
       numberOfMeals: preferences.numberOfMeals
     };
 
