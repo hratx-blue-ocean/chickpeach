@@ -78,6 +78,19 @@ We used the Firebase Auth API for authentication. For recipes, we found Spoonacu
 
 # Work Flow
 
+This project was manged using the git workflow:
+[INSERT GIF/VIDEO]
+
+We chose to have one development branch that would brand specific features. WHen they are ready to be deployed, features are deployed as follows:
+
+1. The branch is rebased to consolidate commit history and ensure only working code is pushed to the dev branch.
+2. The branch is pushed 
+3. A pull request is made
+4. Another member of the team is to perform a review before merging the branch into developer. 
+5. At the end of a sprint, the developer branch is merged into production.
+
+In addition to git, we also used trello to manage pending tasks, bugs and feedback.
+
 # Coming Soon
 
 This repo contains our first release. Here are the features we are currently working on:
