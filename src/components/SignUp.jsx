@@ -59,7 +59,7 @@ const SignUp = (props) => {
               <TextInput value={email} onChange={(e) => setEmail(e.target.value)} />
             </FormField>
             <FormField name="password" label="Password" >
-              <TextInput value={password} onChange={(e) => setPassword(e.target.value)} />
+              <TextInput type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
             </FormField>
             {
               submitPressed ?

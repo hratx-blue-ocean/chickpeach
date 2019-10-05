@@ -23,6 +23,10 @@ body {
   padding-left: 11px !important;
 }
 
+.hsEINM:hover {
+  box-shadow: none !important;
+}
+
 /* Template & Globals*/
 
 #changethis_container {
