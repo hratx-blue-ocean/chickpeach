@@ -1,6 +1,6 @@
 # Chickpeach
 
-Chickpeach is your one stop meal planning, recipe discovery and grocery-management app. The app is able to be configured to several dietary restrictions and preferences, and can also be scaled to accommodate meal-planning for more than one person. Don't like bananas? They won't show up anywhere in your menu, or in search results. Once you've selected the recipes you'd like to cook in a week, the app will auto generate a shopping list. Chickpeach is fully responsive and can be taken on the go, or browsed as a rich desktop experience. 
+Chickpeach is your one stop meal planning, recipe discovery and grocery-management app. The user is able to configure several dietary restrictions, preferences, and can even scale menus to accommodate more than one person. Don't like bananas? They won't show up anywhere in your menu or in search results. Once you've selected the recipes you'd like to cook in a week, the app will auto generate a shopping list. Chickpeach is fully responsive and can be taken on the go or browsed as a rich desktop experience. 
 
 ## In Action
 
@@ -37,8 +37,8 @@ We worked with a lot of feedback at every stage of this project, here are the us
   <tr>
   </tr>
   <tr>
-    <td align="center">Frontend</td>
-    <td align="center">Backend</td>
+    <td align="center">Front-end</td>
+    <td align="center">Back-end</td>
     <td align="center">Deployment</td>
     <td align="center">APIs</td>
   </tr>
@@ -65,31 +65,31 @@ We worked with a lot of feedback at every stage of this project, here are the us
 </table>
 
 ## Front-End
-Although we lifted some components from the Grommet library, the majority of the styling is custom in order to match the [wireframes](https://www.figma.com/file/JnKGDEIyFEjL456ZDV97XL/chickpeach?node-id=5643%3A3615) we had designed. We were aso fans of Grommet's built in accessibility features. React Router was used to managed routes, and state is managed using Redux. Persistence is maintained at the browser level, but we will be moving it to the account level at a later date. 
+Although we lifted some components from the Grommet library, the majority of the styling is custom in order to match the [wireframes](https://www.figma.com/file/JnKGDEIyFEjL456ZDV97XL/chickpeach?node-id=5643%3A3615) we designed. We were also fans of Grommet's built in accessibility features. We used React Router to manage routes, and managed state with Redux. Persistence is maintained at the browser level, but we will be moving it to the account level at a later date. 
 
 ## Back-End 
-Users, preferences, favorites and recipes had to be tracked in our database. Additionally, because of how the Spoonacular api is structured, recipes were broken down into general info, nutrition, ingredients and steps. We chose to implement a relational database to both handle complex queries and reduce the amount of duplicated data. MySql was a great option for this, and the the MySql npm packages helped us easily design queries. The server was built on express.
+Users, preferences, favorites and recipes had to be tracked in our database. Additionally, because of how the Spoonacular API is structured, recipes were broken down into general info, nutrition, ingredients and steps. We chose to implement a relational database to both handle complex queries and reduce the amount of duplicated data. MySQL was a great option for this, and the the MySQL npm packages helped us easily design queries. The server was built on express.
 
 ## Deployment
-As we were split into different teams, we manged deployment through working partitions (usually front-end and back-end) of Docker images. We then deployed on AWS EC2 using PM2 to keep our server running and routed traffic with the help of NGINX.
+We managed deployment through partitions (usually front-end and back-end) of Docker images. We then deployed on AWS EC2 using PM2 to keep our server running and routed traffic with the help of NGINX.
 
 ## APIs
 We used the Firebase Auth API for authentication. For recipes, we found Spoonacular's API to be the most comprehensive.
 
 # Work Flow
 
-This project was manged using the git workflow:
+This project was managed using the git workflow:
 [INSERT GIF/VIDEO]
 
-We chose to have one development branch that would brand specific features. WHen they are ready to be deployed, features are deployed as follows:
+We have one development branch that branches out specific features. When they are ready to be deployed, features are deployed as follows:
 
 1. The branch is rebased to consolidate commit history and ensure only working code is pushed to the dev branch.
-2. The branch is pushed 
-3. A pull request is made
+2. The branch is pushed. 
+3. A pull request is made.
 4. Another member of the team is to perform a review before merging the branch into developer. 
 5. At the end of a sprint, the developer branch is merged into production.
 
-In addition to git, we also used trello to manage pending tasks, bugs and feedback.
+In addition to git, we also used [Trello](https://trello.com/b/FbPFygN4/chickpeach) to manage pending tasks, bugs and feedback.
 
 # Coming Soon
 
@@ -104,9 +104,9 @@ This repo contains our first release. Here are the features we are currently wor
 
 Take the following steps to run the app in your localhost, you will need to have the following:
 - MySQL should be running on your machine
-- You will need to register for a [Spoonacular api key](https://spoonacular.com/food-api/)
+- You will need to register for a [Spoonacular API key](https://spoonacular.com/food-api/)
 
-From your MySql shell:
+From your MySQL shell:
 ```
 source [PATH TO ROOT/db/schema.sql]
 ```
@@ -122,17 +122,17 @@ npm start
 This is a project created by a group of friends all trying to fill a gap that we saw in many popular meal-planing apps. This app was also an opportunity for us to learn, as at the time of this writing we are a team of passionate new developers. Here are some of the learnings we've had so far:
 
 ## Challenges
-- We all approached the project with a new technology to implement, and tried to do so in it's early stages. We've learned lessons on how to assess an entire tech stack before beginning to implement it. 
-- On the front end, we planned to build and then add state management later. Eventually we had to refactor all of our React components to be stateless in order to work with hooks and redux. A more productive strategy would have been to start with redux and hooks, and build from that convention instead of refactoring.
-- On the back-end, we had tried to use GraphQL but quickly realized it didn't make sense for us at the current scale. In this, we learned to apply the technology to the use case, and not simply add complexity for the sake of learning new technology or to greatly scale down the line. 
+- We all approached the project with a new technology to implement and tried to do so in it's early stages. We've learned lessons on how to assess an entire tech stack before beginning to implement it. 
+- On the front-end, we planned to build and then add state management later. Eventually we had to refactor all of our React components to be stateless in order to work with hooks and Redux. A more productive strategy would have been to start with Redux and hooks and build from that convention instead of refactoring.
+- On the back-end, we tried to use GraphQL but quickly realized it didn't make sense for us at the current scale. In this, we learned to apply the technology to the use case and not simply add complexity for the sake of learning new technology or to greatly scale down the line. 
 
 ## Learnings
-- The importance of planning is reinforced daily in our workflow. Between detailed wireframes on Figma and a detailed trello board, we were able to stay relatively organized. 
+- The importance of planning is reinforced daily in our workflow. Between detailed wireframes on Figma and a detailed Trello board, we were able to stay relatively organized. 
 - Pair programming was a big part of building Chickpeach. Although it did slow us down a bit, the code pushed from pairs was visibly more accurate and concise.
 - Good communication between stakeholders, the team, and user testing was a boon for development. As developers, we were able to articulate the direction of where the app was going and properly manage stakeholder expectations against user feedback and developer input.
 
 ## Potential Improvements
-- We may benefit from dividing sprints into specific features instead of splitting our team into traditional (front-end/back-end) roles. As we're all full-stack developers, an iterative approach may have allowed us to develop more consistently. In our experience so far, with one team working on front-end and the other on back-end, we found ourselves waiting on each-other as well as in situations where we lost familiarity with the other side of the code base and had to spend more time catching up. 
+- We may benefit from dividing sprints into specific features instead of splitting our team into traditional (front-end/back-end) roles. As we're all full-stack developers, an iterative approach may have allowed us to develop more consistently. In our experience so far, with one team working on front-end and the other on back-end, we found ourselves waiting on eachother as well as in situations where we lost familiarity with the other side of the code base and had to spend more time catching up. 
 - In the future, we will be extending our UI mockup to also include data flow between apps. 
 
 # Contributors
