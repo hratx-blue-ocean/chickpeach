@@ -40,9 +40,9 @@ const Search = (props) => {
           />
           <Keyboard target="document" onEnter={searchForRecipes}>
             <Button
-              id="recipes_submit"
+              className="primary_button"
               onClick={searchForRecipes}>
-              <MaterialIcon icon="create" color='whitesmoke' size={20} />
+              <MaterialIcon icon="search" color='whitesmoke' size={20} />
             </Button>
           </Keyboard>
         </div>

@@ -199,7 +199,7 @@ const RecipeView = (props) => {
               }
             })
           }
-
+        </div>
           {view === 'Menu' && (
               <div className='recipe_buttons'>
                 <Button className={'primary_button recipe_button'} primary onClick={addToFavorites}>Add to favorites</Button>
@@ -224,7 +224,6 @@ const RecipeView = (props) => {
               <Button className={'secondary_button recipe_button'} primary onClick={() => {}}>Add to favorites</Button>
             </div>
           )}
-        </div>
         <NavBar />
       </div>
     </div>
