@@ -10,8 +10,8 @@ import customTheme from './grommet/radioButton';
 import NavBar from './NavBar.jsx'
 
 const Preferences = (props) => {
-  const [amountOfPeople, setPeople] = useState('');
-  const [amountOfMeals, setMeals] = useState('');
+  const [amountOfPeople, setPeople] = useState(0);
+  const [amountOfMeals, setMeals] = useState(0);
   const [allergiesInput, setAllergiesInput ] = useState('');
   let state = useSelector(state => state.prefAppState);
   let userState = useSelector(state => state.Preferences);
@@ -65,13 +65,7 @@ const Preferences = (props) => {
     axios.get('/adjustpreferences', {
       params: preferencesObject
     })
-      .then(response => {
-        console.log('sumbitted preferences');
-      })
-      .catch(error => {
-        console.log(error);
-      })
-    
+
     //**Change to Post
     axios.get('/bannedingredients', {
       params: {
@@ -79,20 +73,14 @@ const Preferences = (props) => {
         arrayOfAllergies: preferencesObject.addAllergies
       }
     })
-      .then(response => {
-        console.log('sumbitted allergies');
-      })
-      .catch(error => {
-        console.log(error);
-      })
-
 
     dispatch(addPreferences(preferencesObject))
   };
 
   const saveAndContinue = () => {
     if (state.page === 4) {
-       dispatch(SetPeople(amountOfPeople));
+
+      dispatch(SetPeople(amountOfPeople));
       dispatch(SetMeals(amountOfMeals));
       saveToDatabase(amountOfPeople, amountOfMeals);
       return props.history.replace('/menu');
@@ -109,7 +97,7 @@ const Preferences = (props) => {
       keto: 'Keto',
       whole30: 'Whole30',
       paleo: 'Paleo',
-      pescetarian: 'Pescetarian' 
+      pescetarian: 'Pescetarian'
     };
 
     if (state.diet === '') {
@@ -128,15 +116,14 @@ const Preferences = (props) => {
         <div className="preferenceSelectorContainer">
           {state.page === 0 && 
           <div id="preferenceDietContainer">
-          <Grommet theme={customTheme}>
+            <Grommet theme={customTheme}>
               <RadioButtonGroup
                 name="diet"
               options={['Vegan', 'Vegetarian', 'Keto', 'Whole30', 'Paleo', 'Pescetarian',  'I eat it all!']}
                 value={getValue()}
-                onChange={(event) => dispatch(UpdateDiet(event.target.value))}
-              />
+              onChange={(event) => event.target.value === 'I eat it all!' ? dispatch(UpdateDiet('')) : dispatch(UpdateDiet(event.target.value))}/>
             </Grommet>
-            </div>
+          </div>
           }
 
           { state.page === 1 && 
@@ -170,7 +157,8 @@ const Preferences = (props) => {
             <div id="preferencesInputButtonContainer">
               <Grommet>
                 <FormField name="email">
-                  <TextInput id="preferenceAllergiesInput" placeholder="ex: Bananas" value={allergiesInput} onKeyDown={(e) => e.key === 'Enter' && addAllergies()} onChange={(e) => setAllergiesInput(e.target.value)} />
+                  <TextInput id="preferenceAllergiesInput" placeholder="ex: Bananas" value={allergiesInput} 
+                    onKeyDown={(e) => e.key === 'Enter' && addAllergies()} onChange={(e) => setAllergiesInput(e.target.value)} />
                 </FormField>
               </Grommet>
               <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => addAllergies(event)}primary >Add</Button>
@@ -193,7 +181,8 @@ const Preferences = (props) => {
               <p className="preferenceDescription">How many people you are preparing for?</p>
               <Grommet>
                 <FormField name="email">
-                  <TextInput id="preferencesCountInput" placeholder="ex: 3" value={amountOfPeople} onChange={(e) => setPeople(+e.target.value)} />
+                  <TextInput id="preferencesCountInput" placeholder="ex: 3" value={amountOfPeople} 
+                    onChange={(e) => isNaN(+e.target.value) ? alert('Please enter a number') : setPeople(+e.target.value)} />
                 </FormField>
               </Grommet>
             </div>
@@ -201,7 +190,8 @@ const Preferences = (props) => {
               <p className="preferenceDescription">How many meals per week is each person preparing for?</p>
               <Grommet>
                 <FormField name="password">
-                    <TextInput id="preferencesMealCountInput" placeholder="ex: 18" value={amountOfMeals} onChange={(e) => setMeals(+e.target.value)} />
+                <TextInput id="preferencesMealCountInput" placeholder="ex: 18" value={amountOfMeals} 
+                  onChange={(e) => isNaN(+e.target.value) ? alert('Please enter a number') : setMeals(+e.target.value)} />
                 </FormField>
               </Grommet>
             </div>
@@ -209,7 +199,7 @@ const Preferences = (props) => {
         </div>
 
         {state.page === 0 ?
-        <div className="preferencesLonelyButtonFooter">
+        <div className="preferencesFooter">
           <div id="preferencesNextPageTextContainer">
             <p id="preferencesNextPage"><b>{'Next: '}</b>{state.nextPage[state.page]}</p>
           </div>
@@ -227,21 +217,21 @@ const Preferences = (props) => {
               <Button className="secondary_button preferenceButton" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>
               <Button className="primary_button preferenceLastButton" onClick={() => saveAndContinue()} primary>{'Save'}</Button>
             </div>
-            </div>
+          </div>
         :
         <div className="preferencesFooter">
           <div id="preferencesNextPageTextContainer">
-              <p id="preferencesNextPage"><b>{'Next: '}</b>{state.nextPage[state.page]}</p>
+            <p id="preferencesNextPage"><b>{'Next: '}</b>{state.nextPage[state.page]}</p>
           </div>
           <div id="preferencesFooterButtonContainer">
             <Button className="secondary_button preferenceButton" onClick={() => dispatch(DecrementPageCount())} primary>{'Previous'}</Button>
             <Button className="primary_button preferenceButton" onClick={() => saveAndContinue()} primary>{'Save & Continue'}</Button>
           </div> 
-      </div>}
+        </div>}
 
     <NavBar />
     </div>
   )
-}
+};
 
 export default withRouter(Preferences);

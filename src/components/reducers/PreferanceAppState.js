@@ -29,7 +29,7 @@ const defaultState = {
   nextPage: ['Allergies', 'Allergies', 'Allergies', 'Counts', 'To Menu'],
     page: 0,
     addedAllergies: [],
-    people: 1,
+    people: 0,
     onHover: false,
     numberOfMeals: 0
 };
@@ -95,7 +95,11 @@ const AppStateReducer = (state = defaultState, action) => {
       Pescetarian: 'pescetarian'
     };
 
-    newState.diet = showName[action.selection];
+    if (action.selection === '') {
+      newState.diet = '';
+    } else {
+      newState.diet = showName[action.selection];
+    }
     
     return newState;
   }
@@ -205,8 +209,6 @@ const AppStateReducer = (state = defaultState, action) => {
       numberOfMeals: state.numberOfMeals
     };
 
-    console.log('from reucer', action.number);
-
     return newState;
   }
 
@@ -223,7 +225,6 @@ const AppStateReducer = (state = defaultState, action) => {
       onHover: false,
       numberOfMeals: action.number
     };
-    console.log('from meals', action.number)
 
     return newState;
   }
