@@ -3,7 +3,7 @@ import { Grommet, Button, FormField, TextInput } from 'grommet';
 import firebase from './firebase.js';
 import { withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { addAccountInfo, addPreferences } from './actions';
+import { addAccountInfo, addPreferences, resetPage } from './actions';
 import axios from 'axios';
 
 const LogIn = (props) => {
@@ -32,6 +32,7 @@ const LogIn = (props) => {
           })
           .then(({data}) => {
             dispatch(addPreferences(data))
+            dispatch(resetPage())
             props.history.replace('/menu')
           });
         }, 2000)

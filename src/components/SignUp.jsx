@@ -3,7 +3,7 @@ import { Grommet, Button, FormField, TextInput } from 'grommet';
 import firebase from './firebase.js';
 import { withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { addAccountInfo } from './actions';
+import { addAccountInfo, resetPage } from './actions';
 import axios from 'axios';
 
 const SignUp = (props) => {
@@ -39,6 +39,7 @@ const SignUp = (props) => {
             }
           })
           dispatch(addAccountInfo(uid, name, email))
+          dispatch(resetPage())
           props.history.replace('/preferences')
         }, 2000)
       })

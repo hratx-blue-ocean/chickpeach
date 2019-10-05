@@ -362,6 +362,13 @@ h3 {
 
 .preferencesHeader {
   margin: 0;
+
+}
+
+@media all and (min-width: 48em) {
+  .preferencesHeader  {
+    margin-left: 50px;
+  }
 }
 
 .preferenceOptions {
