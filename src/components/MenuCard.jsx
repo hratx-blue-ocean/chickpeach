@@ -118,7 +118,7 @@ const MenuCard = (props) => {
       <div className="card_bottom">
         <div className="card_text">
           <h4 className="card_name">
-            {props.recipe.title}
+            {props.recipe.title.length > 50 ? props.recipe.title.substring(0, 35) + '...' : props.recipe.title}
           </h4>
           <p className="card_servings">
             {`${props.recipe.servings} servings`}

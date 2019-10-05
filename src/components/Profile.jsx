@@ -53,8 +53,8 @@ const Profile = (props) => {
   }
 
   return (
-    <div id='changethis_container'>
-      <h1 className={'header1'}>Profile</h1>
+    <div id='profile_container'>
+      <h1 className={'header1 profile_header'}>Profile</h1>
         <div className={'profile_container'} >
           <div className={'profile_content'}>
             <div className={'profile_info'}>
@@ -66,7 +66,6 @@ const Profile = (props) => {
               </p>
               <p><strong>Diet Preference:</strong>{` ${dietPrefs.length > 0 ? dietPrefs : 'none'}`}
               </p>
-              <p><strong>Measurement:</strong>{details.isMetric ? ' Metric' : ' Imperial'}</p>
             </div>
             <NavLink to='/preferences'>
               <Button className={'primary_button profile_preferences_button'}>Edit Preferences</Button>
