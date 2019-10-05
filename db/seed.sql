@@ -121,7 +121,7 @@ INSERT INTO Ingredients (
     'Eggs',
     'https://previews.123rf.com/images/dulsita/dulsita1307/dulsita130700068/21201847-pieces-of-raw-chicken-meat.jpg',
     'Milk and Eggs',
-    1,
+    2,
     5,
     ''
 );

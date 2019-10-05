@@ -120,6 +120,13 @@ const updateServings = (count) => {
   };
 };
 
+const updateIngredients = (ingredients) => {
+  return {
+    type: 'setIngredients',
+    ingredients: ingredients
+  };
+};
+
 const logout = () => {
   return {
     type: 'Logout',
@@ -133,4 +140,8 @@ const UpdateDiet = (selection) => {
   };
 }
 
-export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, SetPeople, SetMeals, updateRecipeList, updateQuery, updateSearch, updateMenu, updateView, updateServings, UpdateDiet, logout }
+export { addAccountInfo, addPreferences, updateIngredients, 
+  IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, 
+  AddAllergies, RemoveAllergy, MouseHandler, SetPeople, SetMeals, 
+  updateRecipeList, updateQuery, updateSearch, updateMenu, updateView, 
+  updateServings, UpdateDiet, logout }

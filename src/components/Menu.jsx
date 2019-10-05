@@ -11,6 +11,7 @@ const Menu = (props) => {
   const dispatch = useDispatch();
   const preferences = useSelector(state => state.Preferences);
   const recipes = useSelector(state => state.Menu);
+  const recipeString = JSON.stringify(recipes.recipes);
 
   const getTotalServings = (recipes) => {
     let servings = 0;
@@ -24,7 +25,7 @@ const Menu = (props) => {
   const getMenu = () => {
     axios.get('/menuitems', {
         params: {
-          user_id: 'a123' // preferences.uid
+          user_id: preferences.uid
         }
       })
       .then(({ data }) => {
@@ -38,7 +39,7 @@ const Menu = (props) => {
   const getFavorites = () => {
     axios.get('/favoriteitems', {
         params: {
-          user_id: 'a123' // preferences.uid
+          user_id: preferences.uid
         }
       })
       .then(({ data }) => {
@@ -50,7 +51,7 @@ const Menu = (props) => {
   const getHistory = () => {
     axios.get('/saveditems', {
         params: {
-          user_id: 'a123' // preferences.uid
+          user_id: preferences.uid
         }
       })
       .then(({ data }) => {
@@ -75,7 +76,7 @@ const Menu = (props) => {
     if (recipes.view === 'Search') {
       dispatch(updateView('Menu'));
     }
-  }, [recipes.servings]);
+  }, [recipes.view, recipeString]);
 
   return (
     <div id={'menu_container'}>

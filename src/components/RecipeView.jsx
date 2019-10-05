@@ -49,7 +49,7 @@ const RecipeView = (props) => {
   // Menu -> Recipe View
   const addToFavorites = () => {
     axios.put('/addtofavorites', {
-      user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+      user_id: preferences.uid,
       recipe_id: props.history.location.state.id
     })
     .then (({ data }) => {
@@ -66,7 +66,7 @@ const RecipeView = (props) => {
 
   const removeFromMenu = () => {
     axios.put('/removemenuitem', {
-      user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+      user_id: preferences.uid,
       recipe_id: props.history.location.state.id
     })
     .then(dispatch(updateServings(servings - props.history.location.state.servings)))
@@ -81,7 +81,7 @@ const RecipeView = (props) => {
   // Favorites -> Recipe View
   const addToMenu = () => {
     axios.put('/addtomenu', {
-      user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+      user_id: preferences.uid,
       recipe_id: props.history.location.state.id
     })
     .then(({ data }) => {
@@ -98,7 +98,7 @@ const RecipeView = (props) => {
 
   const removeFromFavorites = () => {
     axios.put('/removefromfavorites', {
-      user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+      user_id: preferences.uid,
       recipe_id: props.history.location.state.id
     })
     .then(dispatch(updateView('Favorites')))
@@ -111,22 +111,41 @@ const RecipeView = (props) => {
 
   // Search -> Recipe View
   const addToMenuFromSearch = () => {
-    console.log(recipe);
     axios.post('/addrecipe', {
       params: {
         action: 'menu',
-        user: 'a123' // preferences.uid
+        user: preferences.uid
       },
       data: recipe
     })
       .then(alert('Successfully added recipe to menu'))
+      .then(dispatch(updateView('Menu')))
+      .then(
+        props.history.replace('/menu')
+      )
+      .catch(error => console.log(error));
+  };
+  
+  const addToFavoritesFromSearch = () => {
+    axios.post('/addrecipe', {
+      params: {
+        action: 'fave',
+        user: preferences.uid
+      },
+      data: recipe
+    })
+      .then(alert('Successfully added recipe to favorites'))
+      .then(dispatch(updateView('Favorites')))
+      .then(
+        props.history.replace('/menu')
+      )
       .catch(error => console.log(error));
   };
 
   // History -> Recipe View
   const removeFromHistory = () => {
     axios.put('/removefromhistory', {
-      user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+      user_id: preferences.uid,
       recipe_id: props.history.location.state.id
     })
     .then(dispatch(updateView('History')))
@@ -216,7 +235,7 @@ const RecipeView = (props) => {
           {view === 'Search' && (
             <div className='recipe_buttons'>
               <Button className={'primary_button recipe_button'} primary onClick={addToMenuFromSearch}>Add to menu</Button>
-              <Button className={'secondary_button recipe_button'} primary onClick={() => {}}>Add to favorites</Button>
+              <Button className={'secondary_button recipe_button'} primary onClick={addToFavoritesFromSearch}>Add to favorites</Button>
             </div>
           )}
         <NavBar />

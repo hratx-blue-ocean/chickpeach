@@ -20,8 +20,7 @@ const MenuCard = (props) => {
   const getMenu = () => {
     axios.get('/menuitems', {
         params: {
-          id: 'a123'
-          // preferences.uid
+          id: preferences.uid
         }
       })
       .then(({ data }) => {
@@ -33,8 +32,7 @@ const MenuCard = (props) => {
   const getFavorites = () => {
     axios.get('/favoriteitems', {
         params: {
-          id: 'a123'
-          // preferences.uid
+          id: preferences.uid
         }
       })
       .then(({ data }) => {
@@ -46,8 +44,7 @@ const MenuCard = (props) => {
   const getHistory = () => {
     axios.get('/saveditems', {
         params: {
-          id: 'a123'
-          // preferences.uid
+          id: preferences.uid
         }
       })
       .then(({ data }) => {
@@ -76,7 +73,7 @@ const MenuCard = (props) => {
   const onRemoveClick = () => {
     if (view === 'Menu') {
       axios.put('/removemenuitem', {
-        user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+        user_id: preferences.uid,
         recipe_id: props.recipe.id
       })
       .then(alert('Successfully removed recipe from menu'))
@@ -90,7 +87,7 @@ const MenuCard = (props) => {
 
     if (view === 'Favorites') {
       axios.put('/removefromfavorites', {
-        user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+        user_id: preferences.uid,
         recipe_id: props.recipe.id
       })
       .then(alert('Successfully removed recipe from favorites'))
@@ -100,7 +97,7 @@ const MenuCard = (props) => {
 
     if (view === 'History') {
       axios.put('/removefromhistory', {
-        user_id: 'a123', // preferences.uid <- Replace once there are more users in database
+        user_id: preferences.uid,
         recipe_id: props.recipe.id
       })
       .then(alert('Recipe removed from history'))

@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 const { spoonAPIKey } = require('../spoonAPI.config.js');
 const mysql = require('mysql2');
-const { getNestedObject, allowCrossDomain, asyncForEach } = require('./utils.js');
+const { getNestedObject, allowCrossDomain, asyncForEach, checkNutritionData } = require('./utils.js');
 
 
 
@@ -164,7 +164,15 @@ app.get('/getrecipes', (req, res) => {
 //get ingredients
 
 app.get('/getingredients', (req, res) => {
-  pool.query(`SELECT * FROM Ingredients;`, (err, rows, fields) => {
+  let query = '';
+
+  req.query.recipes.forEach( recipe => {
+    query += ` recipe_id = ${recipe} OR `;
+  });
+
+  query = query.substring(0, query.length - 4);
+
+  pool.query(`SELECT * FROM Ingredients WHERE ${query};`, (err, rows, fields) => {
     if (err) console.log(err);
 
     res.status(200).send(rows);
@@ -293,7 +301,7 @@ app.put('/removefromhistory', (req, res) => {
 //get user favorited items by user id
 
 app.get('/favoriteitems', (req, res) => {
-  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE recipes.id = users_recipes.recipe_id AND users_recipes.user_id = '${req.user.id}' AND is_favorited = 1;`, (err, rows, fields) => {
+  pool.query(`SELECT Recipes.id,Recipes.title,Recipes.image,Recipes.servings FROM Recipes, Users_Recipes WHERE recipes.id = users_recipes.recipe_id AND users_recipes.user_id = '${req.query.user_id}' AND is_favorited = 1;`, (err, rows, fields) => {
     if (err) console.log(err);
     res.status(200).send(rows);
   });
@@ -320,6 +328,21 @@ app.get('/removesaveditems', (req, res) => {
 //SEARCH API route
 app.get('/searchrecipes', async (req, res) => {
     let recipesData = [];
+
+    const getIntolerances = (obj) => {
+      const allergyList = [];
+      for (let key in obj) {
+        if(obj[key] === true) {
+          allergyList.push(key);
+        }
+      }
+      return allergyList.join(', ');
+    }
+    
+    const intolerances = getIntolerances(JSON.parse(req.query.allergenList));
+
+    const banned = req.query.banList.join(',');
+
     await axios({
       "method":"GET",
       "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search",
@@ -329,8 +352,8 @@ app.get('/searchrecipes', async (req, res) => {
         "x-rapidapi-key":spoonAPIKey                                    //api Key Spoonacular set to a config file in Root DIR (gitignored)
       },"params":{
         "diet": req.query.diet,
-        "excludeIngredients":req.query.banList,
-        "intolerances":req.query.allergenList,
+        "excludeIngredients": banned,
+        "intolerances": intolerances,
         "number":"20",
         "offset":"0",
         "instructionsRequired":"true",
@@ -456,9 +479,12 @@ app.get('/getSingleRecipe', async (req, res) => {
 //POST singleRecipe from API result route
 app.post('/addrecipe', (req, res) => {
   const postAction = req.query.action ? req.query.action : 'menu';
+  
+  //NutritionData Validation
+  const nutrients = checkNutritionData(req);
+
   //INSERT Recipe and return Recipe UID in SQL DB
-  //"${req.body.data}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data.unt || 0)} ${req.data.t || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}");
-  pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ("${req.body.data.title}", "${req.body.data.image}", ${req.body.data.servings}, ${req.body.data.prep_time}, 0, "0", "0", "0", "0", "0", "0");`, (err, results, fields) => {
+  pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ("${req.body.data.title}", "${req.body.data.image}", ${req.body.data.servings}, ${req.body.data.prep_time}, ${nutrients.Calories}, "${nutrients.Carbohydrates}", "${nutrients.Fat}", "${nutrients.Fiber}", "${nutrients.Protein}", "${nutrients.Sodium}", "${nutrients.Sugar}");`, (err, results, fields) => {
     const recipe_id = results.insertId;
     // console.log(recipe_id)
     if (err) {
