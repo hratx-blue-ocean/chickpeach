@@ -39,7 +39,6 @@ const Profile = (props) => {
   const dispatch = useDispatch();
   const store = useStore().getState();
   const details = store.Preferences;
-  console.log(details);
 
   const allergies = Object.keys(details).map(detail => (allergens.includes(detail) && details[detail]) ? detail === 'treeNut' ? 'tree nut' : detail : undefined).filter(detail => !!detail)
   //Super long array method is to make first letter of each word uppercase

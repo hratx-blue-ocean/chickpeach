@@ -26,7 +26,6 @@ const SignUp = (props) => {
           var user = firebase.auth.currentUser;
           
           let uid = user.uid;
-          console.log('uid is', uid)
           axios.get('/register', {
             params: { 
               id: uid,
