@@ -142,7 +142,7 @@ const UpdateDiet = (selection) => {
 
 const resetPage = () => {
   return {
-    type: resetPage
+    type: 'resetPage'
   }
 }
 
