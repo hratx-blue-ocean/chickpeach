@@ -50,7 +50,7 @@ const checkNutritionData = (req) => {
   const nutrInfoFromReq = req.body.data.nutrition_info;
   for (let i = 0; i < nutrInfoFromReq.length; i++) {
     if (nutrSet.has(nutrInfoFromReq[i].title)) {
-      nutrObj[title] = Math.ceil(nutrInfoFromReq[i].amount);
+      nutrObj["title"] = Math.ceil(nutrInfoFromReq[i].amount);
     } 
   }
   return nutrObj;

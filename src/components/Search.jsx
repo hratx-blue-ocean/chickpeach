@@ -14,23 +14,20 @@ const Search = (props) => {
   const search = useSelector(state => state.search);
   const preferences = useSelector(state => state.Preferences);
 
-  const allergenList = () => {
-    let allergies = {
-      egg: preferences.egg,
-      grain: preferences.grain,
-      peanut: preferences.peanut,
-      seafood: preferences.seafood,
-      shellfish: preferences.shellfish,
-      sesame: preferences.sesame,
-      soy: preferences.soy,
-      sulfite: preferences.sulfite,
-      treeNut: preferences.treeNut,
-      wheat: preferences.wheat,
-      gluten: preferences.gluten,
-      dairy: preferences.dairy,
-    };
-    return allergies;
-  }
+  let allergenList = {
+    egg: preferences.egg,
+    grain: preferences.grain,
+    peanut: preferences.peanut,
+    seafood: preferences.seafood,
+    shellfish: preferences.shellfish,
+    sesame: preferences.sesame,
+    soy: preferences.soy,
+    sulfite: preferences.sulfite,
+    "tree nut": preferences.treeNut,
+    wheat: preferences.wheat,
+    gluten: preferences.gluten,
+    dairy: preferences.dairy,
+  };
 
   const searchForRecipes = () => {
     axios.get('/searchRecipes', {
