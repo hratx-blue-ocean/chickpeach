@@ -347,6 +347,7 @@ h3 {
   }
 
   .recipe_hero {
+    height: auto;
     border-radius: 10px;
   }
 }
