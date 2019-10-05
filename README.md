@@ -118,12 +118,22 @@ npm run compile
 npm start
 ```
 
-# Challenges
+# Challenges & Learnings
 This is a project created by a group of friends all trying to fill a gap that we saw in many popular meal-planing apps. This app was also an opportunity for us to learn, as at the time of this writing we are a team of passionate new developers. Here are some of the learnings we've had so far:
 
+## Challenges
 - We all approached the project with a new technology to implement, and tried to do so in it's early stages. We've learned lessons on how to assess an entire tech stack before beginning to implement it. 
 - On the front end, we planned to build and then add state management later. Eventually we had to refactor all of our React components to be stateless in order to work with hooks and redux. A more productive strategy would have been to start with redux and hooks, and build from that convention instead of refactoring.
 - On the back-end, we had tried to use GraphQL but quickly realized it didn't make sense for us at the current scale. In this, we learned to apply the technology to the use case, and not simply add complexity for the sake of learning new technology or to greatly scale down the line. 
+
+## Learnings
+- The importance of planning is reinforced daily in our workflow. Between detailed wireframes on Figma and a detailed trello board, we were able to stay relatively organized. 
+- Pair programming was a big part of building Chickpeach. Although it did slow us down a bit, the code pushed from pairs was visibly more accurate and concise.
+- Good communication between stakeholders, the team, and user testing was a boon for development. As developers, we were able to articulate the direction of where the app was going and properly manage stakeholder expectations against user feedback and developer input.
+
+## Potential Improvements
+- We may benefit from dividing sprints into specific features instead of splitting our team into traditional (front-end/back-end) roles. As we're all full-stack developers, an iterative approach may have allowed us to develop more consistently. In our experience so far, with one team working on front-end and the other on back-end, we found ourselves waiting on each-other as well as in situations where we lost familiarity with the other side of the code base and had to spend more time catching up. 
+- In the future, we will be extending our UI mockup to also include data flow between apps. 
 
 # Contributors
 
