@@ -28,7 +28,7 @@ const defaultState = {
   ],
   nextPage: ['Allergies', 'Allergies', 'Allergies', 'Counts', 'To Menu'],
     page: 0,
-    addedAllergies: [],
+    addedAllergies: [''],
     people: 0,
     onHover: false,
     numberOfMeals: 0
@@ -264,6 +264,23 @@ const AppStateReducer = (state = defaultState, action) => {
       onHover: false,
       numberOfMeals: state.numberOfMeals
     };
+    return newState;
+  }
+
+  if (action.type === 'resetPage') {
+    let newState = {
+      diet: state.diet,
+      userPreferences1: state.userPreferences1,
+      userPreferences2: state.userPreferences2,
+      details: state.details,
+      nextPage: state.nextPage,
+      page: 0,
+      addedAllergies: state.addedAllergies,
+      people: state.people,
+      onHover: false,
+      numberOfMeals: state.numberOfMeals
+    };
+
     return newState;
   }
 
