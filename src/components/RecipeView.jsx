@@ -178,22 +178,17 @@ const RecipeView = (props) => {
         </div>
 
         <div className={'grey_container'}>
-          <h3>Nutritional Information</h3>
-          <div>Servings Per Recipe: {recipe.servings}</div>
-          <div>Amount Per Serving</div>
-          <div className={'nutrient_row'}>
-            <div>{`Calories ${Math.round(recipe.nutrition_info[0].amount / 10) * 10}`}</div>
-            <div>% Daily Value</div>
-          </div>
+          <h3 className={'nutrition_header'}>Nutritional Information</h3>
+          <div className={'nutrition_header'}>Servings Per Recipe: {recipe.servings}</div>
+          <div className={'nutrition_header'}>Amount Per Serving</div>
+          <div className={'nutrition_header calories'}>{`Calories ${Math.round(recipe.nutrition_info[0].amount / 10) * 10}`}</div>
           {
             recipe.nutrition_info.map((nutrient, index) => {
               if (formatter[nutrient.title]) {
                 return (
                   <div className={'nutrient_row'} key={index}>
                     <div>{nutrient.title}</div>
-                    <div>{Math.ceil(nutrient.amount)}</div>
-                    <div>{nutrient.unit}</div>
-                    <div>{`${nutrient.percentOfDailyNeeds}%`}</div>
+                    <div>{Math.ceil(nutrient.amount) + nutrient.unit}</div>
                   </div>
                 );
               }

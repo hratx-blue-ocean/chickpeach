@@ -307,6 +307,27 @@ h3 {
   justify-content: space-between;
   border-bottom: 1px solid black;
   margin: 5px auto;
+  padding: 2px 0;
+}
+
+.nutrition_header {
+  margin: 5px auto;
+}
+
+.calories {
+  margin-bottom: 15px;
+}
+
+.nutrient_amount {
+  position: absolute;
+  left: 48vw;
+}
+
+.daily_row {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  border-bottom: 1px solid black;
 }
 
 @media all and (min-width: 60em){
