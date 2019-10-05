@@ -16,7 +16,7 @@ const defaultState = {
   treeNut: false,
   wheat: true,
   peopleToPrepFor: 0,
-  addedAllergies: [],
+  addedAllergies: [''],
   numberOfMeals: 0
 }
 

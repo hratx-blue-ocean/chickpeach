@@ -138,10 +138,16 @@ const UpdateDiet = (selection) => {
     type: 'UpdateDiet',
     selection: selection
   };
+};
+
+const resetPage = () => {
+  return {
+    type: resetPage
+  }
 }
 
 export { addAccountInfo, addPreferences, updateIngredients, 
   IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, 
   AddAllergies, RemoveAllergy, MouseHandler, SetPeople, SetMeals, 
   updateRecipeList, updateQuery, updateSearch, updateMenu, updateView, 
-  updateServings, UpdateDiet, logout }
+  updateServings, UpdateDiet, logout, resetPage }
