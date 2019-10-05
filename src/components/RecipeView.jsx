@@ -40,11 +40,15 @@ const RecipeView = (props) => {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
     })
-    .then(dispatch(updateView('Favorites')))
-    .then(alert('Recipe added to favorites'))
-    .then(
-      props.history.replace('/menu')
-    )
+    .then (({ data }) => {
+      if (data === 'already on favorites') {
+        alert ('Recipe already in favorites')
+      } else {
+        dispatch(updateView('Favorites'));
+        alert('Recipe added to favorites');
+        props.history.replace('/menu');
+      }
+    })
     .catch(error => console.log(error));
   };
 

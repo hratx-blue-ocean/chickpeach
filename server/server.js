@@ -253,12 +253,20 @@ app.put('/removemenuitem', (req, res) => {
 //add saved item to user favorites
 
 app.put('/addtofavorites', (req, res) => {
-  pool.query(`UPDATE Users_Recipes SET is_favorited = 1 WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id};`, (err, rows, fields) => {
+  pool.query(`SELECT * from Users_Recipes WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id} AND is_favorited = 1`, (err, rows, fields) => {
     if (err) {
-      console.log(err)
-      res.status(404).send(err);
+      console.log(err);
+    } else if (rows.length) {
+      res.send('already on favorites');
+    } else {
+      pool.query(`UPDATE Users_Recipes SET is_favorited = 1 WHERE user_id = '${req.body.user_id}' AND recipe_id = ${+req.body.recipe_id};`, (err, rows, fields) => {
+        if (err) {
+          console.log(err)
+          res.status(404).send(err);
+        }
+        res.status(200).end('success');
+      });
     }
-    res.status(200).end('success');
   });
 });
 
