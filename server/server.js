@@ -456,7 +456,7 @@ app.get('/getSingleRecipe', async (req, res) => {
   }).then(res => {
     recipeData["recipeID"] = res.data.id;
     recipeData["title"] = res.data.title;
-    recipeData["image"] = image;
+    recipeData["image"] = res.data.image;
     recipeData["servings"] = res.data.servings;
     recipeData["prep_time"] = res.data.readyInMinutes;
     recipeData["ingredients"] = res.data.extendedIngredients.map(ing => {
