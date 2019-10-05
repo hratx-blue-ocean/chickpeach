@@ -360,7 +360,10 @@ app.get('/searchrecipes', async (req, res) => {
         "query":req.query.searchInput
       }
     }).then(res => {
-      recipesData = res.data.results;
+      recipesData = res.data.results.map(recipe => {
+        recipe['absoluteImageURL'] = `${res.data.baseUri} + ${recipe.image}`;
+        return recipe;
+      });
     })
     .catch(err => {
       console.log(err);
@@ -438,7 +441,8 @@ app.get('/getsingledbrecipe', (req, res) => {
 
 //Get Single Recipe Info route by local db MySQL and by SpoonAPI
 app.get('/getSingleRecipe', async (req, res) => {
-  const recipeID = req.query.recipeID
+  const recipeID = req.query.recipeID;
+  const image = req.query.absoluteImageURL;
   let recipeData = {};
   await axios({
     "method":"GET",
@@ -453,7 +457,7 @@ app.get('/getSingleRecipe', async (req, res) => {
   }).then(res => {
     recipeData["recipeID"] = res.data.id;
     recipeData["title"] = res.data.title;
-    recipeData["image"] = res.data.image;
+    recipeData["image"] = image;
     recipeData["servings"] = res.data.servings;
     recipeData["prep_time"] = res.data.readyInMinutes;
     recipeData["ingredients"] = res.data.extendedIngredients.map(ing => {
