@@ -56,7 +56,6 @@ const Preferences = (props) => {
       wheat: newState.wheat,
       gluten: newState.gluten,
       dairy: newState.dairy,
-      isMetric: state.isMetric,
       peopleToPrepFor: amountOfPeople,
       numberOfMeals: amountOfMeals,
       addedAllergies: state.addedAllergies

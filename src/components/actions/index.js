@@ -61,13 +61,6 @@ const MouseHandler = (boolean) => {
   }
 }
 
-const HandleMetric = (boolean) => {
-  return {
-    type: 'HandleMetric',
-    boolean: boolean
-  }
-}
-
 const SetPeople = (number) => {
   return {
     type: 'SetPeople',
@@ -140,4 +133,4 @@ const UpdateDiet = (selection) => {
   };
 }
 
-export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, HandleMetric, SetPeople, SetMeals, updateRecipeList, updateQuery, updateSearch, updateMenu, updateView, updateServings, UpdateDiet, logout }
+export { addAccountInfo, addPreferences, IteratePageCount, DecrementPageCount, SetToggleData, UpdateToggles, AddAllergies, RemoveAllergy, MouseHandler, SetPeople, SetMeals, updateRecipeList, updateQuery, updateSearch, updateMenu, updateView, updateServings, UpdateDiet, logout }
