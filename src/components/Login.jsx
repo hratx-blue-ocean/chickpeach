@@ -15,7 +15,6 @@ const LogIn = (props) => {
     const [submitPressed, changeSubmitState] = useState(false)
 
     function onRegister() {
-
       const reg = new Promise((resolve, reject) => {
         firebase.signOut()
         resolve(firebase.login(email, password));
@@ -48,7 +47,7 @@ const LogIn = (props) => {
               <TextInput value={email} onChange={(e) => setEmail(e.target.value)} />
             </FormField>
             <FormField name="password" label="Password" >
-              <TextInput value={password} onChange={(e) => setPassword(e.target.value)} />
+              <TextInput type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
             </FormField>
             {
               submitPressed ?
