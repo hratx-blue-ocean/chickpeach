@@ -2,7 +2,7 @@
 
 Chickpeach is your one stop meal planning, recipe discovery and grocery-management app. The app is able to be configured to several dietary restrictions and preferences, and can also be scaled to accommodate meal-planning for more than one person. Don't like bananas? They won't show up anywhere in your menu, or in search results. Once you've selected the recipes you'd like to cook in a week, the app will auto generate a shopping list. Chickpeach is fully responsive and can be taken on the go, or browsed as a rich desktop experience. 
 
-# In Action
+## In Action
 
 [Live demo]()
 
@@ -117,6 +117,13 @@ npm install
 npm run compile
 npm start
 ```
+
+# Challenges
+This is a project created by a group of friends all trying to fill a gap that we saw in many popular meal-planing apps. This app was also an opportunity for us to learn, as at the time of this writing we are a team of passionate new developers. Here are some of the learnings we've had so far:
+
+- We all approached the project with a new technology to implement, and tried to do so in it's early stages. We've learned lessons on how to assess an entire tech stack before beginning to implement it. 
+- On the front end, we planned to build and then add state management later. Eventually we had to refactor all of our React components to be stateless in order to work with hooks and redux. A more productive strategy would have been to start with redux and hooks, and build from that convention instead of refactoring.
+- On the back-end, we had tried to use GraphQL but quickly realized it didn't make sense for us at the current scale. In this, we learned to apply the technology to the use case, and not simply add complexity for the sake of learning new technology or to greatly scale down the line. 
 
 # Contributors
 
