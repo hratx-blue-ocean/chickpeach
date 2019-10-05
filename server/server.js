@@ -350,37 +350,37 @@ app.get('/searchrecipes', async (req, res) => {
     await res.status(200).send(recipesData);
 });
 
-//Get Single Recipe Info route by local db MySQL and by SpoonAPI
-app.get('/getSingleRecipe', async (req, res) => {
+//get single recipe from database
+app.get('/getsingledbrecipe', (req, res) => {
   let recipeID = req.query.recipeID;
   let obj = {};
   //change to 10 Million
-  if(+recipeID === 10000000){
-    pool.query(`SELECT*FROM recipes WHERE ID = ${recipeID}`, (err, rows, fields) => {
-      obj = rows[0]
+  pool.query(`SELECT*FROM recipes WHERE ID = ${recipeID}`, (err, rows, fields) => {
+    obj = rows[0]
+
+    pool.query(`SELECT*FROM cooking_instructions WHERE recipe_ID = ${recipeID}`, (err, rows, fields) => {
+      let steps = [];
+      rows.forEach(step => {
+        steps.push(step.step)
+      });
+      obj.steps = steps;
+
+      pool.query(`SELECT*FROM Ingredients WHERE recipe_id = ${recipeID}`, (err, rows, fields) => {
+        let ingredients = [];
+        rows.forEach(ingredient => {
+          ingredients.push(ingredient)
+        });
+        obj.ingredients = ingredients;
+        console.log(obj);
+        res.status(200).send(obj);
+      });
+    });
+  });
+});
 
 
-      pool.query(`SELECT*FROM cooking_instructions WHERE recipe_ID = ${recipeID}`, (err, rows, fields) => {
-        let steps = [];
-        rows.forEach(step => {
-          steps.push(step.step)
-        })
-        obj.steps = steps;
-
-
-        pool.query(`SELECT*FROM Ingredients WHERE recipe_id = ${recipeID}`, (err, rows, fields) => {
-          let ingredients = [];
-          rows.forEach(ingredient => {
-            ingredients.push(ingredient)
-          })
-          obj.ingredients = ingredients;
-          console.log(obj)
-          res.status(200).send(obj)
-        })
-      })
-
-    })
-  } else {
+//Get Single Recipe Info route by local db MySQL and by SpoonAPI
+app.get('/getSingleRecipe', async (req, res) => {
     let recipeData = {};
     await axios({
       "method":"GET",
