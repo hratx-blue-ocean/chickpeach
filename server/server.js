@@ -484,7 +484,7 @@ app.post('/addrecipe', (req, res) => {
   const nutrients = checkNutritionData(req);
 
   //INSERT Recipe and return Recipe UID in SQL DB
-  pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ("${req.body.data.title}", "${req.body.data.image}", ${req.body.data.servings}, ${req.body.data.prep_time}, 0, "0", "0", "0", "0", "0", "0");`, (err, results, fields) => {
+  pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ("${req.body.data.title}", "${req.body.data.image}", ${req.body.data.servings}, ${req.body.data.prep_time}, ${nutrients.Calories}, "${nutrients.Carbohydrates}", "${nutrients.Fat}", "${nutrients.Fiber}", "${nutrients.Protein}", "${nutrients.Sodium}", "${nutrients.Sugar}");`, (err, results, fields) => {
     const recipe_id = results.insertId;
     // console.log(recipe_id)
     if (err) {
