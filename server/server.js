@@ -417,7 +417,7 @@ app.get('/getSingleRecipe', async (req, res) => {
    });
    await res.status(200).send(recipeData);
   }
-});
+);
 
 //POST singleRecipe from API result route
 app.post('/addrecipe', (req, res) => {
