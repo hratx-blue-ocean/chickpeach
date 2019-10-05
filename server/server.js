@@ -354,24 +354,62 @@ app.get('/searchrecipes', async (req, res) => {
 app.get('/getsingledbrecipe', (req, res) => {
   let recipeID = req.query.recipeID;
   let obj = {};
-  //change to 10 Million
+
   pool.query(`SELECT*FROM recipes WHERE ID = ${recipeID}`, (err, rows, fields) => {
-    obj = rows[0]
+    let recipe = rows[0];
+
+    obj['id'] = recipe.id;
+    obj['title'] = recipe.title;
+    obj['image'] = recipe.image;
+    obj['servings'] = recipe.servings;
+    obj['prep_time'] = recipe.prep_time;
+    obj['created_by_user'] = recipe.created_by_user;
+    obj['nutrition_info'] = [
+      { title: 'Calories',
+        amount: recipe.calories,
+        unit: 'cal' },
+      { title: 'Carbohydrates',
+        amount: recipe.carbs, 
+        unit: 'g' },
+      { title: 'Fat',
+        amount: recipe.fat,
+        unit: 'g' },
+      { title: 'Fiber',
+        amount: recipe.fiber,
+        unit: 'g' },
+      { title: 'Protein',
+        amount: recipe.protein,
+        unit: 'g' },
+      { title: 'Sodium',
+        amount: recipe.sodium,
+        unit: 'mg' },
+      { title: 'Sugar',
+        amount: recipe.sugar,
+        unit: 'g' }
+    ];
 
     pool.query(`SELECT*FROM cooking_instructions WHERE recipe_ID = ${recipeID}`, (err, rows, fields) => {
       let steps = [];
+
       rows.forEach(step => {
         steps.push(step.step)
       });
-      obj.steps = steps;
+
+      obj['directions'] = steps;
 
       pool.query(`SELECT*FROM Ingredients WHERE recipe_id = ${recipeID}`, (err, rows, fields) => {
-        let ingredients = [];
-        rows.forEach(ingredient => {
-          ingredients.push(ingredient)
+        obj['ingredients'] = rows.map( ing => {
+          let ingredient = {};
+
+          ingredient['aisle'] = ing.aisle;
+          ingredient['name'] = ing.name;
+          ingredient['quantity'] = ing.quantity;
+          ingredient['stringRender'] = `${ing.quantity} ${ing.unit} ${ing.name}`;
+          ingredient['unit'] = ing.unit;
+
+          return ingredient;
         });
-        obj.ingredients = ingredients;
-        console.log(obj);
+
         res.status(200).send(obj);
       });
     });
@@ -513,7 +551,7 @@ app.post('/addrecipe', (req, res) => {
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../dist/index.html'), function(err) {
     if (err) {
-      res.status(500).send(err)
+      res.status(500).send(err);
     }
   });
 });
