@@ -84,10 +84,10 @@ const ShoppingList = (props) => {
   const aisleList = makeAisleList(ingredientsForList);
 
   return (
-    <div>
-      <div>
+    <div id={'ShoppingList_Container'}>
+      <h1 className='ShoppingList_text'>Shopping List</h1>
+      <div id='shopping_list_container'>
         <div id='shopping_list'>
-          <h1 className='ShoppingList_text'>Shopping List</h1>
           <div className='grocery_line_top'>
             <div className='grocery_item_container'>
             <div> 

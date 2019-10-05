@@ -114,80 +114,83 @@ const RecipeView = (props) => {
   return (
     <div id='recipeView_container'>
       <h1 className={'header1'}>{recipe.title}</h1>
-      <img className={'recipe_hero'} src={recipe.image} />
-      <div className={'grey_container'}>
-        <h3>Ingredients</h3>
-        {
-          recipe.ingredients.map((ingredient, index) => {
-            return <p className={'recipe_ingredient'} key={index}>
-              {`${ingredient.stringRender}`}
-            </p>
-          })
-        }
-      </div>
+      <div className={'recipeView_content'}>
+        <img className={'recipe_hero'} src={recipe.image} />
+        <div className={'grey_container'}>
+          <h3>Ingredients</h3>
+          {
+            recipe.ingredients.map((ingredient, index) => {
+              return <p className={'recipe_ingredient'} key={index}>
+                {`${ingredient.stringRender}`}
+              </p>
+            })
+          }
+        </div>
 
-      <div id={'recipe_directions_container'}>
-        <h3 className={'recipe_directions_label'}>Directions</h3>
-        <p>{`${recipe.prep_time} minutes`}</p>
-        {
-          recipe.directions.map((step, index) => {
-            return (
-              <div className={'recipe_step'} key={index}>
-                <div className={'recipe_step_number'}>{index + 1 + '.'}</div>
-                <div>{step}</div>
-              </div>
-            )
-          })
-        }
-      </div>
-
-      <div className={'grey_container'}>
-        <h3>Nutritional Information</h3>
-        <div>Servings Per Recipe: {recipe.servings}</div>
-        <div>Amount Per Serving</div>
-        <div className={'nutrient_row'}>{`Calories ${Math.round(recipe.nutrition_info[0].amount / 10) * 10}`}</div>
-        {
-          recipe.nutrition_info.map((nutrient, index) => {
-            if (formatter[nutrient.title]) {
+        <div id={'recipe_directions_container'}>
+          <h3 className={'recipe_directions_label'}>Directions</h3>
+          <p>{`${recipe.prep_time} minutes`}</p>
+          {
+            recipe.directions.map((step, index) => {
               return (
-                <div className={'nutrient_row'} key={index}>
-                  <div>{nutrient.title}</div>
-                  <div>{nutrient.amount}</div>
-                  <div>{nutrient.unit}</div>
-                  <div>{nutrient.percentOfDailyNeeds}</div>
+                <div className={'recipe_step'} key={index}>
+                  <div className={'recipe_step_number'}>{index + 1 + '.'}</div>
+                  <div>{step}</div>
                 </div>
-              );
-            }
-          })
-        }
+              )
+            })
+          }
+        </div>
+
+        <div className={'grey_container'}>
+          <h3>Nutritional Information</h3>
+          <div>Servings Per Recipe: {recipe.servings}</div>
+          <div>Amount Per Serving</div>
+          <div className={'nutrient_row'}>{`Calories ${Math.round(recipe.nutrition_info[0].amount / 10) * 10}`}</div>
+          {
+            recipe.nutrition_info.map((nutrient, index) => {
+              if (formatter[nutrient.title]) {
+                return (
+                  <div className={'nutrient_row'} key={index}>
+                    <div>{nutrient.title}</div>
+                    <div>{nutrient.amount}</div>
+                    <div>{nutrient.unit}</div>
+                    <div>{nutrient.percentOfDailyNeeds}</div>
+                  </div>
+                );
+              }
+            })
+          }
+        </div>
+
+        {view === 'Menu' && (
+          <div className='recipe_buttons'>
+            <Button className={'primary_button recipe_button'} primary onClick={addToFavorites}>Add to favorites</Button>
+            <Button className={'secondary_button recipe_button'} primary onClick={removeFromMenu}>Remove from menu</Button>
+          </div>
+        )}
+        {view === 'Favorites' && (
+          <div className='recipe_buttons'>
+            <Button className={'primary_button recipe_button'} primary onClick={addToMenu}>Add to menu</Button>
+            <Button className={'secondary_button recipe_button'} primary onClick={removeFromFavorites}>Remove from favorites</Button>
+          </div>
+        )}
+        {view === 'History' && (
+          <div className='recipe_buttons'>
+            <Button className={'primary_button recipe_button'} primary onClick={addToMenu}>Add to menu</Button>
+            <Button className={'secondary_button recipe_button'} primary onClick={removeFromHistory}>Remove from history</Button>
+          </div>
+        )}
+        {view === 'Search' && (
+          <div className='recipe_buttons'>
+            <Button className={'primary_button recipe_button'} primary onClick={() => {}}>Add to menu</Button>
+            <Button className={'secondary_button recipe_button'} primary onClick={() => {}}>Add to favorites</Button>
+          </div>
+        )}
+
+        <NavBar />
+
       </div>
-
-      {view === 'Menu' && (
-        <div className='recipe_buttons'>
-          <Button className={'primary_button recipe_button'} primary onClick={addToFavorites}>Add to favorites</Button>
-          <Button className={'secondary_button recipe_button'} primary onClick={removeFromMenu}>Remove from menu</Button>
-        </div>
-      )}
-      {view === 'Favorites' && (
-        <div className='recipe_buttons'>
-          <Button className={'primary_button recipe_button'} primary onClick={addToMenu}>Add to menu</Button>
-          <Button className={'secondary_button recipe_button'} primary onClick={removeFromFavorites}>Remove from favorites</Button>
-        </div>
-      )}
-      {view === 'History' && (
-        <div className='recipe_buttons'>
-          <Button className={'primary_button recipe_button'} primary onClick={addToMenu}>Add to menu</Button>
-          <Button className={'secondary_button recipe_button'} primary onClick={removeFromHistory}>Remove from history</Button>
-        </div>
-      )}
-      {view === 'Search' && (
-        <div className='recipe_buttons'>
-          <Button className={'primary_button recipe_button'} primary onClick={() => {}}>Add to menu</Button>
-          <Button className={'secondary_button recipe_button'} primary onClick={() => {}}>Add to favorites</Button>
-        </div>
-      )}
-
-      <NavBar />
     </div>
   )
 }

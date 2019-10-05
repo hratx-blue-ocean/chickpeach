@@ -44,11 +44,11 @@ h3 {
 
 .grey_container {
   background: rgba(196, 196, 196, 0.1);
-  width: 86vw;
-  padding: 13px;
+  padding: 10px;
   border-radius: 14px;
   padding-bottom: 20px;
   margin: 20px auto;
+  margin: 20px;
 }
 
 .primary_button {
@@ -76,14 +76,13 @@ h3 {
 
 .card {
   width: 80vw;
-  height: 75vw;
   border-radius: 10px;
   margin: 4vw;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.25);
 }
 
 .card img {
-  width: 80vw;
+  width: 100%;
   height: 45vw;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -124,7 +123,8 @@ h3 {
   display: flex;
   flex-direction: row;
   width: 100%;
-  
+  justify-content: space-between;
+  margin: 20px 0px;
 }
 
 .card_footer Button {
@@ -132,6 +132,19 @@ h3 {
   margin-right: 2vw !important;
   line-height: normal !important;
   background-color: #FBDCA1 !important;
+}
+
+.card_button {
+  font-size: 0.7em !important;
+  width: 120px;
+}
+
+@media all and (min-width: 48em){
+  #menu_container, #search_container, 
+  #ShoppingList_Container,
+  #recipeView_container {
+    padding-left: 50px;
+  }
 }
 
 /* Nav Bar */
@@ -148,6 +161,14 @@ h3 {
   justify-content: space-around;
   align-items: center;
   padding-top: 6px;
+}
+
+@media all and (min-width: 48em){
+  #navBar {
+    flex-direction: column;
+    width: 50px;
+    height: 100%;
+  }
 }
 
 /* Shopping List */
@@ -201,6 +222,18 @@ h3 {
   text-decoration: line-through;
 }
 
+@media all and (min-width: 38em){
+  #shopping_list_container {
+    display: flex;
+    justify-content: center;
+  }
+
+  #shopping_list {
+    margin-top: 5vh;
+    width: 50vw;
+  }
+}
+
 /* Recipe View */
 
 #recipeView_container {
@@ -212,7 +245,7 @@ h3 {
 .recipe_hero {
   height: 31vh;
   object-fit: cover;
-  width: 100vw;
+  width: 100%;
   margin: 20px auto;
 }
 
@@ -223,11 +256,8 @@ h3 {
 }
 
 #recipe_directions_container {
-  width: 86vw;
-}
-
-.recipe_directions_label {
-  padding-left: 17px;
+  margin: 20px;
+  padding: 10px;
 }
 
 .recipe_step {
@@ -246,15 +276,13 @@ h3 {
 .recipe_buttons {
   margin: 20px auto;
   display: flex;
-  width: 95vw;
   justify-content: space-between;
   margin-top: 5px;
+  padding: 0 18px;
 }
 
 .recipe_button {
-  width: 44vw;
   border: none !important;
-  margin-right: 2vw !important;
   line-height: normal !important;
   background-color: #FBDCA1 !important;
 }
@@ -264,6 +292,19 @@ h3 {
   justify-content: space-between;
   border-bottom: 1px solid black;
   margin: 5px auto;
+}
+
+@media all and (min-width: 60em){
+  .recipeView_content{
+    max-width: 1000px;
+    justify-content: center;
+    align-self: center;
+    padding: 50px 50px;
+  }
+
+  .recipe_hero {
+    border-radius: 10px;
+  }
 }
 
 /* Preferences View */
@@ -519,14 +560,6 @@ h3 {
   margin-left: 8vw;
 }
 
-#recipes_submit {
-  align-self: flex-end;
-  width: 30px;
-  height: 25px;
-  border: none;
-  border-radius: 100px;
-}
-
 .recipes_divider {
   width: 66vw;
   height: 1px;
@@ -558,10 +591,6 @@ h3 {
   .recipes_divider {
     width: 75vw;
   }
-}
-
-.recipe_footer {
-  justify-content: flex-end;
 }
 
 .recipe_preview {
@@ -726,9 +755,21 @@ h3 {
 }
 
 @media all and (min-width: 45em){
-  /* .card_container {
-    background-color: blue;
-  } */
+
+  .card_container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    width: 30vw;
+    margin: 1vw;
+    height: 40vh;
+  }
+
+  .card img {
+    height: 20vh;
+  }
 }
 
 /* Login and Sign Up */
