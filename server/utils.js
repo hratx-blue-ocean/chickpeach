@@ -35,4 +35,25 @@ const asyncForEach = async function(array, callback) {
   }
 };
 
-module.exports = { getNestedObject, allowCrossDomain, asyncForEach }
+//Checking for ALL properties of nutritionInfo
+const checkNutritionData = (req) => {
+  let nutrObj = {
+    Calories: 0,
+    Fat: 0,
+    Carbohydrates: 0,
+    Sugar: 0,
+    Sodium: 0,
+    Protein: 0,
+    Fiber: 0
+  };
+  const nutrSet = new Set(['Calories', 'Fat', 'Carbohydrates', 'Sugar', 'Sodium', 'Protein', 'Fiber']);
+  const nutrInfoFromReq = req.body.data.nutrition_info;
+  for (let i = 0; i < nutrInfoFromReq.length; i++) {
+    if (nutrSet.has(nutrInfoFromReq[i].title)) {
+      nutrObj[title] = Math.ceil(nutrInfoFromReq[i].amount);
+    } 
+  }
+  return nutrObj;
+};
+
+module.exports = { getNestedObject, allowCrossDomain, asyncForEach, checkNutritionData }
