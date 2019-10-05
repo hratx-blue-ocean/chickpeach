@@ -350,7 +350,7 @@ app.get('/searchrecipes', async (req, res) => {
     await res.status(200).send(recipesData);
 });
 
-//get single recipe from 
+//get single recipe from database
 app.get('/getsingledbrecipe', (req, res) => {
   let recipeID = req.query.recipeID;
   let obj = {};
