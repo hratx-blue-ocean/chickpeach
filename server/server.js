@@ -360,7 +360,10 @@ app.get('/searchrecipes', async (req, res) => {
         "query":req.query.searchInput
       }
     }).then(res => {
-      recipesData = res.data.results;
+      recipesData = res.data.results.map(recipe => {
+        recipe['absoluteImageURL'] = `${res.data.baseUri} + ${recipe.image}`;
+        return recipe;
+      });
     })
     .catch(err => {
       console.log(err);
@@ -438,7 +441,7 @@ app.get('/getsingledbrecipe', (req, res) => {
 
 //Get Single Recipe Info route by local db MySQL and by SpoonAPI
 app.get('/getSingleRecipe', async (req, res) => {
-  const recipeID = req.query.recipeID
+  const recipeID = req.query.recipeID;
   let recipeData = {};
   await axios({
     "method":"GET",
@@ -453,7 +456,7 @@ app.get('/getSingleRecipe', async (req, res) => {
   }).then(res => {
     recipeData["recipeID"] = res.data.id;
     recipeData["title"] = res.data.title;
-    recipeData["image"] = res.data.image;
+    recipeData["image"] = image;
     recipeData["servings"] = res.data.servings;
     recipeData["prep_time"] = res.data.readyInMinutes;
     recipeData["ingredients"] = res.data.extendedIngredients.map(ing => {
@@ -485,7 +488,7 @@ app.post('/addrecipe', (req, res) => {
   const nutrients = checkNutritionData(req);
 
   //INSERT Recipe and return Recipe UID in SQL DB
-  pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ("${req.body.data.title}", "${req.body.data.image}", ${req.body.data.servings}, ${req.body.data.prep_time}, ${nutrients.Calories}, "${nutrients.Carbohydrates}", "${nutrients.Fat}", "${nutrients.Fiber}", "${nutrients.Protein}", "${nutrients.Sodium}", "${nutrients.Sugar}");`, (err, results, fields) => {
+  pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ("${req.body.data.title}", "${req.body.data.image}", ${req.body.data.servings}, ${req.body.data.prep_time}, ${nutrients.Calories}, '${nutrients.Carbohydrates}', '${nutrients.Fat}', '${nutrients.Fiber}', '${nutrients.Protein}', '${nutrients.Sodium}', '${nutrients.Sugar}');`, (err, results, fields) => {
     const recipe_id = results.insertId;
     if (err) {
       console.log(err);
