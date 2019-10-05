@@ -10,7 +10,7 @@ const MenuCard = (props) => {
   const preferences = useSelector(state => state.Preferences);
   const { view, recipes, servings } = useSelector(state => state.Menu);
 
-  const getImageURL = () => {
+  const getImageURL = (url) => {
     if (props.recipe.image.includes('https')) {
       return props.recipe.image;
     } else {
@@ -110,7 +110,7 @@ const MenuCard = (props) => {
   return (
     <div className="card">
       <div>
-        <img src={props.recipe.image}></img>
+        <img src={getImageURL(props.recipe.image)}></img>
       </div>
       <div className="card_bottom">
         <div className="card_text">
