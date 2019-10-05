@@ -97,7 +97,7 @@ h3 {
 .card_bottom {
   justify-content: space-between;
   height: 100%;
-  margin: auto 1vw;
+  margin: auto 1em;
 }
 
 .card_text {
@@ -133,7 +133,6 @@ h3 {
 
 .card_footer Button {
   border: none !important;
-  margin-right: 2vw !important;
   line-height: normal !important;
   background-color: #FBDCA1 !important;
 }
@@ -308,6 +307,27 @@ h3 {
   justify-content: space-between;
   border-bottom: 1px solid black;
   margin: 5px auto;
+  padding: 2px 0;
+}
+
+.nutrition_header {
+  margin: 5px auto;
+}
+
+.calories {
+  margin-bottom: 15px;
+}
+
+.nutrient_amount {
+  position: absolute;
+  left: 48vw;
+}
+
+.daily_row {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  border-bottom: 1px solid black;
 }
 
 @media all and (min-width: 60em){
@@ -744,6 +764,7 @@ h3 {
 
 .menu_text {
   margin: 0 40px;
+  margin-bottom: 20px;
 }
 
 .menu_recipeCount {
@@ -760,11 +781,10 @@ h3 {
   width: 100px;
   font-size: 12px !important;
   font-weight: bold !important;
-  margin-bottom: 15vh;
 }
 
 .logout {
-  position: fixed;
+  position: absolute;
   left: 80vw;
   top: 4vw;
   border-radius: 50px;
@@ -784,6 +804,10 @@ h3 {
 
   .card img {
     height: 20vh;
+  }
+
+  .logout {
+    left: 93vw;
   }
 
 }
