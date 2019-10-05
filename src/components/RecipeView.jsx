@@ -68,11 +68,15 @@ const RecipeView = (props) => {
       user_id: 'a123', // preferences.uid <- Replace once there are more users in database
       recipe_id: props.history.location.state.id
     })
-    .then(dispatch(updateView('Menu')))
-    .then(alert('Recipe added to menu'))
-    .then(
-      props.history.replace('/menu')
-    )
+    .then(({ data }) => {
+      if (data === 'already on menu') {
+        alert('Recipe already on menu');
+      } else {
+        dispatch(updateView('Menu'));
+        alert('Recipe added to menu');
+        props.history.replace('/menu');
+      }
+    })
     .catch(error => console.log(error));
   };
 
@@ -161,16 +165,19 @@ const RecipeView = (props) => {
           <h3>Nutritional Information</h3>
           <div>Servings Per Recipe: {recipe.servings}</div>
           <div>Amount Per Serving</div>
-          <div className={'nutrient_row'}>{`Calories ${Math.round(recipe.nutrition_info[0].amount / 10) * 10}`}</div>
+          <div className={'nutrient_row'}>
+            <div>{`Calories ${Math.round(recipe.nutrition_info[0].amount / 10) * 10}`}</div>
+            <div>% Daily Value</div>
+          </div>
           {
             recipe.nutrition_info.map((nutrient, index) => {
               if (formatter[nutrient.title]) {
                 return (
                   <div className={'nutrient_row'} key={index}>
                     <div>{nutrient.title}</div>
-                    <div>{nutrient.amount}</div>
+                    <div>{Math.ceil(nutrient.amount)}</div>
                     <div>{nutrient.unit}</div>
-                    <div>{nutrient.percentOfDailyNeeds}</div>
+                    <div>{`${nutrient.percentOfDailyNeeds}%`}</div>
                   </div>
                 );
               }

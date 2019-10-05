@@ -81,7 +81,6 @@ const MenuCard = (props) => {
       })
       .then(alert('Successfully removed recipe from menu'))
       .then(() => {
-        console.log(props.recipe.servings)
         const servingCount = servings - props.recipe.servings;
         dispatch(updateServings(servingCount));
       })

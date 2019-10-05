@@ -24,7 +24,7 @@ const Menu = (props) => {
   const getMenu = () => {
     axios.get('/menuitems', {
         params: {
-          user_id: preferences.uid
+          user_id: 'a123' // preferences.uid
         }
       })
       .then(({ data }) => {
@@ -38,7 +38,7 @@ const Menu = (props) => {
   const getFavorites = () => {
     axios.get('/favoriteitems', {
         params: {
-          user_id: preferences.uid
+          user_id: 'a123' // preferences.uid
         }
       })
       .then(({ data }) => {
@@ -50,7 +50,7 @@ const Menu = (props) => {
   const getHistory = () => {
     axios.get('/saveditems', {
         params: {
-          user_id: preferences.uid
+          user_id: 'a123' // preferences.uid
         }
       })
       .then(({ data }) => {
@@ -83,7 +83,15 @@ const Menu = (props) => {
       <NavLink to='/profile'><Button className={'primary_button logout'}>Profile</Button></NavLink>
       <div className="menu">
         <div className="menu_text">
-          <p className="menu_recipeCount">You have <b>4</b> recipes serving <b>{recipes.servings}</b> portions.</p>
+          {recipes.view === 'Menu' && 
+            <p className="menu_recipeCount">You have <b>{recipes.recipes.length}</b> recipes serving <b>{recipes.servings}</b> portions.</p>
+          }
+          {recipes.view === 'Favorites' && 
+            <p className="menu_recipeCount">You have <b>{recipes.recipes.length}</b> favorited recipes.</p>
+          }
+          {recipes.view === 'History' && 
+            <p className="menu_recipeCount">Recipes you've cooked before.</p>
+          }
           <Select
             id="menu_select"
             options={['Menu', 'Favorites', 'History']}
