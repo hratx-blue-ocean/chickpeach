@@ -1,5 +1,5 @@
-import React from 'react';
-import { Grommet, Button, Box, RadioButton, RadioButtonGroup } from 'grommet';
+import React, { useState } from 'react';
+import { Grommet, Button, FormField, TextInput, RadioButtonGroup } from 'grommet';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
@@ -8,8 +8,12 @@ import ToggleOptions from './ToggleOptions.jsx';
 import AllergyItem from './AllergyItem.jsx';
 import customTheme from './grommet/radioButton';
 import NavBar from './NavBar.jsx'
+import { GREEK } from 'mysql2/lib/constants/charsets';
 
 const Preferences = (props) => {
+  const [amountOfPeople, setPeople] = useState('');
+  const [amountOfMeals, setMeals] = useState('');
+  const [allergiesInput, setAllergiesInput ] = useState('');
   let state = useSelector(state => state.prefAppState);
   let userState = useSelector(state => state.Preferences);
   let dispatch = useDispatch();
@@ -104,16 +108,13 @@ const Preferences = (props) => {
 
   const saveAndContinue = () => {
     if (state.page === 4) {
-      let amountOfPeople = Number(document.getElementById('preferencesCountInput').value);
-      let amountOfMeals = Number(document.getElementById('preferencesMealCountInput').value);
-
-      dispatch(SetPeople(amountOfPeople));
+       dispatch(SetPeople(amountOfPeople));
       dispatch(SetMeals(amountOfMeals));
       saveToDatabase(amountOfPeople, amountOfMeals);
       return props.history.replace('/menu');
     }
-    dispatch(IteratePageCount())
 
+    dispatch(IteratePageCount())
     saveToDatabase()
   };
 
@@ -183,8 +184,13 @@ const Preferences = (props) => {
         {state.page === 3 &&
           <div className="inputContainer">
             <div id="preferencesInputButtonContainer">
-              <input id="preferenceAllergiesInput" onKeyUp={(event) => addAllergies(event)} placeholder="ex: Bananas"></input>
-              <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => addAllergies(event)}primary >Add</Button>
+            <Grommet>
+              <FormField name="email">
+                <TextInput id="preferenceAllergiesInput" placeholder="ex: Bananas" value={allergiesInput} onChange={(e) => setAllergiesInput(e.target.value)} />
+              </FormField>
+            </Grommet>
+              {/* <input id="preferenceAllergiesInput" onKeyUp={(event) => addAllergies(event)} placeholder="ex: Bananas"></input> */}
+            <Button className="secondary_button preferenceAllergiesInputButton" onClick={(event) => addAllergies(event)}primary >Add</Button>
             </div> 
             <ul id="preferencesUl">
               {state.addedAllergies.map((allergy, index) => {
@@ -200,23 +206,24 @@ const Preferences = (props) => {
 
         {state.page === 4 && 
           <div id="preferenceMeasurementsContainer">
+            <div className="preferenceInputDescriptionContainer">
               <p className="preferenceDescription">How many people you are preparing for?</p>
-              <input id="preferencesCountInput" placeholder="ex: 3"></input>
-              {/* <p className="preferenceDescription">Would you like quantities displayed in imperial or metric?</p> */}
-              {/* <div id="preferenceRadioButtonContainer">
-                <Grommet theme={customTheme}>
-                  <RadioButtonGroup
-                    name="measurements"
-                    options={['Imperial', 'Metric']}
-                    value={state.isMetric ? 'Metric': 'Imperial'}
-                    onChange={(event) => event.target.value === 'Metric' ? dispatch(HandleMetric(true)) : dispatch(HandleMetric(false))}
-                  />
-                </Grommet>
-              </div> */}
-          <p className="preferenceDescription">How many meals per week is each person preparing for?</p>
-              <input id="preferencesMealCountInput" placeholder="ex: 18"></input>
-            </div>}
-          </div>
+              <Grommet>
+                <FormField name="email">
+                  <TextInput id="preferencesCountInput" placeholder="ex: 3" value={amountOfPeople} onChange={(e) => setPeople(+e.target.value)} />
+                </FormField>
+              </Grommet>
+            </div>
+            <div className="preferenceInputDescriptionContainer">
+              <p className="preferenceDescription">How many meals per week is each person preparing for?</p>
+              <Grommet>
+                <FormField name="password">
+                    <TextInput id="preferencesMealCountInput" placeholder="ex: 18" value={amountOfMeals} onChange={(e) => setMeals(+e.target.value)} />
+                </FormField>
+              </Grommet>
+            </div>
+          </div>}
+        </div>
 
         {state.page === 0 ?
         <div className="preferencesLonelyButtonFooter">

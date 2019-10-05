@@ -402,15 +402,21 @@ h3 {
   width: 80vw
 }
 
+.preferenceInputDescriptionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80vw;
+  margin-top: 15px;
+}
+
 #preferenceAllergiesInput {
   color: #444444;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
   width: 200px;
   font-size: 18px;
-  margin: 6px 0 20px 0;
-  box-shadow: 1px 1px 6px
-    rgba(0, 0, 0, 0.25);
-  border-radius: 6px;
+  text-align: center;
+  margin: 6px 0 5px 0;
 }
 
 #preferencesInputInstructions{
@@ -418,19 +424,20 @@ h3 {
   color: #444444;
   text-align: center;
   padding: 0 20px;
-  font-size: 18px;
+  font-size: 15px;
   margin: 0 0 7px 0px;
 }
 
 #preferencesInputButtonContainer {
+  display: flex;
   justify-content: center;
   flex-wrap: nowrap;
   align-items: flex-end;
+  width: 80vw;
 }
 
 .preferenceAllergiesInputButton {
-  margin: 10px 0 0 10px !important;
-  height: 30px;
+  margin: 10px 0 10px 10px !important;
 }
 
 #preferencesUl {
@@ -465,8 +472,8 @@ h3 {
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
   font-size: 22px;
   color: #444444;
-  width: 100vw;
   font-weight: bold;
+  width: 100vw;
   text-align: center;
   padding: 0 9vw;
   margin: 0;
@@ -485,31 +492,29 @@ h3 {
 
 #preferencesCountInput {
   color: #444444;
-  justify-self: center;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-  width: 100px;
+  justify-self: center;
   font-size: 18px;
-  margin: 6px 0 10px 0;
-  box-shadow: 1px 1px 6px
-    rgba(0, 0, 0, 0.25);
-  border-radius: 6px;
+  text-align: center;
+  width: 100px;
+  margin: 6px 0 5px 0;
 }
 
 #preferencesMealCountInput {
   color: #444444;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-  width: 100px;
+  justify-self: center;
   font-size: 18px;
-  margin: 6px 0 20px 0;
-  box-shadow: 1px 1px 6px
-    rgba(0, 0, 0, 0.25);
-  border-radius: 6px;
+  text-align: center;
+  width: 100px;
+  margin: 6px 0 5px 0;
 }
 
 .preferenceDescription {
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
   color: #444444;
   font-size: 18px;
+  font-weight: bold;
   padding: 0 25px;
   text-align: center;
   margin: 8px 0 10px 0;
