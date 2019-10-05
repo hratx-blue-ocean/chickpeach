@@ -458,7 +458,7 @@ app.post('/addrecipe', (req, res) => {
   const postAction = req.query.action ? req.query.action : 'menu';
   //INSERT Recipe and return Recipe UID in SQL DB
   //"${req.body.data}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data.unt || 0)} ${req.data.t || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}", "${Math.ceil(req.body.data || 0)} ${req.body.data. || ''}");
-  pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ("${req.body.data.title}", "${req.body.data.image}", ${req.body.data.servings}, ${req.body.data.prep_time}, 0, "0 g", "0 g", "0 g", "0 g","0 mg", "0 g");`, (err, results, fields) => {
+  pool.query(`REPLACE INTO recipes (title, image, servings, prep_time, calories, carbs, fat, fiber, protein, sodium, sugar) VALUES ("${req.body.data.title}", "${req.body.data.image}", ${req.body.data.servings}, ${req.body.data.prep_time}, 0, "0", "0", "0", "0", "0", "0");`, (err, results, fields) => {
     const recipe_id = results.insertId;
     // console.log(recipe_id)
     if (err) {
