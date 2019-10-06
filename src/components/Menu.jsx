@@ -21,6 +21,8 @@ const Menu = (props) => {
     return servings;
   }
 
+  console.log(recipes);
+
   // Get all recipes associated with user from database
   const getMenu = () => {
     axios.get('/menuitems', {
