@@ -193,7 +193,7 @@ const RecipeView = (props) => {
     <div id='recipeView_container'>
       <h1 className={'header1'}>{recipe.title}</h1>
       <div className={'recipeView_content'}>
-        <img className={'recipe_hero'} src={recipe.image} />
+        <img className={'recipe_hero'} title={recipe.title} alt={recipe.title} src={recipe.image} />
         <div className={'grey_container'}>
           <h3>Ingredients</h3>
           {
