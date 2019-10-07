@@ -53,13 +53,13 @@ const RecipeCard = (props) => {
         },
         data: data
       })
-        .then(alert('Successfully added recipe to menu'))
-        .then(dispatch(updateView('Menu')))
-        .then(getMenu())
-        .then(
-          props.history.replace('/menu')
-        )
-        .catch(error => console.log(error));
+      .then(alert('Successfully added recipe to menu'))
+      .then(dispatch(updateView('Menu')))
+      .then(getMenu())
+      .then(
+        props.history.replace('/menu')
+      )
+      .catch(error => console.log(error));
     })
     .catch(error => console.log(error));
   };
