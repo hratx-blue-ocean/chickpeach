@@ -155,7 +155,6 @@ app.get('/adjustpreferences', (req, res) => {
 app.get('/getrecipes', (req, res) => {
   pool.query(`SELECT * FROM Recipes;`, (err, rows, fields) => {
     if (err) console.log(err);
-    console.log(rows)
     res.status(200).send(rows);
   });
 });
@@ -217,7 +216,7 @@ app.put('/updatebannedingredients', (req, res) => {
 app.get('/menuitems', (req, res) => {
   pool.query(`SELECT Recipes.id, Recipes.title, Recipes.image, Recipes.servings FROM Recipes, Users_Recipes WHERE Recipes.id = Users_Recipes.recipe_id AND Users_Recipes.user_id = '${req.query.user_id}' AND is_on_menu = 1 ORDER BY Users_Recipes.recipe_id DESC;`, (err, rows, fields) => {
     if (err) console.log(err);
-    console.log(rows)
+    //console.log(rows)
     res.status(200).send(rows);
   });
 });
@@ -303,7 +302,7 @@ app.put('/removefromhistory', (req, res) => {
 app.get('/favoriteitems', (req, res) => {
   pool.query(`SELECT Recipes.id, Recipes.title, Recipes.image, Recipes.servings FROM Recipes, Users_Recipes WHERE Recipes.id = Users_Recipes.recipe_id AND Users_Recipes.user_id = '${req.query.user_id}' AND is_favorited = 1;`, (err, rows, fields) => {
     if (err) console.log(err);
-    console.log(rows)
+    //console.log(rows)
     res.status(200).send(rows);
   });
 });
@@ -483,7 +482,6 @@ app.get('/getSingleRecipe', async (req, res) => {
 //POST singleRecipe from API result route
 app.post('/addrecipe', (req, res) => {
   const postAction = req.body.params.action ? req.body.params.action : 'menu';
-  console.log(req.body.params.action);
   
   //NutritionData Validation
   const nutrients = checkNutritionData(req);
