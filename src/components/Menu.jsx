@@ -29,7 +29,7 @@ const Menu = (props) => {
         }
       })
       .then(({ data }) => {
-        const servingCount = getTotalServings(data)
+        const servingCount = getTotalServings(data);
         dispatch(updateServings(servingCount));
         dispatch(updateMenu(data));
       })

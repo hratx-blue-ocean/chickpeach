@@ -110,7 +110,7 @@ const MenuCard = (props) => {
   return (
     <div className="card">
       <div>
-        <img src={getImageURL(props.recipe.image)}></img>
+        <img title={props.recipe.title} alt={props.recipe.title} src={getImageURL(props.recipe.image)}></img>
       </div>
       <div className="card_bottom">
         <div className="card_text">
