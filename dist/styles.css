@@ -63,6 +63,8 @@ h3 {
   font-weight: bold !important;
   border: none !important;
   border-radius: 50px;
+  box-shadow: none !important;
+  outline-color: none !important;
 }
 
 .secondary_button {
@@ -71,6 +73,8 @@ h3 {
   padding: 10px !important;
   text-align: center !important;
   font-weight: bold !important;
+  box-shadow: none !important;
+  outline-color: none !important;
 }
 
 .card, .card_container, .card_bottom, .card_text {
@@ -343,6 +347,7 @@ h3 {
   }
 
   .recipe_hero {
+    height: auto;
     border-radius: 10px;
   }
 }
@@ -358,6 +363,13 @@ h3 {
 
 .preferencesHeader {
   margin: 0;
+
+}
+
+@media all and (min-width: 48em) {
+  .preferencesHeader  {
+    margin-left: 50px;
+  }
 }
 
 .preferenceOptions {
