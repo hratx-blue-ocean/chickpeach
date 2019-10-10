@@ -4,9 +4,9 @@ Chickpeach is your one stop meal planning, recipe discovery and grocery-manageme
 
 ## In Action
 
-[Live demo]()
+[Live demo](http://ec2-18-220-35-143.us-east-2.compute.amazonaws.com/)
 
-[SCREENSHOTS AND VIDEOS GO HERE]
+![](https://media.giphy.com/media/kGW7Pu5LGrpDx146L0/giphy.gif)
 
 # User Stories
 We worked with a lot of feedback at every stage of this project, here are the user stories we decided to explore:
