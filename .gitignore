@@ -5,3 +5,5 @@ firebase.config.js
 package-lock.json
 spoonAPI.config.js
 AWS.RDS.config.js
+.env
+.dockerignore
