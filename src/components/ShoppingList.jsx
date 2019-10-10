@@ -16,7 +16,7 @@ const ShoppingList = (props) => {
 
   let recipeQuery = [];
 
-  recipesForQuery.forEach( recipe => {
+  recipesForQuery.forEach(recipe => {
     recipeQuery.push(recipe['id']);
   });
 
@@ -41,6 +41,15 @@ const ShoppingList = (props) => {
     getRecipes();
 
   }, []);
+
+
+  allIngredients.map((ingredient) => {
+    var index = ingredient.aisle.indexOf(';')
+    if (index !== -1) {
+      ingredient.aisle = ingredient.aisle.substring(0, index);
+    }
+  })
+
  
   function consolodateIngredients(ingredientsToConsolodate) {
     const consolodated = ingredientsToConsolodate.reduce((accumulator, ingredient, index) => {
@@ -93,13 +102,15 @@ const ShoppingList = (props) => {
   const makeAisleList = function(arrOfIngredients) {
     let allAisles = []
     arrOfIngredients.map((ingredient) => {
-      if (!allAisles.includes(ingredient['aisle']))
-      allAisles.push(ingredient['aisle']);
+      if (!allAisles.includes(ingredient['aisle'])) {
+      allAisles.push((ingredient['aisle']));
+      }
     })
     return allAisles;
   }
   
   const aisleList = makeAisleList(allIngredients);
+
 
   if (allIngredients.length === 0) {
     return (
