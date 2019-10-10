@@ -4,5 +4,3 @@ Dockerfile
 .dockerignore
 .git
 .gitignore
-firebase.config.js
-spoonAPI.config.js
