@@ -6,10 +6,8 @@ Chickpeach is your one stop meal planning, recipe discovery and grocery-manageme
 
 [Live demo](http://ec2-18-220-35-143.us-east-2.compute.amazonaws.com/)
 
-![](https://thumbs.gfycat.com/AnguishedRemarkableHagfish-size_restricted.gif) &nbsp; &nbsp;  
-
-![](https://thumbs.gfycat.com/InsistentOptimisticGoshawk-size_restricted.gif) &nbsp; &nbsp;   
-
+![](https://thumbs.gfycat.com/AnguishedRemarkableHagfish-size_restricted.gif) &nbsp; &nbsp;
+![](https://thumbs.gfycat.com/InsistentOptimisticGoshawk-size_restricted.gif) &nbsp; &nbsp; 
 ![](https://thumbs.gfycat.com/FrighteningLameFrogmouth-size_restricted.gif) &nbsp; &nbsp;
 
 # User Stories
