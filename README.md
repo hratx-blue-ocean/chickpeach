@@ -6,9 +6,9 @@ Chickpeach is your one stop meal planning, recipe discovery and grocery-manageme
 
 [Live demo](http://ec2-18-220-35-143.us-east-2.compute.amazonaws.com/)
 
-![](https://thumbs.gfycat.com/AnguishedRemarkableHagfish-size_restricted.gif)
-![](https://thumbs.gfycat.com/InsistentOptimisticGoshawk-size_restricted.gif)
-![](https://thumbs.gfycat.com/FrighteningLameFrogmouth-size_restricted.gif)
+![](https://thumbs.gfycat.com/AnguishedRemarkableHagfish-size_restricted.gif) &nbsp; &nbsp;
+![](https://thumbs.gfycat.com/InsistentOptimisticGoshawk-size_restricted.gif) &nbsp; &nbsp; 
+![](https://thumbs.gfycat.com/FrighteningLameFrogmouth-size_restricted.gif) &nbsp; &nbsp;
 
 # User Stories
 We worked with a lot of feedback at every stage of this project, here are the user stories we decided to explore:
@@ -80,7 +80,8 @@ We used the Firebase Auth API for authentication. For recipes, we found Spoonacu
 
 # Work Flow
 
-This project was managed using the git workflow:
+This project was managed using the git workflow:  
+
 ![](https://thumbs.gfycat.com/ImaginativeWelltodoCreature-size_restricted.gif)
 
 We have one development branch that branches out specific features. When they are ready to be deployed, features are deployed as follows:
